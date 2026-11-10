@@ -32,7 +32,7 @@
 @layer components {
   .eyebrow { @apply flex items-center gap-2 font-mono text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-muted; }
   .kat { color: var(--k, var(--color-muted)); }
-  [data-kat="nyhet"] { --k: #9c27b0; } [data-kat="sosialt"] { --k: #0091a7; } [data-kat="moter-og-referater"] { --k: #d97300; }
+  [data-kat="nyhet"] { --k: #9c27b0; } [data-kat="sosialt"], [data-kat="sosialt-og-turer"] { --k: #0091a7; } [data-kat="moter-og-referater"] { --k: #d97300; }
   [data-kat="kurs"] { --k: #2e7d32; } [data-kat="turer"] { --k: #d32f2f; } [data-kat="konkurranser"] { --k: #c2185b; }
   [data-kat="tilbud"] { --k: #1565c0; } [data-kat="norgescup"] { --k: #00796b; }
   .people { @apply my-6 grid list-none gap-3 p-0 sm:grid-cols-3; }

@@ -1,7 +1,7 @@
 ---
 title: "Torget og Evenes 23-24. august!"
 date: "2013-08-22T21:37:45"
-kategorier: ["Sosialt"]
+kategorier: ["Sosialt og turer"]
 permalink: "/torget-og-evenes-23-24-august/"
 forfatter: "Erlend"
 wp_id: 611

@@ -1,7 +1,7 @@
 ---
 title: "REQ: Liten vedovn ønskes"
 date: "2014-03-12T21:21:57"
-kategorier: ["Sosialt"]
+kategorier: ["Sosialt og turer"]
 permalink: "/req-liten-vedovn-onskes/"
 forfatter: "Aage"
 wp_id: 697

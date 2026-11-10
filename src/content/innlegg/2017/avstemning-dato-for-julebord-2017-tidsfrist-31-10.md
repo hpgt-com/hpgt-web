@@ -1,7 +1,7 @@
 ---
 title: "Avstemning dato for Julebord 2017 -TIDSFRIST 31.10"
 date: "2017-10-27T12:23:45"
-kategorier: ["Sosialt"]
+kategorier: ["Sosialt og turer"]
 bilde: "/wp-content/uploads/2017/10/Christmas-party.png"
 permalink: "/avstemning-dato-for-julebord-2017-tidsfrist-31-10/"
 forfatter: "Aage"

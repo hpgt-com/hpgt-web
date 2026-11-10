@@ -1,7 +1,7 @@
 ---
 title: "Kite og Paraglider samling på Gressholman den 01.06.13"
 date: "2013-05-29T18:08:06"
-kategorier: ["Sosialt"]
+kategorier: ["Sosialt og turer"]
 permalink: "/kite-og-paraglider-samling-pa-gressholman-den-01-06-13/"
 forfatter: "Erlend"
 wp_id: 566

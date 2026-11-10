@@ -50,7 +50,7 @@ body { -webkit-font-smoothing: antialiased; }
 .post-noimg { aspect-ratio: 16/7; background: var(--tint); }
 .meta-mono { font-family: var(--bs-font-monospace); font-size: .66rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--bs-secondary-color); }
 .kat { color: var(--k, var(--bs-secondary-color)); text-decoration: none; }
-[data-kat="nyhet"] { --k: #9c27b0; } [data-kat="sosialt"] { --k: #0091a7; } [data-kat="moter-og-referater"] { --k: #d97300; }
+[data-kat="nyhet"] { --k: #9c27b0; } [data-kat="sosialt"], [data-kat="sosialt-og-turer"] { --k: #0091a7; } [data-kat="moter-og-referater"] { --k: #d97300; }
 [data-kat="kurs"] { --k: #2e7d32; } [data-kat="turer"] { --k: #d32f2f; } [data-kat="konkurranser"] { --k: #c2185b; }
 [data-kat="tilbud"] { --k: #1565c0; } [data-kat="norgescup"] { --k: #00796b; }
 .nav-filter .nav-link { border: 1px solid var(--bs-border-color); background: var(--bs-body-bg); color: var(--k, var(--bs-body-color)); font-weight: 700; font-size: .88rem; padding: .35rem .7rem; }

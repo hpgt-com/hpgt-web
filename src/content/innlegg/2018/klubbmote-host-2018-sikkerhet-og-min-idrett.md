@@ -1,7 +1,7 @@
 ---
 title: "Klubbmøte Høst 2018 – Sikkerhet og min idrett"
 date: "2018-10-25T08:55:00"
-kategorier: ["Sosialt"]
+kategorier: ["Sosialt og turer"]
 bilde: "/wp-content/uploads/2018/10/37835741_10160663697070613_7103543498590126080_o.jpg"
 permalink: "/klubbmote-host-2018-sikkerhet-og-min-idrett/"
 forfatter: "Aage"

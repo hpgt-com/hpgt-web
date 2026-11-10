@@ -115,11 +115,11 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--sky); outline-o
 
 /* Kategorier i fargene fra dagens hpgt.com */
 .kat { color: var(--k, var(--muted)); text-decoration: none; }
-[data-kat="nyhet"] { --k: #9c27b0; } [data-kat="sosialt"] { --k: #0091a7; } [data-kat="moter-og-referater"] { --k: #d97300; }
+[data-kat="nyhet"] { --k: #9c27b0; } [data-kat="sosialt"], [data-kat="sosialt-og-turer"] { --k: #0091a7; } [data-kat="moter-og-referater"] { --k: #d97300; }
 [data-kat="kurs"] { --k: #2e7d32; } [data-kat="turer"] { --k: #d32f2f; } [data-kat="konkurranser"] { --k: #c2185b; }
 [data-kat="tilbud"] { --k: #1565c0; } [data-kat="norgescup"] { --k: #00796b; }
 @media (prefers-color-scheme: dark) {
-  [data-kat="nyhet"] { --k: #d48be0; } [data-kat="sosialt"] { --k: #5fd3e3; } [data-kat="moter-og-referater"] { --k: #ffb866; }
+  [data-kat="nyhet"] { --k: #d48be0; } [data-kat="sosialt"], [data-kat="sosialt-og-turer"] { --k: #5fd3e3; } [data-kat="moter-og-referater"] { --k: #ffb866; }
   [data-kat="kurs"] { --k: #86c98a; } [data-kat="turer"] { --k: #f08a8a; } [data-kat="konkurranser"] { --k: #f27aa3; }
   [data-kat="tilbud"] { --k: #7dbcf2; } [data-kat="norgescup"] { --k: #5cc2b6; }
 }

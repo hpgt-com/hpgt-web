@@ -28,7 +28,7 @@ content:
         default: [Nyhet]
         options:
           multiple: true
-          values: [Nyhet, Møter og referater, Kurs, Sosialt, Turer, Tilbud, Konkurranser]
+          values: [Nyhet, Møter og referater, Kurs, Sosialt og turer, Konkurranser]
       - { name: bilde, label: Hovedbilde, type: image, description: "Vises øverst og på forsiden. Liggende bilder blir finest." }
       - { name: forfatter, label: "Skrevet av (fornavn)", type: string }
       - { name: ingress, label: Ingress, type: text, description: "1–2 setninger som oppsummerer saken." }

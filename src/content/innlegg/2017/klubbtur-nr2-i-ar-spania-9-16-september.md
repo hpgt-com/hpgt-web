@@ -1,7 +1,7 @@
 ---
 title: "Klubbtur nr2 i år: Spania 9-16 september"
 date: "2017-06-06T19:56:57"
-kategorier: ["Sosialt"]
+kategorier: ["Sosialt og turer"]
 bilde: "/wp-content/uploads/2017/06/maxresdefault.jpg"
 permalink: "/klubbtur-nr2-i-ar-spania-9-16-september/"
 forfatter: "Aage"

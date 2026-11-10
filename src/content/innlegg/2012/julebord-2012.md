@@ -1,7 +1,7 @@
 ---
 title: "Julebord 2012"
 date: "2012-09-22T21:54:51"
-kategorier: ["Sosialt"]
+kategorier: ["Sosialt og turer"]
 permalink: "/julebord-2012/"
 forfatter: "Erlend"
 wp_id: 402

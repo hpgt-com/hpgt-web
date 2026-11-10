@@ -1,7 +1,7 @@
 ---
 title: "Referat årsmøte 2017"
 date: "2017-03-20T20:35:19"
-kategorier: ["Møter og referater", "Sosialt"]
+kategorier: ["Møter og referater", "Sosialt og turer"]
 bilde: "/wp-content/uploads/2017/03/IMG_1161.jpg"
 permalink: "/referat-arsmote-2017/"
 forfatter: "Aage"

@@ -1,7 +1,7 @@
 ---
 title: "Høsttur: 29-30 september"
 date: "2012-09-27T11:48:54"
-kategorier: ["Sosialt"]
+kategorier: ["Sosialt og turer"]
 permalink: "/hosttur-28-30-september/"
 forfatter: "Kristoffer"
 wp_id: 416

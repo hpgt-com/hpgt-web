@@ -1,7 +1,7 @@
 ---
 title: "Tilbud på sesongkort ved Sollifjellet Alpinsenter"
 date: "2018-11-17T15:07:45"
-kategorier: ["Tilbud"]
+kategorier: ["Nyhet"]
 bilde: "/wp-content/uploads/2018/11/Sollifjellet_LOGO_FARGE_275x80px_NY.png"
 permalink: "/tilbud-pa-sesongkort-ved-sollifjellet-alpinsenter/"
 forfatter: "Kristoffer"

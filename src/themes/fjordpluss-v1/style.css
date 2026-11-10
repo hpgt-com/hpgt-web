@@ -267,7 +267,7 @@ code { font: 500 .92em var(--mono); background: var(--sunk); padding: 1px 6px; b
 [data-kat] { --k: #5b6770; --k-ink: #fff; }
 [data-kat="nyhet"] { --k: #2b6a8a; --k-ink: #fff; }
 [data-kat="moter-og-referater"] { --k: #6a4c9c; --k-ink: #fff; }
-[data-kat="sosialt"] { --k: #e08a2c; --k-ink: #1b1206; }
+[data-kat="sosialt"], [data-kat="sosialt-og-turer"] { --k: #e08a2c; --k-ink: #1b1206; }
 [data-kat="kurs"] { --k: #2f8a5b; --k-ink: #fff; }
 [data-kat="turer"] { --k: #b23a48; --k-ink: #fff; }
 [data-kat="konkurranser"] { --k: #c9a227; --k-ink: #1b1606; }
@@ -288,7 +288,7 @@ code { font: 500 .92em var(--mono); background: var(--sunk); padding: 1px 6px; b
    Fargene følger dagens side (lilla nyhet, turkis sosialt, oransje møter). */
 [data-kat] { --k: #5f6b73; }
 [data-kat="nyhet"] { --k: #9c27b0; }
-[data-kat="sosialt"] { --k: #0097a7; }
+[data-kat="sosialt"], [data-kat="sosialt-og-turer"] { --k: #0097a7; }
 [data-kat="moter-og-referater"] { --k: #e67e00; }
 [data-kat="kurs"] { --k: #2e7d32; }
 [data-kat="turer"] { --k: #d32f2f; }
@@ -296,7 +296,7 @@ code { font: 500 .92em var(--mono); background: var(--sunk); padding: 1px 6px; b
 [data-kat="tilbud"] { --k: #1565c0; }
 [data-kat="norgescup"] { --k: #00796b; }
 @media (prefers-color-scheme: dark) {
-  [data-kat="nyhet"] { --k: #d17ae0; } [data-kat="sosialt"] { --k: #4dd0e1; } [data-kat="moter-og-referater"] { --k: #ffb74d; }
+  [data-kat="nyhet"] { --k: #d17ae0; } [data-kat="sosialt"], [data-kat="sosialt-og-turer"] { --k: #4dd0e1; } [data-kat="moter-og-referater"] { --k: #ffb74d; }
   [data-kat="kurs"] { --k: #81c784; } [data-kat="turer"] { --k: #ef7b7b; } [data-kat="konkurranser"] { --k: #f06292; }
   [data-kat="tilbud"] { --k: #64b5f6; } [data-kat="norgescup"] { --k: #4db6ac; } [data-kat] { --k-ink: #10161a; }
 }

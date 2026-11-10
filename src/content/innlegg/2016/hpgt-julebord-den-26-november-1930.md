@@ -1,7 +1,7 @@
 ---
 title: "HPGT Julebord den 10 desember 19:30"
 date: "2016-10-19T21:49:28"
-kategorier: ["Sosialt"]
+kategorier: ["Sosialt og turer"]
 bilde: "/wp-content/uploads/2016/10/14725748_10154420571060380_486994829013379985_n.jpg"
 permalink: "/hpgt-julebord-den-26-november-1930/"
 forfatter: "Aage"

@@ -121,7 +121,10 @@ def categories(p):
         names = ["Nyhet"]
     if any(n.lower().startswith("foto/video") for n in names):
         names = ["Konkurranser"]
-    return [{"Møter": "Møter og referater"}.get(n, n) for n in names]
+    # Slått sammen til fem kategorier (Nyhet, Møter og referater, Kurs, Sosialt og turer, Konkurranser)
+    samle = {"Møter": "Møter og referater", "Tilbud": "Nyhet", "Sosialt": "Sosialt og turer", "Turer": "Sosialt og turer",
+             "norgescup": "Konkurranser", "10-nedturer 2016": "Konkurranser"}
+    return list(dict.fromkeys(samle.get(n, n) for n in names))
 
 
 def write(path, fm, body):

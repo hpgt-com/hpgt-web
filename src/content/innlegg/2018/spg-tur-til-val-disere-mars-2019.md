@@ -1,7 +1,7 @@
 ---
 title: "SPG tur til Val d’Isère – Mars 2019"
 date: "2018-11-27T15:04:48"
-kategorier: ["Sosialt", "Turer"]
+kategorier: ["Sosialt og turer"]
 bilde: "/wp-content/uploads/2018/02/Skjermbilde2.png"
 permalink: "/spg-tur-til-val-disere-mars-2019/"
 forfatter: "Aage"
