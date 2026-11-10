@@ -5,7 +5,7 @@ Bruk: python3 -I scripts/lag-forhandsvisning.py prototyper forhandsvisning
 import os, re, shutil, sys, urllib.parse
 
 SRC, OUT = sys.argv[1], sys.argv[2]
-THEMES = ["fjord", "pico", "magasin", "klassisk", "nordlys"]
+THEMES = ["fjordpluss", "fjord", "pico", "magasin", "klassisk", "nordlys"]
 REF = os.path.join(SRC, "fjord")
 
 def keep(rel):  # rel: sidens mappe relativt til temaroten, f.eks. "kurs-2026" eller ""
@@ -17,7 +17,7 @@ def keep(rel):  # rel: sidens mappe relativt til temaroten, f.eks. "kurs-2026" e
     return rel in SIDER or rel in NYESTE
 
 # Faste sider og de nyeste innleggene
-SIDER = {"kurs-2026", "tandem", "om-oss", "om-klubben", "flysteder", "flysteder/flarm-fanet-radioid", "lenker", "notam",
+SIDER = {"redaktor-demo", "kurs-2026", "tandem", "om-oss", "om-klubben", "flysteder", "flysteder/flarm-fanet-radioid", "lenker", "notam",
          "grasrotandelen", "konkurranser", "konkurranser/konkurranse-2014", "konkurranser/konkurranse-2017"}
 NYESTE = {"ny-flystedsoversikt-flysteder-hpgt-com", "hpgt-julebord-2026-🎄", "nodskjermpakking-og-kontroll-av-vinge-dag-23-mai-2026",
           "arsmote-2026", "hpgt-var-kickoff-2021", "protokoll-arsmote-2021", "ars-beretning-2020", "arsmote-2021",

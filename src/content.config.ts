@@ -27,7 +27,7 @@ const sider = defineCollection({
     permalink,
     ingress: z.string().optional(),
     bilde: z.string().optional(),
-    mal: z.enum(["standard", "kontakt", "radioid"]).default("standard"),
+    mal: z.enum(["standard", "kontakt", "radioid", "redaktordemo"]).default("standard"),
     sist_endret: z.coerce.date().optional(),
     wp_id: z.number().optional(),
   }),

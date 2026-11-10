@@ -78,7 +78,37 @@ content:
     path: src/data/forside.json
     format: json
     fields:
-      - { name: tittel, label: Overskrift, type: string }
+      - { name: stikkord, label: "Stikkord over overskriften", type: string }
+      - { name: slagord, label: Stor overskrift, type: string }
+      - { name: slagordIngress, label: Tekst under overskriften, type: text }
+      - { name: heltebilde, label: Toppbilde, type: image }
+      - { name: heltebildeKreditt, label: Bildekreditt, type: string }
+      - name: kurs
+        label: Kursblokken
+        type: object
+        fields:
+          - { name: tittel, type: string }
+          - { name: tekst, label: Tekst før kurset, type: text }
+          - { name: etterKurs, label: Tekst når kurset er ferdig, type: text }
+          - { name: start, label: Første kursdag, type: date }
+          - { name: slutt, label: Siste kursdag, type: date }
+          - { name: frist, label: Påmeldingsfrist, type: date }
+          - { name: pris, type: string }
+          - { name: plasser, type: string }
+          - { name: url, label: Lenke, type: string }
+      - name: veier
+        label: «Finn din vei inn»-kort
+        type: object
+        list: { max: 4 }
+        fields:
+          - { name: verb, label: "Etikett (Lær, Opplev …)", type: string }
+          - { name: tittel, type: string }
+          - { name: tekst, type: text }
+          - { name: url, label: Lenke, type: string }
+          - { name: bilde, type: image }
+      - { name: galleri, label: Bildegalleri, type: image, list: { max: 6 } }
+      - { name: utvalgteFlysteder, label: "Utvalgte flysteder (ID fra flysteder.hpgt.com)", type: string, list: { max: 4 } }
+      - { name: tittel, label: Overskrift (eldre design), type: string }
       - { name: ingress, label: Ingress, type: text }
       - { name: bilde, label: Toppbilde, type: image }
       - { name: bildetekst, label: Bildetekst, type: string }

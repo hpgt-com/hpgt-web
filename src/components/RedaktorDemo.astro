@@ -1,0 +1,103 @@
+---
+// Demo av redigeringsflyten i Pages CMS. Ingenting lagres; JavaScript-filen oppdaterer bare forhåndsvisningen.
+import { url } from "../lib/site";
+const bilder = [
+  "/wp-content/uploads/2026/04/received_8414391415615884463651169840206952.jpeg",
+  "/wp-content/uploads/2026/03/received_14693510906506755701209126633616533.jpeg",
+  "/wp-content/uploads/2026/04/hpgt1.jpg",
+];
+const samlinger = ["Nyheter og referater", "Arrangementer", "Faste sider", "Forsiden", "Styret", "RadioID-register", "Bilder og filer"];
+---
+<div class="rd">
+  <p class="rd__note">Demo: slik ser det ut når et medlem skriver en nyhet. Ingenting lagres.</p>
+  <div class="rd__app">
+    <aside class="rd__side" aria-label="Innhold i CMS-et">
+      <p class="rd__brand">HPGT · innhold</p>
+      <ul>{samlinger.map((s, i) => <li class:list={[i === 0 && "on"]}>{s}</li>)}</ul>
+      <p class="rd__user">Innlogget som<br /><b>medlem@eksempel.no</b></p>
+    </aside>
+    <form class="rd__form" id="rd-form" aria-label="Nytt innlegg">
+      <div class="rd__bar"><b>Nytt innlegg</b><span id="rd-status" class="rd__status" aria-live="polite">Ikke lagret</span><button type="submit" class="rd__save">Lagre og publiser</button></div>
+      <label for="rd-tittel">Tittel</label>
+      <input id="rd-tittel" name="tittel" value="Klubbtur til Sollifjellet lørdag" />
+      <div class="rd__row">
+        <div><label for="rd-dato">Dato</label><input id="rd-dato" name="dato" type="date" value="2026-11-14" /></div>
+        <div><label for="rd-kat">Kategori</label>
+          <select id="rd-kat" name="kategori"><option>Nyhet</option><option>Møter og referater</option><option>Kurs</option><option selected>Sosialt</option><option>Turer</option></select></div>
+      </div>
+      <fieldset><legend>Hovedbilde</legend>
+        <div class="rd__pics">{bilder.map((b, i) => <label><input type="radio" name="bilde" value={url(b)} checked={i === 0} /><img src={url(b)} alt="" /></label>)}</div>
+      </fieldset>
+      <label for="rd-ingress">Ingress</label>
+      <input id="rd-ingress" name="ingress" value="Meld deg på i Facebook-gruppa. Vi samles på parkeringen kl. 10." />
+      <label for="rd-tekst">Tekst</label>
+      <div class="rd__tools" aria-hidden="true"><span>B</span><span><i>I</i></span><span>Lenke</span><span>Bilde</span><span>Liste</span></div>
+      <textarea id="rd-tekst" name="tekst" rows="5">Værmeldingen ser lovende ut med svak nordvest. Ta med varme klær, det er kaldt på toppen i november.</textarea>
+      <label>Vedlegg</label>
+      <p class="rd__file"><span>PDF</span>Ingen fil valgt · dra en fil hit eller klikk for å velge</p>
+      <label class="rd__check"><input type="checkbox" id="rd-utkast" name="utkast" /> Utkast (ikke vis på siden ennå)</label>
+    </form>
+    <section class="rd__preview" aria-label="Forhåndsvisning">
+      <p class="rd__plabel">Forhåndsvisning</p>
+      <article>
+        <img id="pv-bilde" src={url(bilder[0])} alt="" />
+        <p class="rd__meta" id="pv-meta">Sosialt · 14. november 2026</p>
+        <h3 id="pv-tittel">Klubbtur til Sollifjellet lørdag</h3>
+        <p class="rd__ingress" id="pv-ingress">Meld deg på i Facebook-gruppa. Vi samles på parkeringen kl. 10.</p>
+        <p id="pv-tekst">Værmeldingen ser lovende ut med svak nordvest. Ta med varme klær, det er kaldt på toppen i november.</p>
+      </article>
+    </section>
+  </div>
+  <ol class="rd__steps">
+    <li><b>1. Lagre</b> Teksten lagres med historikk i klubbens GitHub-repo.</li>
+    <li><b>2. Kontroll</b> Siden bygges og sjekkes automatisk. Feil stopper publiseringen.</li>
+    <li><b>3. Publisert</b> Etter rundt ett minutt ligger saken på hpgt.com.</li>
+  </ol>
+</div>
+<script is:inline src={url("/assets/js/redaktor-demo.js")} defer></script>
+
+<style>
+  .rd { --rd-bg: #f6f7f9; --rd-surface: #fff; --rd-line: #d9dde3; --rd-text: #1d232b; --rd-muted: #5d6673; --rd-accent: #2f6fed;
+    color: var(--rd-text); font-family: system-ui, sans-serif; font-size: 15px; display: grid; gap: 16px; margin: 24px 0; }
+  @media (prefers-color-scheme: dark) { .rd { --rd-bg: #12161b; --rd-surface: #1a2027; --rd-line: #2c343e; --rd-text: #e6eaef; --rd-muted: #9aa5b2; --rd-accent: #79a6ff; } }
+  .rd__note { margin: 0; padding: 10px 14px; border-radius: 8px; background: #fff3d1; color: #4a3510; font-weight: 600; }
+  .rd__app { display: grid; grid-template-columns: 190px minmax(0, 1.2fr) minmax(0, 1fr); border: 1px solid var(--rd-line); border-radius: 12px; overflow: hidden; background: var(--rd-bg); }
+  @media (max-width: 980px) { .rd__app { grid-template-columns: 1fr; } .rd__side { display: none; } }
+  .rd__side { background: var(--rd-surface); border-right: 1px solid var(--rd-line); padding: 14px; display: grid; align-content: start; gap: 10px; }
+  .rd__brand { font-weight: 700; margin: 0; }
+  .rd__side ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+  .rd__side li { padding: 7px 10px; border-radius: 6px; color: var(--rd-muted); }
+  .rd__side li.on { background: var(--rd-bg); color: var(--rd-text); font-weight: 600; }
+  .rd__user { margin: 16px 0 0; font-size: 13px; color: var(--rd-muted); }
+  .rd__form { padding: 16px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+  .rd__bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 8px; }
+  .rd__status { margin-left: auto; font-size: 13px; color: var(--rd-muted); }
+  .rd__save { background: var(--rd-accent); color: #fff; border: 0; border-radius: 6px; padding: 8px 14px; font-weight: 600; cursor: pointer; }
+  .rd label, .rd legend { font-size: 13px; font-weight: 600; color: var(--rd-muted); margin-top: 6px; }
+  .rd input:not([type=radio]):not([type=checkbox]), .rd select, .rd textarea { width: 100%; font: inherit; color: var(--rd-text); background: var(--rd-surface); border: 1px solid var(--rd-line); border-radius: 6px; padding: 8px 10px; }
+  .rd fieldset { border: 0; padding: 0; margin: 0; }
+  .rd__row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .rd__pics { display: flex; gap: 8px; }
+  .rd__pics label { margin: 0; position: relative; }
+  .rd__pics input { position: absolute; opacity: 0; }
+  .rd__pics img { width: 84px; height: 60px; object-fit: cover; border-radius: 6px; border: 3px solid transparent; cursor: pointer; }
+  .rd__pics input:checked + img { border-color: var(--rd-accent); }
+  .rd__pics input:focus-visible + img { outline: 2px solid var(--rd-accent); outline-offset: 2px; }
+  .rd__tools { display: flex; gap: 4px; }
+  .rd__tools span { font-size: 12px; padding: 3px 8px; border: 1px solid var(--rd-line); border-radius: 4px; background: var(--rd-surface); }
+  .rd__file { margin: 0; padding: 12px; border: 1px dashed var(--rd-line); border-radius: 6px; color: var(--rd-muted); display: flex; gap: 10px; align-items: center; }
+  .rd__file span { font-size: 11px; font-weight: 700; padding: 4px 6px; border-radius: 4px; background: var(--rd-bg); }
+  .rd__check { display: flex; gap: 8px; align-items: center; color: var(--rd-text) !important; }
+  .rd__preview { background: var(--rd-surface); border-left: 1px solid var(--rd-line); padding: 16px; min-width: 0; }
+  @media (max-width: 980px) { .rd__preview { border-left: 0; border-top: 1px solid var(--rd-line); } }
+  .rd__plabel { margin: 0 0 10px; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--rd-muted); }
+  .rd__preview img { width: 100%; aspect-ratio: 16/10; object-fit: cover; border-radius: 8px; }
+  .rd__preview h3 { font-size: 22px; line-height: 1.15; margin: 6px 0; }
+  .rd__meta { margin: 10px 0 0; font-size: 12px; color: var(--rd-muted); text-transform: uppercase; letter-spacing: .06em; }
+  .rd__ingress { font-weight: 600; }
+  .rd__preview.utkast article { opacity: .45; }
+  .rd__steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .rd__steps li { padding: 12px 14px; border: 1px solid var(--rd-line); border-radius: 8px; background: var(--rd-surface); color: var(--rd-muted); }
+  .rd__steps li.on { border-color: var(--rd-accent); color: var(--rd-text); }
+  .rd__steps b { display: block; color: var(--rd-text); }
+</style>

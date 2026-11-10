@@ -56,3 +56,20 @@ export const tidSted = (e: Arrangement) => [e.data.sted, !e.data.heldag && `kl. 
 /** Adressen til et innlegg/side/arrangement: permalink fra WordPress, ellers filnavnet uten datoprefiks (nye saker fra CMS-et). */
 export const lenke = (e: { id: string; data: { permalink?: string } }) =>
   e.data.permalink ?? `/${e.id.split("/").pop()!.replace(/^\d{4}-\d{2}-\d{2}-/, "")}/`;
+
+/** Status for kursblokken på forsiden, regnet ut fra datoene i forside.json ved hvert bygg. */
+export function kursStatus(k: { start: string; slutt: string; frist: string }, naa = new Date()) {
+  if (naa > new Date(k.slutt)) return { tekst: "Gjennomført", aapen: false, ferdig: true };
+  if (naa > new Date(k.frist)) return { tekst: "Påmeldingen er stengt", aapen: false, ferdig: false };
+  return { tekst: "Påmelding åpen", aapen: true, ferdig: false };
+}
+
+/** Siste møter og referater, med PDF-vedlegg hentet fra vedlegg-feltet eller fra lenker i teksten. */
+export async function hentDokumenter(antall = 5) {
+  const poster = (await hentInnlegg()).filter((p) => p.data.kategorier.includes("Møter og referater"));
+  return poster.slice(0, antall).map((p) => {
+    const iTekst = [...(p.body ?? "").matchAll(/\]\((\/[^)\s]+\.pdf)\)/gi)].map((m) => m[1]);
+    const pdf = p.data.vedlegg[0]?.fil ?? iTekst[0];
+    return { tittel: p.data.title, dato: p.data.date, side: lenke(p), pdf };
+  });
+}

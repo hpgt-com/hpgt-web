@@ -1,0 +1,23 @@
+---
+import { url, dato, lenke } from "../../lib/site";
+const { title, ingress, grupper, kategorier, aktiv } = Astro.props;
+---
+<div class="wrap section">
+  <nav class="crumbs" aria-label="Brødsmuler"><a href={url("/")}>Hjem</a><span aria-hidden="true">/</span><span aria-current="page">{title}</span></nav>
+  <p class="eyebrow">Arkiv fra 2012</p>
+  <h1 class="article__title">{title}</h1>
+  {ingress && <p class="lead">{ingress}</p>}
+  <div class="archive">
+    <nav class="panel cats" aria-label="Kategorier">
+      <a href={url("/nytt/")} aria-current={!aktiv ? "page" : undefined}>Alle</a>
+      {kategorier.map((k) => <a href={url(`/nytt/kategori/${k.slug}/`)} aria-current={aktiv === k.slug ? "page" : undefined}><span>{k.navn}</span><small>{k.poster.length}</small></a>)}
+    </nav>
+    <div>
+      {grupper.map(([aar, poster]) => (
+        <section class="year"><h2>{aar}</h2>
+          <ul class="list">{poster.map((p) => <li><time>{dato(p.data.date)}</time><a href={url(lenke(p))}>{p.data.title}</a><small>{p.data.kategorier.join(", ")}</small></li>)}</ul>
+        </section>
+      ))}
+    </div>
+  </div>
+</div>

@@ -50,6 +50,8 @@ a:focus-visible, button:focus-visible, select:focus-visible { outline: 3px solid
 .actions { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
 .open { background: var(--accent); color: #fff; text-decoration: none; padding: 10px 18px; border-radius: 999px; font-weight: 600; }
 .open:hover { filter: brightness(1.08); }
+.design--featured { grid-column: 1 / -1; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); grid-template-rows: auto; border: 2px solid var(--accent); }
+@media (max-width: 860px) { .design--featured { grid-template-columns: 1fr; } }
 .facts { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); }
 .fact { border-top: 3px solid var(--sky); padding-top: 12px; display: grid; gap: 6px; }
 .fact b { font: 700 1.3rem/1.1 var(--display); }
@@ -89,12 +91,20 @@ a:focus-visible, button:focus-visible, select:focus-visible { outline: 3px solid
 <div class="wrap">
   <header class="intro">
     <p class="eyebrow">Harstad Hang- og Paragliderklubb · forhåndsvisning for styret</p>
-    <h1>Nye hpgt.com – fem designforslag</h1>
-    <p>Alle fem bruker det samme innholdet fra dagens hpgt.com og den samme løsningen bak. Bare utseendet er forskjellig. Velg «Vis på PC og mobil» for å se hvert forslag i begge størrelser samtidig, og klikk deg rundt i sidene. «Hele vinduet» viser siden i full størrelse.</p>
-    <div class="status"><span>Ikke publisert</span><span>Skjult for søkemotorer</span><span>44 av ca. 180 sider i utvalget</span></div>
+    <h1>Nye hpgt.com – seks designforslag</h1>
+    <p>Alle seks bruker det samme innholdet fra dagens hpgt.com og den samme løsningen bak. Bare utseendet er forskjellig. Velg «Vis på PC og mobil» for å se hvert forslag i begge størrelser samtidig, og klikk deg rundt i sidene. «Hele vinduet» viser siden i full størrelse.</p>
+    <div class="status"><span>Ikke publisert</span><span>Skjult for søkemotorer</span><span>45 av ca. 180 sider i utvalget</span><span>Nytt: 6 Fjord+ og redaktørdemo</span></div>
   </header>
 
   <section class="designs" aria-label="Designforslag">
+    <article class="design design--featured">
+      <a class="shots" href="#fjordpluss" aria-label="Vis Fjord+ på PC og mobil"><img class="desk" src="bilder/fjordpluss.jpg" alt="Forsiden i Fjord+-designet"><img class="mob" src="bilder/fjordpluss-mobil.jpg" alt=""></a>
+      <div class="body">
+        <div class="head"><span class="num">6</span><h3>Fjord+</h3><span class="fw">Egen CSS · anbefalt</span></div>
+        <p>Fjord som grunnlag, med nyhetsliste og sidepanel fra Klassisk og aktiviteter med datobrikker og bunnmeny på mobil fra Nordlys. Fra skissene: stor overskrift, «Finn din vei inn», kursblokk med fakta, flysteder med vindrose, bildegalleri, dokumenter og styret.</p>
+        <div class="actions"><a class="open" href="#fjordpluss">Vis på PC og mobil</a><a href="#fjordpluss" data-side="redaktor-demo/">Prøv redaktøren →</a></div>
+      </div>
+    </article>
     <article class="design">
       <a class="shots" href="#fjord" aria-label="Vis Fjord på PC og mobil"><img class="desk" src="bilder/fjord.jpg" alt="Forsiden i Fjord-designet"><img class="mob" src="bilder/fjord-mobil.jpg" alt=""></a>
       <div class="body">
@@ -171,6 +181,7 @@ a:focus-visible, button:focus-visible, select:focus-visible { outline: 3px solid
         <option value="flysteder/flarm-fanet-radioid/">RadioID-register</option>
         <option value="lenker/">Lenker og vær</option>
         <option value="bidra/">Skriv på siden</option>
+        <option value="redaktor-demo/">Prøv redaktøren (demo)</option>
       </select>
     </label>
   </div>
@@ -190,6 +201,7 @@ a:focus-visible, button:focus-visible, select:focus-visible { outline: 3px solid
 <script>
 (() => {
   const DESIGNS = [
+    { id: "fjordpluss", navn: "Fjord+", fw: "Egen CSS · anbefalt" },
     { id: "fjord", navn: "Fjord", fw: "Egen CSS" },
     { id: "pico", navn: "Klubbhuset", fw: "Pico CSS" },
     { id: "magasin", navn: "Magasin", fw: "Tailwind CSS" },
@@ -200,11 +212,11 @@ a:focus-visible, button:focus-visible, select:focus-visible { outline: 3px solid
   const $ = (id) => document.getElementById(id);
   const oversikt = $("oversikt"), viser = $("viser"), stage = $("stage");
   const pcFrame = $("pcframe"), mobFrame = $("mobframe"), side = $("side");
-  let design = "fjord", path = "";
+  let design = "fjordpluss", path = "";
   let dev = "begge";
   try { dev = localStorage.getItem("hpgt-skjerm") || (innerWidth < 700 ? "mob" : "begge"); } catch { dev = innerWidth < 700 ? "mob" : "begge"; }
 
-  $("tabs").innerHTML = DESIGNS.map((d, i) => `<button type="button" data-design="${d.id}">${i + 1} ${d.navn}</button>`).join("");
+  $("tabs").innerHTML = DESIGNS.map((d, i) => `<button type="button" data-design="${d.id}">${d.id === "fjordpluss" ? 6 : i} ${d.navn}</button>`).join("");
 
   const src = () => `${design}/${path}index.html`;
   function load(skip) {
@@ -291,6 +303,8 @@ a:focus-visible, button:focus-visible, select:focus-visible { outline: 3px solid
   $("tabs").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) location.hash = b.dataset.design; });
   $("seg").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) setDev(b.dataset.dev); });
   side.addEventListener("change", () => { path = side.value; load(); });
+  // «Prøv redaktøren»-lenken på kortet åpner Fjord+ rett på demosiden.
+  document.addEventListener("click", (e) => { const a = e.target.closest("[data-side]"); if (a) { path = a.dataset.side; side.value = path; } });
   addEventListener("hashchange", route);
   addEventListener("resize", () => { if (!viser.hidden) fit(); });
   route();
