@@ -3,3 +3,5 @@ dist/
 prototyper/
 .astro/
 .wrangler/
+forhandsvisning/
+forhandsvisning-side.html
