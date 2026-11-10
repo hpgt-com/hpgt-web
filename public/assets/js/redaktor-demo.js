@@ -10,8 +10,9 @@
     $("pv-ingress").textContent = f.ingress.value;
     $("pv-tekst").textContent = f.tekst.value;
     $("pv-meta").textContent = `${f.kategori.value}${d ? ` · ${d.getDate()}. ${mnd[d.getMonth()]} ${d.getFullYear()}` : ""}${f.utkast.checked ? " · utkast" : ""}`;
-    const b = f.querySelector('input[name="bilde"]:checked');
-    if (b) $("pv-bilde").src = b.value;
+    // Alle bildene ligger ferdig i forhåndsvisningen; det valgte vises, resten skjules (ingen verdi kopieres fra DOM-en).
+    const valgt = [...f.querySelectorAll('input[name="bilde"]')].findIndex((r) => r.checked);
+    document.querySelectorAll(".pv-bilde").forEach((img, i) => { img.hidden = i !== valgt; });
     document.querySelector(".rd__preview").classList.toggle("utkast", f.utkast.checked);
     $("rd-status").textContent = "Ikke lagret";
     document.querySelectorAll(".rd__steps li").forEach((li) => li.classList.remove("on"));

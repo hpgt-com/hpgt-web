@@ -23,10 +23,10 @@ const samlinger = ["Nyheter og referater", "Arrangementer", "Faste sider", "Fors
       <div class="rd__row">
         <div><label for="rd-dato">Dato</label><input id="rd-dato" name="dato" type="date" value="2026-11-14" /></div>
         <div><label for="rd-kat">Kategori</label>
-          <select id="rd-kat" name="kategori"><option>Nyhet</option><option>Møter og referater</option><option>Kurs</option><option selected>Sosialt</option><option>Turer</option></select></div>
+          <select id="rd-kat" name="kategori"><option>Nyhet</option><option>Møter og referater</option><option>Kurs og fagdag</option><option selected>Sosialt og turer</option><option>Konkurranser</option></select></div>
       </div>
       <fieldset><legend>Hovedbilde</legend>
-        <div class="rd__pics">{bilder.map((b, i) => <label><input type="radio" name="bilde" value={url(b)} checked={i === 0} /><img src={url(b)} alt="" /></label>)}</div>
+        <div class="rd__pics">{bilder.map((b, i) => <label><input type="radio" name="bilde" value={String(i)} checked={i === 0} /><img src={url(b)} alt="" /></label>)}</div>
       </fieldset>
       <label for="rd-ingress">Ingress</label>
       <input id="rd-ingress" name="ingress" value="Meld deg på i Facebook-gruppa. Vi samles på parkeringen kl. 10." />
@@ -40,7 +40,7 @@ const samlinger = ["Nyheter og referater", "Arrangementer", "Faste sider", "Fors
     <section class="rd__preview" aria-label="Forhåndsvisning">
       <p class="rd__plabel">Forhåndsvisning</p>
       <article>
-        <img id="pv-bilde" src={url(bilder[0])} alt="" />
+        {bilder.map((b, i) => <img class="pv-bilde" src={url(b)} alt="" hidden={i !== 0} />)}
         <p class="rd__meta" id="pv-meta">Sosialt · 14. november 2026</p>
         <h3 id="pv-tittel">Klubbtur til Sollifjellet lørdag</h3>
         <p class="rd__ingress" id="pv-ingress">Meld deg på i Facebook-gruppa. Vi samles på parkeringen kl. 10.</p>
@@ -91,6 +91,7 @@ const samlinger = ["Nyheter og referater", "Arrangementer", "Faste sider", "Fors
   .rd__preview { background: var(--rd-surface); border-left: 1px solid var(--rd-line); padding: 16px; min-width: 0; }
   @media (max-width: 980px) { .rd__preview { border-left: 0; border-top: 1px solid var(--rd-line); } }
   .rd__plabel { margin: 0 0 10px; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--rd-muted); }
+  .rd__preview img[hidden] { display: none; }
   .rd__preview img { width: 100%; aspect-ratio: 16/10; object-fit: cover; border-radius: 8px; }
   .rd__preview h3 { font-size: 22px; line-height: 1.15; margin: 6px 0; }
   .rd__meta { margin: 10px 0 0; font-size: 12px; color: var(--rd-muted); text-transform: uppercase; letter-spacing: .06em; }
