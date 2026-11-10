@@ -69,7 +69,7 @@ h1, h2, h3 { font-family: var(--head); font-weight: 800; line-height: .98; lette
 
 /* Helt */
 .hero { position: relative; color: #fff; isolation: isolate; display: grid; align-content: end; min-height: min(86vh, 720px); }
-.hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 55% 72%; z-index: -2; }
+.hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 55% 48%; z-index: -2; }
 .hero::after { content: ""; position: absolute; inset: 0; z-index: -1;
   background: linear-gradient(90deg, rgba(10,38,33,.88) 0%, rgba(10,38,33,.55) 45%, rgba(10,38,33,.1) 75%), linear-gradient(0deg, rgba(10,38,33,.6), transparent 40%); }
 .hero__text { padding-block: 96px 40px; }
@@ -240,7 +240,7 @@ code { font: 500 .92em var(--mono); background: var(--sunk); padding: 1px 6px; b
 .contribute { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 20px; border-top: 3px solid var(--text); padding-top: 24px; }
 .contribute p { max-width: 54ch; color: var(--muted); margin: 0; }
 .article:has(.rd) { max-width: 1120px; }
-@media (max-width: 600px) { .hero__img { object-position: 35% 72%; } }
+@media (max-width: 600px) { .hero__img { object-position: 40% 50%; } }
 
 /* Siste nytt + aktiviteter, strukturert som Nordlys: kortrutenett til venstre, kalender og snarveier til høyre */
 .feed { display: grid; gap: 36px; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); align-items: start; }
