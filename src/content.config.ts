@@ -42,6 +42,7 @@ const arrangementer = defineCollection({
     slutt: z.coerce.date().optional(),
     heldag: z.boolean().default(false),
     sted: z.string().optional(),
+    bilde: z.string().optional(),
     permalink,
     wp_id: z.number().optional(),
   }),

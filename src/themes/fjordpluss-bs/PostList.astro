@@ -1,4 +1,6 @@
 ---
+import VisningsValg from "../../components/VisningsValg.astro";
+import Kortnett from "../../components/Kortnett.astro";
 import { url, dato, lenke, slug } from "../../lib/site";
 const { title, ingress, grupper, kategorier, aktiv } = Astro.props;
 ---
@@ -10,9 +12,11 @@ const { title, ingress, grupper, kategorier, aktiv } = Astro.props;
     <a class:list={["nav-link", !aktiv && "active"]} href={url("/nytt/")}>Alle</a>
     {kategorier.map((k) => <a class:list={["nav-link", aktiv === k.slug && "active"]} data-kat={k.slug} href={url(`/nytt/kategori/${k.slug}/`)}>{k.navn} <small class="font-monospace opacity-75">{k.poster.length}</small></a>)}
   </nav>
+  <VisningsValg />
   {grupper.map(([aar, poster]) => (
     <section class="mb-4"><h2 class="h-tight fs-2 mt-4">{aar}</h2>
-      <div class="list-group list-group-flush list-events border-top">{poster.map((p) => <a class="list-group-item list-group-item-action d-md-flex align-items-baseline gap-3 py-2" href={url(lenke(p))}><span class="post-dato text-body-secondary small">{dato(p.data.date)}</span><span class="flex-grow-1 d-block">{p.data.title}</span><span class="kat meta-mono" data-kat={slug(p.data.kategorier[0])}>{p.data.kategorier[0]}</span></a>)}</div>
+      <div class="list-group list-group-flush list-events border-top" data-visning="liste">{poster.map((p) => <a class="list-group-item list-group-item-action d-md-flex align-items-baseline gap-3 py-2" href={url(lenke(p))}><span class="post-dato text-body-secondary small">{dato(p.data.date)}</span><span class="flex-grow-1 d-block">{p.data.title}</span><span class="kat meta-mono" data-kat={slug(p.data.kategorier[0])}>{p.data.kategorier[0]}</span></a>)}</div>
+      <Kortnett innlegg={poster} />
     </section>
   ))}
 </div>

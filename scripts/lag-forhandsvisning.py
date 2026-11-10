@@ -34,6 +34,11 @@ for root, _, files in os.walk(REF):
 pages = sorted(set(p for p in pages if not p.startswith("event/") or p.split("/")[1] in
                ("sikkerhetsdag-nodskjerm", "nybegynnerkurs", "hpgt-var-kickoff-2021", "sikkerhetsseminar", "arsmote-2020", "hpgt-julebord-2026")))
 page_set = set(pages)
+# De eldre prototypene (1–5) får bare kjernesidene, så forhåndsvisningen holder seg under 512 filer.
+ELDRE = {"fjord", "pico", "magasin", "klassisk", "nordlys"}
+KJERNE = {"", "nytt", "arrangementer", "kurs-2026", "om-klubben", "bidra", "redaktor-demo", "flysteder/flarm-fanet-radioid",
+          "nodskjermpakking-og-kontroll-av-vinge-dag-23-mai-2026", "hpgt-julebord-2026-🎄", "event/hpgt-julebord-2026", "events", "galleri"}
+sider_for = lambda theme: page_set & KJERNE if theme in ELDRE else page_set
 
 shutil.rmtree(OUT, ignore_errors=True)
 os.makedirs(OUT)
@@ -56,7 +61,7 @@ def rewrite(html, theme, rel):
         if inner.startswith(("_astro/", "assets/")) or re.search(r"\.\w{2,5}$", inner):
             return f'{attr}="{up}{theme}/{urllib.parse.quote(inner)}"'
         target = inner.strip("/")
-        if target not in page_set:
+        if target not in sider_for(theme):
             return f'{attr}="{up}utenfor.html"'
         dest = f"{theme}/{target}/index.html" if target else f"{theme}/index.html"
         return f'{attr}="{up}{urllib.parse.quote(dest)}{"#" + frag if frag else ""}"'
@@ -68,7 +73,7 @@ def rewrite(html, theme, rel):
 
 for theme in THEMES:
     tdir = os.path.join(SRC, theme)
-    for rel in pages:
+    for rel in sorted(sider_for(theme)):
         src = os.path.join(tdir, rel, "index.html")
         if not os.path.exists(src):
             continue
@@ -91,7 +96,7 @@ for m in sorted(media):
     if os.path.exists(s):
         os.makedirs(os.path.dirname(os.path.join(OUT, m)), exist_ok=True)
         shutil.copy(s, os.path.join(OUT, m))
-print("sider per design:", len(pages), "| media:", len(media))
+print("sider per design:", len(pages), "(eldre:", len(page_set & KJERNE), ") | media:", len(media))
 
 # Faste filer for forhåndsvisningen: miniatyrbilder og «ikke med»-siden
 STATISK = os.path.join(os.path.dirname(__file__), "forhandsvisning-statisk")
