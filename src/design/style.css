@@ -59,11 +59,14 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--sky); outline-o
 
 /* Helt */
 .hero { position: relative; overflow: hidden; color: #fff; isolation: isolate; }
-.hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 58% 30%; transform: scale(1.22); transform-origin: 46% 60%; z-index: -2; }
+.hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; z-index: -2; }
+/* Litt zoom mot ansiktene på mellomstore skjermer; på brede skjermer vises bildet i full skarphet uten zoom */
+@media (min-width: 601px) and (max-width: 1499px) { .hero__img { transform: scale(1.15); transform-origin: 46% 60%; } }
 .hero::after { content: ""; position: absolute; inset: 0; z-index: -1;
-  /* Marineblå fra venstre som slipper helt opp mot høyre, så himmelen beholder fargene sine */
-  background: linear-gradient(90deg, rgba(8,30,58,.95) 0%, rgba(12,42,78,.82) 22%, rgba(16,56,104,.55) 40%, rgba(20,70,128,.22) 58%, rgba(20,70,128,0) 74%),
-    linear-gradient(180deg, rgba(8,30,58,.22) 0%, rgba(8,30,58,0) 22%, rgba(8,30,58,0) 72%, rgba(8,30,58,.5) 100%); }
+  /* Målt fra styrets ChatGPT-skisse: nesten helt marineblå til venstre, jevn overgang mot høyre, og mørkere mot bunnen */
+  background:
+    linear-gradient(180deg, rgba(10,36,60,0) 0%, rgba(10,36,60,0) 35%, rgba(10,36,60,.1) 50%, rgba(10,36,60,.14) 70%, rgba(10,36,60,.34) 86%, rgba(10,36,60,.55) 100%),
+    linear-gradient(90deg, rgba(9,36,56,.98) 0%, rgba(10,40,62,.93) 20%, rgba(13,48,78,.78) 35%, rgba(16,56,92,.55) 50%, rgba(15,54,90,.38) 60%, rgba(14,52,88,.32) 70%, rgba(12,50,84,.24) 80%, rgba(12,50,84,.15) 90%, rgba(12,50,84,.08) 100%); }
 .hero__in { padding-block: 80px 0; }
 .hero__title { font-size: clamp(3.4rem, 10vw, 7.4rem); font-weight: 900; letter-spacing: -.065em; line-height: .86; max-width: 7.5ch; margin-bottom: 18px; }
 .hero__lead { max-width: 42ch; margin: 0; font-size: 1.08rem; color: #eaf2fa; }
