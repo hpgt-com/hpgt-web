@@ -48,8 +48,8 @@
 }
 /* Utenfor lag, så den slår Tailwinds egne klasser på mobilmenyen og bildet i toppen. */
 @media (max-width: 767px) { .js .navlinks:not([data-open]) { display: none; } }
-.hero-img { object-position: 58% 30%; }
-@media (max-width: 600px) { .hero-img { object-position: 64% 40%; } }
+.hero-img { object-position: 58% 30%; transform: scale(1.22); transform-origin: 46% 60%; }
+@media (max-width: 600px) { .hero-img { object-position: 64% 40%; transform: scale(1.7); transform-origin: 56% 64%; } }
 .kal { --kal-text: var(--color-ink); --kal-muted: var(--color-muted); --kal-line: var(--color-line); --kal-surface: var(--color-surface); --kal-tint: var(--color-tint); --kal-accent: var(--color-sky); --kal-accent-ink: var(--color-sky-ink); --kal-mono: var(--font-mono); }
 .hero-scrim { background: linear-gradient(90deg, rgba(8,30,58,.95) 0%, rgba(12,42,78,.82) 22%, rgba(16,56,104,.55) 40%, rgba(20,70,128,.22) 58%, rgba(20,70,128,0) 74%), linear-gradient(180deg, rgba(8,30,58,.22) 0%, rgba(8,30,58,0) 22%, rgba(8,30,58,0) 72%, rgba(8,30,58,.5) 100%); }
 @media (max-width: 640px) { .hero-scrim { background: linear-gradient(180deg, rgba(12,44,82,.35) 0%, rgba(14,52,96,.62) 45%, rgba(10,36,68,.9) 100%); } }
