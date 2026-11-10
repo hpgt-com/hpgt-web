@@ -1,0 +1,9 @@
+---
+import { radioid } from "../lib/site";
+---
+<div class="table-wrap">
+  <table class="data-table">
+    <thead><tr><th scope="col">Pilot</th><th scope="col">RadioID</th><th scope="col">Vario / utstyr</th></tr></thead>
+    <tbody>{radioid.piloter.map((r) => <tr><td>{r.pilot}</td><td><code>{r.id}</code></td><td>{r.utstyr}</td></tr>)}</tbody>
+  </table>
+</div>

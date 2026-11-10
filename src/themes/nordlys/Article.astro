@@ -1,0 +1,12 @@
+---
+import { url } from "../../lib/site";
+const { title, ingress, bilde, meta, kategorier, tilbake } = Astro.props;
+---
+<article class="mx-auto max-w-3xl py-8">
+  {tilbake && <a href={tilbake.url} class="btn btn-ghost btn-sm mb-4">← {tilbake.tekst}</a>}
+  {meta && <div class="flex flex-wrap gap-2 items-center mb-2">{kategorier?.map((k) => <span class="badge badge-secondary">{k}</span>)}<span class="text-sm opacity-70">{meta}</span></div>}
+  <h1 class="text-4xl md:text-5xl font-black leading-tight">{title}</h1>
+  {ingress && <p class="mt-4 text-lg opacity-80">{ingress}</p>}
+  {bilde && <img src={url(bilde)} alt="" class="mt-6 rounded-box w-full" />}
+  <div class="prose prose-lg dark:prose-invert prose-invert max-w-none mt-8 prose-img:rounded-xl prose-a:text-primary"><slot /></div>
+</article>

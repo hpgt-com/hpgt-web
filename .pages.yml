@@ -1,0 +1,136 @@
+# Pages CMS – redigeringsgrensesnittet for hpgt.com (https://pagescms.org).
+# Bidragsytere inviteres på e-post og ser bare det som er satt opp her.
+# Teknisk oppsett (site.json, meny.json, kode, arbeidsflyter) er bevisst IKKE med:
+# det kan bare endres av de med tilgang til GitHub-repoet (minste privilegium).
+
+media:
+  input: public/filer
+  output: /filer
+  categories: [image, document]
+
+content:
+  - name: innlegg
+    label: Nyheter og referater
+    type: collection
+    path: src/content/innlegg
+    filename: "{year}-{month}-{day}-{primary}.md"
+    view:
+      fields: [title, date, kategorier]
+      primary: title
+      sort: [date, title]
+      default: { sort: date, order: desc }
+    fields:
+      - { name: title, label: Tittel, type: string, required: true }
+      - { name: date, label: Dato, type: date, required: true, options: { time: true } }
+      - name: kategorier
+        label: Kategori
+        type: select
+        default: [Nyhet]
+        options:
+          multiple: true
+          values: [Nyhet, Møter og referater, Kurs, Sosialt, Turer, Tilbud, Konkurranser]
+      - { name: bilde, label: Hovedbilde, type: image, description: "Vises øverst og på forsiden. Liggende bilder blir finest." }
+      - { name: ingress, label: Ingress, type: text, description: "1–2 setninger som oppsummerer saken." }
+      - name: vedlegg
+        label: Vedlegg (PDF, referater, innkallinger)
+        type: object
+        list: true
+        fields:
+          - { name: tittel, label: Navn på dokumentet, type: string, required: true }
+          - { name: fil, label: Fil, type: file, required: true }
+      - { name: utkast, label: "Utkast (ikke vis på siden ennå)", type: boolean, default: false }
+      - { name: body, label: Tekst, type: rich-text }
+
+  - name: arrangementer
+    label: Arrangementer
+    type: collection
+    path: src/content/arrangementer
+    filename: "{year}-{month}-{day}-{primary}.md"
+    view:
+      fields: [title, start, sted]
+      primary: title
+      default: { sort: start, order: desc }
+    fields:
+      - { name: title, label: Navn, type: string, required: true }
+      - { name: start, label: Starter, type: date, required: true, options: { time: true } }
+      - { name: slutt, label: Slutter, type: date, options: { time: true } }
+      - { name: heldag, label: Heldagsarrangement, type: boolean, default: false }
+      - { name: sted, label: Sted, type: string }
+      - { name: body, label: Beskrivelse, type: rich-text }
+
+  - name: sider
+    label: Faste sider
+    type: collection
+    path: src/content/sider
+    view: { fields: [title], primary: title }
+    fields:
+      - { name: title, label: Tittel, type: string, required: true }
+      - { name: ingress, label: Ingress, type: text }
+      - { name: bilde, label: Toppbilde, type: image }
+      - { name: sist_endret, label: Sist oppdatert, type: date }
+      - { name: permalink, label: Adresse, type: string, hidden: true }
+      - { name: mal, label: Mal, type: string, hidden: true }
+      - { name: body, label: Tekst, type: rich-text }
+
+  - name: forside
+    label: Forsiden
+    type: file
+    path: src/data/forside.json
+    format: json
+    fields:
+      - { name: tittel, label: Overskrift, type: string }
+      - { name: ingress, label: Ingress, type: text }
+      - { name: bilde, label: Toppbilde, type: image }
+      - { name: bildetekst, label: Bildetekst, type: string }
+      - name: knapper
+        label: Knapper
+        type: object
+        list: { max: 2 }
+        fields: [{ name: tekst, type: string }, { name: url, label: Lenke, type: string }]
+      - name: kort
+        label: Kort (Lær å fly, Tandem …)
+        type: object
+        list: { max: 4 }
+        fields:
+          - { name: tittel, type: string }
+          - { name: tekst, type: text }
+          - { name: url, label: Lenke, type: string }
+          - { name: bilde, type: image }
+          - { name: ikon, type: string, hidden: true }
+      - name: snarveier
+        label: Snarveier for piloter
+        type: object
+        list: true
+        fields: [{ name: tekst, type: string }, { name: url, label: Lenke, type: string }]
+
+  - name: styret
+    label: Styret
+    type: file
+    path: src/data/styret.json
+    format: json
+    fields:
+      - name: medlemmer
+        label: Styremedlemmer
+        type: object
+        list: true
+        fields:
+          - { name: id, label: "Kort ID (f.eks. leder)", type: string, required: true }
+          - { name: rolle, type: string, required: true }
+          - { name: navn, type: string, required: true }
+          - { name: telefon, type: string }
+          - { name: epost, label: E-post, type: string }
+          - { name: bilde, type: image }
+
+  - name: radioid
+    label: FLARM/FANET RadioID-register
+    type: file
+    path: src/data/radioid.json
+    format: json
+    fields:
+      - name: piloter
+        type: object
+        list: true
+        fields:
+          - { name: pilot, label: Fornavn, type: string, required: true }
+          - { name: id, label: "RadioID (6 hex-tegn)", type: string, required: true, pattern: "^[0-9A-Fa-f]{6}$" }
+          - { name: utstyr, label: Vario / utstyr, type: string }

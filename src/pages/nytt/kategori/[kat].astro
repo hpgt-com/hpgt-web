@@ -1,0 +1,16 @@
+---
+import Layout from "@theme/Layout.astro";
+import PostList from "@theme/PostList.astro";
+import { hentKategorier, grupperPaaAar } from "../../../lib/site";
+export async function getStaticPaths() {
+  const kategorier = await hentKategorier();
+  return kategorier.map((k) => ({ params: { kat: k.slug }, props: { k, kategorier } }));
+}
+const { k, kategorier } = Astro.props;
+const ingress = k.slug === "moter-og-referater"
+  ? "Innkallinger, protokoller og årsberetninger fra årsmøter og klubbmøter. Signerte dokumenter ligger som PDF-vedlegg."
+  : undefined;
+---
+<Layout title={k.navn}>
+  <PostList title={k.navn} ingress={ingress} grupper={grupperPaaAar(k.poster)} kategorier={kategorier} aktiv={k.slug} />
+</Layout>

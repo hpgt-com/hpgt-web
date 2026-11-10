@@ -1,0 +1,56 @@
+---
+import { forside, url, ekstern, dato, tidSted, bildeFor, utdrag, lenke } from "../../lib/site";
+const { innlegg, kommende, tidligere } = Astro.props;
+const arr = kommende.length ? kommende.slice(0, 4) : tidligere.slice(0, 4);
+---
+<section class="hero grid">
+  <div>
+    <hgroup><h1>{forside.tittel}</h1><p>{forside.ingress}</p></hgroup>
+    <p>{forside.knapper.map((k, i) => <a role="button" class={i ? "secondary outline" : ""} href={url(k.url)}>{k.tekst}</a>)}</p>
+  </div>
+  <figure><img src={url(forside.bilde)} alt={forside.bildetekst} /></figure>
+</section>
+
+<section>
+  <h2>Hva vil du gjøre?</h2>
+  <div class="quad">
+    {forside.kort.map((k) => (
+      <article>
+        <h3><a href={url(k.url)}>{k.tittel}{ekstern(k.url) && " ↗"}</a></h3>
+        <p>{k.tekst}</p>
+      </article>
+    ))}
+  </div>
+</section>
+
+<div class="grid">
+  <section>
+    <h2>{kommende.length ? "Kommende" : "Siste"} arrangementer</h2>
+    <table class="striped">
+      <tbody>{arr.map((e) => <tr><td><small>{dato(e.data.start)}</small></td><td><a href={url(lenke(e))}>{e.data.title}</a><br /><small>{tidSted(e)}</small></td></tr>)}</tbody>
+    </table>
+    <a href={url("/arrangementer/")}>Alle arrangementer →</a>
+  </section>
+  <section>
+    <h2>For piloter</h2>
+    <ul>{forside.snarveier.map((s) => <li><a href={url(s.url)}>{s.tekst}</a></li>)}</ul>
+  </section>
+</div>
+
+<section>
+  <h2>Siste nytt</h2>
+  {innlegg.slice(0, 5).map((p) => {
+    const b = bildeFor(p);
+    return (
+      <article class="row">
+        {b && <img src={url(b)} alt="" loading="lazy" />}
+        <div>
+          <small>{dato(p.data.date)} · {p.data.kategorier.join(", ")}</small>
+          <h4><a href={url(lenke(p))}>{p.data.title}</a></h4>
+          <p>{utdrag(p.body, 140)}</p>
+        </div>
+      </article>
+    );
+  })}
+  <a href={url("/nytt/")}>Alle nyheter og referater →</a>
+</section>

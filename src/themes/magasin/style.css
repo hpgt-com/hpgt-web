@@ -1,0 +1,36 @@
+/* Prototype 3 – «Magasin». Tailwind CSS v4 + typography-plugin: redaksjonell, nyhetsdrevet, serif-titler. */
+@import "tailwindcss" source(none);
+@source "./";
+@source "../../components";
+@plugin "@tailwindcss/typography";
+@import "@fontsource/fraunces/600.css";
+@import "@fontsource/fraunces/800.css";
+@import "@fontsource-variable/inter/index.css";
+
+@theme {
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-sans: "Inter Variable", system-ui, sans-serif;
+  --color-paper: #faf7f0;
+  --color-ink: #1d1b16;
+  --color-accent: #c2410c;
+  --color-night: #14130f;
+}
+@layer base {
+  body { @apply bg-paper text-ink font-sans antialiased dark:bg-night dark:text-stone-200; }
+}
+@layer components {
+  .people { @apply grid gap-6 sm:grid-cols-3 list-none p-0 my-8; }
+  .person { @apply m-0 p-0; }
+  .person img { @apply aspect-square w-full object-cover rounded-sm m-0 grayscale hover:grayscale-0 transition; }
+  .person p { @apply m-0; }
+  .person__rolle { @apply mt-3! text-xs uppercase tracking-widest text-accent font-semibold; }
+  .person__navn { @apply font-serif text-xl font-semibold; }
+  .data-table { @apply w-full; }
+  .vedlegg { @apply mt-10 border-t-4 border-ink pt-4 dark:border-stone-200; }
+  .menu-btn { @apply hidden; }
+  .js .menu-btn { @apply max-md:inline-block; }
+  .prose p:has(> img + img) { @apply grid grid-cols-2 sm:grid-cols-3 gap-2; }
+  .prose p:has(> img + img) img { @apply m-0 aspect-square object-cover; }
+}
+/* Utenfor lag, så den slår ut Tailwinds flex-klasse på menyen. */
+@media (max-width: 767px) { .js .navlinks:not([data-open]) { display: none; } }

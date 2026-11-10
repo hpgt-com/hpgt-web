@@ -1,0 +1,57 @@
+---
+import { forside, url, ekstern, dato, tidSted, bildeFor, utdrag, lenke } from "../../lib/site";
+const { innlegg, kommende, tidligere } = Astro.props;
+const arr = kommende.length ? kommende.slice(0, 5) : tidligere.slice(0, 5);
+---
+<section class="hero py-5">
+  <img class="hero__img" src={url(forside.bilde)} alt={forside.bildetekst} />
+  <div class="container py-5">
+    <div class="col-lg-7 py-lg-5">
+      <h1 class="display-4 fw-bold">{forside.tittel}</h1>
+      <p class="lead">{forside.ingress}</p>
+      {forside.knapper.map((k, i) => <a href={url(k.url)} class:list={["btn btn-lg me-2 mb-2", i ? "btn-outline-light" : "btn-warning"]}>{k.tekst}</a>)}
+    </div>
+  </div>
+</section>
+
+<div class="container py-5">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+    {forside.kort.map((k) => (
+      <div class="col"><div class="card h-100 shadow-sm">
+        <img src={url(k.bilde)} alt="" class="card-img-top" loading="lazy" />
+        <div class="card-body"><h2 class="h5 card-title">{k.tittel}</h2><p class="card-text text-body-secondary">{k.tekst}</p></div>
+        <div class="card-footer bg-transparent border-0 pb-3"><a href={url(k.url)} class="btn btn-primary btn-sm">Les mer{ekstern(k.url) && " ↗"}</a></div>
+      </div></div>
+    ))}
+  </div>
+
+  <div class="row g-5 mt-2">
+    <div class="col-lg-8">
+      <h2 class="h3 mb-3">Siste nytt</h2>
+      <div class="list-group">
+        {innlegg.slice(0, 6).map((p) => {
+          const b = bildeFor(p);
+          return (
+            <a href={url(lenke(p))} class="list-group-item list-group-item-action d-flex gap-3 py-3">
+              {b ? <img src={url(b)} alt="" class="thumb rounded flex-shrink-0" loading="lazy" /> : <span class="thumb rounded bg-secondary-subtle flex-shrink-0"></span>}
+              <span><span class="badge text-bg-light me-2">{p.data.kategorier[0]}</span><small class="text-body-secondary">{dato(p.data.date)}</small>
+                <strong class="d-block">{p.data.title}</strong><small class="text-body-secondary">{utdrag(p.body, 110)}</small></span>
+            </a>
+          );
+        })}
+      </div>
+      <a href={url("/nytt/")} class="btn btn-outline-primary mt-3">Alle nyheter og referater</a>
+    </div>
+    <div class="col-lg-4">
+      <div class="card mb-4">
+        <div class="card-header fw-semibold">{kommende.length ? "Kommende arrangementer" : "Siste arrangementer"}</div>
+        <ul class="list-group list-group-flush">{arr.map((e) => <li class="list-group-item"><a href={url(lenke(e))} class="fw-semibold">{e.data.title}</a><br /><small class="text-body-secondary">{dato(e.data.start)} · {tidSted(e)}</small></li>)}</ul>
+        <div class="card-body"><a href={url("/arrangementer/")}>Alle arrangementer →</a></div>
+      </div>
+      <div class="card">
+        <div class="card-header fw-semibold">For piloter</div>
+        <div class="list-group list-group-flush">{forside.snarveier.map((s) => <a class="list-group-item list-group-item-action" href={url(s.url)}>{s.tekst}</a>)}</div>
+      </div>
+    </div>
+  </div>
+</div>

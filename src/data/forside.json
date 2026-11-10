@@ -1,0 +1,23 @@
+{
+  "tittel": "Fly med oss i Harstad",
+  "ingress": "Harstad Hang- og Paragliderklubb samler piloter i Sør-Troms og nordre Nordland. Vi holder kurs, flyr tandem og drar på tur så fort været tillater det – bli med!",
+  "bilde": "/wp-content/uploads/2026/04/hpgt1.jpg",
+  "bildetekst": "Klubbtur over Harstad",
+  "knapper": [
+    { "tekst": "Nybegynnerkurs", "url": "/kurs-2026/" },
+    { "tekst": "Se flysteder", "url": "https://flysteder.hpgt.com/" }
+  ],
+  "kort": [
+    { "tittel": "Lær å fly", "tekst": "Nybegynnerkurs til PP2 i juni. 6 plasser – førstemann til mølla.", "url": "/kurs-2026/", "bilde": "/wp-content/uploads/2019/01/20190803_175328.jpg", "ikon": "kurs" },
+    { "tittel": "Tandemtur", "tekst": "Prøv det sammen med en erfaren tandempilot. 1 950 kr.", "url": "/tandem/", "bilde": "/wp-content/uploads/2026/04/tandem-2.jpg", "ikon": "tandem" },
+    { "tittel": "Flysteder", "tekst": "Kart over startsteder med vindretning, nivå, vær og luftrom.", "url": "https://flysteder.hpgt.com/", "bilde": "/wp-content/uploads/2026/09/flysteder.hpgt_.com_.jpg", "ikon": "kart" },
+    { "tittel": "Bli medlem", "tekst": "Meld deg inn via Min idrett, eller støtt oss med Grasrotandelen og Vipps.", "url": "/grasrotandelen/", "bilde": "/wp-content/uploads/2026/04/hpgt5.jpg", "ikon": "medlem" }
+  ],
+  "snarveier": [
+    { "tekst": "Værstasjon Heia", "url": "http://holfuy.com/no/data/490" },
+    { "tekst": "Lenker og vær", "url": "/lenker/" },
+    { "tekst": "NOTAM ved vinsjing", "url": "/notam/" },
+    { "tekst": "RadioID-register", "url": "/flysteder/flarm-fanet-radioid/" },
+    { "tekst": "Møter og referater", "url": "/nytt/kategori/moter-og-referater/" }
+  ]
+}

@@ -1,0 +1,40 @@
+---
+import Head from "../../components/Head.astro";
+import ProtoBanner from "../../components/ProtoBanner.astro";
+import "@picocss/pico/css/pico.jade.min.css";
+import "../../components/proto.css";
+import "./style.css";
+import { site, meny, url, ekstern } from "../../lib/site";
+const { title, description, image } = Astro.props;
+const here = Astro.url.pathname;
+---
+<!doctype html>
+<html lang="nb">
+<head><Head title={title} description={description} image={image} /></head>
+<body>
+  <a class="skip" href="#innhold">Hopp til innhold</a>
+  <ProtoBanner navn="2 · Klubbhuset (Pico CSS)" />
+  <header class="container">
+    <nav>
+      <ul><li><a href={url("/")} class="brand"><img src={url("/assets/img/hpgt-logo.png")} alt="" width="36" height="36" /><strong>HPGT</strong></a></li></ul>
+      <ul>
+        <li class="menu-li"><button class="outline secondary menu-btn" type="button" data-menu-button aria-expanded="false" aria-controls="nav">Meny</button></li>
+      </ul>
+      <ul id="nav" class="navlinks">
+        {meny.hoved.map((m) => <li><a href={url(m.url)} class="secondary" aria-current={!ekstern(m.url) && here.startsWith(url(m.url)) ? "page" : undefined}>{m.tekst}{ekstern(m.url) && " ↗"}</a></li>)}
+      </ul>
+    </nav>
+  </header>
+  <main id="innhold" class="container"><slot /></main>
+  <footer class="container">
+    <hr />
+    <div class="grid">
+      <section><h6>Kontakt</h6><small><a href={`mailto:${site.epost.post}`}>{site.epost.post}</a><br /><a href={site.facebook}>Facebook</a> · <a href={site.instagram}>Instagram</a></small></section>
+      <section><h6>For piloter</h6><small>{meny.piloter.map((m) => <><a href={url(m.url)}>{m.tekst}</a><br /></>)}</small></section>
+      <section><h6>Klubben</h6><small>{meny.klubben.map((m) => <><a href={url(m.url)}>{m.tekst}</a><br /></>)}</small></section>
+      <section><h6>Støtt oss</h6><small>Vipps {site.vipps}<br />Grasrotandelen {site.orgnr}</small></section>
+    </div>
+    <p><small>© {site.navn}</small></p>
+  </footer>
+</body>
+</html>

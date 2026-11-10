@@ -1,0 +1,9 @@
+---
+import { site, url } from "../lib/site";
+const { navn } = Astro.props;
+---
+{site.prototype && (
+  <div class="proto-banner" role="note">
+    Prototype {navn} – ikke publisert. Innhold hentet fra dagens hpgt.com. <a href={url("/").replace(/[^/]+\/$/, "")}>Bytt prototype</a>
+  </div>
+)}

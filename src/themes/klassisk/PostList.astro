@@ -1,0 +1,21 @@
+---
+import { url, dato, lenke } from "../../lib/site";
+const { title, ingress, grupper, kategorier, aktiv } = Astro.props;
+---
+<div class="container py-4">
+  <h1 class="display-6 fw-bold">{title}</h1>
+  {ingress && <p class="lead">{ingress}</p>}
+  <div class="row g-4">
+    <div class="col-lg-3"><div class="list-group">
+      <a href={url("/nytt/")} class:list={["list-group-item list-group-item-action", !aktiv && "active"]}>Alle</a>
+      {kategorier.map((k) => <a href={url(`/nytt/kategori/${k.slug}/`)} class:list={["list-group-item list-group-item-action d-flex justify-content-between", aktiv === k.slug && "active"]}>{k.navn}<span class="badge text-bg-secondary rounded-pill">{k.poster.length}</span></a>)}
+    </div></div>
+    <div class="col-lg-9">
+      {grupper.map(([aar, poster]) => (
+        <div class="mb-4"><h2 class="h4">{aar}</h2>
+          <table class="table table-hover bg-white"><tbody>{poster.map((p) => <tr><td class="text-nowrap text-body-secondary small">{dato(p.data.date)}</td><td><a href={url(lenke(p))}>{p.data.title}</a></td><td class="d-none d-md-table-cell">{p.data.kategorier.map((k) => <span class="badge text-bg-light me-1">{k}</span>)}</td></tr>)}</tbody></table>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>

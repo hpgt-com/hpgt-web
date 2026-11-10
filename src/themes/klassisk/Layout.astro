@@ -1,0 +1,40 @@
+---
+import Head from "../../components/Head.astro";
+import ProtoBanner from "../../components/ProtoBanner.astro";
+import "../../components/proto.css";
+import "./style.css";
+import { site, meny, url, ekstern } from "../../lib/site";
+const { title, description, image } = Astro.props;
+const here = Astro.url.pathname;
+---
+<!doctype html>
+<html lang="nb">
+<head><Head title={title} description={description} image={image} /></head>
+<body class="bg-body-tertiary">
+  <a class="skip" href="#innhold">Hopp til innhold</a>
+  <ProtoBanner navn="4 · Klassisk (Bootstrap 5)" />
+  <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark" aria-label="Hovedmeny">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href={url("/")}>
+        <img src={url("/assets/img/hpgt-logo.png")} alt="" width="40" height="40" class="rounded-circle bg-white" />
+        <span><strong>HPGT</strong> <small class="d-none d-sm-inline text-white-50">Harstad Hang- og Paragliderklubb</small></span>
+      </a>
+      <button class="navbar-toggler" type="button" data-menu-button aria-controls="nav" aria-expanded="false"><span class="navbar-toggler-icon"></span><span class="visually-hidden">Meny</span></button>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto">
+          {meny.hoved.map((m) => <li class="nav-item"><a class:list={["nav-link", !ekstern(m.url) && here.startsWith(url(m.url)) && "active"]} href={url(m.url)}>{m.tekst}{ekstern(m.url) && " ↗"}</a></li>)}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <main id="innhold"><slot /></main>
+  <footer class="bg-dark text-white-50 py-5 mt-5">
+    <div class="container"><div class="row g-4">
+      <div class="col-md-3"><h2 class="h6 text-white">Kontakt</h2><a class="link-light d-block" href={`mailto:${site.epost.post}`}>{site.epost.post}</a><a class="link-light d-block" href={`mailto:${site.epost.leder}`}>{site.epost.leder}</a><a class="link-light" href={site.facebook}>Facebook</a> · <a class="link-light" href={site.instagram}>Instagram</a></div>
+      <div class="col-md-3"><h2 class="h6 text-white">For piloter</h2>{meny.piloter.map((m) => <a class="link-light d-block" href={url(m.url)}>{m.tekst}</a>)}</div>
+      <div class="col-md-3"><h2 class="h6 text-white">Klubben</h2>{meny.klubben.map((m) => <a class="link-light d-block" href={url(m.url)}>{m.tekst}</a>)}</div>
+      <div class="col-md-3"><h2 class="h6 text-white">Støtt oss</h2><p>Vipps {site.vipps}<br />Grasrotandelen: {site.orgnr}</p></div>
+    </div></div>
+  </footer>
+</body>
+</html>

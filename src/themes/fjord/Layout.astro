@@ -1,0 +1,48 @@
+---
+import Head from "../../components/Head.astro";
+import ProtoBanner from "../../components/ProtoBanner.astro";
+import "../../components/proto.css";
+import "@fontsource/barlow/400.css";
+import "@fontsource/barlow/600.css";
+import "@fontsource/barlow-condensed/700.css";
+import "./style.css";
+import { site, meny, url, ekstern } from "../../lib/site";
+const { title, description, image } = Astro.props;
+const here = Astro.url.pathname;
+---
+<!doctype html>
+<html lang="nb">
+<head><Head title={title} description={description} image={image} /></head>
+<body>
+  <a class="skip" href="#innhold">Hopp til innhold</a>
+  <ProtoBanner navn="1 · Fjord (egen CSS)" />
+  <header class="top">
+    <div class="wrap top__in">
+      <a class="brand" href={url("/")}>
+        <img src={url("/assets/img/hpgt-logo.png")} alt="" width="44" height="44" />
+        <span><b>HPGT</b><small>Harstad Hang- og Paragliderklubb</small></span>
+      </a>
+      <button class="menu-btn" type="button" data-menu-button aria-expanded="false" aria-controls="nav">Meny</button>
+      <nav id="nav" class="nav" aria-label="Hovedmeny">
+        {meny.hoved.map((m) => (
+          <a href={url(m.url)} aria-current={!ekstern(m.url) && here.startsWith(url(m.url)) ? "page" : undefined}>
+            {m.tekst}{ekstern(m.url) && <span aria-hidden="true"> ↗</span>}
+          </a>
+        ))}
+      </nav>
+    </div>
+  </header>
+  <main id="innhold"><slot /></main>
+  <footer class="foot">
+    <div class="wrap foot__grid">
+      <section><h2>Kontakt</h2>
+        <p><a href={`mailto:${site.epost.post}`}>{site.epost.post}</a><br /><a href={`mailto:${site.epost.leder}`}>{site.epost.leder}</a></p>
+        <p><a href={site.facebook}>Facebook</a> · <a href={site.instagram}>Instagram</a></p></section>
+      <section><h2>For piloter</h2><ul>{meny.piloter.map((m) => <li><a href={url(m.url)}>{m.tekst}</a></li>)}</ul></section>
+      <section><h2>Klubben</h2><ul>{meny.klubben.map((m) => <li><a href={url(m.url)}>{m.tekst}</a></li>)}</ul></section>
+      <section><h2>Støtt oss</h2><p>Vipps <b>{site.vipps}</b><br />Grasrotandelen org.nr. {site.orgnr}</p></section>
+    </div>
+    <p class="wrap foot__small">© {site.navn} · Ingen sporing eller informasjonskapsler.</p>
+  </footer>
+</body>
+</html>

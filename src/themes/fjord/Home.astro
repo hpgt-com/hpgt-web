@@ -1,0 +1,64 @@
+---
+import { forside, url, ekstern, dato, datoKort, dag, mnd, klokke, bildeFor, utdrag, lenke } from "../../lib/site";
+const { innlegg, kommende, tidligere } = Astro.props;
+const arr = kommende.length ? kommende.slice(0, 3) : tidligere.slice(0, 3);
+---
+<section class="hero">
+  <img class="hero__img" src={url(forside.bilde)} alt={forside.bildetekst} />
+  <div class="wrap hero__text">
+    <p class="kicker">Harstad Hang- og Paragliderklubb</p>
+    <h1>{forside.tittel}</h1>
+    <p class="lead">{forside.ingress}</p>
+    <p class="actions">{forside.knapper.map((k, i) => <a class={i ? "btn btn--light" : "btn"} href={url(k.url)}>{k.tekst}</a>)}</p>
+  </div>
+</section>
+
+<section class="wrap section">
+  <div class="cards">
+    {forside.kort.map((k) => (
+      <a class="card" href={url(k.url)}>
+        <img src={url(k.bilde)} alt="" loading="lazy" />
+        <span class="card__body"><span class="card__title">{k.tittel}{ekstern(k.url) && " ↗"}</span><span>{k.tekst}</span></span>
+      </a>
+    ))}
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap split">
+    <div>
+      <h2 class="h-section">{kommende.length ? "Kommende arrangementer" : "Siste arrangementer"}</h2>
+      <ul class="events">
+        {arr.map((e) => (
+          <li><a href={url(lenke(e))}>
+            <span class="date"><b>{dag(e.data.start)}</b>{mnd(e.data.start)}</span>
+            <span><span class="events__t">{e.data.title}</span><small>{[e.data.sted, !e.data.heldag && `kl. ${klokke(e.data.start)}`].filter(Boolean).join(" · ")}</small></span>
+          </a></li>
+        ))}
+      </ul>
+      <a class="more" href={url("/arrangementer/")}>Alle arrangementer →</a>
+    </div>
+    <div>
+      <h2 class="h-section">Snarveier for piloter</h2>
+      <ul class="chips">{forside.snarveier.map((s) => <li><a href={url(s.url)}>{s.tekst}</a></li>)}</ul>
+    </div>
+  </div>
+</section>
+
+<section class="wrap section">
+  <h2 class="h-section">Siste nytt</h2>
+  <div class="news">
+    {innlegg.slice(0, 6).map((p) => {
+      const b = bildeFor(p);
+      return (
+        <article class="news__item">
+          {b && <img src={url(b)} alt="" loading="lazy" />}
+          <p class="meta">{dato(p.data.date)} · {p.data.kategorier.join(", ")}</p>
+          <h3><a href={url(lenke(p))}>{p.data.title}</a></h3>
+          <p>{utdrag(p.body, 120)}</p>
+        </article>
+      );
+    })}
+  </div>
+  <a class="more" href={url("/nytt/")}>Alle nyheter og referater →</a>
+</section>

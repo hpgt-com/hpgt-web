@@ -1,0 +1,13 @@
+---
+import { url } from "../../lib/site";
+const { title, ingress, bilde, meta, kategorier, tilbake } = Astro.props;
+---
+<article class="page">
+  {tilbake && <p><a href={tilbake.url}>← {tilbake.tekst}</a></p>}
+  <hgroup>
+    <h1>{title}</h1>
+    {(meta || ingress) && <p>{meta && <small>{meta}{kategorier && ` · ${kategorier.join(", ")}`}</small>}{meta && ingress && <br />}{ingress}</p>}
+  </hgroup>
+  {bilde && <img src={url(bilde)} alt="" />}
+  <slot />
+</article>

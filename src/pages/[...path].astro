@@ -1,0 +1,39 @@
+---
+// Alle innlegg, sider og arrangementer beholder adressene de hadde i WordPress, så gamle lenker fortsatt virker.
+import { getCollection, render } from "astro:content";
+import Layout from "@theme/Layout.astro";
+import Article from "@theme/Article.astro";
+import Styret from "../components/Styret.astro";
+import RadioId from "../components/RadioId.astro";
+import Vedlegg from "../components/Vedlegg.astro";
+import { dato, klokke, url, lenke } from "../lib/site";
+
+export async function getStaticPaths() {
+  const trim = (e: any) => lenke(e).replace(/^\/|\/$/g, "");
+  const [innlegg, sider, arr] = await Promise.all([
+    getCollection("innlegg", (p) => !p.data.utkast), getCollection("sider"), getCollection("arrangementer"),
+  ]);
+  return [
+    ...innlegg.map((entry) => ({ params: { path: trim(entry) }, props: { type: "innlegg", entry } })),
+    ...sider.map((entry) => ({ params: { path: trim(entry) }, props: { type: "side", entry } })),
+    ...arr.map((entry) => ({ params: { path: trim(entry) }, props: { type: "arrangement", entry } })),
+  ];
+}
+const { type, entry } = Astro.props as any;
+const { Content } = await render(entry);
+const d = entry.data;
+let meta: string | undefined;
+if (type === "innlegg") meta = dato(d.date);
+if (type === "arrangement") meta = `${dato(d.start)}${d.heldag ? "" : " kl. " + klokke(d.start)}${d.sted ? " · " + d.sted : ""}`;
+if (type === "side" && d.sist_endret) meta = `Sist oppdatert ${dato(d.sist_endret)}`;
+const tilbake = type === "innlegg" ? { tekst: "Alle nyheter", url: url("/nytt/") } : type === "arrangement" ? { tekst: "Alle arrangementer", url: url("/arrangementer/") } : undefined;
+---
+<Layout title={d.title} description={d.ingress} image={d.bilde}>
+  <Article title={d.title} ingress={d.ingress} bilde={type === "side" ? d.bilde : undefined} meta={meta}
+    kategorier={type === "innlegg" ? d.kategorier : undefined} tilbake={tilbake} type={type}>
+    {d.mal === "kontakt" && <Styret />}
+    {d.mal === "radioid" && <RadioId />}
+    <Content />
+    {d.vedlegg?.length > 0 && <Vedlegg filer={d.vedlegg} />}
+  </Article>
+</Layout>

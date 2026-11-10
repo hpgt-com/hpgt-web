@@ -1,0 +1,27 @@
+/* Prototype 4 – «Klassisk». Bootstrap 5: kjent, robust oppsett med navbar, kort og listegrupper. */
+@import "bootstrap/dist/css/bootstrap.min.css";
+:root { --bs-primary: #0b6e99; --bs-primary-rgb: 11,110,153; --bs-link-color: #0b6e99; --bs-link-color-rgb: 11,110,153; --bs-body-font-size: 1.05rem; }
+.btn-primary { --bs-btn-bg: #0b6e99; --bs-btn-border-color: #0b6e99; --bs-btn-hover-bg: #095a7d; --bs-btn-hover-border-color: #095a7d; }
+.btn-warning { --bs-btn-bg: #f2a541; --bs-btn-border-color: #f2a541; }
+.navbar-collapse[data-open] { display: block !important; }
+@media (min-width: 992px) { .navbar-collapse { display: flex !important; } }
+.hero { position: relative; isolation: isolate; color: #fff; }
+.hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+.hero::after { content: ""; position: absolute; inset: 0; background: rgba(5, 30, 45, .55); z-index: -1; }
+.card-img-top { aspect-ratio: 16/10; object-fit: cover; }
+.thumb { width: 96px; height: 72px; object-fit: cover; }
+.content img { max-width: 100%; height: auto; border-radius: .375rem; margin: .5rem 0; }
+.content p:has(> img + img) { display: grid; gap: .5rem; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+.content p:has(> img + img) img { aspect-ratio: 1; object-fit: cover; width: 100%; margin: 0; }
+.content table { width: 100%; margin-bottom: 1rem; }
+.content th, .content td { padding: .5rem; border-bottom: 1px solid var(--bs-border-color); }
+.content blockquote { border-left: 4px solid var(--bs-warning); padding: .5rem 1rem; background: var(--bs-light); }
+.people { list-style: none; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.person { border: 1px solid var(--bs-border-color); border-radius: .5rem; overflow: hidden; background: #fff; }
+.person img { width: 100%; aspect-ratio: 1; object-fit: cover; margin: 0; border-radius: 0; }
+.person div { padding: .75rem 1rem; }
+.person p { margin: 0; }
+.person__rolle { color: var(--bs-primary); font-size: .8rem; text-transform: uppercase; font-weight: 600; }
+.person__navn { font-weight: 700; font-size: 1.15rem; }
+.vedlegg { padding: 1rem; background: var(--bs-light); border-radius: .5rem; }
+.vedlegg h2 { font-size: 1.25rem; }

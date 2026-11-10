@@ -1,0 +1,18 @@
+---
+// Rekkefølgen i styret.json (redigeres i CMS-et) bestemmer rekkefølgen på siden.
+import styret from "../data/styret.json";
+import { url } from "../lib/site";
+---
+<ul class="people" aria-label="Styret">
+  {styret.medlemmer.map((p) => (
+    <li class="person">
+      {p.bilde && <img src={url(p.bilde)} alt={`Portrett av ${p.navn}`} width="160" height="160" loading="lazy" />}
+      <div>
+        <p class="person__rolle">{p.rolle}</p>
+        <p class="person__navn">{p.navn}</p>
+        {p.telefon && <p><a href={`tel:${p.telefon.replace(/\s/g, "")}`}>{p.telefon}</a></p>}
+        {"epost" in p && p.epost && <p><a href={`mailto:${p.epost}`}>{p.epost}</a></p>}
+      </div>
+    </li>
+  ))}
+</ul>

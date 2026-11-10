@@ -1,0 +1,15 @@
+---
+import { url, datoKort, lenke } from "../../lib/site";
+const { title, ingress, grupper, kategorier, aktiv } = Astro.props;
+---
+<hgroup><h1>{title}</h1>{ingress && <p>{ingress}</p>}</hgroup>
+<nav class="cats" aria-label="Kategorier">
+  <a role="button" class={aktiv ? "outline secondary" : ""} href={url("/nytt/")}>Alle</a>
+  {kategorier.map((k) => <a role="button" class={aktiv === k.slug ? "" : "outline secondary"} href={url(`/nytt/kategori/${k.slug}/`)}>{k.navn} ({k.poster.length})</a>)}
+</nav>
+{grupper.map(([aar, poster]) => (
+  <details open={aar >= 2026 || !!aktiv}>
+    <summary><strong>{aar}</strong> <small>({poster.length})</small></summary>
+    <table><tbody>{poster.map((p) => <tr><td><small>{datoKort(p.data.date)}</small></td><td><a href={url(lenke(p))}>{p.data.title}</a></td><td><small>{p.data.kategorier.join(", ")}</small></td></tr>)}</tbody></table>
+  </details>
+))}

@@ -1,0 +1,8 @@
+---
+import { url } from "../lib/site";
+const { filer } = Astro.props as { filer: { tittel: string; fil: string }[] };
+---
+<section class="vedlegg" aria-label="Vedlegg">
+  <h2>Vedlegg</h2>
+  <ul>{filer.map((f) => <li><a href={url(f.fil)} download>{f.tittel}</a></li>)}</ul>
+</section>

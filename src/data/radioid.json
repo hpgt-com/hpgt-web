@@ -1,0 +1,54 @@
+{
+  "piloter": [
+    {
+      "pilot": "Jonathan",
+      "id": "0A07A3",
+      "utstyr": "Oudie Omni"
+    },
+    {
+      "pilot": "Kristoffer",
+      "id": "202C6C",
+      "utstyr": "XCTracer Maxx III"
+    },
+    {
+      "pilot": "Finn Roar",
+      "id": "200B6A",
+      "utstyr": "XCTracer Maxx"
+    },
+    {
+      "pilot": "Erlend",
+      "id": "200CE5",
+      "utstyr": "XCTracer Maxx"
+    },
+    {
+      "pilot": "Ørjan",
+      "id": "201C25",
+      "utstyr": "XCTracer Maxx II"
+    },
+    {
+      "pilot": "Arne",
+      "id": "2018C9",
+      "utstyr": "XCTracer Maxx II"
+    },
+    {
+      "pilot": "Joakim",
+      "id": "2018A3",
+      "utstyr": "XCTracer Maxx II"
+    },
+    {
+      "pilot": "Øystein",
+      "id": "202651",
+      "utstyr": "XCTracer Maxx III"
+    },
+    {
+      "pilot": "Gustav",
+      "id": "200459",
+      "utstyr": "XCTracer Maxx"
+    },
+    {
+      "pilot": "Bjørn-Tore",
+      "id": "2008F8",
+      "utstyr": "XCTracer Maxx"
+    }
+  ]
+}

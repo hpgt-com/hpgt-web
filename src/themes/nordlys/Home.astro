@@ -1,0 +1,61 @@
+---
+import { forside, url, ekstern, dag, mnd, tidSted, bildeFor, dato, lenke } from "../../lib/site";
+const { innlegg, kommende, tidligere } = Astro.props;
+const arr = kommende.length ? kommende.slice(0, 4) : tidligere.slice(0, 4);
+const aar = new Date().getFullYear() - 2012;
+---
+<section class="aurora rounded-box mt-6 overflow-hidden grid md:grid-cols-[1.2fr_1fr]">
+  <div class="p-8 md:p-12 self-center">
+    <span class="badge badge-accent badge-outline">Kurs · tandem · klubbturer</span>
+    <h1 class="text-4xl md:text-5xl font-black mt-4 leading-tight">{forside.tittel}</h1>
+    <p class="mt-4 text-base-content/80 text-lg">{forside.ingress}</p>
+    <div class="mt-6 flex flex-wrap gap-3">{forside.knapper.map((k, i) => <a href={url(k.url)} class:list={["btn", i ? "btn-ghost border-base-content/30" : "btn-primary"]}>{k.tekst}</a>)}</div>
+  </div>
+  <img src={url(forside.bilde)} alt={forside.bildetekst} class="w-full h-full object-cover min-h-56 md:rounded-l-box" />
+</section>
+
+<div class="stats stats-vertical sm:stats-horizontal w-full bg-base-200 mt-6">
+  <div class="stat"><div class="stat-title">Nyheter og referater</div><div class="stat-value text-primary">{innlegg.length}</div><div class="stat-desc">siden 2012</div></div>
+  <div class="stat"><div class="stat-title">Kurs 2026</div><div class="stat-value">6</div><div class="stat-desc">plasser, PP2-nivå</div></div>
+  <div class="stat"><div class="stat-title">Tandem</div><div class="stat-value">1 950</div><div class="stat-desc">kr per tur</div></div>
+</div>
+
+<section class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+  {forside.kort.map((k) => (
+    <a href={url(k.url)} class="card image-full h-44 sm:h-56 hover:scale-[1.02] transition">
+      <figure><img src={url(k.bilde)} alt="" loading="lazy" class="w-full h-full object-cover" /></figure>
+      <div class="card-body justify-end p-4"><h2 class="card-title">{k.tittel}{ekstern(k.url) && " ↗"}</h2><p class="text-sm hidden sm:block grow-0">{k.tekst}</p></div>
+    </a>
+  ))}
+</section>
+
+<div class="grid lg:grid-cols-3 gap-6 mt-10">
+  <section class="lg:col-span-2">
+    <h2 class="text-2xl font-bold mb-4">Siste nytt</h2>
+    <div class="grid sm:grid-cols-2 gap-4">
+      {innlegg.slice(0, 6).map((p) => {
+        const b = bildeFor(p);
+        return (
+          <a href={url(lenke(p))} class="card bg-base-200 hover:bg-base-300 transition">
+            {b && <figure class="h-36"><img src={url(b)} alt="" loading="lazy" class="w-full h-full object-cover" /></figure>}
+            <div class="card-body p-4"><div class="flex gap-2 items-center"><span class="badge badge-sm badge-secondary">{p.data.kategorier[0]}</span><span class="text-xs opacity-60">{dato(p.data.date)}</span></div><h3 class="font-semibold">{p.data.title}</h3></div>
+          </a>
+        );
+      })}
+    </div>
+    <a href={url("/nytt/")} class="btn btn-ghost mt-4">Alle nyheter og referater →</a>
+  </section>
+  <aside>
+    <h2 class="text-2xl font-bold mb-4">{kommende.length ? "Kommende" : "Siste"} arrangementer</h2>
+    <ul class="list bg-base-200 rounded-box">
+      {arr.map((e) => (
+        <li class="list-row items-center">
+          <div class="rounded-box bg-primary text-primary-content w-12 h-12 grid place-items-center leading-none text-center"><span class="font-black text-lg">{dag(e.data.start)}</span><span class="text-[10px] uppercase">{mnd(e.data.start)}</span></div>
+          <a href={url(lenke(e))}><div class="font-semibold">{e.data.title}</div><div class="text-xs opacity-60">{tidSted(e)}</div></a>
+        </li>
+      ))}
+    </ul>
+    <h2 class="text-2xl font-bold mt-8 mb-4">For piloter</h2>
+    <div class="flex flex-wrap gap-2">{forside.snarveier.map((s) => <a href={url(s.url)} class="btn btn-sm btn-outline">{s.tekst}</a>)}</div>
+  </aside>
+</div>

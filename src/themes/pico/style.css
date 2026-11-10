@@ -1,0 +1,36 @@
+/* Prototype 2 – «Klubbhuset». Pico CSS: nesten klasseløst, semantisk HTML gir ferdig design. Minst mulig å vedlikeholde. */
+:root { --pico-font-size: 106%; }
+.brand { display: flex; align-items: center; gap: .5rem; }
+.brand img { border-radius: 50%; }
+.menu-li { display: none; }
+@media (max-width: 768px) {
+  header nav { flex-wrap: wrap; }
+  .js .menu-li { display: block; }
+  .js .navlinks { display: none; width: 100%; flex-direction: column; align-items: flex-start; }
+  .js .navlinks[data-open] { display: flex; }
+}
+.navlinks a[aria-current] { color: var(--pico-primary); font-weight: 600; }
+.hero { align-items: center; padding-block: 2rem; }
+.hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); }
+.hero img { border-radius: var(--pico-border-radius); aspect-ratio: 4/3; object-fit: cover; width: 100%; }
+.hero a[role=button] { margin: 0 .5rem .5rem 0; }
+.quad { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.quad article { margin: 0; }
+.row { display: grid; grid-template-columns: 160px 1fr; gap: 1.25rem; align-items: start; }
+.row img { aspect-ratio: 4/3; object-fit: cover; border-radius: var(--pico-border-radius); }
+.row h4 { margin: .25rem 0; }
+@media (max-width: 576px) { .row { grid-template-columns: 1fr; } }
+.page { max-width: 860px; margin-inline: auto; }
+.page p:has(> img + img) { display: grid; gap: .5rem; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+.page p:has(> img + img) img { aspect-ratio: 1; object-fit: cover; }
+.cats { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.5rem; }
+.cats a { padding: .35rem .8rem; font-size: .9rem; }
+.people { list-style: none; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.person { list-style: none; border: 1px solid var(--pico-muted-border-color); border-radius: var(--pico-border-radius); overflow: hidden; }
+.person img { aspect-ratio: 1; object-fit: cover; width: 100%; }
+.person div { padding: .75rem 1rem; }
+.person p { margin: 0; }
+.person__rolle { color: var(--pico-primary); font-size: .85rem; text-transform: uppercase; }
+.person__navn { font-weight: 700; font-size: 1.15rem; }
+.vedlegg { padding: 1rem; background: var(--pico-card-background-color); border-radius: var(--pico-border-radius); }
+.row:not(:has(img)) { grid-template-columns: 1fr; }
