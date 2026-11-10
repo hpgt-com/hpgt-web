@@ -1,8 +1,7 @@
 // @ts-check
 // HPGT – hpgt.com. Statisk Astro-side; innhold redigeres i Pages CMS (.pages.yml).
-// THEME velger design (src/themes/<navn>), BASE/OUT brukes kun for å bygge prototypene side om side.
+// Designet ligger i src/design. BASE/OUT brukes bare når forhåndsvisningen bygges (scripts/bygg-forhandsvisning.sh).
 import { defineConfig } from "astro/config";
-import tailwindcss from "@tailwindcss/vite";
 import { fileURLToPath } from "node:url";
 import { unified } from "@astrojs/markdown-remark";
 import rehypeBase from "./src/lib/rehype-base.mjs";
@@ -11,7 +10,6 @@ import { readFileSync } from "node:fs";
 // /event/<navn>/ for arrangementer som ble slått sammen med et innlegg (scripts/wp-import/flett-arrangementer.py)
 const omdirigeringer = JSON.parse(readFileSync(new URL("./src/data/omdirigeringer.json", import.meta.url), "utf-8"));
 
-const THEME = process.env.THEME || "fjord";
 const BASE = process.env.BASE || "/";
 
 export default defineConfig({
@@ -23,9 +21,8 @@ export default defineConfig({
   build: { format: "directory", inlineStylesheets: "never" },
   markdown: { processor: unified({ rehypePlugins: [[rehypeBase, { base: BASE }]] }) },
   vite: {
-    plugins: [tailwindcss()],
     // Ryddige filnavn: siden [...path] ville ellers gitt CSS-filer som heter «_..xxxx.css»
     build: { rollupOptions: { output: { assetFileNames: (a) => `_astro/${(a.names?.[0] ?? a.name ?? "").split(".")[0].replace(/[^\w-]/g, "").replace(/^_+/, "") || "side"}.[hash][extname]` } } },
-    resolve: { alias: { "@theme": fileURLToPath(new URL(`./src/themes/${THEME}`, import.meta.url)) } },
+    resolve: { alias: { "@design": fileURLToPath(new URL("./src/design", import.meta.url)) } },
   },
 });

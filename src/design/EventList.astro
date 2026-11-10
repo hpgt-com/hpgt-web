@@ -1,8 +1,8 @@
 ---
-import VisningsValg from "../../components/VisningsValg.astro";
-import Kortnett from "../../components/Kortnett.astro";
-import ArrangementFilter from "../../components/ArrangementFilter.astro";
-import { url, dato, sted, tid, lenke, gruppe, typeTekst, arrangementerPaaAar } from "../../lib/site";
+import VisningsValg from "../components/VisningsValg.astro";
+import Kortnett from "../components/Kortnett.astro";
+import ArrangementFilter from "../components/ArrangementFilter.astro";
+import { url, dato, sted, tid, lenke, gruppe, typeTekst, arrangementerPaaAar } from "../lib/site";
 const { kommende, tidligere } = Astro.props;
 const aar = arrangementerPaaAar(tidligere);
 ---

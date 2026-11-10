@@ -1,12 +1,12 @@
 ---
-import Head from "../../components/Head.astro";
-import ProtoBanner from "../../components/ProtoBanner.astro";
-import "../../components/proto.css";
+import Head from "../components/Head.astro";
+import ProtoBanner from "../components/ProtoBanner.astro";
+import "../components/proto.css";
 import "@fontsource-variable/inter-tight/index.css";
 import "@fontsource/ibm-plex-mono/500.css";
 import "@fontsource/ibm-plex-mono/600.css";
 import "./style.css";
-import { site, meny, url, ekstern } from "../../lib/site";
+import { site, meny, url, ekstern } from "../lib/site";
 const { title, description, image } = Astro.props;
 const here = Astro.url.pathname;
 const aktiv = (u: string) => !ekstern(u) && (u === "/" ? here === url("/") : here.startsWith(url(u)));
@@ -16,7 +16,7 @@ const aktiv = (u: string) => !ekstern(u) && (u === "/" ? here === url("/") : her
 <head><Head title={title} description={description} image={image} /></head>
 <body>
   <a class="skip" href="#innhold">Hopp til innhold</a>
-  <ProtoBanner navn="6 · Fjord+ (egen CSS)" />
+  <ProtoBanner />
   <header class="top">
     <div class="wrap top__in">
       <a class="brand" href={url("/")}>

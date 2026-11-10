@@ -1,6 +1,6 @@
 ---
-import Aktivitetskalender from "../../components/Aktivitetskalender.astro";
-import { forside, url, dato, dag, mnd, lenke, slug, utdrag, bildeFor, tidSted } from "../../lib/site";
+import Aktivitetskalender from "../components/Aktivitetskalender.astro";
+import { forside, url, dato, dag, mnd, lenke, slug, utdrag, bildeFor, tidSted } from "../lib/site";
 const { innlegg, kommende, tidligere } = Astro.props;
 const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", day: "2-digit", month: "short", year: "numeric" }).format(d).replace(/\./g, "");
 ---

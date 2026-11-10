@@ -1,7 +1,6 @@
 node_modules/
 dist/
-prototyper/
+.forhandsvisning-bygg/
 .astro/
 .wrangler/
 forhandsvisning/
-forhandsvisning-side.html

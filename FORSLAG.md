@@ -1,6 +1,6 @@
 # Forslag: ny hpgt.com uten webhotell
 
-**Status:** Prototype, ikke publisert. Fem designforslag på samme innhold og samme løsning.
+**Status:** Forhåndsversjon, ikke publisert. Styret har valgt designet «Fjord+» med egen CSS (se kapittel 7).
 
 ## 1. Kort oppsummert
 
@@ -43,7 +43,7 @@
 Begge passer. Astro anbefales fordi:
 - Skjemavalidering av innholdet er innebygd. Det er viktig når ikke-tekniske brukere redigerer.
 - Malene er vanlig HTML og JavaScript, som er lettere for neste frivillige å overta enn Hugos Go-maler.
-- Det støtter alle CSS-rammeverkene i prototypene (Tailwind, Bootstrap, Pico, egen CSS).
+- Det fungerer med vanlig CSS uten rammeverk, som er det vi bruker. Da er det ingen CSS-pakker å holde oppdatert.
 
 Hugo bygger raskere og er én fil uten Node, men med ca. 180 sider bygger Astro på 3 sekunder, så hastighet avgjør ikke valget.
 
@@ -113,7 +113,7 @@ Hentet automatisk via WordPress-API-et (`scripts/` og konverteringsskriptet):
 - [ ] Flytt domenet fra ProISP til Cloudflare Registrar god tid før februar. Overføring tar 5–7 dager, og domenet må låses opp og ha autorisasjonskode.
 - [ ] Forsiden i WordPress ble ikke hentet; den var utilgjengelig fra skriptet. Innholdet på den nye forsiden er bygd fra menyene, sidene og de siste innleggene, så sammenlign med dagens forside.
 - [ ] Gå gjennom 3–4 eldre innlegg med spesielle oppsett: konkurransesidene for 2014, 2017 og 2019, og et gammelt avstemningsskjema.
-- [ ] Velg design (1–5), og slett de andre temaene.
+- [x] Velg design: **Fjord+ med egen CSS**. De andre temaene er fjernet (arkivert, se kapittel 7).
 - [ ] Opprett repoet `hpgt-web` (privat eller offentlig), Cloudflare-prosjektet og Pages CMS. Inviter styret.
 - [ ] Ta full eksport fra WordPress (Verktøy → Eksporter) og database-backup fra ProISP som arkiv før oppsigelse.
 
@@ -126,14 +126,18 @@ Hentet automatisk via WordPress-API-et (`scripts/` og konverteringsskriptet):
 | 3 | Siste innholdssjekk. DNS for hpgt.com flyttes til Cloudflare-siden, og `noindex` fjernes. |
 | 4+ | Webhotellet hos ProISP sies opp når alt er bekreftet. E-posten hos Google berøres ikke. |
 
-## 7. De fem prototypene
+## 7. Design
 
-| # | Navn | Rammeverk | Passer hvis … |
-|---|---|---|---|
-| 1 | Fjord | Egen CSS, ingen avhengigheter | Dere vil ha et eget, fotodrevet uttrykk i slekt med flysteder |
-| 2 | Klubbhuset | Pico CSS | Dere vil ha minst mulig å vedlikeholde |
-| 3 | Magasin | Tailwind CSS | Nyheter og referater er det viktigste |
-| 4 | Klassisk | Bootstrap 5 | Dere vil ha et kjent og trygt klubbsideoppsett |
-| 5 | Nordlys | Tailwind + daisyUI | Mest bruk på mobil, og dere ønsker app-følelse |
+Styret valgte **Fjord+ med egen CSS** (november 2026). Det ligger i `src/design/`: én `style.css` med fargene samlet øverst, og fem maler (Layout, Home, Article, PostList, EventList).
 
-Kjør lokalt: `npm install && npm run prototyper`, og server så `prototyper/`. Ett enkelt design: `THEME=magasin npm run dev`.
+**Hvorfor egen CSS**, og ikke Tailwind eller Bootstrap, som også ble prøvd med samme utseende:
+- Ingen CSS-pakker å oppdatere. Det eneste som lastes, er de to skriftene.
+- Ca. 19 KB CSS per side, mot ca. 41 KB med Tailwind og ca. 243 KB med Bootstrap.
+- Én lesbar fil som en ny frivillig kan overta uten å kunne et rammeverk.
+
+**Arkiv:** Alle åtte forslagene (1–5 og Fjord+ i tre varianter) finnes fortsatt:
+- i git under merket `prototyper-arkiv` (`git checkout prototyper-arkiv`)
+- som en zip-fil med ferdig byggede sider som kan åpnes lokalt i nettleseren
+- i den gamle forhåndsvisningen på claude.ai, som ikke oppdateres lenger
+
+**Forhåndsvisning:** `npm run forhandsvisning` bygger et utvalg sider med relative lenker til `forhandsvisning/`. Den publiseres som en privat artifact for styret.

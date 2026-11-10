@@ -1,12 +1,13 @@
-"""Lager en kompakt forhåndsvisning av de fem prototypene: et utvalg sider, felles bilder og relative lenker.
+"""Lager en kompakt forhåndsvisning av siden: et utvalg sider, bildene de bruker og relative lenker,
+slik at den kan publiseres som en privat artifact på claude.ai. Kjøres av scripts/bygg-forhandsvisning.sh.
 
-Bruk: python3 -I scripts/lag-forhandsvisning.py prototyper forhandsvisning
+Bruk: python3 -I scripts/lag-forhandsvisning.py .forhandsvisning-bygg forhandsvisning
 """
 import os, re, shutil, sys, urllib.parse
 
 SRC, OUT = sys.argv[1], sys.argv[2]
-THEMES = ["fjordpluss", "fjordpluss-tw", "fjordpluss-bs", "fjord", "pico", "magasin", "klassisk", "nordlys"]
-REF = os.path.join(SRC, "fjordpluss")
+THEMES = ["hpgt"]  # siden bygges med BASE=/hpgt/ inn i SRC/hpgt
+REF = os.path.join(SRC, "hpgt")
 
 def keep(rel):  # rel: sidens mappe relativt til temaroten, f.eks. "kurs-2026" eller ""
     if rel in ("", "nytt", "arrangementer", "bidra", "events", "galleri") or rel.startswith("nytt/kategori/"):
@@ -34,11 +35,7 @@ for root, _, files in os.walk(REF):
 pages = sorted(set(p for p in pages if not p.startswith("event/") or p.split("/")[1] in
                ("sikkerhetsdag-nodskjerm", "nybegynnerkurs", "hpgt-var-kickoff-2021", "sikkerhetsseminar", "arsmote-2020", "hpgt-julebord-2026")))
 page_set = set(pages)
-# De eldre prototypene (1–5) får bare kjernesidene, så forhåndsvisningen holder seg under 512 filer.
-ELDRE = {"fjord", "pico", "magasin", "klassisk", "nordlys"}
-KJERNE = {"", "nytt", "arrangementer", "kurs", "kurs-2026", "om-klubben", "bidra", "redaktor-demo", "flysteder/flarm-fanet-radioid",
-          "nodskjermpakking-og-kontroll-av-vinge-dag-23-mai-2026", "hpgt-julebord-2026-🎄", "event/hpgt-julebord-2026", "events", "galleri"}
-sider_for = lambda theme: page_set & KJERNE if theme in ELDRE else page_set
+sider_for = lambda theme: page_set
 
 shutil.rmtree(OUT, ignore_errors=True)
 os.makedirs(OUT)
@@ -96,15 +93,14 @@ for theme in THEMES:
                 open(p, "w", encoding="utf-8").write(css)
 
 for m in sorted(media):
-    s = os.path.join(SRC, "fjord", m)
+    s = os.path.join(SRC, THEMES[0], m)
     if os.path.exists(s):
         os.makedirs(os.path.dirname(os.path.join(OUT, m)), exist_ok=True)
         shutil.copy(s, os.path.join(OUT, m))
-print("sider per design:", len(pages), "(eldre:", len(page_set & KJERNE), ") | media:", len(media))
+print("sider:", len(pages), "| media:", len(media))
 
-# Faste filer for forhåndsvisningen: miniatyrbilder og «ikke med»-siden
+# «Ikke med i forhåndsvisningen»-siden
 STATISK = os.path.join(os.path.dirname(__file__), "forhandsvisning-statisk")
-shutil.copytree(os.path.join(STATISK, "bilder"), os.path.join(OUT, "bilder"))
 shutil.copy(os.path.join(STATISK, "utenfor.html"), os.path.join(OUT, "utenfor.html"))
 # Emoji i mappenavn tåles dårlig av enkelte verter
 for theme in THEMES:
@@ -125,3 +121,7 @@ for root, _, files in os.walk(OUT):
     for f in files:
         if f.endswith(".woff") or any(s in f for s in ("vietnamese", "cyrillic", "greek")):
             os.remove(os.path.join(root, f))
+
+# Forsiden legges også på roten (index.html), som er siden artifacten åpner.
+forside = open(os.path.join(OUT, THEMES[0], "index.html"), encoding="utf-8").read()
+open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(re.sub(r'(href|src)="\.\./', r'\1="', forside))

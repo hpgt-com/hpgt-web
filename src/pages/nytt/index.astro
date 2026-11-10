@@ -1,6 +1,6 @@
 ---
-import Layout from "@theme/Layout.astro";
-import PostList from "@theme/PostList.astro";
+import Layout from "@design/Layout.astro";
+import PostList from "@design/PostList.astro";
 import { hentInnlegg, hentKategorier, grupperPaaAar } from "../../lib/site";
 const kategorier = await hentKategorier();
 const grupper = grupperPaaAar(await hentInnlegg());

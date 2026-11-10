@@ -1,6 +1,6 @@
 ---
-import Layout from "@theme/Layout.astro";
-import Home from "@theme/Home.astro";
+import Layout from "@design/Layout.astro";
+import Home from "@design/Home.astro";
 import { hentInnlegg, hentArrangementer, site } from "../lib/site";
 const innlegg = await hentInnlegg();
 const { kommende, tidligere } = await hentArrangementer();
