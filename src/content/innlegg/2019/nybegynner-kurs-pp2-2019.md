@@ -1,7 +1,7 @@
 ---
 title: "Nybegynner kurs PP2 2019"
 date: "2019-01-20T14:23:35"
-kategorier: ["Nyhet"]
+kategorier: ["Kurs"]
 bilde: "/wp-content/uploads/2019/01/50075715_1995959490512075_1672511980763611136_n-2.jpg"
 permalink: "/nybegynner-kurs-pp2-2019/"
 forfatter: "Aage"

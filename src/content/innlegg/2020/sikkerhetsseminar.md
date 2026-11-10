@@ -1,7 +1,7 @@
 ---
 title: "Sikkerhetsseminar"
 date: "2020-05-12T11:26:43"
-kategorier: ["Nyhet"]
+kategorier: ["Kurs"]
 bilde: "/wp-content/uploads/2020/05/96118762_325730868406201_4296637921393806537_n.jpg"
 permalink: "/sikkerhetsseminar/"
 forfatter: "Aage"

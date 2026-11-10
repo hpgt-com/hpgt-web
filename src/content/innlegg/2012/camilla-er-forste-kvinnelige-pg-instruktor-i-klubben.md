@@ -1,7 +1,7 @@
 ---
 title: "Camilla er første kvinnelige PG instruktør i klubben"
 date: "2012-10-20T13:14:25"
-kategorier: ["Kurs", "Nyhet"]
+kategorier: ["Kurs"]
 permalink: "/camilla-er-forste-kvinnelige-pg-instruktor-i-klubben/"
 forfatter: "Erlend"
 wp_id: 438

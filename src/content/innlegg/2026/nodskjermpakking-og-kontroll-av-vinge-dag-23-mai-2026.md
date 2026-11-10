@@ -1,7 +1,7 @@
 ---
 title: "Nødskjermpakking og kontroll-av-vinge-dag 23.mai 2026"
 date: "2026-05-20T10:03:12"
-kategorier: ["Nyhet"]
+kategorier: ["Kurs"]
 permalink: "/nodskjermpakking-og-kontroll-av-vinge-dag-23-mai-2026/"
 forfatter: "Jonathan"
 wp_id: 10771

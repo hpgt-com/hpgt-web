@@ -1,7 +1,7 @@
 ---
 title: "Innvitasjon til NorgesCup 2018"
 date: "2018-04-13T12:08:45"
-kategorier: ["Konkurranser", "Sosialt og turer"]
+kategorier: ["Konkurranser"]
 bilde: "/wp-content/uploads/2018/04/bilde.png"
 permalink: "/innvitasjon-til-norgescup-2018/"
 forfatter: "Aage"

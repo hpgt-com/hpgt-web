@@ -1,7 +1,7 @@
 ---
 title: "Suksess for åpen dag i Sollifjellet alpinsenter"
 date: "2013-01-29T12:52:58"
-kategorier: ["Nyhet", "Sosialt og turer"]
+kategorier: ["Sosialt og turer"]
 bilde: "/wp-content/uploads/2013/01/774549_10152445460665613_237053621_o.jpg"
 permalink: "/suksess-for-apen-dag-i-sollifjellet-alpinsenter/"
 forfatter: "Aage"

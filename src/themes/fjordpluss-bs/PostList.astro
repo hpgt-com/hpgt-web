@@ -12,7 +12,7 @@ const { title, ingress, grupper, kategorier, aktiv } = Astro.props;
   </nav>
   {grupper.map(([aar, poster]) => (
     <section class="mb-4"><h2 class="h-tight fs-2 mt-4">{aar}</h2>
-      <div class="list-group list-group-flush list-events border-top">{poster.map((p) => <a class="list-group-item list-group-item-action d-md-flex gap-3 py-2" href={url(lenke(p))}><span class="text-body-secondary small">{dato(p.data.date)}</span><span class="flex-grow-1 d-block">{p.data.title}</span><span class="kat meta-mono" data-kat={slug(p.data.kategorier[0])}>{p.data.kategorier[0]}</span></a>)}</div>
+      <div class="list-group list-group-flush list-events border-top">{poster.map((p) => <a class="list-group-item list-group-item-action d-md-flex align-items-baseline gap-3 py-2" href={url(lenke(p))}><span class="post-dato text-body-secondary small">{dato(p.data.date)}</span><span class="flex-grow-1 d-block">{p.data.title}</span><span class="kat meta-mono" data-kat={slug(p.data.kategorier[0])}>{p.data.kategorier[0]}</span></a>)}</div>
     </section>
   ))}
 </div>

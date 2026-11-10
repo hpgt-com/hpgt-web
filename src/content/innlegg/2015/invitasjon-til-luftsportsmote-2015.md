@@ -1,7 +1,7 @@
 ---
 title: "Invitasjon til Luftsportsmøte 2015!"
 date: "2015-01-12T20:28:08"
-kategorier: ["Møter og referater", "Sosialt og turer"]
+kategorier: ["Møter og referater"]
 bilde: "/wp-content/uploads/2015/01/nlf_logo.png"
 permalink: "/invitasjon-til-luftsportsmote-2015/"
 forfatter: "Aage"

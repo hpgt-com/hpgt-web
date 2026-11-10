@@ -1,7 +1,7 @@
 ---
 title: "Interesse for Speedglider kurs ?"
 date: "2017-03-09T13:11:56"
-kategorier: ["Nyhet"]
+kategorier: ["Kurs"]
 bilde: "/wp-content/uploads/2017/03/17190835_10154110823282493_9186597196193786270_n.jpg"
 permalink: "/interesse-for-speedglider-kurs-spg2/"
 forfatter: "Aage"

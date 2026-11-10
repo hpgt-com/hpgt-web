@@ -1,7 +1,7 @@
 ---
 title: "Husk årsmøtet!"
 date: "2014-02-18T22:29:34"
-kategorier: ["Nyhet", "Møter og referater"]
+kategorier: ["Møter og referater"]
 permalink: "/husk-arsmotet/"
 forfatter: "Erlend"
 wp_id: 673

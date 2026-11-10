@@ -1,7 +1,7 @@
 ---
 title: "Årsberetning for Harstad hang og paragliderklubb 2013"
 date: "2014-02-22T09:06:20"
-kategorier: ["Møter og referater", "Nyhet"]
+kategorier: ["Møter og referater"]
 permalink: "/arsberetning-for-harstad-hang-og-paragliderklubb-2013/"
 forfatter: "Erlend"
 wp_id: 688

@@ -1,7 +1,7 @@
 ---
 title: "Referat klubbmøte 26.05.2014"
 date: "2014-05-26T21:02:47"
-kategorier: ["Kurs", "Møter og referater", "Sosialt og turer"]
+kategorier: ["Møter og referater"]
 permalink: "/referat-klubbmote-26-05-2014/"
 forfatter: "Aage"
 wp_id: 771

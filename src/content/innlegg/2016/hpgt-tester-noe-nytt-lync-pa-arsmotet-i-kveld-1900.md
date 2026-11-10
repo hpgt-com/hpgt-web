@@ -1,7 +1,7 @@
 ---
 title: "HPGT tester noe «nytt». Lync  på årsmøtet i kveld 19:00"
 date: "2016-02-22T17:19:55"
-kategorier: ["Møter og referater", "Nyhet"]
+kategorier: ["Møter og referater"]
 bilde: "/wp-content/uploads/2016/02/UC-messaging.jpg"
 permalink: "/hpgt-tester-noe-nytt-lync-pa-arsmotet-i-kveld-1900/"
 forfatter: "Aage"

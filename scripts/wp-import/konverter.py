@@ -112,6 +112,21 @@ def yaml_str(s):
 MOTE = re.compile(r"årsmøte|arsmote|protokoll|referat|beretning|styremøte|regler", re.I)
 
 
+PRIORITET = ["Konkurranser", "Møter og referater", "Kurs", "Sosialt og turer", "Nyhet"]
+
+
+def hovedkategori(names, title):
+    """Hvert innlegg får én kategori, så kategorisidene ikke overlapper."""
+    # Faglige opplegg (NLF-krav om årlig sikkerhetsaktivitet) regnes som kurs
+    if re.search(r"nødskjerm|sikkerhetskurs|sikkerhetsseminar|fagseminar|instruktør ?samling|nybegynner ?kurs|speedglider kurs", title, re.I):
+        return ["Kurs"]
+    if re.search(r"^klubbmøte", title, re.I):
+        return ["Møter og referater"]
+    if len(names) > 1 and re.search(r"kick ?off|klubbkveld", title, re.I) and "Sosialt og turer" in names:
+        return ["Sosialt og turer"]
+    return [min(names, key=lambda n: PRIORITET.index(n) if n in PRIORITET else 99)] if names else names
+
+
 def categories(p):
     names = [cats[c] for c in p["categories"] if cats[c] not in ("Ukategorisert", "Slider")]
     title = html.unescape(p["title"]["rendered"])
@@ -140,7 +155,7 @@ for p in posts:
     fm = {
         "title": html.unescape(p["title"]["rendered"]),
         "date": p["date"],
-        "kategorier": categories(p),
+        "kategorier": hovedkategori(categories(p), html.unescape(p["title"]["rendered"])),
         "bilde": localize("https://hpgt.com/wp-content/uploads/" + media_by_id[p["featured_media"]])
         if p.get("featured_media") in media_by_id else None,
         "permalink": f"/{slug}/",

@@ -100,3 +100,6 @@ body { -webkit-font-smoothing: antialiased; }
 .ev-head { font-family: var(--bs-font-monospace); font-size: .62rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--bs-secondary-color); }
 @media (max-width: 600px) { .ev-head { display: none !important; } .ev-row { grid-template-columns: 1fr auto; } .ev-row > :nth-child(-n+2) { grid-column: 1 / -1; } }
 .ev-head span:last-child { text-align: right; }
+
+/* Fast datokolonne i nyhetslisten, så titlene står på linje uansett datolengde */
+@media (min-width: 768px) { .post-dato { flex: 0 0 136px; font-variant-numeric: tabular-nums; } }
