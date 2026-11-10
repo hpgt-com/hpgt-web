@@ -1,0 +1,125 @@
+<title>Nye hpgt.com</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap">
+<style>
+/* Layout: en arbeidsside for styret – kort innledning, deretter fem designkort med skjermbilder og direkte lenker inn i hver prototype. */
+:root {
+  --bg: #eef2f3;          /* lys fjordtåke */
+  --surface: #ffffff;
+  --fg: #16242b;
+  --muted: #52626a;
+  --line: #d3dcdf;
+  --accent: #c4501b;      /* vingeoransje */
+  --sky: #2b6a80;
+  --chip: #e2ecef;
+  --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --body: "Barlow", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #0f171b; --surface: #172329; --fg: #e4ecee; --muted: #9db0b6; --line: #2b3c43; --accent: #f08550; --sky: #8cc8dc; --chip: #1f3038; color-scheme: dark; }
+}
+:root[data-theme="dark"] { --bg: #0f171b; --surface: #172329; --fg: #e4ecee; --muted: #9db0b6; --line: #2b3c43; --accent: #f08550; --sky: #8cc8dc; --chip: #1f3038; color-scheme: dark; }
+
+body { background: var(--bg); color: var(--fg); font: 400 1.0625rem/1.55 var(--body); }
+.wrap { max-width: 1180px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 40px 64px; display: grid; gap: 40px; }
+h1, h2, h3 { font-family: var(--display); font-weight: 700; line-height: 1.05; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(2.4rem, 6vw, 3.8rem); letter-spacing: .005em; }
+h2 { font-size: 1.9rem; }
+h3 { font-size: 1.7rem; }
+a { color: var(--sky); }
+a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.eyebrow { font: 600 .8rem/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0 0 10px; }
+.intro { display: grid; gap: 14px; max-width: 70ch; }
+.intro p { margin: 0; color: var(--muted); font-size: 1.15rem; }
+.status { display: flex; flex-wrap: wrap; gap: 8px; }
+.status span { background: var(--chip); border-radius: 999px; padding: 4px 12px; font-size: .9rem; font-weight: 500; }
+
+.designs { display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 520px), 1fr)); }
+.design { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
+.shots { position: relative; display: block; background: var(--chip); }
+.shots img.desk { display: block; width: 100%; aspect-ratio: 820 / 600; object-fit: cover; object-position: top; }
+.shots img.mob { position: absolute; right: 14px; bottom: -1px; width: 22%; max-width: 100%; border-radius: 10px 10px 0 0; box-shadow: 0 -4px 18px rgba(0,0,0,.25); }
+.body { padding: 20px 22px 22px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.num { font: 700 1.7rem/1 var(--display); color: var(--accent); }
+.fw { margin-left: auto; font-size: .85rem; font-weight: 600; background: var(--chip); padding: 3px 10px; border-radius: 999px; }
+.body p { margin: 0; color: var(--muted); }
+.links { display: flex; flex-wrap: wrap; gap: 8px 16px; font-weight: 600; }
+.open { justify-self: start; background: var(--accent); color: #fff; text-decoration: none; padding: 10px 18px; border-radius: 999px; font-weight: 600; }
+.open:hover { filter: brightness(1.08); }
+
+.facts { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); }
+.fact { border-top: 3px solid var(--sky); padding-top: 12px; display: grid; gap: 6px; }
+.fact b { font: 700 1.3rem/1.1 var(--display); }
+.fact span { color: var(--muted); font-size: .98rem; }
+.note { color: var(--muted); font-size: .95rem; margin: 0; max-width: 75ch; }
+@media (prefers-reduced-motion: no-preference) { .design { transition: transform .15s; } .design:hover { transform: translateY(-2px); } }
+</style>
+
+<div class="wrap">
+  <header class="intro">
+    <p class="eyebrow">Harstad Hang- og Paragliderklubb · forhåndsvisning for styret</p>
+    <h1>Nye hpgt.com – fem designforslag</h1>
+    <p>Alle fem bruker det samme innholdet fra dagens hpgt.com og den samme løsningen bak. Bare utseendet er forskjellig. Klikk deg rundt i dem og velg det som passer klubben best.</p>
+    <div class="status"><span>Ikke publisert</span><span>Skjult for søkemotorer</span><span>44 av ca. 180 sider i utvalget</span></div>
+  </header>
+
+  <section class="designs" aria-label="Designforslag">
+    <article class="design">
+      <a class="shots" href="fjord/index.html" aria-label="Åpne Fjord"><img class="desk" src="bilder/fjord.jpg" alt="Forsiden i Fjord-designet"><img class="mob" src="bilder/fjord-mobil.jpg" alt=""></a>
+      <div class="body">
+        <div class="head"><span class="num">1</span><h3>Fjord</h3><span class="fw">Egen CSS</span></div>
+        <p>Fotodrevet og skandinavisk, i slekt med flysteder.hpgt.com. Stort bilde øverst og kort med bilder. Ingen rammeverk å holde oppdatert.</p>
+        <div class="links"><a href="fjord/kurs-2026/index.html">Kurs</a><a href="fjord/om-klubben/index.html">Kontakt</a><a href="fjord/nytt/kategori/moter-og-referater/index.html">Referater</a><a href="fjord/arsmote-2026/index.html">Årsmøte 2026</a></div>
+        <a class="open" href="fjord/index.html">Åpne Fjord</a>
+      </div>
+    </article>
+    <article class="design">
+      <a class="shots" href="pico/index.html" aria-label="Åpne Klubbhuset"><img class="desk" src="bilder/pico.jpg" alt="Forsiden i Klubbhuset-designet"><img class="mob" src="bilder/pico-mobil.jpg" alt=""></a>
+      <div class="body">
+        <div class="head"><span class="num">2</span><h3>Klubbhuset</h3><span class="fw">Pico CSS</span></div>
+        <p>Enkelt og ryddig, nesten bare tekst. Rammeverket styler vanlig HTML direkte, så det er minst å vedlikeholde.</p>
+        <div class="links"><a href="pico/kurs-2026/index.html">Kurs</a><a href="pico/om-klubben/index.html">Kontakt</a><a href="pico/nytt/kategori/moter-og-referater/index.html">Referater</a><a href="pico/arsmote-2026/index.html">Årsmøte 2026</a></div>
+        <a class="open" href="pico/index.html">Åpne Klubbhuset</a>
+      </div>
+    </article>
+    <article class="design">
+      <a class="shots" href="magasin/index.html" aria-label="Åpne Magasin"><img class="desk" src="bilder/magasin.jpg" alt="Forsiden i Magasin-designet"><img class="mob" src="bilder/magasin-mobil.jpg" alt=""></a>
+      <div class="body">
+        <div class="head"><span class="num">3</span><h3>Magasin</h3><span class="fw">Tailwind CSS</span></div>
+        <p>Nyhetsdrevet avisstil med hovedsak og liste over siste saker. Passer hvis nyheter og referater er det viktigste på siden.</p>
+        <div class="links"><a href="magasin/kurs-2026/index.html">Kurs</a><a href="magasin/om-klubben/index.html">Kontakt</a><a href="magasin/nytt/kategori/moter-og-referater/index.html">Referater</a><a href="magasin/arsmote-2026/index.html">Årsmøte 2026</a></div>
+        <a class="open" href="magasin/index.html">Åpne Magasin</a>
+      </div>
+    </article>
+    <article class="design">
+      <a class="shots" href="klassisk/index.html" aria-label="Åpne Klassisk"><img class="desk" src="bilder/klassisk.jpg" alt="Forsiden i Klassisk-designet"><img class="mob" src="bilder/klassisk-mobil.jpg" alt=""></a>
+      <div class="body">
+        <div class="head"><span class="num">4</span><h3>Klassisk</h3><span class="fw">Bootstrap 5</span></div>
+        <p>Kjent klubbsideoppsett med mørk meny, kort, sidekolonne og brødsmulesti. Trygt og gjenkjennelig for de fleste.</p>
+        <div class="links"><a href="klassisk/kurs-2026/index.html">Kurs</a><a href="klassisk/om-klubben/index.html">Kontakt</a><a href="klassisk/nytt/kategori/moter-og-referater/index.html">Referater</a><a href="klassisk/arsmote-2026/index.html">Årsmøte 2026</a></div>
+        <a class="open" href="klassisk/index.html">Åpne Klassisk</a>
+      </div>
+    </article>
+    <article class="design">
+      <a class="shots" href="nordlys/index.html" aria-label="Åpne Nordlys"><img class="desk" src="bilder/nordlys.jpg" alt="Forsiden i Nordlys-designet"><img class="mob" src="bilder/nordlys-mobil.jpg" alt=""></a>
+      <div class="body">
+        <div class="head"><span class="num">5</span><h3>Nordlys</h3><span class="fw">Tailwind + daisyUI</span></div>
+        <p>App-følelse i mørke nordlysfarger, med fliser og bunnmeny på mobil. Passer hvis de fleste besøker siden fra telefonen.</p>
+        <div class="links"><a href="nordlys/kurs-2026/index.html">Kurs</a><a href="nordlys/om-klubben/index.html">Kontakt</a><a href="nordlys/nytt/kategori/moter-og-referater/index.html">Referater</a><a href="nordlys/arsmote-2026/index.html">Årsmøte 2026</a></div>
+        <a class="open" href="nordlys/index.html">Åpne Nordlys</a>
+      </div>
+    </article>
+  </section>
+
+  <section class="facts" aria-label="Felles for alle forslagene">
+    <div class="fact"><b>Medlemmer skriver selv</b><span>Logg inn med e-post i Pages CMS. Ingen GitHub-konto, og styret godkjenner hvem som får tilgang.</span></div>
+    <div class="fact"><b>Gamle lenker virker</b><span>138 innlegg, 13 sider og 17 arrangementer er flyttet med samme adresser som i dag.</span></div>
+    <div class="fact"><b>Ingen webhotell</b><span>Statiske filer på Cloudflare. Klubben betaler bare for domenet, rundt 120 kr i året.</span></div>
+    <div class="fact"><b>Samme sikkerhet som flysteder</b><span>Ingen database, ingen innloggingsside og ingen sporing. Minste privilegium hele veien.</span></div>
+  </section>
+
+  <p class="note">Lenker til sider som ikke er med i utvalget, for eksempel eldre innlegg i arkivet, går til en egen infoside. Det ferdige prosjektet inneholder alle sidene.</p>
+</div>

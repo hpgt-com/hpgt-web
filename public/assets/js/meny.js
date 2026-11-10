@@ -8,3 +8,5 @@ document.addEventListener("click", (e) => {
   btn.setAttribute("aria-expanded", String(open));
   panel?.toggleAttribute("data-open", open);
 });
+// Vist inne i forhåndsviseren (PC/mobil-rammen): skjul prototypestripen, verktøylinjen der har samme info.
+try { if (window.self !== window.top) document.documentElement.classList.add("framed"); } catch { document.documentElement.classList.add("framed"); }

@@ -92,3 +92,20 @@ for m in sorted(media):
         os.makedirs(os.path.dirname(os.path.join(OUT, m)), exist_ok=True)
         shutil.copy(s, os.path.join(OUT, m))
 print("sider per design:", len(pages), "| media:", len(media))
+
+# Faste filer for forhåndsvisningen: miniatyrbilder og «ikke med»-siden
+STATISK = os.path.join(os.path.dirname(__file__), "forhandsvisning-statisk")
+shutil.copytree(os.path.join(STATISK, "bilder"), os.path.join(OUT, "bilder"))
+shutil.copy(os.path.join(STATISK, "utenfor.html"), os.path.join(OUT, "utenfor.html"))
+# Emoji i mappenavn tåles dårlig av enkelte verter
+for theme in THEMES:
+    emo = os.path.join(OUT, theme, "hpgt-julebord-2026-🎄")
+    if os.path.isdir(emo):
+        os.rename(emo, os.path.join(OUT, theme, "hpgt-julebord-2026"))
+for root, _, files in os.walk(OUT):
+    for f in files:
+        if f.endswith(".html"):
+            p = os.path.join(root, f)
+            t = open(p, encoding="utf-8").read()
+            if "%F0%9F%8E%84" in t:
+                open(p, "w", encoding="utf-8").write(t.replace("hpgt-julebord-2026-%F0%9F%8E%84", "hpgt-julebord-2026"))
