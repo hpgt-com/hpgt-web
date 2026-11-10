@@ -25,3 +25,12 @@ npm run forhandsvisning      # bygger forhåndsvisningen (utvalg sider, relative
 | `public/wp-content/uploads` | Bilder og PDF-er fra WordPress (samme adresser som før) |
 | `public/filer` | Nye opplastinger fra CMS-et |
 | `scripts/wp-import` | Engangsskript som konverterte WordPress-eksporten |
+
+## Sikkerhet
+
+Se [SECURITY.md](SECURITY.md). Repoet er laget fra `hpgt-com/repo-template`. Regelsettet for `main` og sikkerhetsinnstillingene settes av en org-eier:
+
+```bash
+./settings/apply.sh repo hpgt-com/hpgt-web --checks bygg   # kjøres fra hpgt-com/repo-template
+```
+

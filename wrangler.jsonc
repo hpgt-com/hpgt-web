@@ -14,7 +14,7 @@
     "run_worker_first": ["/api/*"]
   },
   "vars": {
-    "GITHUB_REPO": "hpgt/hpgt-web", // Settes til riktig eier/repo ved oppsett
+    "GITHUB_REPO": "hpgt-com/hpgt-web",
     "TILLATT_OPPRINNELSE": "https://hpgt.com",
     "TURNSTILE_HOSTNAME": "hpgt.com"
   },
