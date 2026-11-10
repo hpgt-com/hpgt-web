@@ -2,7 +2,7 @@
 title: "Kurs"
 permalink: "/kurs/"
 mal: "kurs"
-ingress: "Nybegynnerkurs (PP2), videregående kurs og fagdager. Datoene hentes fra kalenderen."
+ingress: "Grunnkurs i paragliding (PP2), SIV og fagdager. Datoene hentes fra kalenderen."
 wp_id: 10717
 sist_endret: "2026-04-19"
 ---

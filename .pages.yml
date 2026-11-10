@@ -52,7 +52,7 @@ content:
             label: Type
             description: "Velg fra listen. Gruppen foran / (Kurs, Fagdag, Møte, Sosialt, Konkurranse) bestemmer filter og farge i kalenderen."
             type: select
-            options: { values: ["Kurs / PP2 (nybegynner)", "Kurs / PP3 (videregående)", "Kurs / SPG (speedglider)", "Kurs / PPG (paramotor)", "Kurs / SIV (sikkerhetskurs)", "Kurs / Prøvedag", "Kurs / Annet kurs", "Fagdag / Nødskjerm og vingesjekk", "Fagdag / Sikkerhetsseminar", "Fagdag / Annen fagdag", "Møte / Årsmøte", "Møte / Klubbmøte", "Møte / Styremøte", "Sosialt / Julebord", "Sosialt / Afterflight", "Sosialt / Kickoff", "Sosialt / Tur", "Konkurranse / Cup og stevne", "Konkurranse / Foto og video", "Konkurranse / Annen konkurranse"] }
+            options: { values: ["Kurs / PP2 (grunnkurs paragliding)", "Kurs / SPG2 (grunnkurs speedgliding)", "Kurs / PPG (grunnkurs paramotor)", "Kurs / SIV (sikkerhetskurs)", "Kurs / Prøvedag", "Kurs / Annet kurs", "Fagdag / Nødskjerm og vingesjekk", "Fagdag / Sikkerhetsseminar", "Fagdag / Annen fagdag", "Møte / Årsmøte", "Møte / Klubbmøte", "Møte / Styremøte", "Sosialt / Julebord", "Sosialt / Afterflight", "Sosialt / Kickoff", "Sosialt / Tur", "Konkurranse / Cup og stevne", "Konkurranse / Foto og video", "Konkurranse / Annen konkurranse"] }
           - { name: sted, label: Sted (fysisk), type: string, description: "F.eks. «Seljestadhallen» eller «Sollifjellet». La stå tom hvis det bare er på nett." }
           - { name: digital, label: Lenke til nettmøte, type: string, description: "Teams/Zoom/Meet-lenke hvis man kan delta digitalt." }
           - { name: pamelding, label: Lenke til påmelding, type: string, description: "Skjema, Min idrett eller lignende. Knappen skjules når arrangementet er over." }

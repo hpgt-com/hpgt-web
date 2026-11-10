@@ -8,7 +8,7 @@ arrangement:
   start: "2026-06-08 08:00:00"
   slutt: "2026-06-21 18:00:00"
   heldag: false
-  type: "Kurs / PP2 (nybegynner)"
+  type: "Kurs / PP2 (grunnkurs paragliding)"
   sted: "Harstad"
 ---
 Følg link for mer info!

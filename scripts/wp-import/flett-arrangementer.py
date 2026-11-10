@@ -20,7 +20,7 @@ MANUELT = {"2018-02-26-arsmote-hang-og-paragliderklubb-2018": "2018/arsmote-2018
 
 def type_for(t):
     t = t.lower()
-    for mønster, typ in [(r"siv", "Kurs / SIV (sikkerhetskurs)"), (r"nybegynner|pp2", "Kurs / PP2 (nybegynner)"), (r"prøvedag", "Kurs / Prøvedag"),
+    for mønster, typ in [(r"siv", "Kurs / SIV (sikkerhetskurs)"), (r"nybegynner|pp2", "Kurs / PP2 (grunnkurs paragliding)"), (r"prøvedag", "Kurs / Prøvedag"),
                          (r"nødskjerm", "Fagdag / Nødskjerm og vingesjekk"), (r"sikkerhetsseminar", "Fagdag / Sikkerhetsseminar"),
                          (r"styremøte", "Møte / Styremøte"), (r"klubbmøte", "Møte / Klubbmøte"), (r"årsmøte", "Møte / Årsmøte"),
                          (r"julebord", "Sosialt / Julebord"), (r"kickoff", "Sosialt / Kickoff"), (r"cup|konkurranse", "Konkurranse / Cup og stevne")]:
