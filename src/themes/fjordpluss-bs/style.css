@@ -77,3 +77,5 @@ body { -webkit-font-smoothing: antialiased; }
 .display-hero { margin-bottom: 18px !important; }
 .navbar-toggler { color: var(--bs-body-color); border: 1.5px solid currentColor; border-radius: 4px; font-weight: 700; font-size: .9rem; padding: 6px 12px; }
 .navbar-toggler:focus { box-shadow: 0 0 0 3px rgba(31,134,209,.4); }
+.kal { --kal-text: var(--bs-body-color); --kal-muted: var(--bs-secondary-color); --kal-line: var(--bs-border-color); --kal-surface: var(--bs-card-bg, #fff); --kal-tint: var(--tint); --kal-accent: #1f86d1; --kal-accent-ink: var(--sky-ink); --kal-mono: var(--bs-font-monospace); }
+.hn { --kal-mono: var(--bs-font-monospace); }

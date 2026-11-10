@@ -50,3 +50,5 @@
 @media (max-width: 767px) { .js .navlinks:not([data-open]) { display: none; } }
 .hero-img { transform: scale(1.45); transform-origin: 23% 62%; }
 @media (max-width: 600px) { .hero-img { transform: scale(1.9); transform-origin: 56% 64%; } }
+.kal { --kal-text: var(--color-ink); --kal-muted: var(--color-muted); --kal-line: var(--color-line); --kal-surface: var(--color-surface); --kal-tint: var(--color-tint); --kal-accent: var(--color-sky); --kal-accent-ink: var(--color-sky-ink); --kal-mono: var(--font-mono); }
+.hn { --kal-accent: var(--color-sky); --kal-mono: var(--font-mono); }

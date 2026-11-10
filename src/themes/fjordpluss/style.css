@@ -174,3 +174,21 @@ code { font: 600 .9em var(--mono); background: var(--tint); padding: 1px 6px; }
 .foot__end { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 30px; padding-top: 14px; border-top: 1px solid var(--line); font-size: .82rem; }
 .quote { margin: 0; font-style: italic; color: var(--text); }
 .quote span { font-style: normal; color: var(--muted); }
+
+/* Overlay-kort på toppbildet: neste (eller siste) aktivitet, lenker ned til kalenderen. Frostet glass over bildet. */
+.hero__in { position: relative; }
+.hero__cal { align-self: center; color: #fff; font-weight: 700; font-size: .92rem; text-decoration: none; border-bottom: 1.5px solid rgba(255,255,255,.6); padding: 2px 0; }
+.hero__cal:hover { border-color: #fff; }
+.hero__next { display: grid; gap: 10px; width: min(330px, 100%); margin-top: 28px; padding: 16px 18px; color: #fff; text-decoration: none;
+  background: rgba(8, 28, 52, .42); border: 1px solid rgba(255,255,255,.28); -webkit-backdrop-filter: blur(10px) saturate(1.2); backdrop-filter: blur(10px) saturate(1.2); }
+.hero__next:hover { background: rgba(8, 28, 52, .58); border-color: rgba(255,255,255,.5); }
+.hero__next .eyebrow { margin: 0; }
+.hero__next-row { display: flex; gap: 14px; align-items: center; }
+.hero__next-date { display: grid; place-items: center; min-width: 52px; height: 52px; background: var(--sky); font: 600 .62rem/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+.hero__next-date b { font: 800 1.45rem/1 var(--display); letter-spacing: -.03em; }
+.hero__next-t { display: block; font-size: 1.05rem; letter-spacing: -.02em; line-height: 1.2; }
+.hero__next small { color: #cfe0ef; }
+.hero__next-link { font: 600 .66rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: #cfe0ef; }
+@media (min-width: 900px) { .hero__next { position: absolute; right: 0; bottom: 74px; margin: 0; } }
+/* Kalenderen bruker designets farger */
+.kal { --kal-text: var(--text); --kal-muted: var(--muted); --kal-line: var(--line); --kal-surface: var(--surface); --kal-tint: var(--tint); --kal-accent: var(--sky); --kal-accent-ink: var(--sky-ink); --kal-mono: var(--mono); }

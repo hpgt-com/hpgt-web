@@ -1,0 +1,16 @@
+---
+// Overlay-kort på toppbildet: neste aktivitet (eller den siste, hvis ingen er planlagt). Brukes av Tailwind- og Bootstrap-utgaven.
+import "./hero-neste.css";
+import { dag, mnd, dato, tidSted, type Arrangement } from "../lib/site";
+const { e, kommende } = Astro.props as { e?: Arrangement; kommende: boolean };
+---
+{e && (
+  <a class="hn" href="#aktivitetskalender">
+    <span class="hn-eyebrow">{kommende ? "Neste aktivitet" : "Sist i kalenderen"}</span>
+    <span class="hn-row">
+      <span class="hn-date"><b>{dag(e.data.start)}</b>{mnd(e.data.start)}</span>
+      <span><b class="hn-t">{e.data.title}</b><small>{tidSted(e) || dato(e.data.start)}</small></span>
+    </span>
+    <span class="hn-eyebrow">Se hele kalenderen ↓</span>
+  </a>
+)}

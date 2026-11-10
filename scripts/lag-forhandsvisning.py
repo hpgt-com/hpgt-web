@@ -6,7 +6,7 @@ import os, re, shutil, sys, urllib.parse
 
 SRC, OUT = sys.argv[1], sys.argv[2]
 THEMES = ["fjordpluss", "fjordpluss-tw", "fjordpluss-bs", "fjord", "pico", "magasin", "klassisk", "nordlys"]
-REF = os.path.join(SRC, "fjord")
+REF = os.path.join(SRC, "fjordpluss")
 
 def keep(rel):  # rel: sidens mappe relativt til temaroten, f.eks. "kurs-2026" eller ""
     if rel in ("", "nytt", "arrangementer", "bidra", "events", "galleri") or rel.startswith("nytt/kategori/"):
@@ -29,10 +29,10 @@ for root, _, files in os.walk(REF):
     if "index.html" in files:
         rel = os.path.relpath(root, REF).replace(os.sep, "/")
         rel = "" if rel == "." else rel
-        if keep(rel) or rel.startswith("event/") and rel.split("/")[1] in ("sikkerhetsdag-nodskjerm", "nybegynnerkurs", "hpgt-var-kickoff-2021", "sikkerhetsseminar", "arsmote-2020"):
+        if keep(rel) or rel.startswith("event/") and rel.split("/")[1] in ("sikkerhetsdag-nodskjerm", "nybegynnerkurs", "hpgt-var-kickoff-2021", "sikkerhetsseminar", "arsmote-2020", "hpgt-julebord-2026"):
             pages.append(rel)
 pages = sorted(set(p for p in pages if not p.startswith("event/") or p.split("/")[1] in
-               ("sikkerhetsdag-nodskjerm", "nybegynnerkurs", "hpgt-var-kickoff-2021", "sikkerhetsseminar", "arsmote-2020")))
+               ("sikkerhetsdag-nodskjerm", "nybegynnerkurs", "hpgt-var-kickoff-2021", "sikkerhetsseminar", "arsmote-2020", "hpgt-julebord-2026")))
 page_set = set(pages)
 
 shutil.rmtree(OUT, ignore_errors=True)

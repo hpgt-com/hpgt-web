@@ -1,0 +1,12 @@
+.hn { display: grid; gap: 10px; width: min(330px, 100%); margin-top: 28px; padding: 16px 18px; color: #fff !important; text-decoration: none !important;
+  background: rgba(8, 28, 52, .42); border: 1px solid rgba(255,255,255,.28); -webkit-backdrop-filter: blur(10px) saturate(1.2); backdrop-filter: blur(10px) saturate(1.2); }
+.hn:hover { background: rgba(8, 28, 52, .58); border-color: rgba(255,255,255,.5); }
+.hn-eyebrow { font: 600 .66rem/1.2 var(--kal-mono, ui-monospace, monospace); letter-spacing: .12em; text-transform: uppercase; color: #cfe0ef; }
+.hn-row { display: flex; gap: 14px; align-items: center; }
+.hn-date { display: grid; place-items: center; min-width: 52px; height: 52px; background: var(--kal-accent, #1f86d1); font: 600 .62rem/1 var(--kal-mono, ui-monospace, monospace); letter-spacing: .1em; text-transform: uppercase; }
+.hn-date b { font-size: 1.45rem; font-weight: 800; letter-spacing: -.03em; font-family: inherit; }
+.hn-t { display: block; font-size: 1.05rem; letter-spacing: -.02em; line-height: 1.2; }
+.hn small { color: #cfe0ef; }
+@media (min-width: 900px) { .hn { position: absolute; right: 0; bottom: 74px; margin: 0; } }
+.hn-cal { align-self: center; color: #fff !important; font-weight: 700; font-size: .92rem; text-decoration: none !important; border-bottom: 1.5px solid rgba(255,255,255,.6); padding: 2px 0; }
+.hn-cal:hover { border-color: #fff; }

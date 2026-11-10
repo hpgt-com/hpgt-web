@@ -1,9 +1,8 @@
 ---
-import { forside, site, url, ekstern, dato, lenke, slug, utdrag, bildeFor, kursStatus, tidSted } from "../../lib/site";
+import Aktivitetskalender from "../../components/Aktivitetskalender.astro";
+import { forside, url, dato, dag, mnd, lenke, slug, utdrag, bildeFor, tidSted } from "../../lib/site";
 const { innlegg, kommende, tidligere } = Astro.props;
-const aktiviteter = (kommende.length ? kommende : tidligere).slice(0, 4);
-const k = forside.kurs;
-const status = kursStatus(k);
+const fremhevet = kommende[0] ?? tidligere[0];
 const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", day: "2-digit", month: "short", year: "numeric" }).format(d).replace(/\./g, "");
 ---
 <section class="hero">
@@ -15,7 +14,18 @@ const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", da
     <p class="actions">
       <a class="btn" href={url("/kurs-2026/")}>Utforsk kurs <span aria-hidden="true">↗</span></a>
       <a class="btn btn--ghost" href={url("/flysteder/")}>Fly med oss <span aria-hidden="true">→</span></a>
+      <a class="hero__cal" href="#aktivitetskalender">Aktivitetskalender ↓</a>
     </p>
+    {fremhevet && (
+      <a class="hero__next" href="#aktivitetskalender">
+        <span class="eyebrow eyebrow--light">{kommende.length ? "Neste aktivitet" : "Sist i kalenderen"}</span>
+        <span class="hero__next-row">
+          <span class="hero__next-date"><b>{dag(fremhevet.data.start)}</b>{mnd(fremhevet.data.start)}</span>
+          <span><b class="hero__next-t">{fremhevet.data.title}</b><small>{tidSted(fremhevet) || dato(fremhevet.data.start)}</small></span>
+        </span>
+        <span class="hero__next-link">Se hele kalenderen ↓</span>
+      </a>
+    )}
     <div class="hero__strip"><span>Harstad / Sør-Troms</span><span>{forside.heltebildeKreditt}</span></div>
   </div>
 </section>
@@ -36,33 +46,6 @@ const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", da
 
 <hr class="wrap rule" />
 
-<section class="wrap section">
-  <div class="head"><div><p class="eyebrow">Kalender</p><h2 class="h2">Aktiviteter.</h2></div><a class="more" href={url("/arrangementer/")}>Alle aktiviteter →</a></div>
-  <div class="cal">
-    <ol class="events">
-      {aktiviteter.map((e) => (
-        <li><a href={url(lenke(e))}>
-          <span class="events__date">{kort(e.data.start)}</span>
-          <span class="events__t">{e.data.title}</span>
-          <span class="events__where">{tidSted(e)}</span>
-          {!kommende.length && <span class="events__past">Avholdt</span>}
-        </a></li>
-      ))}
-    </ol>
-    <a class="course" href={url(k.url)}>
-      <span class="eyebrow">Nybegynnerkurs · {status.tekst}</span>
-      <span class="course__title">{k.tittel}</span>
-      <span class="course__text">{status.ferdig ? k.etterKurs : k.tekst}</span>
-      <dl class="facts">
-        <div><dt>Dato</dt><dd>{dato(new Date(k.start)).replace(/ \d{4}$/, "")}–{dato(new Date(k.slutt))}</dd></div>
-        <div><dt>Pris</dt><dd>{k.pris}</dd></div>
-      </dl>
-    </a>
-  </div>
-  {!kommende.length && <p class="hint">Ingen nye aktiviteter er lagt inn ennå. Følg med i <a href={site.facebook}>Facebook-gruppa</a>.</p>}
-</section>
-
-<hr class="wrap rule" />
 
 <section class="wrap section">
   <div class="head"><div><p class="eyebrow">Fra klubben</p><h2 class="h2">Siste nytt</h2></div><a class="more" href={url("/nytt/")}>Alle innlegg →</a></div>
@@ -82,4 +65,11 @@ const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", da
       );
     })}
   </div>
+</section>
+
+<hr class="wrap rule" />
+
+<section class="wrap section" id="aktivitetskalender">
+  <div class="head"><div><p class="eyebrow">Det skjer i HPGT</p><h2 class="h2">Aktivitetskalender</h2></div><a class="more" href={url("/arrangementer/")}>Alle arrangementer →</a></div>
+  <Aktivitetskalender kommende={kommende} tidligere={tidligere} />
 </section>
