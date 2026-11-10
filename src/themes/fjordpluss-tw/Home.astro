@@ -1,0 +1,89 @@
+---
+import { forside, site, url, dato, lenke, slug, utdrag, bildeFor, kursStatus, tidSted } from "../../lib/site";
+const { innlegg, kommende, tidligere } = Astro.props;
+const aktiviteter = (kommende.length ? kommende : tidligere).slice(0, 4);
+const k = forside.kurs;
+const status = kursStatus(k);
+const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", day: "2-digit", month: "short", year: "numeric" }).format(d).replace(/\./g, "");
+const wrap = "mx-auto w-[min(1000px,100%-32px)]";
+const h2 = "m-0 text-[clamp(2rem,4.5vw,2.9rem)] leading-[0.95] font-extrabold tracking-[-0.045em]";
+const more = "whitespace-nowrap border-b-[1.5px] border-current text-[0.92rem] font-bold text-ink no-underline";
+---
+<section class="relative isolate overflow-hidden text-white">
+  <img class="hero-img absolute inset-0 -z-20 h-full w-full object-cover object-[50%_60%]" src={url(forside.heltebilde)} alt="Tandemflyging over snødekte fjell ved Harstad" />
+  <div class="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,28,52,.92)_0%,rgba(8,28,52,.62)_38%,rgba(8,28,52,.08)_70%),linear-gradient(0deg,rgba(8,28,52,.55),transparent_35%)] max-sm:bg-[linear-gradient(180deg,rgba(8,28,52,.35),rgba(8,28,52,.9)_70%)]"></div>
+  <div class={`${wrap} pt-20`}>
+    <p class="eyebrow mb-2 !text-[#e7f0f8]"><span class="size-2 rounded-full bg-sun" aria-hidden="true"></span>{forside.stikkord}</p>
+    <h1 class="m-0 mb-[18px] max-w-[7.5ch] text-[clamp(3.4rem,10vw,6.6rem)] leading-[0.86] font-extrabold tracking-[-0.06em] text-balance">{forside.slagord}</h1>
+    <p class="m-0 max-w-[42ch] text-[1.08rem] text-[#eaf2fa]">{forside.slagordIngress}</p>
+    <p class="mt-6.5 flex flex-wrap gap-3">
+      <a class="inline-flex items-center gap-2.5 rounded border-[1.5px] border-sky bg-sky px-4 py-[11px] font-bold text-white no-underline hover:border-sky-ink hover:bg-sky-ink" href={url("/kurs-2026/")}>Utforsk kurs <span aria-hidden="true">↗</span></a>
+      <a class="inline-flex items-center gap-2.5 rounded border-[1.5px] border-white/85 px-4 py-[11px] font-bold text-white no-underline hover:bg-white/10" href={url("/flysteder/")}>Fly med oss <span aria-hidden="true">→</span></a>
+    </p>
+    <div class="mt-[70px] flex justify-between gap-4 border-t border-white/35 pt-3 pb-4 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-[#dfe9f3]"><span>Harstad / Sør-Troms</span><span>{forside.heltebildeKreditt}</span></div>
+  </div>
+</section>
+
+<section class={`${wrap} py-14`}>
+  <div class="mb-[18px] flex items-end justify-between gap-4"><div><p class="eyebrow mb-2">Ut i lufta</p><h2 class={h2}>Finn din vei inn.</h2></div><a class={more} href={url("/om-oss/")}>Om klubben ↗</a></div>
+  <div class="grid gap-3 md:grid-cols-3">
+    {forside.veier.map((v, i) => (
+      <a class="relative grid min-h-[118px] content-start gap-1 border border-line bg-tint px-4 pt-4 pb-[22px] text-ink no-underline hover:border-sky" href={url(v.url)}>
+        <span class="eyebrow">{String(i + 1).padStart(2, "0")} / {v.verb}</span>
+        <span class="text-[1.45rem] leading-[1.1] font-extrabold tracking-[-0.035em]">{v.tittel}</span>
+        <span class="max-w-[34ch] text-[0.9rem] text-muted">{v.tekst}</span>
+        <span class="absolute top-3.5 right-4" aria-hidden="true">↗</span>
+      </a>
+    ))}
+  </div>
+</section>
+
+<hr class={`${wrap} my-0 border-0 border-t border-line`} />
+
+<section class={`${wrap} py-14`}>
+  <div class="mb-[18px] flex items-end justify-between gap-4"><div><p class="eyebrow mb-2">Kalender</p><h2 class={h2}>Aktiviteter.</h2></div><a class={more} href={url("/arrangementer/")}>Alle aktiviteter →</a></div>
+  <div class="grid items-start gap-3 md:grid-cols-[1.6fr_1fr]">
+    <ol class="m-0 list-none border-t border-line p-0">
+      {aktiviteter.map((e) => (
+        <li><a class="group grid grid-cols-[120px_minmax(0,1fr)_auto] items-baseline gap-x-4 gap-y-0.5 border-b border-line px-1 py-3.5 text-ink no-underline max-sm:grid-cols-[1fr_auto]" href={url(lenke(e))}>
+          <span class="font-mono text-[0.74rem] font-semibold uppercase tracking-[0.08em] text-sky-ink tabular-nums">{kort(e.data.start)}</span>
+          <span class="text-[1.08rem] font-bold tracking-tight group-hover:text-sky-ink max-sm:col-span-full">{e.data.title}</span>
+          <span class="col-start-2 text-[0.88rem] text-muted max-sm:col-span-full max-sm:col-start-1">{tidSted(e)}</span>
+          {!kommende.length && <span class="col-start-3 row-start-1 border border-line px-1.5 py-1 font-mono text-[0.62rem] font-semibold uppercase tracking-widest text-muted max-sm:col-start-2">Avholdt</span>}
+        </a></li>
+      ))}
+    </ol>
+    <a class="grid gap-1.5 bg-navy p-[18px] text-[#e5eef7] no-underline" href={url(k.url)}>
+      <span class="eyebrow !text-[#9cc3e6]">Nybegynnerkurs · {status.tekst}</span>
+      <span class="text-[1.4rem] leading-[1.1] font-extrabold tracking-[-0.035em] text-white">{k.tittel}</span>
+      <span class="text-[0.9rem]">{status.ferdig ? k.etterKurs : k.tekst}</span>
+      <dl class="mt-2.5 mb-0 grid grid-cols-2 gap-2">
+        <div class="border-t border-white/20 pt-2"><dt class="font-mono text-[0.6rem] font-semibold uppercase tracking-[0.12em] text-[#9cc3e6]">Dato</dt><dd class="m-0 mt-0.5 font-bold text-white">{dato(new Date(k.start)).replace(/ \d{4}$/, "")}–{dato(new Date(k.slutt))}</dd></div>
+        <div class="border-t border-white/20 pt-2"><dt class="font-mono text-[0.6rem] font-semibold uppercase tracking-[0.12em] text-[#9cc3e6]">Pris</dt><dd class="m-0 mt-0.5 font-bold text-white">{k.pris}</dd></div>
+      </dl>
+    </a>
+  </div>
+  {!kommende.length && <p class="mt-3.5 mb-0 text-[0.92rem] text-muted">Ingen nye aktiviteter er lagt inn ennå. Følg med i <a class="text-sky-ink" href={site.facebook}>Facebook-gruppa</a>.</p>}
+</section>
+
+<hr class={`${wrap} my-0 border-0 border-t border-line`} />
+
+<section class={`${wrap} py-14`}>
+  <div class="mb-[18px] flex items-end justify-between gap-4"><div><p class="eyebrow mb-2">Fra klubben</p><h2 class={h2}>Siste nytt</h2></div><a class={more} href={url("/nytt/")}>Alle innlegg →</a></div>
+  <div class="grid gap-3.5 md:grid-cols-3">
+    {innlegg.slice(0, 3).map((p) => {
+      const b = bildeFor(p);
+      return (
+        <a class="grid grid-rows-[auto_1fr] border border-line bg-surface text-ink no-underline hover:border-sky" href={url(lenke(p))}>
+          {b ? <img class="aspect-[16/7] w-full object-cover" src={url(b)} alt="" loading="lazy" /> : <span class="aspect-[16/7] w-full bg-tint" aria-hidden="true"></span>}
+          <span class="grid content-start gap-1.5 px-3.5 pt-3.5 pb-[18px]">
+            <span class="font-mono text-[0.66rem] font-semibold uppercase tracking-widest text-muted"><span class="kat" data-kat={slug(p.data.kategorier[0])}>{p.data.kategorier[0]}</span> · {kort(p.data.date)}</span>
+            <span class="text-[1.3rem] leading-[1.1] font-extrabold tracking-[-0.035em]">{p.data.title}</span>
+            <span class="text-[0.88rem] text-muted">{utdrag(p.body, 150)}</span>
+            {p.data.forfatter && <span class="text-[0.82rem] text-muted">Av <b class="text-ink">{p.data.forfatter}</b></span>}
+          </span>
+        </a>
+      );
+    })}
+  </div>
+</section>

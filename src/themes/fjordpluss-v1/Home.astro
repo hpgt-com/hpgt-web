@@ -1,0 +1,142 @@
+---
+import styret from "../../data/styret.json";
+import { forside, site, url, ekstern, dato, dag, mnd, tidSted, bildeFor, lenke, slug, kursStatus, hentDokumenter } from "../../lib/site";
+const { innlegg, kommende, tidligere } = Astro.props;
+const k = forside.kurs;
+const status = kursStatus(k);
+const aktiviteter = kommende.length ? kommende.slice(0, 5) : tidligere.slice(0, 5);
+const dokumenter = await hentDokumenter(5);
+const kurs = (d: string) => dato(new Date(d));
+---
+<section class="hero">
+  <img class="hero__img" src={url(forside.heltebilde)} alt="Tandemflyging over Harstad" />
+  <div class="wrap hero__text">
+    <p class="eyebrow eyebrow--light"><span class="dot" aria-hidden="true"></span>{forside.stikkord}</p>
+    <h1 class="hero__title">{forside.slagord}</h1>
+    <p class="hero__lead">{forside.slagordIngress}</p>
+    <p class="actions">
+      <a class="btn" href={url("/kurs-2026/")}>Utforsk kurs ↗</a>
+      <a class="btn btn--ghost" href={url("/flysteder/")}>Fly med oss →</a>
+    </p>
+  </div>
+  <div class="wrap hero__strip"><span>Harstad / Sør-Troms</span><span>{forside.heltebildeKreditt}</span></div>
+</section>
+
+<section class="wrap section">
+  <div class="section__head"><div><p class="eyebrow">Ut i lufta</p><h2 class="h-section">Finn din vei inn.</h2></div><a class="more" href={url("/om-oss/")}>Om klubben →</a></div>
+  <div class="paths">
+    {forside.veier.map((v, i) => (
+      <a class="path" href={url(v.url)}>
+        <img src={url(v.bilde)} alt="" loading="lazy" />
+        <span class="path__body">
+          <span class="eyebrow">{String(i + 1).padStart(2, "0")} / {v.verb}</span>
+          <span class="path__title">{v.tittel}{ekstern(v.url) && " ↗"}</span>
+          <span class="path__text">{v.tekst}</span>
+        </span>
+      </a>
+    ))}
+  </div>
+</section>
+
+<section class="wrap section section--tight">
+  <div class:list={["course", status.ferdig && "course--done"]}>
+    <div class="course__main">
+      <p class="badge">{status.tekst}</p>
+      <h2 class="course__title">{k.tittel}</h2>
+      <p>{status.ferdig ? k.etterKurs : k.tekst}</p>
+      <p class="actions"><a class="btn" href={url(k.url)}>{status.ferdig ? "Les om kurset" : "Se kurs og påmelding"}</a>
+        {status.ferdig && <a class="btn btn--line" href={site.facebook}>Følg med på Facebook ↗</a>}</p>
+    </div>
+    <dl class="facts">
+      <div><dt>Dato</dt><dd>{kurs(k.start).replace(/ \d{4}$/, "")}–{kurs(k.slutt)}</dd></div>
+      <div><dt>Pris</dt><dd>{k.pris}</dd></div>
+      <div><dt>Påmeldingsfrist</dt><dd>{kurs(k.frist)}</dd></div>
+      <div><dt>Plasser</dt><dd>{k.plasser}</dd></div>
+    </dl>
+  </div>
+</section>
+
+
+<section class="wrap section">
+  <div class="feed">
+    <div>
+      <div class="section__head"><div><p class="eyebrow">Fra klubben</p><h2 class="h-section">Siste nytt</h2></div><a class="more" href={url("/nytt/")}>Alle innlegg →</a></div>
+      <div class="cards">
+        {innlegg.slice(0, 6).map((p) => {
+          const b = bildeFor(p);
+          return (
+            <a class="card" data-kat={slug(p.data.kategorier[0])} href={url(lenke(p))}>
+              {b ? <img src={url(b)} alt="" loading="lazy" /> : <span class="card__noimg" data-kat={slug(p.data.kategorier[0])} aria-hidden="true">{p.data.kategorier[0]}</span>}
+              <span class="card__body">
+                <span class="tag" data-kat={slug(p.data.kategorier[0])}>{p.data.kategorier[0]}</span>
+                <span class="card__title">{p.data.title}</span>
+                <span class="byline">{p.data.forfatter && <>Av <b>{p.data.forfatter}</b> · </>}{dato(p.data.date)}</span>
+              </span>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+    <aside class="feed__side">
+      <div class="section__head"><div><p class="eyebrow">Kalender</p><h2 class="h-section">Aktiviteter</h2></div><a class="more" href={url("/arrangementer/")}>Alle →</a></div>
+      {kommende.length === 0 && <p class="hint">Ingen nye aktiviteter er lagt inn. Her er de siste.</p>}
+      <ul class="events">
+        {aktiviteter.map((e) => (
+          <li><a href={url(lenke(e))}>
+            <span class="date"><b>{dag(e.data.start)}</b>{mnd(e.data.start)}</span>
+            <span><span class="events__t">{e.data.title}</span><small>{tidSted(e)}</small></span>
+          </a></li>
+        ))}
+      </ul>
+      <h2 class="side__title">For piloter</h2>
+      <ul class="chips">{forside.snarveier.map((s) => <li><a href={url(s.url)}>{s.tekst}{ekstern(s.url) && " ↗"}</a></li>)}</ul>
+    </aside>
+  </div>
+</section>
+
+<section class="wrap section section--tight">
+  <div class="section__head"><div><p class="eyebrow">Fra klubbens bildesamling</p><h2 class="h-section">Flygelivet i HPGT</h2></div><a class="more" href={site.instagram}>#harstadparagliding ↗</a></div>
+  <div class="gallery">
+    {forside.galleri.map((b, i) => <img src={url(b)} alt="" loading="lazy" class={`g${i}`} />)}
+  </div>
+</section>
+
+<section class="wrap section section--tight">
+  <div class="contribute">
+    <div>
+      <p class="eyebrow">For medlemmer</p>
+      <h2 class="h-section">Skriv på siden selv.</h2>
+      <p>Logg inn med e-post, skriv en nyhet eller legg ut et referat. Siden oppdateres av seg selv etter et minutt.</p>
+    </div>
+    <p class="actions"><a class="btn" href={url("/redaktor-demo/")}>Prøv redaktøren</a><a class="btn btn--line" href={url("/bidra/")}>Slik får du tilgang</a></p>
+  </div>
+</section>
+
+<section class="wrap section section--tight">
+  <div class="split">
+    <div class="panel">
+      <div class="panel__head"><h2 class="panel__title">Dokumenter og årsmøter</h2><a class="more" href={url("/nytt/kategori/moter-og-referater/")}>Arkiv →</a></div>
+      <ul class="docs">
+        {dokumenter.map((d) => (
+          <li>
+            <span class="docs__icon" aria-hidden="true">{d.pdf ? "PDF" : "TXT"}</span>
+            <a class="docs__t" href={url(d.side)}>{d.tittel}<small>{dato(d.dato)}</small></a>
+            {d.pdf && <a class="docs__dl" href={url(d.pdf)} download>Last ned</a>}
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div class="panel">
+      <div class="panel__head"><h2 class="panel__title">Styret</h2><a class="more" href={url("/om-klubben/")}>Kontakt →</a></div>
+      <ul class="board">
+        {styret.medlemmer.map((m) => (
+          <li>
+            {m.bilde && <img src={url(m.bilde)} alt="" loading="lazy" />}
+            <span><span class="eyebrow">{m.rolle}</span><b>{m.navn}</b>
+              <small>{"epost" in m && m.epost ? <a href={`mailto:${m.epost}`}>{m.epost}</a> : null}{m.telefon && <a href={`tel:${m.telefon.replace(/\s/g, "")}`}>{m.telefon}</a>}</small></span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>

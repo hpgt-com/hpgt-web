@@ -1,0 +1,14 @@
+---
+import { url, dato, tidSted, lenke } from "../../lib/site";
+const { kommende, tidligere } = Astro.props;
+---
+<div class="container py-5">
+  <p class="eyebrow mb-2">Kalender</p>
+  <h1 class="h-tight display-5 mb-3">Aktiviteter</h1>
+  <p class="lead text-body-secondary">Kurs, sikkerhetsdager, årsmøter og sosiale treff.</p>
+  <h2 class="h-tight fs-3 mt-5">Kommende</h2>
+  {kommende.length === 0 ? <div class="alert alert-light border">Ingen nye aktiviteter er lagt inn ennå.</div> :
+    <div class="list-group list-group-flush list-events border-top">{kommende.map((e) => <a class="list-group-item list-group-item-action d-flex gap-3 py-3" href={url(lenke(e))}><span class="date-mono">{dato(e.data.start)}</span><span><b class="d-block">{e.data.title}</b><small class="text-body-secondary">{tidSted(e)}</small></span></a>)}</div>}
+  <h2 class="h-tight fs-3 mt-5">Tidligere</h2>
+  <div class="list-group list-group-flush list-events border-top">{tidligere.map((e) => <a class="list-group-item list-group-item-action d-flex gap-3 py-3" href={url(lenke(e))}><span class="date-mono">{dato(e.data.start)}</span><span><b class="d-block">{e.data.title}</b><small class="text-body-secondary">{tidSted(e)}</small></span></a>)}</div>
+</div>

@@ -1,0 +1,15 @@
+---
+import { url, dato, tidSted, lenke } from "../../lib/site";
+const { kommende, tidligere } = Astro.props;
+const rad = "grid grid-cols-[150px_minmax(0,1fr)] gap-x-4 border-b border-line px-1 py-3.5 text-ink no-underline max-sm:grid-cols-1";
+---
+<div class="mx-auto w-[min(1000px,100%-32px)] py-14">
+  <p class="eyebrow mb-2">Kalender</p>
+  <h1 class="m-0 mb-3.5 text-[clamp(2.4rem,6vw,3.8rem)] leading-[0.95] font-extrabold tracking-[-0.045em]">Aktiviteter</h1>
+  <p class="text-[1.15rem] text-muted">Kurs, sikkerhetsdager, årsmøter og sosiale treff.</p>
+  <h2 class="mt-9 mb-3 text-2xl font-extrabold tracking-tight">Kommende</h2>
+  {kommende.length === 0 ? <p class="text-muted">Ingen nye aktiviteter er lagt inn ennå.</p> :
+    <ol class="m-0 list-none border-t border-line p-0">{kommende.map((e) => <li><a class={rad} href={url(lenke(e))}><span class="font-mono text-[0.74rem] font-semibold uppercase text-sky-ink">{dato(e.data.start)}</span><span><b>{e.data.title}</b><br /><small class="text-muted">{tidSted(e)}</small></span></a></li>)}</ol>}
+  <h2 class="mt-9 mb-3 text-2xl font-extrabold tracking-tight">Tidligere</h2>
+  <ol class="m-0 list-none border-t border-line p-0">{tidligere.map((e) => <li><a class={rad} href={url(lenke(e))}><span class="font-mono text-[0.74rem] font-semibold uppercase text-sky-ink">{dato(e.data.start)}</span><span><b>{e.data.title}</b><br /><small class="text-muted">{tidSted(e)}</small></span></a></li>)}</ol>
+</div>

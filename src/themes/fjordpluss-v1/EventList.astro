@@ -1,0 +1,17 @@
+---
+import { url, dato, dag, mnd, tidSted, lenke } from "../../lib/site";
+const { kommende, tidligere } = Astro.props;
+---
+<div class="wrap section article">
+  <nav class="crumbs" aria-label="Brødsmuler"><a href={url("/")}>Hjem</a><span aria-hidden="true">/</span><span aria-current="page">Aktiviteter</span></nav>
+  <p class="eyebrow">Kalender</p>
+  <h1 class="article__title">Aktiviteter</h1>
+  <p class="lead">Kurs, sikkerhetsdager, årsmøter og sosiale treff.</p>
+  <h2 class="h-section">Kommende</h2>
+  {kommende.length === 0 ? <p class="hint">Ingen nye aktiviteter er lagt inn ennå. Følg med i Facebook-gruppa.</p> :
+    <ul class="events">{kommende.map((e) => <li><a href={url(lenke(e))}><span class="date"><b>{dag(e.data.start)}</b>{mnd(e.data.start)}</span><span><span class="events__t">{e.data.title}</span><small>{tidSted(e)}</small></span></a></li>)}</ul>}
+  <h2 class="h-section">Tidligere</h2>
+  <ol class="timeline">
+    {tidligere.map((e) => <li><span class="eyebrow">{dato(e.data.start)}</span><a href={url(lenke(e))}>{e.data.title}</a><small>{tidSted(e)}</small></li>)}
+  </ol>
+</div>

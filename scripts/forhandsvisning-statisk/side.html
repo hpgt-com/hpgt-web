@@ -50,6 +50,8 @@ a:focus-visible, button:focus-visible, select:focus-visible { outline: 3px solid
 .actions { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
 .open { background: var(--accent); color: #fff; text-decoration: none; padding: 10px 18px; border-radius: 999px; font-weight: 600; }
 .open:hover { filter: brightness(1.08); }
+.trio { display: flex; flex-wrap: wrap; gap: 8px; }
+.open--alt { background: transparent; color: var(--accent); box-shadow: inset 0 0 0 2px var(--accent); }
 .design--featured { grid-column: 1 / -1; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); grid-template-rows: auto; border: 2px solid var(--accent); }
 @media (max-width: 860px) { .design--featured { grid-template-columns: 1fr; } }
 .facts { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); }
@@ -91,18 +93,23 @@ a:focus-visible, button:focus-visible, select:focus-visible { outline: 3px solid
 <div class="wrap">
   <header class="intro">
     <p class="eyebrow">Harstad Hang- og Paragliderklubb · forhåndsvisning for styret</p>
-    <h1>Nye hpgt.com – seks designforslag</h1>
-    <p>Alle seks bruker det samme innholdet fra dagens hpgt.com og den samme løsningen bak. Bare utseendet er forskjellig. Velg «Vis på PC og mobil» for å se hvert forslag i begge størrelser samtidig, og klikk deg rundt i sidene. «Hele vinduet» viser siden i full størrelse.</p>
-    <div class="status"><span>Ikke publisert</span><span>Skjult for søkemotorer</span><span>45 av ca. 180 sider i utvalget</span><span>Nytt: 6 Fjord+ og redaktørdemo</span></div>
+    <h1>Nye hpgt.com – designforslag</h1>
+    <p>Alle bruker det samme innholdet fra dagens hpgt.com og den samme løsningen bak. Bare utseendet er forskjellig. Velg «Vis på PC og mobil» for å se hvert forslag i begge størrelser samtidig, og klikk deg rundt i sidene. «Hele vinduet» viser siden i full størrelse.</p>
+    <div class="status"><span>Ikke publisert</span><span>Skjult for søkemotorer</span><span>45 av ca. 180 sider i utvalget</span><span>Nytt: Fjord+ i tre utgaver (6–8)</span></div>
   </header>
 
   <section class="designs" aria-label="Designforslag">
     <article class="design design--featured">
       <a class="shots" href="#fjordpluss" aria-label="Vis Fjord+ på PC og mobil"><img class="desk" src="bilder/fjordpluss.jpg" alt="Forsiden i Fjord+-designet"><img class="mob" src="bilder/fjordpluss-mobil.jpg" alt=""></a>
       <div class="body">
-        <div class="head"><span class="num">6</span><h3>Fjord+</h3><span class="fw">Egen CSS · anbefalt</span></div>
-        <p>Fjord som grunnlag, med nyhetsliste og sidepanel fra Klassisk og aktiviteter med datobrikker og bunnmeny på mobil fra Nordlys. Fra skissene: stor overskrift, «Finn din vei inn», kursblokk med fakta, bildegalleri, dokumenter og styret. Kategoriene har egne farger.</p>
-        <div class="actions"><a class="open" href="#fjordpluss">Vis på PC og mobil</a><a href="#fjordpluss" data-side="redaktor-demo/">Prøv redaktøren →</a></div>
+        <div class="head"><span class="num">6–8</span><h3>Fjord+</h3><span class="fw">Styrets favoritt</span></div>
+        <p>Bygget på skissen styret syntes var mest ryddig, med blå farger fra logoen, aktiviteter på forsiden og kategorifarger som på dagens hpgt.com. Samme design er laget tre ganger, med ulik teknikk bak. Sammenlign dem: de skal se like ut.</p>
+        <div class="trio">
+          <a class="open" href="#fjordpluss">6 · Egen CSS</a>
+          <a class="open open--alt" href="#fjordpluss-tw">7 · Tailwind</a>
+          <a class="open open--alt" href="#fjordpluss-bs">8 · Bootstrap</a>
+        </div>
+        <a href="#fjordpluss" data-side="redaktor-demo/">Prøv redaktøren →</a>
       </div>
     </article>
     <article class="design">
@@ -201,12 +208,14 @@ a:focus-visible, button:focus-visible, select:focus-visible { outline: 3px solid
 <script>
 (() => {
   const DESIGNS = [
-    { id: "fjordpluss", navn: "Fjord+", fw: "Egen CSS · anbefalt" },
-    { id: "fjord", navn: "Fjord", fw: "Egen CSS" },
-    { id: "pico", navn: "Klubbhuset", fw: "Pico CSS" },
-    { id: "magasin", navn: "Magasin", fw: "Tailwind CSS" },
-    { id: "klassisk", navn: "Klassisk", fw: "Bootstrap 5" },
-    { id: "nordlys", navn: "Nordlys", fw: "Tailwind + daisyUI" },
+    { id: "fjordpluss", nr: 6, navn: "Fjord+", fw: "Egen CSS" },
+    { id: "fjordpluss-tw", nr: 7, navn: "Fjord+", fw: "Tailwind CSS" },
+    { id: "fjordpluss-bs", nr: 8, navn: "Fjord+", fw: "Bootstrap 5" },
+    { id: "fjord", nr: 1, navn: "Fjord", fw: "Egen CSS" },
+    { id: "pico", nr: 2, navn: "Klubbhuset", fw: "Pico CSS" },
+    { id: "magasin", nr: 3, navn: "Magasin", fw: "Tailwind CSS" },
+    { id: "klassisk", nr: 4, navn: "Klassisk", fw: "Bootstrap 5" },
+    { id: "nordlys", nr: 5, navn: "Nordlys", fw: "Tailwind + daisyUI" },
   ];
   const PC = { w: 1366, h: 860 }, MOB = { w: 390, h: 780 };
   const $ = (id) => document.getElementById(id);
@@ -216,7 +225,7 @@ a:focus-visible, button:focus-visible, select:focus-visible { outline: 3px solid
   let dev = "begge";
   try { dev = localStorage.getItem("hpgt-skjerm") || (innerWidth < 700 ? "mob" : "begge"); } catch { dev = innerWidth < 700 ? "mob" : "begge"; }
 
-  $("tabs").innerHTML = DESIGNS.map((d, i) => `<button type="button" data-design="${d.id}">${d.id === "fjordpluss" ? 6 : i} ${d.navn}</button>`).join("");
+  $("tabs").innerHTML = DESIGNS.map((d, i) => `<button type="button" data-design="${d.id}">${d.nr} ${d.navn}${d.id.startsWith("fjordpluss") ? " · " + d.fw.split(" ")[0] : ""}</button>`).join("");
 
   const src = () => `${design}/${path}index.html`;
   function load(skip) {

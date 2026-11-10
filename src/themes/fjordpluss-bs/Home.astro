@@ -1,0 +1,92 @@
+---
+import { forside, site, url, dato, lenke, slug, utdrag, bildeFor, kursStatus, tidSted } from "../../lib/site";
+const { innlegg, kommende, tidligere } = Astro.props;
+const aktiviteter = (kommende.length ? kommende : tidligere).slice(0, 4);
+const k = forside.kurs;
+const status = kursStatus(k);
+const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", day: "2-digit", month: "short", year: "numeric" }).format(d).replace(/\./g, "");
+---
+<section class="hero text-white">
+  <img src={url(forside.heltebilde)} alt="Tandemflyging over snødekte fjell ved Harstad" />
+  <div class="container hero-in">
+    <p class="eyebrow mb-2"><span class="dot" aria-hidden="true"></span>{forside.stikkord}</p>
+    <h1 class="display-hero mb-3">{forside.slagord}</h1>
+    <p class="hero-lead mb-0">{forside.slagordIngress}</p>
+    <div class="d-flex flex-wrap gap-3 mt-4">
+      <a class="btn btn-primary" href={url("/kurs-2026/")}>Utforsk kurs ↗</a>
+      <a class="btn btn-outline-light" href={url("/flysteder/")}>Fly med oss →</a>
+    </div>
+    <div class="hero-strip d-flex justify-content-between"><span>Harstad / Sør-Troms</span><span>{forside.heltebildeKreditt}</span></div>
+  </div>
+</section>
+
+<section class="container py-5">
+  <div class="d-flex justify-content-between align-items-end gap-3 mb-3"><div><p class="eyebrow mb-2">Ut i lufta</p><h2 class="h-tight display-6 m-0">Finn din vei inn.</h2></div><a class="link-more" href={url("/om-oss/")}>Om klubben ↗</a></div>
+  <div class="row g-3">
+    {forside.veier.map((v, i) => (
+      <div class="col-md-4"><div class="card card-path h-100 position-relative">
+        <div class="card-body pb-4">
+          <p class="eyebrow mb-1">{String(i + 1).padStart(2, "0")} / {v.verb}</p>
+          <h3 class="card-title h-tight fs-4 mb-1"><a class="stretched-link text-reset text-decoration-none" href={url(v.url)}>{v.tittel}</a></h3>
+          <p class="card-text small text-body-secondary">{v.tekst}</p>
+          <span class="position-absolute top-0 end-0 m-3" aria-hidden="true">↗</span>
+        </div>
+      </div></div>
+    ))}
+  </div>
+</section>
+
+<div class="container"><hr class="m-0" /></div>
+
+<section class="container py-5">
+  <div class="d-flex justify-content-between align-items-end gap-3 mb-3"><div><p class="eyebrow mb-2">Kalender</p><h2 class="h-tight display-6 m-0">Aktiviteter.</h2></div><a class="link-more" href={url("/arrangementer/")}>Alle aktiviteter →</a></div>
+  <div class="row g-3 align-items-start">
+    <div class="col-md-7">
+      <div class="list-group list-group-flush list-events border-top">
+        {aktiviteter.map((e) => (
+          <a class="list-group-item list-group-item-action d-flex gap-3 align-items-baseline py-3" href={url(lenke(e))}>
+            <span class="date-mono">{kort(e.data.start)}</span>
+            <span class="flex-grow-1"><span class="d-block fw-bold">{e.data.title}</span><small class="text-body-secondary">{tidSted(e)}</small></span>
+            {!kommende.length && <span class="badge text-body-secondary border font-monospace fw-semibold">AVHOLDT</span>}
+          </a>
+        ))}
+      </div>
+    </div>
+    <div class="col-md-5">
+      <a class="card card-navy text-decoration-none" href={url(k.url)}>
+        <div class="card-body">
+          <p class="eyebrow mb-1">Nybegynnerkurs · {status.tekst}</p>
+          <h3 class="h-tight fs-4 text-white">{k.tittel}</h3>
+          <p class="small">{status.ferdig ? k.etterKurs : k.tekst}</p>
+          <dl class="row g-2 m-0">
+            <div class="col-6 pt-2"><dt class="eyebrow">Dato</dt><dd class="fw-bold text-white m-0">{dato(new Date(k.start)).replace(/ \d{4}$/, "")}–{dato(new Date(k.slutt))}</dd></div>
+            <div class="col-6 pt-2"><dt class="eyebrow">Pris</dt><dd class="fw-bold text-white m-0">{k.pris}</dd></div>
+          </dl>
+        </div>
+      </a>
+    </div>
+  </div>
+  {!kommende.length && <p class="small text-body-secondary mt-3 mb-0">Ingen nye aktiviteter er lagt inn ennå. Følg med i <a href={site.facebook}>Facebook-gruppa</a>.</p>}
+</section>
+
+<div class="container"><hr class="m-0" /></div>
+
+<section class="container py-5">
+  <div class="d-flex justify-content-between align-items-end gap-3 mb-3"><div><p class="eyebrow mb-2">Fra klubben</p><h2 class="h-tight display-6 m-0">Siste nytt</h2></div><a class="link-more" href={url("/nytt/")}>Alle innlegg →</a></div>
+  <div class="row g-3">
+    {innlegg.slice(0, 3).map((p) => {
+      const b = bildeFor(p);
+      return (
+        <div class="col-md-4"><div class="card card-post h-100 position-relative">
+          {b ? <img class="card-img-top post-img" src={url(b)} alt="" loading="lazy" /> : <div class="post-noimg" aria-hidden="true"></div>}
+          <div class="card-body">
+            <p class="meta-mono mb-2"><span class="kat" data-kat={slug(p.data.kategorier[0])}>{p.data.kategorier[0]}</span> · {kort(p.data.date)}</p>
+            <h3 class="h-tight fs-5 lh-sm"><a class="stretched-link text-reset text-decoration-none" href={url(lenke(p))}>{p.data.title}</a></h3>
+            <p class="card-text small text-body-secondary mb-2">{utdrag(p.body, 150)}</p>
+            {p.data.forfatter && <p class="small text-body-secondary m-0">Av <b class="text-body">{p.data.forfatter}</b></p>}
+          </div>
+        </div></div>
+      );
+    })}
+  </div>
+</section>

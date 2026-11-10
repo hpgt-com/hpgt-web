@@ -1,0 +1,52 @@
+/* Prototype 7 – «Fjord+» med Tailwind CSS v4. Samme design som 6; stilene står som klasser i markupen.
+   Fargene og skriftene er definert som tema-tokens under, så de kan endres ett sted. */
+@import "tailwindcss" source(none);
+@source "./";
+@source "../../components";
+@plugin "@tailwindcss/typography";
+@import "@fontsource-variable/inter-tight/index.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+@import "@fontsource/ibm-plex-mono/600.css";
+
+@theme {
+  --font-sans: "Inter Tight Variable", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --color-bg: #eef2f7;
+  --color-surface: #ffffff;
+  --color-tint: #e2eaf3;
+  --color-ink: #0e1b2b;
+  --color-muted: #56657a;
+  --color-line: #ccd7e4;
+  --color-sky: #1f86d1;
+  --color-sky-ink: #1569a8;
+  --color-navy: #0b2340;
+  --color-sun: #f2a33a;
+}
+@layer base {
+  body { @apply bg-bg text-ink font-sans antialiased; }
+  @media (prefers-color-scheme: dark) {
+    :root { --color-bg: #0b131d; --color-surface: #111c29; --color-tint: #16263a; --color-ink: #e6edf5; --color-muted: #9aabbf;
+      --color-line: #24364b; --color-sky: #5fb0ea; --color-sky-ink: #8ccaf4; --color-navy: #07182c; color-scheme: dark; }
+  }
+}
+@layer components {
+  .eyebrow { @apply flex items-center gap-2 font-mono text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-muted; }
+  .kat { color: var(--k, var(--color-muted)); }
+  [data-kat="nyhet"] { --k: #9c27b0; } [data-kat="sosialt"] { --k: #0091a7; } [data-kat="moter-og-referater"] { --k: #d97300; }
+  [data-kat="kurs"] { --k: #2e7d32; } [data-kat="turer"] { --k: #d32f2f; } [data-kat="konkurranser"] { --k: #c2185b; }
+  [data-kat="tilbud"] { --k: #1565c0; } [data-kat="norgescup"] { --k: #00796b; }
+  .people { @apply my-6 grid list-none gap-3 p-0 sm:grid-cols-3; }
+  .person { @apply m-0 border border-line bg-surface p-0; }
+  .person img { @apply m-0 aspect-square w-full object-cover; }
+  .person div { @apply px-3.5 py-3; }
+  .person p { @apply m-0; }
+  .person__rolle { @apply font-mono text-[0.66rem] font-semibold uppercase tracking-[0.12em] text-sky-ink; }
+  .person__navn { @apply text-xl font-extrabold tracking-tight; }
+  .vedlegg { @apply mt-8 border border-line bg-tint px-4 py-3; }
+  .prose p:has(> img + img) { @apply grid grid-cols-2 gap-2 sm:grid-cols-3; }
+  .prose p:has(> img + img) img { @apply m-0 aspect-square w-full object-cover; }
+}
+/* Utenfor lag, så den slår Tailwinds egne klasser på mobilmenyen og bildet i toppen. */
+@media (max-width: 767px) { .js .navlinks:not([data-open]) { display: none; } }
+.hero-img { transform: scale(1.45); transform-origin: 23% 62%; }
+@media (max-width: 600px) { .hero-img { transform: scale(1.9); transform-origin: 56% 64%; } }

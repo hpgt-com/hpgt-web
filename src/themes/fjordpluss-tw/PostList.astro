@@ -1,0 +1,19 @@
+---
+import { url, dato, lenke, slug } from "../../lib/site";
+const { title, ingress, grupper, kategorier, aktiv } = Astro.props;
+const chip = "border border-line bg-surface px-[11px] py-1.5 text-[0.88rem] font-bold no-underline";
+---
+<div class="mx-auto w-[min(1000px,100%-32px)] py-14">
+  <p class="eyebrow mb-2">Arkiv fra 2012</p>
+  <h1 class="m-0 mb-3.5 text-[clamp(2.4rem,6vw,3.8rem)] leading-[0.95] font-extrabold tracking-[-0.045em]">{title}</h1>
+  {ingress && <p class="max-w-[60ch] text-[1.15rem] text-muted">{ingress}</p>}
+  <nav class="mt-5.5 mb-2 flex flex-wrap gap-1.5" aria-label="Kategorier">
+    <a class:list={[chip, !aktiv ? "bg-ink text-bg" : "text-ink"]} href={url("/nytt/")}>Alle</a>
+    {kategorier.map((k) => <a class:list={[chip, "kat", aktiv === k.slug && "!bg-[var(--k)] !text-white"]} data-kat={k.slug} href={url(`/nytt/kategori/${k.slug}/`)}>{k.navn} <small class="font-mono text-muted">{k.poster.length}</small></a>)}
+  </nav>
+  {grupper.map(([aar, poster]) => (
+    <section><h2 class="mt-8.5 mb-1.5 text-[1.8rem] font-extrabold tracking-[-0.04em]">{aar}</h2>
+      <ul class="m-0 list-none border-t border-line p-0">{poster.map((p) => <li><a class="group grid grid-cols-[150px_minmax(0,1fr)_auto] gap-x-3.5 gap-y-1 border-b border-line px-0.5 py-2.5 text-ink no-underline max-sm:grid-cols-1" href={url(lenke(p))}><time class="text-[0.88rem] text-muted tabular-nums">{dato(p.data.date)}</time><span class="group-hover:text-sky-ink">{p.data.title}</span><span class="kat font-mono text-[0.64rem] font-semibold uppercase tracking-widest" data-kat={slug(p.data.kategorier[0])}>{p.data.kategorier[0]}</span></a></li>)}</ul>
+    </section>
+  ))}
+</div>

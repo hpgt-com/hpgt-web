@@ -1,0 +1,12 @@
+---
+import { url, slug } from "../../lib/site";
+const { title, ingress, bilde, meta, kategorier, tilbake } = Astro.props;
+---
+<article class="mx-auto w-[min(760px,100%-32px)] pt-10 pb-18">
+  <nav class="mb-6.5 flex gap-2 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-muted" aria-label="Brødsmuler"><a class="text-muted" href={url("/")}>Hjem</a>{tilbake && <><span>/</span><a class="text-muted" href={tilbake.url}>{tilbake.tekst}</a></>}</nav>
+  {meta && <p class="mb-1.5 font-mono text-[0.66rem] font-semibold uppercase tracking-widest text-muted">{kategorier?.map((k) => <><a class="kat no-underline" data-kat={slug(k)} href={url(`/nytt/kategori/${slug(k)}/`)}>{k}</a> · </>)}{meta}</p>}
+  <h1 class="m-0 mb-3.5 text-[clamp(2.4rem,6vw,3.8rem)] leading-[0.95] font-extrabold tracking-[-0.045em] text-balance">{title}</h1>
+  {ingress && <p class="m-0 mb-2 max-w-[60ch] text-[1.15rem] text-muted">{ingress}</p>}
+  {bilde && <img class="my-6 w-full" src={url(bilde)} alt="" />}
+  <div class="prose max-w-none text-ink prose-headings:font-extrabold prose-headings:tracking-tight prose-headings:text-ink prose-a:text-sky-ink prose-strong:text-ink prose-blockquote:border-sky prose-blockquote:bg-tint prose-blockquote:not-italic prose-th:text-ink dark:prose-invert"><slot /></div>
+</article>

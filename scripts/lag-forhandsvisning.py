@@ -5,7 +5,7 @@ Bruk: python3 -I scripts/lag-forhandsvisning.py prototyper forhandsvisning
 import os, re, shutil, sys, urllib.parse
 
 SRC, OUT = sys.argv[1], sys.argv[2]
-THEMES = ["fjordpluss", "fjord", "pico", "magasin", "klassisk", "nordlys"]
+THEMES = ["fjordpluss", "fjordpluss-tw", "fjordpluss-bs", "fjord", "pico", "magasin", "klassisk", "nordlys"]
 REF = os.path.join(SRC, "fjord")
 
 def keep(rel):  # rel: sidens mappe relativt til temaroten, f.eks. "kurs-2026" eller ""
@@ -109,3 +109,10 @@ for root, _, files in os.walk(OUT):
             t = open(p, encoding="utf-8").read()
             if "%F0%9F%8E%84" in t:
                 open(p, "w", encoding="utf-8").write(t.replace("hpgt-julebord-2026-%F0%9F%8E%84", "hpgt-julebord-2026"))
+
+# Forhåndsvisningen har et tak på antall filer: fjern skriftfiler som aldri lastes for norsk tekst
+# (eldre .woff-varianter og tegnsett for vietnamesisk, kyrillisk og gresk). Det ferdige nettstedet beholder alt.
+for root, _, files in os.walk(OUT):
+    for f in files:
+        if f.endswith(".woff") or any(s in f for s in ("vietnamese", "cyrillic", "greek")):
+            os.remove(os.path.join(root, f))

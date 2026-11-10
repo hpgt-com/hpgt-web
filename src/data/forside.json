@@ -68,36 +68,26 @@
   "stikkord": "Fjell · fjord · flyging",
   "slagord": "Luft under vingene.",
   "slagordIngress": "Vi flyr hangglider og paraglider i Harstad og omegn. Bli med på kurs, prøv tandem eller bli kjent med klubbens flymiljø.",
-  "heltebilde": "/wp-content/uploads/2026/03/received_19021217704426153841782718311439119.jpeg",
+  "heltebilde": "/wp-content/uploads/2026/04/tandem-2.jpg",
   "heltebildeKreditt": "Fra klubbens bildesamling",
   "veier": [
     {
       "verb": "Lær",
       "tittel": "Paragliderkurs",
-      "tekst": "Fra første øvelse på bakken til PP2-nivå, der du kan fly fra fjelltopper.",
-      "url": "/kurs-2026/",
-      "bilde": "/wp-content/uploads/2019/01/20190803_175328.jpg"
+      "tekst": "Fra første øvelse på bakken til PP2-nivå. Se klubbens kursinformasjon.",
+      "url": "/kurs-2026/"
     },
     {
       "verb": "Opplev",
       "tittel": "Fly tandem",
-      "tekst": "Se Harstad fra lufta sammen med en av klubbens tandempiloter.",
-      "url": "/tandem/",
-      "bilde": "/wp-content/uploads/2026/04/tandem-2.jpg"
+      "tekst": "Opplev Harstad fra lufta sammen med en av klubbens tandempiloter.",
+      "url": "/tandem/"
     },
     {
       "verb": "Delta",
-      "tittel": "Bli medlem",
-      "tekst": "Bli med i et sosialt og inkluderende flymiljø. Meld deg inn via Min idrett.",
-      "url": "/grasrotandelen/",
-      "bilde": "/wp-content/uploads/2026/03/received_14693510906506755701209126633616533.jpeg"
-    },
-    {
-      "verb": "Planlegg",
-      "tittel": "Flysteder",
-      "tekst": "Kart over startsteder med vindretning, nivå, målt vind og luftrom.",
-      "url": "https://flysteder.hpgt.com/",
-      "bilde": "/wp-content/uploads/2026/09/flysteder.hpgt_.com_.jpg"
+      "tittel": "Fly med oss",
+      "tekst": "Finn fellesskapet og inngangen til klubbens flystedsoversikt.",
+      "url": "/flysteder/"
     }
   ],
   "kurs": {

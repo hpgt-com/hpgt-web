@@ -1,0 +1,67 @@
+---
+import Head from "../../components/Head.astro";
+import ProtoBanner from "../../components/ProtoBanner.astro";
+import "../../components/proto.css";
+import "@fontsource/barlow/400.css";
+import "@fontsource/barlow/600.css";
+import "@fontsource/barlow-condensed/700.css";
+import "@fontsource/barlow-condensed/800.css";
+import "@fontsource/ibm-plex-mono/500.css";
+import "./style.css";
+import { site, meny, url, ekstern } from "../../lib/site";
+const { title, description, image } = Astro.props;
+const here = Astro.url.pathname;
+const aktiv = (u: string) => !ekstern(u) && (u === "/" ? here === url("/") : here.startsWith(url(u)));
+const dock = [
+  { tekst: "Hjem", url: "/", ikon: "M3 11l9-7 9 7M5 10v10h14V10" },
+  { tekst: "Nytt", url: "/nytt/", ikon: "M4 5h16v14H4zM8 9h8M8 13h8M8 17h5" },
+  { tekst: "Aktiviteter", url: "/arrangementer/", ikon: "M4 6h16v14H4zM4 10h16M9 3v4M15 3v4" },
+  { tekst: "Flysteder", url: "https://flysteder.hpgt.com/", ikon: "M12 21s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12zM12 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" },
+  { tekst: "Klubben", url: "/om-oss/", ikon: "M16 19v-1a4 4 0 0 0-8 0v1M12 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" },
+];
+---
+<!doctype html>
+<html lang="nb">
+<head><Head title={title} description={description} image={image} /></head>
+<body>
+  <a class="skip" href="#innhold">Hopp til innhold</a>
+  <ProtoBanner navn="6 · Fjord+" />
+  <header class="top">
+    <div class="wrap top__in">
+      <a class="brand" href={url("/")}>
+        <img src={url("/assets/img/hpgt-logo.png")} alt="" width="40" height="40" />
+        <span><b>HPGT</b><small>Harstad Hang- og Paragliderklubb</small></span>
+      </a>
+      <nav class="nav" aria-label="Hovedmeny">
+        {meny.hoved.map((m) => (
+          <a href={url(m.url)} aria-current={aktiv(m.url) ? "page" : undefined}>{m.tekst}{ekstern(m.url) && <span aria-hidden="true"> ↗</span>}</a>
+        ))}
+      </nav>
+      <a class="btn btn--small top__cta" href={url("/kurs-2026/")}>Kurs</a>
+    </div>
+  </header>
+  <main id="innhold"><slot /></main>
+  <footer class="foot">
+    <div class="wrap foot__grid">
+      <section class="foot__brand"><p class="foot__logo">HPGT</p><p>Harstad Hang- og Paragliderklubb<br />Org.nr. {site.orgnr} · Vipps {site.vipps}</p></section>
+      <section><h2>For piloter</h2><ul>{meny.piloter.map((m) => <li><a href={url(m.url)}>{m.tekst}</a></li>)}</ul></section>
+      <section><h2>Klubben</h2><ul>{meny.klubben.map((m) => <li><a href={url(m.url)}>{m.tekst}</a></li>)}</ul></section>
+      <section><h2>Kontakt</h2><ul>
+        <li><a href={`mailto:${site.epost.post}`}>{site.epost.post}</a></li>
+        <li><a href={site.facebook}>Facebook-gruppa ↗</a></li>
+        <li><a href={site.instagram}>Instagram ↗</a></li>
+      </ul></section>
+    </div>
+    <figure class="wrap quote"><blockquote>«{site.sitat.tekst}»</blockquote><figcaption>– {site.sitat.kilde}</figcaption></figure>
+    <p class="wrap foot__small">© {site.navn} · Ingen sporing eller informasjonskapsler.</p>
+  </footer>
+  <nav class="dock" aria-label="Snarveier">
+    {dock.map((d) => (
+      <a href={url(d.url)} aria-current={aktiv(d.url) ? "page" : undefined}>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={d.ikon} /></svg>
+        <span>{d.tekst}</span>
+      </a>
+    ))}
+  </nav>
+</body>
+</html>

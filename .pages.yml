@@ -100,7 +100,7 @@ content:
       - name: veier
         label: «Finn din vei inn»-kort
         type: object
-        list: { max: 4 }
+        list: { max: 3 }
         fields:
           - { name: verb, label: "Etikett (Lær, Opplev …)", type: string }
           - { name: tittel, type: string }

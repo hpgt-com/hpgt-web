@@ -1,0 +1,79 @@
+/* Prototype 8 – «Fjord+» med Bootstrap 5. Samme design som 6, bygget med Bootstraps navbar, rutenett, kort og lister.
+   Utseendet styres ved å overstyre Bootstraps egne CSS-variabler, pluss noen få egne klasser for det Bootstrap ikke har. */
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "@fontsource-variable/inter-tight/index.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+@import "@fontsource/ibm-plex-mono/600.css";
+
+:root, [data-bs-theme=light] {
+  --bs-body-bg: #eef2f7; --bs-body-color: #0e1b2b; --bs-secondary-color: #56657a; --bs-border-color: #ccd7e4;
+  --bs-primary: #1f86d1; --bs-primary-rgb: 31,134,209; --bs-link-color: #1569a8; --bs-link-color-rgb: 21,105,168; --bs-link-hover-color: #0e1b2b;
+  --bs-body-font-family: "Inter Tight Variable", "Helvetica Neue", Arial, sans-serif; --bs-font-monospace: "IBM Plex Mono", ui-monospace, monospace;
+  --bs-border-radius: 0; --bs-card-border-radius: 0;
+  --tint: #e2eaf3; --navy: #0b2340; --sun: #f2a33a; --sky-ink: #1569a8;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bs-body-bg: #0b131d; --bs-body-color: #e6edf5; --bs-secondary-color: #9aabbf; --bs-border-color: #24364b; --bs-primary: #5fb0ea;
+    --bs-link-color: #8ccaf4; --bs-link-hover-color: #e6edf5; --tint: #16263a; --navy: #07182c; --sky-ink: #8ccaf4; color-scheme: dark; }
+  .card { --bs-card-bg: #111c29; }
+}
+body { -webkit-font-smoothing: antialiased; }
+.container { max-width: 1032px; }
+.btn { --bs-btn-font-weight: 700; --bs-btn-border-radius: 4px; --bs-btn-padding-y: .65rem; --bs-btn-border-width: 1.5px; }
+.btn-primary { --bs-btn-bg: #1f86d1; --bs-btn-border-color: #1f86d1; --bs-btn-hover-bg: #1569a8; --bs-btn-hover-border-color: #1569a8; }
+.display-hero { font-size: clamp(3.4rem, 10vw, 6.6rem); font-weight: 800; letter-spacing: -.06em; line-height: .86; max-width: 7.5ch; }
+.h-tight { font-weight: 800; letter-spacing: -.045em; line-height: .95; }
+.eyebrow { font-family: var(--bs-font-monospace); font-weight: 600; font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--bs-secondary-color); }
+.navbar-brand small { font-family: var(--bs-font-monospace); font-size: .55rem; letter-spacing: .12em; text-transform: uppercase; color: var(--bs-secondary-color); display: block; }
+.navbar .nav-link { font-weight: 700; color: var(--bs-body-color); border-bottom: 2px solid transparent; padding-inline: 0 !important; margin-left: 20px; }
+.navbar .nav-link.active, .navbar .nav-link:hover { color: var(--bs-body-color); border-color: var(--bs-primary); }
+.navbar-collapse[data-open] { display: block !important; }
+@media (min-width: 768px) { .navbar-collapse { display: flex !important; } }
+.hero { position: relative; overflow: hidden; isolation: isolate; }
+.hero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; transform: scale(1.45); transform-origin: 23% 62%; z-index: -2; }
+.hero::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(8,28,52,.92) 0%, rgba(8,28,52,.62) 38%, rgba(8,28,52,.08) 70%), linear-gradient(0deg, rgba(8,28,52,.55), transparent 35%); }
+@media (max-width: 600px) { .hero > img { transform: scale(1.9); transform-origin: 56% 64%; } .hero::after { background: linear-gradient(180deg, rgba(8,28,52,.35), rgba(8,28,52,.9) 70%); } }
+.hero .eyebrow, .hero-strip { color: #e7f0f8; }
+.hero-strip { border-top: 1px solid rgba(255,255,255,.35); font-family: var(--bs-font-monospace); font-size: .62rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+.dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--sun); margin-right: 8px; }
+.link-more { font-weight: 700; font-size: .92rem; color: var(--bs-body-color); text-decoration: none; border-bottom: 1.5px solid currentColor; white-space: nowrap; }
+.card-path { background: var(--tint); min-height: 118px; transition: border-color .15s; }
+.card-path:hover, .card-post:hover { border-color: var(--bs-primary); }
+.card-path .stretched-link::after { z-index: 1; }
+.card-navy { background: var(--navy); color: #e5eef7; border: 0; }
+.card-navy .eyebrow, .card-navy dt { color: #9cc3e6; }
+.card-navy dl > div { border-top: 1px solid rgba(255,255,255,.2); }
+.list-events { --bs-list-group-bg: transparent; --bs-list-group-border-color: var(--bs-border-color); }
+.list-events .list-group-item { padding-inline: 4px; }
+.date-mono { font-family: var(--bs-font-monospace); font-size: .74rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--sky-ink); min-width: 120px; }
+.post-img { aspect-ratio: 16/7; object-fit: cover; }
+.post-noimg { aspect-ratio: 16/7; background: var(--tint); }
+.meta-mono { font-family: var(--bs-font-monospace); font-size: .66rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--bs-secondary-color); }
+.kat { color: var(--k, var(--bs-secondary-color)); text-decoration: none; }
+[data-kat="nyhet"] { --k: #9c27b0; } [data-kat="sosialt"] { --k: #0091a7; } [data-kat="moter-og-referater"] { --k: #d97300; }
+[data-kat="kurs"] { --k: #2e7d32; } [data-kat="turer"] { --k: #d32f2f; } [data-kat="konkurranser"] { --k: #c2185b; }
+[data-kat="tilbud"] { --k: #1565c0; } [data-kat="norgescup"] { --k: #00796b; }
+.nav-filter .nav-link { border: 1px solid var(--bs-border-color); background: var(--bs-body-bg); color: var(--k, var(--bs-body-color)); font-weight: 700; font-size: .88rem; padding: .35rem .7rem; }
+.nav-filter .nav-link.active { background: var(--k, var(--bs-body-color)); border-color: var(--k, var(--bs-body-color)); color: #fff; }
+.breadcrumb { --bs-breadcrumb-font-size: .68rem; font-family: var(--bs-font-monospace); font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+.breadcrumb a { color: var(--bs-secondary-color); }
+.content img { max-width: 100%; height: auto; margin: .8rem 0; }
+.content p:has(> img + img) { display: grid; gap: .5rem; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+.content p:has(> img + img) img { aspect-ratio: 1; object-fit: cover; width: 100%; margin: 0; }
+.content h2, .content h3 { font-weight: 800; letter-spacing: -.035em; margin-top: 1.5em; }
+.content table { width: 100%; margin: 1rem 0; } .content th, .content td { padding: .5rem; border-bottom: 1px solid var(--bs-border-color); }
+.content blockquote { background: var(--tint); border-left: 3px solid var(--bs-primary); padding: .6rem 1rem; }
+.people { list-style: none; padding: 0; display: grid; gap: .75rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin: 1.5rem 0; }
+.person { border: 1px solid var(--bs-border-color); background: var(--bs-card-bg, #fff); }
+.person img { width: 100%; aspect-ratio: 1; object-fit: cover; margin: 0 !important; }
+.person div { padding: .75rem .9rem; } .person p { margin: 0; }
+.person__rolle { font-family: var(--bs-font-monospace); font-size: .66rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--sky-ink); }
+.person__navn { font-weight: 800; font-size: 1.2rem; letter-spacing: -.03em; }
+.vedlegg { margin-top: 2rem; padding: 1rem 1.1rem; background: var(--tint); border: 1px solid var(--bs-border-color); }
+.vedlegg h2 { font-size: 1.3rem; margin-top: 0; }
+.hero-in { padding-top: 80px; }
+.hero-lead { max-width: 42ch; font-size: 1.08rem; color: #eaf2fa; }
+.hero-strip { margin-top: 70px; padding: 12px 0 16px; }
+.display-hero { margin-bottom: 18px !important; }
+.navbar-toggler { color: var(--bs-body-color); border: 1.5px solid currentColor; border-radius: 4px; font-weight: 700; font-size: .9rem; padding: 6px 12px; }
+.navbar-toggler:focus { box-shadow: 0 0 0 3px rgba(31,134,209,.4); }
