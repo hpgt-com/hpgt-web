@@ -9,7 +9,7 @@ arrangement:
   start: "2026-05-23 10:00:00"
   slutt: "2026-05-23 14:00:00"
   heldag: false
-  type: "Fagdag / sikkerhetsdag"
+  type: "Fagdag / Nødskjerm og vingesjekk"
   sted: "Seljestadhallen"
 ---
 [Eksternt bilde](https://i0.wp.com/www.shgpgk.org/wp-content/uploads/2022/04/Repack.png?fit=758%2C434&ssl=1)

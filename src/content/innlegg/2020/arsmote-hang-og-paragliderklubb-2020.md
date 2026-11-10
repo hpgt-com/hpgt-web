@@ -10,7 +10,7 @@ arrangement:
   start: "2020-02-25 19:00:00"
   slutt: "2020-02-25 21:00:00"
   heldag: false
-  type: "Årsmøte / klubbmøte"
+  type: "Møte / Årsmøte"
   sted: "FUNN Harstad"
 ---
 Du inviteres herved til årsmøte i Harstad Hang og Paragliderklubb

@@ -8,7 +8,7 @@ arrangement:
   start: "2018-05-27 12:00:00"
   slutt: "2018-05-27 15:00:00"
   heldag: false
-  type: "Prøvedag"
+  type: "Kurs / Prøvedag"
   sted: "Harstad"
 ---
 Det blir mulighet for gratis prøve dag, om været tillater det.

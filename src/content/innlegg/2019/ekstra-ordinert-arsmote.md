@@ -10,7 +10,7 @@ arrangement:
   start: "2019-07-09 20:00:00"
   slutt: "2019-07-09 20:00:00"
   heldag: false
-  type: "Årsmøte / klubbmøte"
+  type: "Møte / Årsmøte"
   sted: "FUNN Harstad"
 ---
 Styret i Harstad Hang og Paraglider klubb kaller inn til ekstraordinært årsmøte.

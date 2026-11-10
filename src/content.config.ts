@@ -6,14 +6,20 @@ import { z } from "astro/zod";
 const permalink = z.string().regex(/^\/.*\/$/, "Må starte og slutte med /").optional();
 // Tomme felt fra CMS-et ("") regnes som ikke utfylt
 const tom = (v: unknown) => (v === "" || v === null ? undefined : v);
-export const ARRANGEMENTSTYPER = ["PP2-kurs", "SPG2-kurs", "PPG-kurs", "Prøvedag", "Annet kurs", "Fagdag / sikkerhetsdag",
-  "Årsmøte / klubbmøte", "Sosialt / julebord", "Tur", "Konkurranse"] as const;
+// Faste typer «Gruppe / Type». Gruppen (før /) brukes til filter og farge i kalenderen.
+export const ARRANGEMENTSTYPER = [
+  "Kurs / PP2 (nybegynner)", "Kurs / PP3 (videregående)", "Kurs / SPG (speedglider)", "Kurs / PPG (paramotor)", "Kurs / SIV (sikkerhetskurs)", "Kurs / Prøvedag", "Kurs / Annet kurs",
+  "Fagdag / Nødskjerm og vingesjekk", "Fagdag / Sikkerhetsseminar", "Fagdag / Annen fagdag",
+  "Møte / Årsmøte", "Møte / Klubbmøte", "Møte / Styremøte",
+  "Sosialt / Julebord", "Sosialt / Afterflight", "Sosialt / Kickoff", "Sosialt / Tur",
+  "Konkurranse / Cup og stevne", "Konkurranse / Foto og video", "Konkurranse / Annen konkurranse",
+] as const;
 /** Et innlegg blir et arrangement (vises i kalenderen) når start er fylt ut. */
 const arrangement = z.object({
   start: z.preprocess(tom, z.coerce.date().optional()),
   slutt: z.preprocess(tom, z.coerce.date().optional()),
   heldag: z.preprocess(tom, z.boolean().default(false)),
-  type: z.preprocess(tom, z.enum(ARRANGEMENTSTYPER).default("Sosialt / julebord")),
+  type: z.preprocess(tom, z.enum(ARRANGEMENTSTYPER, { message: "Velg en type fra listen" })),
   sted: z.preprocess(tom, z.string().optional()),
   digital: z.preprocess(tom, z.string().url("Må være en full lenke (https://…)").optional()),
   pamelding: z.preprocess(tom, z.string().optional()),

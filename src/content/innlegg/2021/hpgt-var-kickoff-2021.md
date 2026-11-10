@@ -10,7 +10,7 @@ arrangement:
   start: "2021-04-07 19:00:00"
   slutt: "2021-04-07 20:30:00"
   heldag: false
-  type: "Sosialt / julebord"
+  type: "Sosialt / Kickoff"
 ---
 Termikken har vært og flyttet på vingene våre den siste måneden så det er påtide med årets kickoff.
 Denne gang er vi så heldig at vi har fått med oss ekstern foreleser i «tolkning av meteogram og sounding.»

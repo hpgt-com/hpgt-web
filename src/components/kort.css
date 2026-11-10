@@ -29,3 +29,4 @@
 .typefilter button[aria-pressed="true"] { background: var(--k, var(--kal-text, #0e1b2b)); border-color: var(--k, var(--kal-text, #0e1b2b)); color: #fff; }
 .typefilter button[aria-pressed="true"] small { color: #fff; }
 .typefilter button:focus-visible { outline: 3px solid var(--kal-accent, #1f86d1); outline-offset: 2px; }
+.typefilter button:disabled { opacity: .45; cursor: default; }

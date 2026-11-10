@@ -10,7 +10,7 @@ arrangement:
   start: "2018-06-01 00:00:00"
   slutt: "2018-07-14 23:59:59"
   heldag: true
-  type: "PP2-kurs"
+  type: "Kurs / PP2 (nybegynner)"
   sted: "Harstad"
 ---
 **Nybegynnerkurs i Paragliding (PP2)**

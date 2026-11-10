@@ -2,14 +2,14 @@
 import VisningsValg from "../../components/VisningsValg.astro";
 import Kortnett from "../../components/Kortnett.astro";
 import ArrangementFilter from "../../components/ArrangementFilter.astro";
-import { url, dato, sted, tid, lenke, gruppe, arrangementerPaaAar } from "../../lib/site";
+import { url, dato, sted, tid, lenke, gruppe, typeTekst, arrangementerPaaAar } from "../../lib/site";
 const { kommende, tidligere } = Astro.props;
 const aar = arrangementerPaaAar(tidligere);
 ---
 <div class="container py-5">
   <p class="eyebrow mb-2">Kalender</p>
   <h1 class="h-tight display-5 mb-3">Arrangementer</h1>
-  <p class="lead text-body-secondary">Kurs, sikkerhetsdager, årsmøter og sosiale treff – helt tilbake til 2018.</p>
+  <p class="lead text-body-secondary">Alt med dato: kurs, fagdager, møter, sosiale treff og konkurranser. Klikk deg inn for tid, sted og påmelding.</p>
   <nav class="nav nav-pills nav-filter gap-2 my-4" aria-label="Hopp til år">
     <a class="nav-link" href="#kommende">Kommende <small class="font-monospace opacity-75">{kommende.length}</small></a>
     {aar.map(([a, liste]) => <a class="nav-link" href={`#ar-${a}`}>{a} <small class="font-monospace opacity-75">{liste.length}</small></a>)}
@@ -18,12 +18,12 @@ const aar = arrangementerPaaAar(tidligere);
   <VisningsValg />
   <section class="mb-4" id="kommende" data-seksjon><h2 class="h-tight fs-2 mt-4">Kommende</h2>
     {kommende.length === 0 ? <div class="alert alert-light border">Ingen nye arrangementer er lagt inn ennå. Følg med i Facebook-gruppa.</div> :
-      <div class="list-group list-group-flush list-events border-top" data-visning="liste"><div class="list-group-item ev-row ev-head py-2" aria-hidden="true"><span>Dato</span><span>Arrangement</span><span>Sted</span><span>Tid</span></div>{kommende.map((e) => <a class="list-group-item list-group-item-action ev-row py-2" data-gruppe={gruppe(e)} href={url(lenke(e))}><span class="text-body-secondary small">{dato(e.data.start)}</span><span class="ev-t">{e.data.title} <span class="kat meta-mono ms-1 text-nowrap" data-kat={gruppe(e)}>{e.data.type}</span></span><span class="text-body-secondary small">{sted(e) || "–"}</span><span class="text-body-secondary small text-end">{tid(e)}</span></a>)}</div>}
+      <div class="list-group list-group-flush list-events border-top" data-visning="liste"><div class="list-group-item ev-row ev-head py-2" aria-hidden="true"><span>Dato</span><span>Arrangement</span><span>Sted</span><span>Tid</span></div>{kommende.map((e) => <a class="list-group-item list-group-item-action ev-row py-2" data-gruppe={gruppe(e)} href={url(lenke(e))}><span class="text-body-secondary small">{dato(e.data.start)}</span><span class="ev-t">{e.data.title} <span class="kat meta-mono ms-1 text-nowrap" data-kat={gruppe(e)}>{typeTekst(e.data.type)}</span></span><span class="text-body-secondary small">{sted(e) || "–"}</span><span class="text-body-secondary small text-end">{tid(e)}</span></a>)}</div>}
     {kommende.length > 0 && <Kortnett arrangementer={kommende} />}
   </section>
   {aar.map(([a, liste]) => (
     <section class="mb-4" id={`ar-${a}`} data-seksjon><h2 class="h-tight fs-2 mt-4">{a}</h2>
-      <div class="list-group list-group-flush list-events border-top" data-visning="liste"><div class="list-group-item ev-row ev-head py-2" aria-hidden="true"><span>Dato</span><span>Arrangement</span><span>Sted</span><span>Tid</span></div>{liste.map((e) => <a class="list-group-item list-group-item-action ev-row py-2" data-gruppe={gruppe(e)} href={url(lenke(e))}><span class="text-body-secondary small">{dato(e.data.start)}</span><span class="ev-t">{e.data.title} <span class="kat meta-mono ms-1 text-nowrap" data-kat={gruppe(e)}>{e.data.type}</span></span><span class="text-body-secondary small">{sted(e) || "–"}</span><span class="text-body-secondary small text-end">{tid(e)}</span></a>)}</div>
+      <div class="list-group list-group-flush list-events border-top" data-visning="liste"><div class="list-group-item ev-row ev-head py-2" aria-hidden="true"><span>Dato</span><span>Arrangement</span><span>Sted</span><span>Tid</span></div>{liste.map((e) => <a class="list-group-item list-group-item-action ev-row py-2" data-gruppe={gruppe(e)} href={url(lenke(e))}><span class="text-body-secondary small">{dato(e.data.start)}</span><span class="ev-t">{e.data.title} <span class="kat meta-mono ms-1 text-nowrap" data-kat={gruppe(e)}>{typeTekst(e.data.type)}</span></span><span class="text-body-secondary small">{sted(e) || "–"}</span><span class="text-body-secondary small text-end">{tid(e)}</span></a>)}</div>
       <Kortnett arrangementer={liste} />
     </section>
   ))}

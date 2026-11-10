@@ -10,7 +10,7 @@ arrangement:
   start: "2018-05-14 19:00:00"
   slutt: "2018-05-14 21:00:00"
   heldag: false
-  type: "Sosialt / julebord"
+  type: "Sosialt / Kickoff"
   sted: "FUNN Harstad"
 ---
 HPGT kaller inn til kickoff 2018!

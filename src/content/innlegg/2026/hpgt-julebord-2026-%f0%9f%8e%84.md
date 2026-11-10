@@ -9,7 +9,7 @@ wp_id: 10828
 arrangement:
   start: "2026-11-06T19:00:00"
   heldag: false
-  type: "Sosialt / julebord"
+  type: "Sosialt / Julebord"
 ---
 Da er det tid for årets julebord! Vi samler PG-gjengen fredag 6. november kl. 19:00 til en kveld med god mat, god stemning og flyhistorier fra sesongen.
 

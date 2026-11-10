@@ -9,9 +9,8 @@ Bruk: python3 -I scripts/wp-import/flett-arrangementer.py
 import difflib, glob, json, os, re
 
 ARR, INN = "src/content/arrangementer", "src/content/innlegg"
-GRUPPE = {"PP2-kurs": "Kurs og fagdag", "SPG2-kurs": "Kurs og fagdag", "PPG-kurs": "Kurs og fagdag", "Prøvedag": "Kurs og fagdag",
-          "Annet kurs": "Kurs og fagdag", "Fagdag / sikkerhetsdag": "Kurs og fagdag", "Årsmøte / klubbmøte": "Møter og referater",
-          "Sosialt / julebord": "Sosialt og turer", "Tur": "Sosialt og turer", "Konkurranse": "Konkurranser"}
+GRUPPE = {"Kurs": "Kurs og fagdag", "Fagdag": "Kurs og fagdag", "Møte": "Møter og referater", "Sosialt": "Sosialt og turer",
+          "Konkurranse": "Konkurranser"}  # arrangementsgruppe → kategori på Nytt for nye innlegg
 # Arrangement → eksisterende innlegg (filnavn uten .md) der titlene ikke er like nok til å finnes automatisk
 MANUELT = {"2018-02-26-arsmote-hang-og-paragliderklubb-2018": "2018/arsmote-2018",
            "2018-05-14-kickoff-2018": "2018/hpgt-kaller-inn-til-kickoff-2018",
@@ -21,11 +20,12 @@ MANUELT = {"2018-02-26-arsmote-hang-og-paragliderklubb-2018": "2018/arsmote-2018
 
 def type_for(t):
     t = t.lower()
-    for mønster, typ in [(r"siv", "Annet kurs"), (r"nybegynner|pp2", "PP2-kurs"), (r"prøvedag", "Prøvedag"),
-                         (r"årsmøte|styremøte|klubbmøte", "Årsmøte / klubbmøte"), (r"sikkerhet|nødskjerm|fagdag", "Fagdag / sikkerhetsdag"),
-                         (r"kickoff|julebord", "Sosialt / julebord"), (r"cup|konkurranse", "Konkurranse")]:
+    for mønster, typ in [(r"siv", "Kurs / SIV (sikkerhetskurs)"), (r"nybegynner|pp2", "Kurs / PP2 (nybegynner)"), (r"prøvedag", "Kurs / Prøvedag"),
+                         (r"nødskjerm", "Fagdag / Nødskjerm og vingesjekk"), (r"sikkerhetsseminar", "Fagdag / Sikkerhetsseminar"),
+                         (r"styremøte", "Møte / Styremøte"), (r"klubbmøte", "Møte / Klubbmøte"), (r"årsmøte", "Møte / Årsmøte"),
+                         (r"julebord", "Sosialt / Julebord"), (r"kickoff", "Sosialt / Kickoff"), (r"cup|konkurranse", "Konkurranse / Cup og stevne")]:
         if re.search(mønster, t): return typ
-    return "Sosialt / julebord"
+    return "Sosialt / Tur"
 
 def les(f):
     t = open(f, encoding="utf-8").read()
@@ -65,7 +65,7 @@ for f in sorted(glob.glob(f"{ARR}/*.md")):
         omdir[q(e["permalink"])] = q(d.get("permalink", f'"/{mål.split("/")[-1]}/"'))
         print(f"flettet  {navn}  →  {mål}  ({typ})")
     else:
-        fm = [f'title: {e["title"]}', f'date: "{start.replace(" ", "T")}"', f'kategorier: ["{GRUPPE[typ]}"]', f'permalink: {e["permalink"]}']
+        fm = [f'title: {e["title"]}', f'date: "{start.replace(" ", "T")}"', f'kategorier: ["{GRUPPE[typ.split(" / ")[0]]}"]', f'permalink: {e["permalink"]}']
         if "wp_id" in e: fm.append(f'wp_id: {e["wp_id"]}')
         aar = start[:4]
         os.makedirs(f"{INN}/{aar}", exist_ok=True)

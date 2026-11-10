@@ -1,8 +1,9 @@
 ---
 // Bildevisning (kort med bilde) av innlegg eller arrangementer. Skjult til leseren velger «Bilder» (VisningsValg).
 // Uten bilde vises et fargefelt i kategoriens farge (innlegg) eller med datoen (arrangementer).
-import { url, dato, datoKort, lenke, slug, bildeFor, sted, tid, gruppe, type Innlegg, type Arrangement } from "../lib/site";
+import { url, dato, datoKort, lenke, slug, bildeFor, sted, tid, gruppe, typeTekst, type Innlegg, type Arrangement } from "../lib/site";
 import "./kort.css";
+import "./typefarger.css";
 interface Props { innlegg?: Innlegg[]; arrangementer?: Arrangement[] }
 const { innlegg, arrangementer } = Astro.props;
 let kort: { href: string; bilde?: string; tittel: string; meta: string; kat?: string; katNavn?: string; tom: string }[] = [];
@@ -11,7 +12,7 @@ if (innlegg) {
     kat: slug(p.data.kategorier[0]), katNavn: p.data.kategorier[0], tom: p.data.kategorier[0] }));
 } else if (arrangementer) {
   kort = arrangementer.map((e) => ({ href: lenke(e), bilde: bildeFor(e as any), tittel: e.data.title,
-    meta: [dato(e.data.start), sted(e), tid(e)].filter(Boolean).join(" · "), kat: gruppe(e), katNavn: e.data.type, tom: datoKort(e.data.start) }));
+    meta: [dato(e.data.start), sted(e), tid(e)].filter(Boolean).join(" · "), kat: gruppe(e), katNavn: typeTekst(e.data.type), tom: datoKort(e.data.start) }));
 }
 ---
 <ul class="kortnett" data-visning="bilder" hidden>

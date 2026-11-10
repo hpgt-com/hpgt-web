@@ -10,7 +10,7 @@ arrangement:
   start: "2018-10-29 19:00:00"
   slutt: "2018-10-29 21:30:00"
   heldag: false
-  type: "Årsmøte / klubbmøte"
+  type: "Møte / Klubbmøte"
   sted: "FUNN Harstad"
 ---
 Vi kaller inn til klubbmøte for Harstad Hang og Paragliderklubb mandag den 29.10.18 19:00

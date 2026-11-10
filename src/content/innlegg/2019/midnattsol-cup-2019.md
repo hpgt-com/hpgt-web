@@ -8,7 +8,7 @@ arrangement:
   start: "2019-07-12 17:00:00"
   slutt: "2019-07-14 20:00:00"
   heldag: false
-  type: "Konkurranse"
+  type: "Konkurranse / Cup og stevne"
   sted: "Bodø"
 ---
 Da har vi (Bodø klubben) den glede av å invitere til årets Midnattsol Cup 2019

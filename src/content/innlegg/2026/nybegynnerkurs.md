@@ -8,7 +8,7 @@ arrangement:
   start: "2026-06-08 08:00:00"
   slutt: "2026-06-21 18:00:00"
   heldag: false
-  type: "PP2-kurs"
+  type: "Kurs / PP2 (nybegynner)"
   sted: "Harstad"
 ---
 Følg link for mer info!

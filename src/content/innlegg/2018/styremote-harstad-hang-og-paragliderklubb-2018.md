@@ -8,7 +8,7 @@ arrangement:
   start: "2018-02-26 19:00:00"
   slutt: "2018-02-26 20:00:00"
   heldag: false
-  type: "Årsmøte / klubbmøte"
+  type: "Møte / Styremøte"
   sted: "FUNN Harstad"
 ---
 Styremøte før årsmøte

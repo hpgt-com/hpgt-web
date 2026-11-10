@@ -10,12 +10,14 @@ type ArrFelt = NonNullable<Innlegg["data"]["arrangement"]>;
 /** Et arrangement er et innlegg med arrangementsfelt. data har innleggets felt pluss start, slutt, sted, type osv. */
 export type Arrangement = Omit<Innlegg, "data"> & { data: Innlegg["data"] & Omit<ArrFelt, "start"> & { start: Date } };
 
-/** Arrangementstype → kategori på Nytt (samme farger og filtre). */
-export const TYPEGRUPPE: Record<string, string> = {
-  "PP2-kurs": "Kurs og fagdag", "SPG2-kurs": "Kurs og fagdag", "PPG-kurs": "Kurs og fagdag", "Prøvedag": "Kurs og fagdag",
-  "Annet kurs": "Kurs og fagdag", "Fagdag / sikkerhetsdag": "Kurs og fagdag", "Årsmøte / klubbmøte": "Møter og referater",
-  "Sosialt / julebord": "Sosialt og turer", "Tur": "Sosialt og turer", "Konkurranse": "Konkurranser",
-};
+/** Gruppene i kalenderen (delen før « / » i arrangementstypen), med fast rekkefølge og farge (se typefarger.css). */
+export const GRUPPER = [
+  { navn: "Kurs", slug: "kurs" }, { navn: "Fagdag", slug: "fagdag" }, { navn: "Møte", slug: "mote" },
+  { navn: "Sosialt", slug: "sosialt" }, { navn: "Konkurranse", slug: "konkurranse" },
+];
+export const gruppeFor = (type = "") => GRUPPER.find((g) => g.navn === type.split(" / ")[0]) ?? GRUPPER[3];
+/** «Kurs / PP2 (nybegynner)» → «Kurs · PP2 (nybegynner)» */
+export const typeTekst = (type = "") => type.replace(" / ", " · ");
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
 /** Intern lenke med base-sti; eksterne lenker returneres uendret. */
@@ -93,5 +95,5 @@ export const arrangementerPaaAar = (liste: Arrangement[]) => {
   return [...g].sort((a, b) => b[0] - a[0]);
 };
 export const sted = (e: Arrangement) => e.data.sted ?? (e.data.digital ? "Digitalt" : "");
-export const gruppe = (e: Arrangement) => slug(TYPEGRUPPE[e.data.type] ?? "Sosialt og turer");
+export const gruppe = (e: Arrangement) => gruppeFor(e.data.type).slug;
 export const tid = (e: Arrangement) => (e.data.heldag ? "Hele dagen" : `kl. ${klokke(e.data.start)}`);

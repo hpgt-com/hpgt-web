@@ -10,7 +10,7 @@ arrangement:
   start: "2020-05-14 20:00:00"
   slutt: "2020-05-14 21:30:00"
   heldag: false
-  type: "Fagdag / sikkerhetsdag"
+  type: "Fagdag / Sikkerhetsseminar"
   sted: "Teams (Internett)"
 ---
 Det har vært gode termikkforhold og fine forhold for distanse i den senere tid. I den forbindelse kaller vi inn til et sikkerhetsseminar med tema luftrom.

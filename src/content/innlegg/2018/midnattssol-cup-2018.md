@@ -8,7 +8,7 @@ arrangement:
   start: "2018-07-06 00:00:00"
   slutt: "2018-08-05 23:59:59"
   heldag: true
-  type: "Konkurranse"
+  type: "Konkurranse / Cup og stevne"
   sted: "Bodø"
 ---
 **Bodø klubben inviterer til:**
