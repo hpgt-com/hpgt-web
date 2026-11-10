@@ -19,3 +19,13 @@
 .kort__t { font-weight: 700; line-height: 1.3; }
 .kort__meta { font-size: .82rem; color: var(--kal-muted, #56657a); }
 @media (prefers-reduced-motion: reduce) { .kort a { transition: none; } .kort a:hover { transform: none; } }
+
+/* Typefilter i kalenderen */
+[data-gruppe][hidden], [data-seksjon][hidden] { display: none !important; }
+.typefilter { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0 0; }
+.typefilter[hidden] { display: none; }
+.typefilter button { font: inherit; font-weight: 700; font-size: .85rem; padding: 5px 11px; border: 1px solid var(--kal-line, #ccd7e4); background: var(--kal-surface, #fff); color: var(--k, var(--kal-text, #0e1b2b)); cursor: pointer; }
+.typefilter button small { color: var(--kal-muted, #56657a); font-weight: 600; }
+.typefilter button[aria-pressed="true"] { background: var(--k, var(--kal-text, #0e1b2b)); border-color: var(--k, var(--kal-text, #0e1b2b)); color: #fff; }
+.typefilter button[aria-pressed="true"] small { color: #fff; }
+.typefilter button:focus-visible { outline: 3px solid var(--kal-accent, #1f86d1); outline-offset: 2px; }

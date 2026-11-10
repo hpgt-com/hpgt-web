@@ -37,7 +37,7 @@ const dock = [
           <a href={url(m.url)} aria-current={aktiv(m.url) ? "page" : undefined}>{m.tekst}{ekstern(m.url) && <span aria-hidden="true"> ↗</span>}</a>
         ))}
       </nav>
-      <a class="btn btn--small top__cta" href={url("/kurs-2026/")}>Kurs</a>
+      <a class="btn btn--small top__cta" href={url("/kurs/")}>Kurs</a>
     </div>
   </header>
   <main id="innhold"><slot /></main>

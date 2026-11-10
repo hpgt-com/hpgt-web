@@ -6,6 +6,12 @@ bilde: "/wp-content/uploads/2015/07/11807537_10155915607060613_57130196671043453
 permalink: "/arsmote-hang-og-paragliderklubb-2019/"
 forfatter: "Aage"
 wp_id: 2693
+arrangement:
+  start: "2019-03-25 19:00:00"
+  slutt: "2019-03-25 21:30:00"
+  heldag: false
+  type: "Årsmøte / klubbmøte"
+  sted: "FUNN Harstad"
 ---
 Du inviteres herved til årsmøte i Harstad Hang og Paragliderklubb
 

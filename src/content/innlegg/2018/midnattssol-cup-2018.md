@@ -1,11 +1,15 @@
 ---
 title: "Midnattssol Cup 2018"
-start: "2018-07-06 00:00:00"
-slutt: "2018-08-05 23:59:59"
-heldag: true
-sted: "Bodø"
+date: "2018-07-06T00:00:00"
+kategorier: ["Konkurranser"]
 permalink: "/event/midnattssol-cup-2018/"
 wp_id: 2311
+arrangement:
+  start: "2018-07-06 00:00:00"
+  slutt: "2018-08-05 23:59:59"
+  heldag: true
+  type: "Konkurranse"
+  sted: "Bodø"
 ---
 **Bodø klubben inviterer til:**
 

@@ -1,6 +1,8 @@
 ---
-title: "Kurs 2026"
-permalink: "/kurs-2026/"
+title: "Kurs"
+permalink: "/kurs/"
+mal: "kurs"
+ingress: "Nybegynnerkurs (PP2), videregående kurs og fagdager. Datoene hentes fra kalenderen."
 wp_id: 10717
 sist_endret: "2026-04-19"
 ---

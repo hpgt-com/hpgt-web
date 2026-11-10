@@ -6,6 +6,12 @@ bilde: "/wp-content/uploads/2018/10/37835741_10160663697070613_71035434985901260
 permalink: "/klubbmote-host-2018-sikkerhet-og-min-idrett/"
 forfatter: "Aage"
 wp_id: 2514
+arrangement:
+  start: "2018-10-29 19:00:00"
+  slutt: "2018-10-29 21:30:00"
+  heldag: false
+  type: "Årsmøte / klubbmøte"
+  sted: "FUNN Harstad"
 ---
 Vi kaller inn til klubbmøte for Harstad Hang og Paragliderklubb mandag den 29.10.18 19:00
 Sted er som vanlig Funn AS sine lokaler ved tore hunds gate 5. 9404 Harstad

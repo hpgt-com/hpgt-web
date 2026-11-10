@@ -1,0 +1,17 @@
+/* Faktaboks for arrangementer og «kommende kurs» på kurssiden. Bruker designets --kal-*-variabler. */
+.arr { margin: 0 0 1.6rem; padding: 16px 18px; border: 1px solid var(--kal-line, #ccd7e4); border-left: 4px solid var(--kal-accent, #1f86d1); background: var(--kal-surface, #fff); }
+.arr dl { margin: 0; display: grid; gap: 12px 24px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+.arr dt { font: 600 .64rem/1.4 var(--kal-mono, ui-monospace, monospace); letter-spacing: .12em; text-transform: uppercase; color: var(--kal-muted, #56657a); margin-bottom: 2px; }
+.arr dd { margin: 0; font-weight: 700; line-height: 1.35; }
+.arr__tid { font-weight: 400; color: var(--kal-muted, #56657a); }
+.arr__type { color: var(--k, var(--kal-accent-ink, #1569a8)); }
+.arr__knapp { display: inline-block; margin-top: 14px; padding: 9px 18px; border-radius: 4px; background: var(--kal-accent-ink, #1569a8); color: #fff !important; font-weight: 700; text-decoration: none; }
+.arr__knapp:hover { background: var(--kal-accent, #1f86d1); }
+.arr__ferdig { margin: 12px 0 0; font-size: .88rem; color: var(--kal-muted, #56657a); }
+.kurs-neste { margin: 0 0 2rem; padding: 18px 20px; background: var(--kal-tint, #e2eaf3); }
+.kurs-neste h2 { margin-top: 0; }
+.kurs-neste ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.kurs-neste li a { display: grid; gap: 2px; padding: 10px 12px; background: var(--kal-surface, #fff); border: 1px solid var(--kal-line, #ccd7e4); text-decoration: none; color: inherit; }
+.kurs-neste li a:hover { border-color: var(--kal-accent, #1f86d1); }
+.kurs-neste li span { font-size: .88rem; color: var(--kal-muted, #56657a); }
+.kurs-neste__alle { margin: 12px 0 0; }

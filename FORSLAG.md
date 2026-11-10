@@ -102,7 +102,7 @@ Hentet automatisk via WordPress-API-et (`scripts/` og konverteringsskriptet):
 |---|---|---|
 | Innlegg (2012–2026) | 138 | Markdown med dato, én kategori og hovedbilde. Fem kategorier: Nyhet, Møter og referater, Kurs og fagdag, Sosialt og turer, Konkurranser. |
 | Sider | 13 | Alle med. Kontakt, Om oss, Fly med oss og RadioID er skrevet om til redigerbare data. |
-| Arrangementer (The Events Calendar) | 17 | Eget arrangementsformat |
+| Arrangementer (The Events Calendar) | 18 | Nå en del av innleggene: et innlegg med feltet «Arrangement» (dato, sted eller nettmøte, type, påmelding) vises også i kalenderen. 11 er slått sammen med innlegget om samme arrangement (/event/… sender videre), 7 er blitt egne innlegg. |
 | Bilder og PDF-er | 222 | Lokalt, nedskalert til maks 1600 px (36 MB) |
 | Innebygde videoer (Vimeo/YouTube) | 19 | Gjort om til lenker, så ingen sporing fra tredjepart |
 | Bilder fra andre nettsteder | 8 | Gjort om til lenker. De fleste er døde. |

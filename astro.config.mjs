@@ -6,6 +6,10 @@ import tailwindcss from "@tailwindcss/vite";
 import { fileURLToPath } from "node:url";
 import { unified } from "@astrojs/markdown-remark";
 import rehypeBase from "./src/lib/rehype-base.mjs";
+import { readFileSync } from "node:fs";
+
+// /event/<navn>/ for arrangementer som ble slått sammen med et innlegg (scripts/wp-import/flett-arrangementer.py)
+const omdirigeringer = JSON.parse(readFileSync(new URL("./src/data/omdirigeringer.json", import.meta.url), "utf-8"));
 
 const THEME = process.env.THEME || "fjord";
 const BASE = process.env.BASE || "/";
@@ -15,7 +19,7 @@ export default defineConfig({
   base: BASE,
   outDir: process.env.OUT || "dist",
   trailingSlash: "always",
-  redirects: { "/events/": "/arrangementer/", "/nytt/kategori/kurs/": "/nytt/kategori/kurs-og-fagdag/", "/galleri/": "/konkurranser/konkurranse-2014/" },
+  redirects: { ...omdirigeringer, "/kurs-2026/": "/kurs/", "/events/": "/arrangementer/", "/nytt/kategori/kurs/": "/nytt/kategori/kurs-og-fagdag/", "/galleri/": "/konkurranser/konkurranse-2014/" },
   build: { format: "directory", inlineStylesheets: "never" },
   markdown: { processor: unified({ rehypePlugins: [[rehypeBase, { base: BASE }]] }) },
   vite: {

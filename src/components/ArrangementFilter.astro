@@ -1,0 +1,12 @@
+---
+// Filtrer kalenderen på type (samme grupper og farger som kategoriene på Nytt). Skjult uten JavaScript.
+import { gruppe, slug, url, TYPEGRUPPE, type Arrangement } from "../lib/site";
+import "./kort.css";
+const { alle } = Astro.props as { alle: Arrangement[] };
+const grupper = [...new Set(Object.values(TYPEGRUPPE))].map((navn) => ({ navn, slug: slug(navn), antall: alle.filter((e) => gruppe(e) === slug(navn)).length })).filter((g) => g.antall);
+---
+<div class="typefilter" role="group" aria-label="Vis type" hidden>
+  <button type="button" data-filter="" aria-pressed="true">Alle <small>{alle.length}</small></button>
+  {grupper.map((g) => <button type="button" data-filter={g.slug} data-kat={g.slug} aria-pressed="false">{g.navn} <small>{g.antall}</small></button>)}
+</div>
+<script is:inline src={url("/assets/js/typefilter.js")} defer></script>

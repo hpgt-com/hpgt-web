@@ -6,6 +6,12 @@ bilde: "/wp-content/uploads/2014/06/vlcsnap-2014-08-10-18h36m02s107.png"
 permalink: "/nybegynnerkurs-i-paragliding-pp2/"
 forfatter: "Aage"
 wp_id: 2297
+arrangement:
+  start: "2018-06-01 00:00:00"
+  slutt: "2018-07-14 23:59:59"
+  heldag: true
+  type: "PP2-kurs"
+  sted: "Harstad"
 ---
 **Nybegynnerkurs i Paragliding (PP2)**
 
@@ -74,3 +80,15 @@ Vi trenger da å vite følgende:
 ##
 
 Vi sees!
+
+## Praktisk info
+
+Har du lyst til å sveve over ørna og se verden fra en annen vinkel?
+Da er kurs i paragliding tingen!
+Klubben kjører et nybegynner kurs (PP2) i Juni 2018. Lyst til å være med?
+Et PP2 kurs gir deg en innføring i vår fantastiske sport og gir deg en start på veien mot PP3 som er selvstendig pilot.
+
+Alle som skal fly på egen hånd må ha offentlig godkjent flylisens og forsikring. 
+Dette får du ved å fullføre et paraglider kurs hos en klubb tilknyttet norsk luftsportforbund
+
+Se https://hpgt.com/kurs for nærmere informasjon

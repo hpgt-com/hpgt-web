@@ -6,6 +6,12 @@ bilde: "/wp-content/uploads/2018/05/20170429_145219.jpg"
 permalink: "/hpgt-kaller-inn-til-kickoff-2018/"
 forfatter: "Aage"
 wp_id: 2278
+arrangement:
+  start: "2018-05-14 19:00:00"
+  slutt: "2018-05-14 21:00:00"
+  heldag: false
+  type: "Sosialt / julebord"
+  sted: "FUNN Harstad"
 ---
 HPGT kaller inn til kickoff 2018!
 

@@ -4,6 +4,20 @@ import { glob, file } from "astro/loaders";
 import { z } from "astro/zod";
 
 const permalink = z.string().regex(/^\/.*\/$/, "Må starte og slutte med /").optional();
+// Tomme felt fra CMS-et ("") regnes som ikke utfylt
+const tom = (v: unknown) => (v === "" || v === null ? undefined : v);
+export const ARRANGEMENTSTYPER = ["PP2-kurs", "SPG2-kurs", "PPG-kurs", "Prøvedag", "Annet kurs", "Fagdag / sikkerhetsdag",
+  "Årsmøte / klubbmøte", "Sosialt / julebord", "Tur", "Konkurranse"] as const;
+/** Et innlegg blir et arrangement (vises i kalenderen) når start er fylt ut. */
+const arrangement = z.object({
+  start: z.preprocess(tom, z.coerce.date().optional()),
+  slutt: z.preprocess(tom, z.coerce.date().optional()),
+  heldag: z.preprocess(tom, z.boolean().default(false)),
+  type: z.preprocess(tom, z.enum(ARRANGEMENTSTYPER).default("Sosialt / julebord")),
+  sted: z.preprocess(tom, z.string().optional()),
+  digital: z.preprocess(tom, z.string().url("Må være en full lenke (https://…)").optional()),
+  pamelding: z.preprocess(tom, z.string().optional()),
+}).optional();
 
 const innlegg = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/innlegg" }),
@@ -18,6 +32,7 @@ const innlegg = defineCollection({
     permalink,
     utkast: z.boolean().default(false),
     wp_id: z.number().optional(),
+    arrangement,
   }),
 });
 
@@ -28,22 +43,8 @@ const sider = defineCollection({
     permalink,
     ingress: z.string().optional(),
     bilde: z.string().optional(),
-    mal: z.enum(["standard", "kontakt", "radioid", "redaktordemo"]).default("standard"),
+    mal: z.enum(["standard", "kontakt", "radioid", "redaktordemo", "kurs"]).default("standard"),
     sist_endret: z.coerce.date().optional(),
-    wp_id: z.number().optional(),
-  }),
-});
-
-const arrangementer = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/arrangementer" }),
-  schema: z.object({
-    title: z.string(),
-    start: z.coerce.date(),
-    slutt: z.coerce.date().optional(),
-    heldag: z.boolean().default(false),
-    sted: z.string().optional(),
-    bilde: z.string().optional(),
-    permalink,
     wp_id: z.number().optional(),
   }),
 });
@@ -53,4 +54,4 @@ const styret = defineCollection({
   schema: z.object({ rolle: z.string(), navn: z.string(), telefon: z.string().optional(), epost: z.string().optional(), bilde: z.string().optional() }),
 });
 
-export const collections = { innlegg, sider, arrangementer, styret };
+export const collections = { innlegg, sider, styret };

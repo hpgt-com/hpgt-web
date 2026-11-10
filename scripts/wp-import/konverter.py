@@ -173,7 +173,7 @@ for p in pages:
           "sist_endret": p["modified"][:10]}
     write(os.path.join(SRC, "sider", f"{p['slug']}.md"), fm, to_md(p["content"]["rendered"]))
 
-# Events
+# Events – skrives midlertidig til arrangementer/ og flettes inn i innleggene med flett-arrangementer.py
 for e in events:
     venue = e.get("venue") if isinstance(e.get("venue"), dict) else {}
     fm = {
@@ -189,6 +189,7 @@ for e in events:
           to_md(e.get("description") or ""))
 
 print("posts", len(posts), "pages", len(pages), "events", len(events))
+print("Kjør deretter: python3 -I scripts/wp-import/flett-arrangementer.py")
 print("missing media:", len(missing))
 with open(os.path.join(CRAWL, "missing.txt"), "w") as f:
     f.write("\n".join(sorted(missing)))

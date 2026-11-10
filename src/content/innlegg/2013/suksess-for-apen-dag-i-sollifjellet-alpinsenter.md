@@ -14,6 +14,6 @@ Noen fikk sin første flytur: [http://www.ht.no/incoming/article6981563.ece](ht
 
 Mens folk fra resten av klubben stilte opp for spørsmål og fløy sine egne vinger.
 
-Dersom du har lyst på kurs og fly din egen paraglider alene ta en titt her [http://hpgt.com/kurs/nybegynnerkurs](/kurs-2026/)
+Dersom du har lyst på kurs og fly din egen paraglider alene ta en titt her [http://hpgt.com/kurs/nybegynnerkurs](/kurs/)
 
 [![149366_10151191388700946_1212662154_n](/wp-content/uploads/2013/01/149366_10151191388700946_1212662154_n.jpg)](/wp-content/uploads/2013/01/149366_10151191388700946_1212662154_n.jpg)

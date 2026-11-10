@@ -6,6 +6,12 @@ bilde: "/wp-content/uploads/2016/10/Skjermbilde.png"
 permalink: "/ekstra-ordinert-arsmote/"
 forfatter: "Aage"
 wp_id: 2894
+arrangement:
+  start: "2019-07-09 20:00:00"
+  slutt: "2019-07-09 20:00:00"
+  heldag: false
+  type: "Årsmøte / klubbmøte"
+  sted: "FUNN Harstad"
 ---
 Styret i Harstad Hang og Paraglider klubb kaller inn til ekstraordinært årsmøte.
 Sted: Funn Harstad- Tore hunds gate 5. 9404 Harstad.

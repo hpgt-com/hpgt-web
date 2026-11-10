@@ -1,0 +1,16 @@
+---
+// På kurssiden: kommende kurs og fagdager hentes fra kalenderen, så datoene bare skrives ett sted (i innlegget).
+import { hentArrangementer, dato, sted, tid, lenke, url, TYPEGRUPPE } from "../lib/site";
+import "./arrangement.css";
+const { kommende, tidligere } = await hentArrangementer();
+const erKurs = (e: { data: { type: string } }) => TYPEGRUPPE[e.data.type] === "Kurs og fagdag";
+const neste = kommende.filter(erKurs);
+const forrige = tidligere.find(erKurs);
+---
+<section class="kurs-neste" aria-labelledby="kurs-neste-h">
+  <h2 id="kurs-neste-h">Kommende kurs og fagdager</h2>
+  {neste.length > 0
+    ? <ul>{neste.map((e) => <li><a href={url(lenke(e))}><b>{e.data.title}</b><span>{dato(e.data.start)} · {[sted(e), tid(e)].filter(Boolean).join(" · ")} · {e.data.type}</span></a></li>)}</ul>
+    : <p>Ingen kurs er satt opp akkurat nå. Følg med her og i Facebook-gruppa{forrige && <> – forrige var <a href={url(lenke(forrige))}>{forrige.data.title}</a> ({dato(forrige.data.start)})</>}.</p>}
+  <p class="kurs-neste__alle"><a href={url("/arrangementer/")}>Hele kalenderen →</a></p>
+</section>

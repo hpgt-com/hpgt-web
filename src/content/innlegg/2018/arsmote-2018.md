@@ -6,6 +6,12 @@ bilde: "/wp-content/uploads/2015/01/vlcsnap-2014-01-19-22h16m08s83.png"
 permalink: "/arsmote-2018/"
 forfatter: "Kristoffer"
 wp_id: 2199
+arrangement:
+  start: "2018-02-26 20:00:00"
+  slutt: "2018-02-26 22:00:00"
+  heldag: false
+  type: "Årsmøte / klubbmøte"
+  sted: "FUNN Harstad"
 ---
 Du inviteres herved til årsmøte i Harstad Hang og Paragliderklubb
 
@@ -31,3 +37,13 @@ Følgende saker tas opp på årsmøte:
 Standardfrase:
 
 Valgbarhet I NIFs lov § 2-4 heter det at: ”Ved valg/oppnevning av representanter til årsmøte/ting, samt medlemmer til styre, råd og utvalg mv. i NIF og NIFs organisasjonsledd skal det velges kandidater/representanter fra begge kjønn. Sammensetningen skal være forholdsmessig i forhold til kjønnsfordelingen i medlemsmassen, dog slik at det skal være minst to representanter fra hvert kjønn i styre, råd og utvalg mv. med mer enn tre medlemmer. I styre, råd og utvalg mv. som består av to eller tre medlemmer skal begge kjønn være representert. Varamedlemmer teller ikke med ved beregningen av kjønnsfordelingen.” Ved manglende oppfyllelse av denne bestemmelsen når det gjelder valg, må styret innkalle til nytt årsmøte hvor nytt valg må foretas. Ved overtredelse av fristen kan NIF v/Idrettsstyret pålegge idrettslaget å oppfylle bestemmelsen. Når det gjelder oppnevning av representanter, mister idrettslaget det antall representanter som mangler for å oppfylle bestemmelsen. Velkommen til årsmøte. Med vennlig hilsen styret
+
+## Praktisk info
+
+Du inviteres herved til årsmøte i Harstad Hang og Paragliderklubb
+
+Hvis det er saker dere vil skal tas opp på årsmøtet må dette være innsendt innen 12. februar 2018 til styret på e-post: leder@hpgt.com
+
+Facebook event:
+
+<https://www.facebook.com/events/1963944827155651/>

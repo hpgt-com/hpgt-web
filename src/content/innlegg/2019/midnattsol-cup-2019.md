@@ -1,11 +1,15 @@
 ---
 title: "Midnattsol Cup 2019"
-start: "2019-07-12 17:00:00"
-slutt: "2019-07-14 20:00:00"
-heldag: false
-sted: "Bodø"
+date: "2019-07-12T17:00:00"
+kategorier: ["Konkurranser"]
 permalink: "/event/midnattsol-cup-2019/"
 wp_id: 2801
+arrangement:
+  start: "2019-07-12 17:00:00"
+  slutt: "2019-07-14 20:00:00"
+  heldag: false
+  type: "Konkurranse"
+  sted: "Bodø"
 ---
 Da har vi (Bodø klubben) den glede av å invitere til årets Midnattsol Cup 2019
 Tradisjon tro blir det konkurranse for alle nivå, grilling, livemusikk og opptak til Midnattskvadron. Kanskje innspill av konkurranser. 

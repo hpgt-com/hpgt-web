@@ -17,7 +17,7 @@ def keep(rel):  # rel: sidens mappe relativt til temaroten, f.eks. "kurs-2026" e
     return rel in SIDER or rel in NYESTE
 
 # Faste sider og de nyeste innleggene
-SIDER = {"redaktor-demo", "kurs-2026", "tandem", "om-oss", "om-klubben", "flysteder", "flysteder/flarm-fanet-radioid", "lenker", "notam",
+SIDER = {"redaktor-demo", "kurs", "kurs-2026", "tandem", "om-oss", "om-klubben", "flysteder", "flysteder/flarm-fanet-radioid", "lenker", "notam",
          "grasrotandelen", "konkurranser", "konkurranser/konkurranse-2014", "konkurranser/konkurranse-2017"}
 NYESTE = {"ny-flystedsoversikt-flysteder-hpgt-com", "hpgt-julebord-2026-🎄", "nodskjermpakking-og-kontroll-av-vinge-dag-23-mai-2026",
           "arsmote-2026", "hpgt-var-kickoff-2021", "protokoll-arsmote-2021", "ars-beretning-2020", "arsmote-2021",
@@ -36,7 +36,7 @@ pages = sorted(set(p for p in pages if not p.startswith("event/") or p.split("/"
 page_set = set(pages)
 # De eldre prototypene (1–5) får bare kjernesidene, så forhåndsvisningen holder seg under 512 filer.
 ELDRE = {"fjord", "pico", "magasin", "klassisk", "nordlys"}
-KJERNE = {"", "nytt", "arrangementer", "kurs-2026", "om-klubben", "bidra", "redaktor-demo", "flysteder/flarm-fanet-radioid",
+KJERNE = {"", "nytt", "arrangementer", "kurs", "kurs-2026", "om-klubben", "bidra", "redaktor-demo", "flysteder/flarm-fanet-radioid",
           "nodskjermpakking-og-kontroll-av-vinge-dag-23-mai-2026", "hpgt-julebord-2026-🎄", "event/hpgt-julebord-2026", "events", "galleri"}
 sider_for = lambda theme: page_set & KJERNE if theme in ELDRE else page_set
 
@@ -68,7 +68,11 @@ def rewrite(html, theme, rel):
     html = ATTR.sub(fix, html)
     html = html.replace('href="/"', f'href="{up}"')  # «Bytt prototype» peker til oversikten
     # Astro sine omdirigeringssider bruker meta refresh med absolutt sti
-    html = re.sub(r'content="(\d+);url=(/[^"]*)"', lambda m: f'content="{m.group(1)};url={up}{m.group(2).strip("/")}/index.html"', html)
+    def refresh(m):
+        mal = urllib.parse.unquote(m.group(2)).strip("/")
+        dest = f"{theme}/{mal}/index.html" if mal in sider_for(theme) else "utenfor.html"
+        return f'content="{m.group(1)};url={up}{urllib.parse.quote(dest)}"'
+    html = re.sub(r'content="(\d+);url=(/[^"]*)"', refresh, html)
     return html
 
 for theme in THEMES:

@@ -6,6 +6,12 @@ bilde: "/wp-content/uploads/2019/10/PA121002.jpg"
 permalink: "/arsmote-hang-og-paragliderklubb-2020/"
 forfatter: "Aage"
 wp_id: 3361
+arrangement:
+  start: "2020-02-25 19:00:00"
+  slutt: "2020-02-25 21:00:00"
+  heldag: false
+  type: "Årsmøte / klubbmøte"
+  sted: "FUNN Harstad"
 ---
 Du inviteres herved til årsmøte i Harstad Hang og Paragliderklubb
 

@@ -6,7 +6,16 @@ import radioid from "../data/radioid.json";
 
 export { site, meny, forside, radioid };
 export type Innlegg = CollectionEntry<"innlegg">;
-export type Arrangement = CollectionEntry<"arrangementer">;
+type ArrFelt = NonNullable<Innlegg["data"]["arrangement"]>;
+/** Et arrangement er et innlegg med arrangementsfelt. data har innleggets felt pluss start, slutt, sted, type osv. */
+export type Arrangement = Omit<Innlegg, "data"> & { data: Innlegg["data"] & Omit<ArrFelt, "start"> & { start: Date } };
+
+/** Arrangementstype → kategori på Nytt (samme farger og filtre). */
+export const TYPEGRUPPE: Record<string, string> = {
+  "PP2-kurs": "Kurs og fagdag", "SPG2-kurs": "Kurs og fagdag", "PPG-kurs": "Kurs og fagdag", "Prøvedag": "Kurs og fagdag",
+  "Annet kurs": "Kurs og fagdag", "Fagdag / sikkerhetsdag": "Kurs og fagdag", "Årsmøte / klubbmøte": "Møter og referater",
+  "Sosialt / julebord": "Sosialt og turer", "Tur": "Sosialt og turer", "Konkurranse": "Konkurranser",
+};
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
 /** Intern lenke med base-sti; eksterne lenker returneres uendret. */
@@ -37,7 +46,10 @@ export async function hentInnlegg() {
   return (await getCollection("innlegg", (p) => !p.data.utkast)).sort((a, b) => +b.data.date - +a.data.date);
 }
 export async function hentArrangementer() {
-  const alle = (await getCollection("arrangementer")).sort((a, b) => +a.data.start - +b.data.start);
+  const alle = (await hentInnlegg())
+    .filter((p) => p.data.arrangement?.start)
+    .map((p) => ({ ...p, data: { ...p.data, ...p.data.arrangement } }) as Arrangement)
+    .sort((a, b) => +a.data.start - +b.data.start);
   const naa = Date.now();
   const ferdig = (e: Arrangement) => +(e.data.slutt ?? e.data.start) < naa;
   return { kommende: alle.filter((e) => !ferdig(e)), tidligere: alle.filter(ferdig).reverse() };
@@ -80,5 +92,6 @@ export const arrangementerPaaAar = (liste: Arrangement[]) => {
   for (const e of liste) g.set(e.data.start.getUTCFullYear(), [...(g.get(e.data.start.getUTCFullYear()) ?? []), e]);
   return [...g].sort((a, b) => b[0] - a[0]);
 };
-export const sted = (e: Arrangement) => e.data.sted ?? "";
+export const sted = (e: Arrangement) => e.data.sted ?? (e.data.digital ? "Digitalt" : "");
+export const gruppe = (e: Arrangement) => slug(TYPEGRUPPE[e.data.type] ?? "Sosialt og turer");
 export const tid = (e: Arrangement) => (e.data.heldag ? "Hele dagen" : `kl. ${klokke(e.data.start)}`);
