@@ -1,0 +1,10 @@
+---
+import Layout from "@design/Layout.astro";
+import Home from "@design/Home.astro";
+import { hentInnlegg, hentArrangementer, site } from "../lib/site";
+const innlegg = await hentInnlegg();
+const { kommende, tidligere } = await hentArrangementer();
+---
+<Layout title={site.navn}>
+  <Home innlegg={innlegg} kommende={kommende} tidligere={tidligere} />
+</Layout>

@@ -1,0 +1,22 @@
+---
+// Faktaboks øverst i et innlegg som også er et arrangement: når, hvor (fysisk eller nettmøte), type og påmelding.
+import { dato, klokke, url, gruppeFor, typeTekst } from "../lib/site";
+import "./arrangement.css";
+import "./typefarger.css";
+const { a } = Astro.props;
+const start: Date = a.start, slutt: Date | undefined = a.slutt;
+const sammeDag = !slutt || start.toISOString().slice(0, 10) === slutt.toISOString().slice(0, 10);
+const naar = sammeDag ? dato(start) : `${dato(start).replace(/ \d{4}$/, "")} – ${dato(slutt!)}`;
+const tid = a.heldag ? "Hele dagen" : `kl. ${klokke(start)}${slutt && sammeDag ? "–" + klokke(slutt) : ""}`;
+const ferdig = +(slutt ?? start) < Date.now();
+---
+<aside class="arr" aria-label="Om arrangementet">
+  <dl>
+    <div><dt>Når</dt><dd>{naar}<br /><span class="arr__tid">{tid}</span></dd></div>
+    <div><dt>Hvor</dt><dd>{a.sted ?? (a.digital ? "Digitalt" : "Kommer")}{a.digital && <><br /><a href={a.digital}>Bli med på nett ↗</a></>}</dd></div>
+    <div><dt>Arrangør</dt><dd>{a.arrangor ?? "HPGT"}</dd></div>
+    <div><dt>Type</dt><dd><span class="arr__type kat" data-kat={gruppeFor(a.type).slug}>{typeTekst(a.type)}</span></dd></div>
+  </dl>
+  {a.pamelding && !ferdig && <a class="arr__knapp" href={url(a.pamelding)}>Meld deg på</a>}
+  {ferdig && <p class="arr__ferdig">Dette arrangementet er gjennomført.</p>}
+</aside>

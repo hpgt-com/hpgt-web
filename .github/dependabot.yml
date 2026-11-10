@@ -13,14 +13,13 @@ updates:
       actions:
         patterns: ["*"]
 
-  # TILPASS: fjern kommentaren for økosystemene repoet bruker (npm, pip, gomod, docker, ...).
-  # - package-ecosystem: npm
-  #   directory: /
-  #   schedule:
-  #     interval: monthly
-  #   labels: ["dependencies"]
-  #   cooldown:
-  #     default-days: 7
-  #   groups:
-  #     npm:
-  #       patterns: ["*"]
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+    labels: ["dependencies"]
+    cooldown:
+      default-days: 7
+    groups:
+      npm:
+        patterns: ["*"]

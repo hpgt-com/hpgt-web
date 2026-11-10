@@ -1,0 +1,22 @@
+---
+import VisningsValg from "../components/VisningsValg.astro";
+import Kortnett from "../components/Kortnett.astro";
+import { url, dato, lenke, slug } from "../lib/site";
+const { title, ingress, grupper, kategorier, aktiv } = Astro.props;
+---
+<div class="wrap section">
+  <p class="eyebrow">Arkiv fra 2012</p>
+  <h1 class="h1">{title}</h1>
+  {ingress && <p class="lead">{ingress}</p>}
+  <nav class="filters" aria-label="Kategorier">
+    <a href={url("/nytt/")} aria-current={!aktiv ? "page" : undefined}>Alle</a>
+    {kategorier.map((k) => <a href={url(`/nytt/kategori/${k.slug}/`)} data-kat={k.slug} aria-current={aktiv === k.slug ? "page" : undefined}>{k.navn} <small>{k.poster.length}</small></a>)}
+  </nav>
+  <VisningsValg />
+  {grupper.map(([aar, poster]) => (
+    <section class="year"><h2 class="year__h">{aar}</h2>
+      <ul class="rows" data-visning="liste">{poster.map((p) => <li><a href={url(lenke(p))}><time>{dato(p.data.date)}</time><span>{p.data.title}</span><span class="kat" data-kat={slug(p.data.kategorier[0])}>{p.data.kategorier[0]}</span></a></li>)}</ul>
+      <Kortnett innlegg={poster} />
+    </section>
+  ))}
+</div>

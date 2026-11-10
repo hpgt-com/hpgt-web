@@ -1,0 +1,19 @@
+{
+  "name": "hpgt-web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && node scripts/skaler-bilder.mjs",
+    "preview": "astro preview",
+    "check": "astro check",
+    "forhandsvisning": "./scripts/bygg-forhandsvisning.sh"
+  },
+  "dependencies": {
+    "@astrojs/markdown-remark": "^7.3.6",
+    "@fontsource-variable/inter-tight": "^5.3.0",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "astro": "^7.4.8",
+    "sharp": "^0.35.5"
+  }
+}

@@ -1,0 +1,386 @@
+{
+ "kilde": "https://flysteder.hpgt.com/",
+ "hentet": "2026-11-10",
+ "steder": [
+  {
+   "id": "blahatten",
+   "navn": "Blåhatten",
+   "moh": 475,
+   "retninger": [
+    "SØ",
+    "S"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/blahatten/"
+  },
+  {
+   "id": "dale",
+   "navn": "Dale",
+   "moh": 75,
+   "retninger": [
+    "S",
+    "SV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/dale/"
+  },
+  {
+   "id": "daleskallen",
+   "navn": "Daleskallen",
+   "moh": 176,
+   "retninger": [
+    "V"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/daleskallen/"
+  },
+  {
+   "id": "elgen",
+   "navn": "Elgen",
+   "moh": 497,
+   "retninger": [
+    "N",
+    "NØ",
+    "Ø",
+    "SØ",
+    "S",
+    "SV",
+    "V",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/elgen/"
+  },
+  {
+   "id": "finnslettheia",
+   "navn": "Finnslettheia",
+   "moh": 502,
+   "retninger": [
+    "Ø",
+    "SØ"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/finnslettheia/"
+  },
+  {
+   "id": "haugfjellet",
+   "navn": "Haugfjellet",
+   "moh": 523,
+   "retninger": [
+    "NØ",
+    "Ø",
+    "SØ",
+    "S"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/haugfjellet/"
+  },
+  {
+   "id": "heia",
+   "navn": "Heia",
+   "moh": 475,
+   "retninger": [
+    "N",
+    "NØ",
+    "Ø",
+    "V",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/heia/"
+  },
+  {
+   "id": "hinnstein",
+   "navn": "Hinnstein",
+   "moh": 558,
+   "retninger": [
+    "Ø",
+    "SØ"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/hinnstein/"
+  },
+  {
+   "id": "hogfjellet",
+   "navn": "Høgfjellet",
+   "moh": 617,
+   "retninger": [
+    "N",
+    "NØ",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/hogfjellet/"
+  },
+  {
+   "id": "keipen",
+   "navn": "Keipen",
+   "moh": 475,
+   "retninger": [
+    "SØ",
+    "S",
+    "SV",
+    "V"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/keipen/"
+  },
+  {
+   "id": "kilhusasen",
+   "navn": "Kilhusåsen",
+   "moh": 280,
+   "retninger": [
+    "V",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/kilhusasen/"
+  },
+  {
+   "id": "lundenesgalten",
+   "navn": "Lundenesgalten",
+   "moh": 780,
+   "retninger": [
+    "Ø",
+    "SØ"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/lundenesgalten/"
+  },
+  {
+   "id": "mela-aksla",
+   "navn": "Melå aksla",
+   "moh": 540,
+   "retninger": [
+    "N",
+    "NØ",
+    "Ø",
+    "S",
+    "SV",
+    "V",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/mela-aksla/"
+  },
+  {
+   "id": "nona",
+   "navn": "Nona",
+   "moh": 999,
+   "retninger": [
+    "NØ",
+    "Ø",
+    "SØ",
+    "SV",
+    "V",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/nona/"
+  },
+  {
+   "id": "nontua",
+   "navn": "Nontua",
+   "moh": 564,
+   "retninger": [
+    "N",
+    "NØ",
+    "Ø",
+    "SØ",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/nontua/"
+  },
+  {
+   "id": "ramnskogheia",
+   "navn": "Ramnskogheia",
+   "moh": 485,
+   "retninger": [
+    "N",
+    "NØ",
+    "Ø",
+    "SØ",
+    "S",
+    "SV",
+    "V",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/ramnskogheia/"
+  },
+  {
+   "id": "reinebringen",
+   "navn": "Reinebringen",
+   "moh": 484,
+   "retninger": [
+    "N",
+    "NØ",
+    "Ø",
+    "SØ",
+    "S"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/reinebringen/"
+  },
+  {
+   "id": "reinfjellet",
+   "navn": "Reinfjellet",
+   "moh": 893,
+   "retninger": [
+    "NØ",
+    "Ø",
+    "SØ",
+    "S"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/reinfjellet/"
+  },
+  {
+   "id": "ryten",
+   "navn": "Ryten",
+   "moh": 510,
+   "retninger": [
+    "Ø",
+    "SØ",
+    "S",
+    "SV",
+    "V"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/ryten/"
+  },
+  {
+   "id": "rodmoldheia",
+   "navn": "Rødmoldheia",
+   "moh": 621,
+   "retninger": [
+    "SØ",
+    "S",
+    "SV",
+    "V"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/rodmoldheia/"
+  },
+  {
+   "id": "samaasen",
+   "navn": "Samaåsen",
+   "moh": 171,
+   "retninger": [
+    "V",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/samaasen/"
+  },
+  {
+   "id": "sollifjellet",
+   "navn": "Sollifjellet",
+   "moh": 563,
+   "retninger": [
+    "N",
+    "NØ",
+    "Ø",
+    "SØ",
+    "S",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/sollifjellet/"
+  },
+  {
+   "id": "steinsasen",
+   "navn": "Steinsåsen",
+   "moh": 488,
+   "retninger": [
+    "SV",
+    "V",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/steinsasen/"
+  },
+  {
+   "id": "storbakkan",
+   "navn": "Storbakkan",
+   "moh": 340,
+   "retninger": [
+    "Ø",
+    "SØ",
+    "S",
+    "SV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/storbakkan/"
+  },
+  {
+   "id": "storhornet",
+   "navn": "Storhornet",
+   "moh": 609,
+   "retninger": [
+    "N",
+    "NØ",
+    "Ø",
+    "V",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/storhornet/"
+  },
+  {
+   "id": "storlitinden",
+   "navn": "Storlitinden",
+   "moh": 597,
+   "retninger": [
+    "SØ",
+    "S",
+    "SV",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/storlitinden/"
+  },
+  {
+   "id": "svartdalsasen",
+   "navn": "Svartdalsåsen",
+   "moh": 340,
+   "retninger": [
+    "V",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/svartdalsasen/"
+  },
+  {
+   "id": "saetertinden",
+   "navn": "Sætertinden",
+   "moh": 1089,
+   "retninger": [
+    "NØ",
+    "Ø",
+    "SØ",
+    "S",
+    "SV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/saetertinden/"
+  },
+  {
+   "id": "trastad",
+   "navn": "Trastad",
+   "moh": 158,
+   "retninger": [
+    "SV",
+    "V"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/trastad/"
+  },
+  {
+   "id": "utstrand",
+   "navn": "Utstrand",
+   "moh": 13,
+   "retninger": [
+    "SV",
+    "V"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/utstrand/"
+  },
+  {
+   "id": "vetefjellet",
+   "navn": "Vetefjellet",
+   "moh": 527,
+   "retninger": [
+    "Ø",
+    "SØ",
+    "S"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/vetefjellet/"
+  },
+  {
+   "id": "arbostadtinden",
+   "navn": "Årbostadtinden",
+   "moh": 1179,
+   "retninger": [
+    "N",
+    "NØ",
+    "Ø",
+    "SØ",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/arbostadtinden/"
+  }
+ ]
+}

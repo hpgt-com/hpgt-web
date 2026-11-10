@@ -1,0 +1,12 @@
+---
+import { url, slug } from "../lib/site";
+const { title, ingress, bilde, meta, kategorier, tilbake } = Astro.props;
+---
+<article class="wrap article">
+  <nav class="crumbs" aria-label="Brødsmuler"><a href={url("/")}>Hjem</a>{tilbake && <><span>/</span><a href={tilbake.url}>{tilbake.tekst}</a></>}</nav>
+  {meta && <p class="post__meta">{kategorier?.map((k) => <><a class="kat" data-kat={slug(k)} href={url(`/nytt/kategori/${slug(k)}/`)}>{k}</a> · </>)}{meta}</p>}
+  <h1 class="h1">{title}</h1>
+  {ingress && <p class="lead">{ingress}</p>}
+  {bilde && <img class="article__img" src={url(bilde)} alt="" />}
+  <div class="prose"><slot /></div>
+</article>

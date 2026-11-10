@@ -1,0 +1,39 @@
+name: PR check
+
+# Bygger siden for hver PR mot main, også de som kommer fra Pages CMS. Et ugyldig felt i innholdet
+# (f.eks. en dato eller en arrangementstype som ikke finnes) stopper her, før det når main.
+# Publiserer ingenting. Jobbnavnet «bygg» er en påkrevd sjekk i rulesettet (apply.sh repo … --checks bygg).
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  bygg:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      # --ignore-scripts: ingen pakke får kjøre installasjonsskript (ingen av avhengighetene trenger det).
+      - run: npm ci --ignore-scripts
+
+      # Validerer alt innhold mot skjemaene i src/content.config.ts og bygger alle sidene.
+      - run: npm run build
+
+      # Workeren for RadioID-skjemaet skal i det minste være gyldig JavaScript.
+      - run: node --check worker/index.js

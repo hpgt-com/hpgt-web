@@ -1,0 +1,24 @@
+---
+title: "Støtt HPGT via Grasrotandelen"
+date: "2012-09-05T09:23:51"
+kategorier: ["Nyhet"]
+permalink: "/stott-hpgt-via-grasrotandelen/"
+forfatter: "Aage"
+wp_id: 323
+---
+**Vil Du gi [![](/wp-content/uploads/2012/09/grasrot.png)](/wp-content/uploads/2012/09/grasrot.png)din støtte til HARSTAD HANG OG PARAGLIDERKLUBB?**
+
+Grasrotandelen er en ordning fra Norsk Tipping, hvor du som registrert spiller kan velge ett lag eller én forening som du ønsker støtte – din Grasrotmottaker. Vi oppfordrer deg til å støtte oss i HARSTAD HANG OG PARAGLIDERKLUBB!
+
+Tenk deg at du kan spille favorittspillene dine – Lotto, Tipping og Joker for eksempel – og samtidig gi noe mer til det laget eller den foreningen du selv ønsker å støtte. Dette er nå mulig via Grasrotandelen. Ved spill hos Norsk Tipping vil 5 % av innsatsen gå direkte til ditt lag eller forening (gjelder ikke Extra og Flax). Merk at Grasrotandelen ikke på noen måte går ut over innsatsen eller premien din – du blir ikke belasted noe for å være grasrotgiver. Du trenger Norsk Tipping Spillekort for å knytte deg til Grasrotandelen. Spillekort får du kjøpt hos kommisjonær, eller du kan bestille på www.norsk-tipping.no.
+
+Vi oppfordrer til å knytte deg til ordningen allerede i dag, og du gjør det på en av følgende måter:
+
+1. Hos kommisjonær: Ta med deg strekkoden og ditt spillekort til en av Norsk Tippings mange kommisjonærer.
+2. SMS: GRASROTANDELEN 996870618 til 2020 (tjenesten er gratis).
+3. Internett: grasrotandelen.no eller norsk-tipping.no.
+4. Norsk Tipping Mobilspill.
+
+Mer informasjon finnes på www.grasrotandelen.no. Her vil du også kunne følge med på hvor mye Grasrotandelen genererer for de enkelte Grasrotmottakerne.
+
+Takk for at du støtter oss via Grasrotandelen!

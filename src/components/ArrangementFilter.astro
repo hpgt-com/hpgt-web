@@ -1,0 +1,13 @@
+---
+// Filtrer kalenderen på gruppe: Kurs, Fagdag, Møte, Sosialt, Konkurranse. Skjult uten JavaScript.
+import { gruppe, url, GRUPPER, type Arrangement } from "../lib/site";
+import "./kort.css";
+import "./typefarger.css";
+const { alle } = Astro.props as { alle: Arrangement[] };
+const grupper = GRUPPER.map((g) => ({ ...g, antall: alle.filter((e) => gruppe(e) === g.slug).length }));
+---
+<div class="typefilter" role="group" aria-label="Vis type" hidden>
+  <button type="button" data-filter="" aria-pressed="true">Alle <small>{alle.length}</small></button>
+  {grupper.map((g) => <button type="button" data-filter={g.slug} data-kat={g.slug} aria-pressed="false" disabled={g.antall === 0}>{g.navn} <small>{g.antall}</small></button>)}
+</div>
+<script is:inline src={url("/assets/js/typefilter.js")} defer></script>

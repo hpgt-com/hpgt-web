@@ -1,0 +1,42 @@
+/* Aktivitetskalender. Hvert design setter --kal-*-variablene; standardverdiene er Fjord+ sine. */
+.kal { --_text: var(--kal-text, #0e1b2b); --_muted: var(--kal-muted, #56657a); --_line: var(--kal-line, #ccd7e4); --_surface: var(--kal-surface, #fff);
+  --_tint: var(--kal-tint, #e2eaf3); --_accent: var(--kal-accent, #1f86d1); --_accent-ink: var(--kal-accent-ink, #1569a8); --_mono: var(--kal-mono, ui-monospace, monospace); --_tint-strong: var(--kal-tint-strong, #cfe3f4);
+  display: grid; gap: 14px; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); align-items: stretch; color: var(--_text); }
+.kal:not(:has(.kal-grid:not([hidden]))) { grid-template-columns: minmax(0, 1fr); }
+@media (max-width: 760px) { .kal { grid-template-columns: minmax(0, 1fr); } }
+.kal-grid { background: var(--_surface); border: 1px solid var(--_line); padding: 16px; }
+.kal-controls { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px; }
+.kal-label { margin: 0; font-weight: 800; font-size: 1.15rem; letter-spacing: -.02em; text-transform: capitalize; }
+.kal-btns { display: flex; gap: 4px; }
+.kal-btns button, .kal-jump { font: inherit; font-weight: 700; font-size: .85rem; color: var(--_text); background: var(--_surface); border: 1px solid var(--_line); padding: 5px 10px; cursor: pointer; }
+.kal-btns button:hover, .kal-jump:hover { border-color: var(--_accent); color: var(--_accent-ink); }
+.kal-btns button:focus-visible, .kal-jump:focus-visible { outline: 3px solid var(--_accent); outline-offset: 2px; }
+.kal-days { width: 100%; border-collapse: collapse; table-layout: fixed; font-variant-numeric: tabular-nums; }
+.kal-days th { font: 600 .66rem/1 var(--_mono); letter-spacing: .1em; text-transform: uppercase; color: var(--_muted); padding: 6px 0; text-align: center; }
+.kal-days td { text-align: center; padding: 2px; }
+.kal-day { display: grid; place-items: center; width: 34px; height: 30px; margin: auto; border-radius: 4px; font-size: .88rem; color: var(--_text); position: relative; }
+.kal-day--on { background: var(--_tint-strong, #cfe3f4); color: var(--_accent-ink); font-weight: 800; }
+.kal-day--today { box-shadow: inset 0 0 0 1.5px var(--_text); font-weight: 800; }
+
+.kal-legend { margin: 10px 0 0; font-size: .8rem; color: var(--_muted); display: flex; align-items: center; gap: 6px; }
+.kal-legend span { width: 12px; height: 12px; border-radius: 3px; background: var(--_tint-strong, #cfe3f4); border: 1px solid var(--_accent); display: inline-block; }
+.kal-agenda { display: grid; gap: 10px; align-content: start; min-width: 0; background: var(--_surface); border: 1px solid var(--_line); padding: 16px 18px; min-height: 100%; }
+.kal-summary { background: var(--_tint); border-left: 3px solid var(--_accent-ink); padding: 10px 14px; }
+.kal-summary p { margin: 2px 0 0; }
+.kal-summary a { color: var(--_accent-ink); font-weight: 700; }
+.kal-eyebrow { font: 600 .66rem/1.2 var(--_mono); letter-spacing: .12em; text-transform: uppercase; color: var(--_muted); }
+.kal-title { margin: 6px 0 0; font-size: 1.15rem; font-weight: 800; letter-spacing: -.02em; }
+.kal-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--_line); }
+.kal-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; padding: 12px 2px; border-bottom: 1px solid var(--_line); }
+.kal-list li[hidden] { display: none; }
+.kal-date { grid-column: 1; font: 600 .7rem/1.3 var(--_mono); letter-spacing: .08em; text-transform: uppercase; color: var(--_accent-ink); }
+.kal-list a { grid-column: 1; font-weight: 700; color: var(--_text); text-decoration: none; }
+.kal-list a:hover { color: var(--_accent-ink); text-decoration: underline; }
+.kal-list small { grid-column: 1; color: var(--_muted); font-size: .85rem; }
+.kal-past { grid-column: 2; grid-row: 1 / span 2; align-self: start; font-size: .72rem; color: var(--_muted); background: var(--_tint); border-radius: 999px; padding: 3px 9px; }
+.kal-empty { margin: 4px 0 0; color: var(--_muted); }
+.kal-jump { justify-self: start; }
+.kal-fb { margin-top: auto; align-self: end; font-size: .88rem; font-weight: 700; color: var(--_accent-ink); }
+.kal-meta { display: flex; flex-wrap: wrap; gap: 2px 14px; }
+.kal-meta span + span::before { content: "Sted: "; color: var(--_muted); }
+.kal-meta span:first-child::before { content: "Tid: "; }

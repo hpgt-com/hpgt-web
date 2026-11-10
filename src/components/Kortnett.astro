@@ -1,0 +1,31 @@
+---
+// Bildevisning (kort med bilde) av innlegg eller arrangementer. Skjult til leseren velger «Bilder» (VisningsValg).
+// Uten bilde vises et fargefelt i kategoriens farge (innlegg) eller med datoen (arrangementer).
+import { url, dato, datoKort, lenke, slug, bildeFor, sted, tid, gruppe, typeTekst, type Innlegg, type Arrangement } from "../lib/site";
+import "./kort.css";
+import "./typefarger.css";
+interface Props { innlegg?: Innlegg[]; arrangementer?: Arrangement[] }
+const { innlegg, arrangementer } = Astro.props;
+let kort: { href: string; bilde?: string; tittel: string; meta: string; kat?: string; katNavn?: string; tom: string }[] = [];
+if (innlegg) {
+  kort = innlegg.map((p) => ({ href: lenke(p), bilde: bildeFor(p), tittel: p.data.title, meta: dato(p.data.date),
+    kat: slug(p.data.kategorier[0]), katNavn: p.data.kategorier[0], tom: p.data.kategorier[0] }));
+} else if (arrangementer) {
+  kort = arrangementer.map((e) => ({ href: lenke(e), bilde: bildeFor(e as any), tittel: e.data.title,
+    meta: [dato(e.data.start), sted(e), tid(e)].filter(Boolean).join(" · "), kat: gruppe(e), katNavn: typeTekst(e.data.type), tom: datoKort(e.data.start) }));
+}
+---
+<ul class="kortnett" data-visning="bilder" hidden>
+  {kort.map((k) => (
+    <li class="kort" data-gruppe={k.kat}><a href={url(k.href)}>
+      {k.bilde
+        ? <span class="kort__bilde"><img src={url(k.bilde)} alt="" loading="lazy" decoding="async" /></span>
+        : <span class="kort__bilde kort__bilde--tom" data-kat={k.kat}><span>{k.tom}</span></span>}
+      <span class="kort__tekst">
+        {k.katNavn && <span class="kort__kat kat" data-kat={k.kat}>{k.katNavn}</span>}
+        <span class="kort__t">{k.tittel}</span>
+        <span class="kort__meta">{k.meta}</span>
+      </span>
+    </a></li>
+  ))}
+</ul>

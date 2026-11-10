@@ -1,0 +1,6 @@
+/* Faste farger for gruppene i kalenderen – like i alle design. Samme fargefamilie som kategoriene på Nytt. */
+[data-kat="kurs"] { --k: #2e7d32; }
+[data-kat="fagdag"] { --k: #5b7f1a; }
+[data-kat="mote"] { --k: #c86400; }
+[data-kat="sosialt"] { --k: #00838f; }
+[data-kat="konkurranse"] { --k: #c2185b; }

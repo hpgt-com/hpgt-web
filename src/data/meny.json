@@ -1,0 +1,78 @@
+{
+  "hoved": [
+    {
+      "tekst": "Kurs",
+      "url": "/kurs/"
+    },
+    {
+      "tekst": "Tandem",
+      "url": "/tandem/"
+    },
+    {
+      "tekst": "Flysteder",
+      "url": "https://flysteder.hpgt.com/",
+      "ekstern": true
+    },
+    {
+      "tekst": "Arrangementer",
+      "url": "/arrangementer/"
+    },
+    {
+      "tekst": "Nytt",
+      "url": "/nytt/"
+    },
+    {
+      "tekst": "Klubben",
+      "url": "/om-oss/"
+    }
+  ],
+  "piloter": [
+    {
+      "tekst": "Lenker og værstasjoner",
+      "url": "/lenker/"
+    },
+    {
+      "tekst": "NOTAM ved vinsjing",
+      "url": "/notam/"
+    },
+    {
+      "tekst": "FLARM/FANET RadioID-register",
+      "url": "/flysteder/flarm-fanet-radioid/"
+    },
+    {
+      "tekst": "Flysteder (kart)",
+      "url": "https://flysteder.hpgt.com/",
+      "ekstern": true
+    }
+  ],
+  "klubben": [
+    {
+      "tekst": "Om klubben",
+      "url": "/om-oss/"
+    },
+    {
+      "tekst": "Styret og roller",
+      "url": "/om-klubben/"
+    },
+    {
+      "tekst": "Møter og referater",
+      "url": "/nytt/kategori/moter-og-referater/"
+    },
+    {
+      "tekst": "Økonomisk støtte",
+      "url": "/grasrotandelen/"
+    },
+    {
+      "tekst": "Konkurranser",
+      "url": "/konkurranser/"
+    },
+    {
+      "tekst": "Skriv på siden",
+      "url": "/bidra/"
+    },
+    {
+      "tekst": "Prøv redaktøren",
+      "url": "/redaktor-demo/"
+    }
+  ]
+}

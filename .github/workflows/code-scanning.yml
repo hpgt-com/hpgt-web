@@ -29,9 +29,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # TILPASS: legg til språkene i repoet, f.eks. javascript-typescript, python, go, java-kotlin.
+        # javascript-typescript: Astro-malene, skriptene i public/assets/js og workeren (worker/index.js).
         # «actions» analyserer workflowene og passer i alle repo.
-        language: [actions]
+        language: [actions, javascript-typescript]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:

@@ -1,0 +1,25 @@
+/* RadioID-skjema. Bruker designets --kal-*-variabler der de finnes, ellers Fjord+ sine farger. */
+.skjema { --_line: var(--kal-line, #ccd7e4); --_muted: var(--kal-muted, #56657a); --_accent: var(--kal-accent, #1f86d1); --_accent-ink: var(--kal-accent-ink, #1569a8); --_surface: var(--kal-surface, #fff); --_tint: var(--kal-tint, #e2eaf3);
+  margin-top: 2.5rem; padding: 20px; border: 1px solid var(--_line); background: var(--_surface); }
+.skjema h2 { margin-top: 0; }
+.skjema__info { color: var(--_muted); }
+.skjema__form { display: grid; gap: 14px; }
+.skjema__form label { display: block; font-weight: 700; font-size: .92rem; margin-bottom: 4px; }
+.skjema__form input:not([type="radio"]), .skjema__form textarea { width: 100%; box-sizing: border-box; font: inherit; padding: 8px 10px; border: 1px solid var(--_line); border-radius: 4px; background: #fff; color: inherit; }
+.skjema__form input:focus-visible, .skjema__form textarea:focus-visible, .skjema__form button:focus-visible { outline: 3px solid var(--_accent); outline-offset: 1px; }
+.skjema__form input:user-invalid { border-color: #c62828; }
+.skjema__form small, .skjema__valgfri { color: var(--_muted); font-weight: 400; font-size: .82rem; }
+.skjema__valg { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.skjema__valg legend { font-weight: 700; font-size: .92rem; margin-bottom: 6px; padding: 0; }
+.skjema__valg label { display: inline-flex; gap: 6px; align-items: center; font-weight: 400; margin: 0; }
+.skjema__rad { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; }
+@media (max-width: 600px) { .skjema__rad { grid-template-columns: 1fr; } }
+.skjema__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.skjema__turnstile { margin: 0; padding: 10px 12px; border: 1px dashed var(--_line); color: var(--_muted); font-size: .85rem; }
+.skjema__send { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.skjema__send button { font: inherit; font-weight: 700; padding: 9px 20px; border: 0; border-radius: 4px; background: var(--_accent-ink); color: #fff; cursor: pointer; }
+.skjema__send button:hover { background: var(--_accent); }
+.skjema__send button[disabled] { opacity: .6; cursor: wait; }
+.skjema__status { margin: 0; font-weight: 600; }
+.skjema__status[data-ok="false"] { color: #c62828; }
+.skjema__demo { margin: 0; padding: 14px; background: var(--_tint); border-left: 3px solid var(--_accent); white-space: pre-wrap; font-size: .82rem; }

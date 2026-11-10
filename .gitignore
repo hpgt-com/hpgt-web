@@ -7,6 +7,12 @@ _site/
 __pycache__/
 .venv/
 
+# Astro, Wrangler og forhåndsvisningen
+.astro/
+.wrangler/
+.forhandsvisning-bygg/
+forhandsvisning/
+
 # Lokalt oppsett
 .claude/
 .vscode/

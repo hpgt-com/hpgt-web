@@ -1,0 +1,168 @@
+# Pages CMS – redigeringsgrensesnittet for hpgt.com (https://pagescms.org).
+# Bidragsytere inviteres på e-post og ser bare det som er satt opp her.
+# Teknisk oppsett (site.json, meny.json, kode, arbeidsflyter) er bevisst IKKE med:
+# det kan bare endres av de med tilgang til GitHub-repoet (minste privilegium).
+
+media:
+  input: public/filer
+  output: /filer
+  categories: [image, document]
+
+content:
+  - name: innlegg
+    label: Nyheter, referater og arrangementer
+    type: collection
+    path: src/content/innlegg
+    filename: "{year}-{month}-{day}-{primary}.md"
+    view:
+      fields: [title, date, kategorier]
+      primary: title
+      sort: [date, title]
+      default: { sort: date, order: desc }
+    fields:
+      - { name: title, label: Tittel, type: string, required: true }
+      - { name: date, label: Dato, type: date, required: true, options: { time: true } }
+      - name: kategorier
+        label: Kategori
+        type: select
+        description: "Velg én kategori."
+        default: [Nyhet]
+        options:
+          multiple: { min: 1, max: 1 }
+          values: [Nyhet, Møter og referater, Kurs og fagdag, Sosialt og turer, Konkurranser]
+      - { name: bilde, label: Hovedbilde, type: image, description: "Anbefalt. Vises øverst, på forsiden og i bildevisningen på Nytt. Liggende bilder blir finest." }
+      - { name: forfatter, label: "Skrevet av (fornavn)", type: string }
+      - { name: ingress, label: Ingress, type: text, description: "1–2 setninger som oppsummerer saken." }
+      - name: vedlegg
+        label: Vedlegg (PDF, referater, innkallinger)
+        type: object
+        list: true
+        fields:
+          - { name: tittel, label: Navn på dokumentet, type: string, required: true }
+          - { name: fil, label: Fil, type: file, required: true }
+      - name: arrangement
+        label: Arrangement (valgfritt)
+        type: object
+        description: "Gjelder innlegget et kurs, en fagdag, et møte eller et sosialt treff med dato? Fyll ut starttidspunkt, så vises det også i kalenderen under Arrangementer."
+        fields:
+          - { name: start, label: Starter, type: date, options: { time: true } }
+          - { name: slutt, label: Slutter, type: date, options: { time: true } }
+          - { name: heldag, label: Hele dagen (ingen klokkeslett), type: boolean, default: false }
+          - name: type
+            label: Type
+            description: "Velg fra listen. Gruppen foran / (Kurs, Fagdag, Møte, Sosialt, Konkurranse) bestemmer filter og farge i kalenderen. Kurs etter NLFs utdanningsprogrammer: PP2 = grunnkurs paragliding, SPG2 = grunnkurs speedgliding, PPG3 = motorparaglider (krever PP2), SIV = sikkerhetskurs (krav til PP4). Skriv selve kursnavnet i tittelen."
+            type: select
+            options: { values: ["Kurs / PP2", "Kurs / SPG2", "Kurs / PPG3", "Kurs / SIV", "Kurs / Prøvedag", "Kurs / Annet kurs", "Fagdag / Nødskjerm og vingesjekk", "Fagdag / Sikkerhetsseminar", "Fagdag / Annen fagdag", "Møte / Årsmøte", "Møte / Klubbmøte", "Møte / Styremøte", "Sosialt / Julebord", "Sosialt / Afterflight", "Sosialt / Kickoff", "Sosialt / Tur", "Konkurranse / Cup og stevne", "Konkurranse / Foto og video", "Konkurranse / Annen konkurranse"] }
+          - { name: sted, label: Sted (fysisk), type: string, description: "F.eks. «Seljestadhallen» eller «Sollifjellet». La stå tom hvis det bare er på nett." }
+          - { name: digital, label: Lenke til nettmøte, type: string, description: "Teams/Zoom/Meet-lenke hvis man kan delta digitalt." }
+          - { name: arrangor, label: "Arrangør (la stå tom hvis det er HPGT)", type: string, description: "F.eks. «Narvik Paragliderklubb» eller «NLF». Vises som «Arrangeres av …»." }
+          - { name: pamelding, label: Lenke til påmelding, type: string, description: "Skjema, Min idrett eller lignende. Knappen skjules når arrangementet er over." }
+      - { name: utkast, label: "Utkast (ikke vis på siden ennå)", type: boolean, default: false }
+      - { name: body, label: Tekst, type: rich-text }
+
+  - name: sider
+    label: Faste sider
+    type: collection
+    path: src/content/sider
+    view: { fields: [title], primary: title }
+    fields:
+      - { name: title, label: Tittel, type: string, required: true }
+      - { name: ingress, label: Ingress, type: text }
+      - { name: bilde, label: Toppbilde, type: image }
+      - { name: sist_endret, label: Sist oppdatert, type: date }
+      - { name: permalink, label: Adresse, type: string, hidden: true }
+      - { name: mal, label: Mal, type: string, hidden: true }
+      - { name: body, label: Tekst, type: rich-text }
+
+  - name: forside
+    label: Forsiden
+    type: file
+    path: src/data/forside.json
+    format: json
+    fields:
+      - { name: stikkord, label: "Stikkord over overskriften", type: string }
+      - { name: slagord, label: Stor overskrift, type: string }
+      - { name: slagordIngress, label: Tekst under overskriften, type: text }
+      - { name: heltebilde, label: Toppbilde, type: image }
+      - { name: heltebildeKreditt, label: Bildekreditt, type: string }
+      - name: kurs
+        label: Kursblokken
+        type: object
+        fields:
+          - { name: tittel, type: string }
+          - { name: tekst, label: Tekst før kurset, type: text }
+          - { name: etterKurs, label: Tekst når kurset er ferdig, type: text }
+          - { name: start, label: Første kursdag, type: date }
+          - { name: slutt, label: Siste kursdag, type: date }
+          - { name: frist, label: Påmeldingsfrist, type: date }
+          - { name: pris, type: string }
+          - { name: plasser, type: string }
+          - { name: url, label: Lenke, type: string }
+      - name: veier
+        label: «Finn din vei inn»-kort
+        type: object
+        list: { max: 3 }
+        fields:
+          - { name: verb, label: "Etikett (Lær, Opplev …)", type: string }
+          - { name: tittel, type: string }
+          - { name: tekst, type: text }
+          - { name: url, label: Lenke, type: string }
+          - { name: bilde, type: image }
+      - { name: galleri, label: Bildegalleri, type: image, list: { max: 6 } }
+      - { name: tittel, label: Overskrift (eldre design), type: string }
+      - { name: ingress, label: Ingress, type: text }
+      - { name: bilde, label: Toppbilde, type: image }
+      - { name: bildetekst, label: Bildetekst, type: string }
+      - name: knapper
+        label: Knapper
+        type: object
+        list: { max: 2 }
+        fields: [{ name: tekst, type: string }, { name: url, label: Lenke, type: string }]
+      - name: kort
+        label: Kort (Lær å fly, Tandem …)
+        type: object
+        list: { max: 4 }
+        fields:
+          - { name: tittel, type: string }
+          - { name: tekst, type: text }
+          - { name: url, label: Lenke, type: string }
+          - { name: bilde, type: image }
+          - { name: ikon, type: string, hidden: true }
+      - name: snarveier
+        label: Snarveier for piloter
+        type: object
+        list: true
+        fields: [{ name: tekst, type: string }, { name: url, label: Lenke, type: string }]
+
+  - name: styret
+    label: Styret
+    type: file
+    path: src/data/styret.json
+    format: json
+    fields:
+      - name: medlemmer
+        label: Styremedlemmer
+        type: object
+        list: true
+        fields:
+          - { name: id, label: "Kort ID (f.eks. leder)", type: string, required: true }
+          - { name: rolle, type: string, required: true }
+          - { name: navn, type: string, required: true }
+          - { name: ansvar, label: "Kontakt meg om", type: text, description: "Hva medlemmer bør kontakte denne rollen om." }
+          - { name: telefon, type: string }
+          - { name: epost, label: E-post, type: string }
+          - { name: bilde, type: image }
+
+  - name: radioid
+    label: FLARM/FANET RadioID-register
+    type: file
+    path: src/data/radioid.json
+    format: json
+    fields:
+      - name: piloter
+        type: object
+        list: true
+        fields:
+          - { name: pilot, label: Fornavn, type: string, required: true }
+          - { name: id, label: "RadioID (6 hex-tegn)", type: string, required: true, pattern: "^[0-9A-Fa-f]{6}$" }
+          - { name: utstyr, label: Vario / utstyr, type: string }

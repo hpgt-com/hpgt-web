@@ -1,0 +1,9 @@
+---
+// Vises så lenge site.json har "prototype": true (og ikke inne i forhåndsvisningen på claude.ai).
+import { site } from "../lib/site";
+---
+{site.prototype && (
+  <div class="proto-banner" role="note">
+    Forhåndsversjon av nye hpgt.com – ikke publisert ennå.
+  </div>
+)}

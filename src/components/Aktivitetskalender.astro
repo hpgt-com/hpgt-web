@@ -1,0 +1,54 @@
+---
+// Aktivitetskalender: månedsrutenett + liste over månedens aktiviteter. Rutenettet tegnes av /assets/js/kalender.js;
+// uten JavaScript vises en vanlig liste med de siste aktivitetene. Farger og skrift styres av --kal-*-variabler i hvert design.
+import "./kalender.css";
+import { url, lenke, sted, tid, site, type Arrangement } from "../lib/site";
+interface Props { kommende: Arrangement[]; tidligere: Arrangement[]; }
+const { kommende, tidligere } = Astro.props;
+const alle = [...tidligere].reverse().concat(kommende);
+const iso = (d: Date) => d.toISOString().slice(0, 10);
+const fmt = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", day: "numeric", month: "long", year: "numeric" }).format(d);
+const synligUtenJs = new Set((kommende.length ? kommende.slice(0, 5) : tidligere.slice(0, 5)).map((e) => e.id));
+const neste = kommende[0];
+---
+<div class="kal" data-kal>
+  <div class="kal-grid" data-kal-grid hidden>
+    <div class="kal-controls">
+      <p class="kal-label" data-kal-label aria-live="polite"></p>
+      <div class="kal-btns">
+        <button type="button" data-kal-step="-1" aria-label="Forrige måned">‹</button>
+        <button type="button" data-kal-today>I dag</button>
+        <button type="button" data-kal-step="1" aria-label="Neste måned">›</button>
+      </div>
+    </div>
+    <table class="kal-days" aria-labelledby="kal-tittel">
+      <thead><tr><th scope="col" abbr="Mandag">Ma</th><th scope="col" abbr="Tirsdag">Ti</th><th scope="col" abbr="Onsdag">On</th><th scope="col" abbr="Torsdag">To</th><th scope="col" abbr="Fredag">Fr</th><th scope="col" abbr="Lørdag">Lø</th><th scope="col" abbr="Søndag">Sø</th></tr></thead>
+      <tbody data-kal-days></tbody>
+    </table>
+    <p class="kal-legend"><span aria-hidden="true"></span> Dag med aktivitet</p>
+  </div>
+  <div class="kal-agenda">
+    <div class="kal-summary">
+      <span class="kal-eyebrow">Neste aktivitet</span>
+      <p>{neste ? <><a href={url(lenke(neste))}>{neste.data.title}</a> – {fmt(neste.data.start)}</> : "Ingen nye aktiviteter er lagt inn ennå."}</p>
+    </div>
+    <h3 class="kal-title" id="kal-tittel" data-kal-title>{kommende.length ? "Kommende aktiviteter" : "Siste aktiviteter"}</h3>
+    <ul class="kal-list">
+      {alle.map((e) => {
+        const ferdig = !kommende.includes(e);
+        return (
+          <li data-kal-item data-start={iso(e.data.start)} data-end={iso(e.data.slutt ?? e.data.start)} hidden={!synligUtenJs.has(e.id)}>
+            <span class="kal-date">{fmt(e.data.start)}</span>
+            <a href={url(lenke(e))}>{e.data.title} <span aria-hidden="true">↗</span></a>
+            <small class="kal-meta"><span>{tid(e)}</span>{sted(e) && <span>{sted(e)}</span>}</small>
+            <span class="kal-past" data-kal-past hidden={!ferdig}>Avholdt</span>
+          </li>
+        );
+      })}
+    </ul>
+    <p class="kal-empty" data-kal-empty hidden>Ingen aktiviteter denne måneden.</p>
+    <button type="button" class="kal-jump" data-kal-jump hidden></button>
+    <a class="kal-fb" href={site.facebook}>Klubbens Facebook-gruppe ↗</a>
+  </div>
+</div>
+<script is:inline src={url("/assets/js/kalender.js")} defer></script>

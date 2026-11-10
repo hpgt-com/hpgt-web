@@ -1,0 +1,10 @@
+---
+// Bytter mellom liste og bildevisning på Nytt og Arrangementer. Skjult uten JavaScript – da vises listen som før.
+import { url } from "../lib/site";
+import "./kort.css";
+---
+<div class="visning" role="group" aria-label="Visning" hidden>
+  <button type="button" data-vis="liste" aria-pressed="true"><span aria-hidden="true">☰</span> Liste</button>
+  <button type="button" data-vis="bilder" aria-pressed="false"><span aria-hidden="true">▦</span> Bilder</button>
+</div>
+<script is:inline src={url("/assets/js/visning.js")} defer></script>

@@ -1,0 +1,6 @@
+.proto-banner { background: #1c1c1c; color: #fff; font: 600 13px/1.4 system-ui, sans-serif; padding: 6px 16px; text-align: center; }
+.proto-banner a { color: #ffd27a; margin-left: .5em; }
+.skip { position: absolute; left: -9999px; }
+.skip:focus { left: 16px; top: 16px; z-index: 100; background: #fff; color: #000; padding: 8px 12px; }
+.table-wrap { overflow-x: auto; }
+.framed .proto-banner { display: none; }

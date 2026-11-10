@@ -1,0 +1,24 @@
+// Cloudflare Workers: statiske filer fra ./dist. Bare /api/* kjører serverkode (worker/index.js – RadioID-skjemaet).
+// Hemmeligheter (legges inn én gang, aldri i repoet):
+//   npx wrangler secret put TURNSTILE_SECRET   – fra Turnstile-widgeten for hpgt.com
+//   npx wrangler secret put GITHUB_TOKEN       – fine-grained token: kun dette repoet, kun «Issues: Read and write»
+{
+  "name": "hpgt-web",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "html_handling": "force-trailing-slash",
+    "run_worker_first": ["/api/*"]
+  },
+  "vars": {
+    "GITHUB_REPO": "hpgt-com/hpgt-web",
+    "TILLATT_OPPRINNELSE": "https://hpgt.com",
+    "TURNSTILE_HOSTNAME": "hpgt.com"
+  },
+  // Maks 3 innsendinger per minutt per IP-adresse
+  "ratelimits": [{ "name": "BEGRENS", "namespace_id": "1001", "simple": { "limit": 3, "period": 60 } }],
+  "observability": { "enabled": false } // Ingen logging av innsendt innhold
+}
