@@ -1,0 +1,19 @@
+---
+// «Fant ikke siden». Cloudflare viser denne med status 404 (not_found_handling: "404-page" i wrangler.jsonc).
+import Layout from "@design/Layout.astro";
+import Article from "@design/Article.astro";
+import { url } from "../lib/site";
+---
+<Layout title="Fant ikke siden">
+  <Article title="Fant ikke siden" ingress="Siden finnes ikke, eller den har fått ny adresse da vi flyttet fra WordPress.">
+    <p>Prøv en av disse:</p>
+    <ul>
+      <li><a href={url("/")}>Forsiden</a></li>
+      <li><a href={url("/nytt/")}>Alle nyheter og referater</a>, sortert etter år</li>
+      <li><a href={url("/arrangementer/")}>Arrangementer</a></li>
+      <li><a href={url("/kurs/")}>Kurs</a></li>
+      <li><a href="https://flysteder.hpgt.com/">Flysteder</a></li>
+    </ul>
+    <p>Lenken du fulgte er kanskje gammel. Si gjerne fra til <a href={url("/om-klubben/")}>styret</a>, så retter vi den.</p>
+  </Article>
+</Layout>

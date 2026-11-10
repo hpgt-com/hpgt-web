@@ -13,6 +13,8 @@ const HANDLINGER = { ny: "Legg til", endre: "Endre", fjern: "Fjern" };
 export default {
   async fetch(req, env) {
     const { pathname } = new URL(req.url);
+    // Alt utenom skjemaet går til de statiske filene, så ukjente adresser får 404-siden (not_found_handling).
+    if (!pathname.startsWith("/api/")) return env.ASSETS.fetch(req);
     if (pathname !== "/api/radioid") return svar(404, "Finnes ikke.");
     if (req.method !== "POST") return svar(405, "Bare POST er tillatt.");
     if (req.headers.get("Origin") !== env.TILLATT_OPPRINNELSE) return svar(403, "Ugyldig opprinnelse.");
