@@ -14,6 +14,7 @@ const ferdig = +(slutt ?? start) < Date.now();
   <dl>
     <div><dt>Når</dt><dd>{naar}<br /><span class="arr__tid">{tid}</span></dd></div>
     <div><dt>Hvor</dt><dd>{a.sted ?? (a.digital ? "Digitalt" : "Kommer")}{a.digital && <><br /><a href={a.digital}>Bli med på nett ↗</a></>}</dd></div>
+    <div><dt>Arrangør</dt><dd>{a.arrangor ?? "HPGT"}</dd></div>
     <div><dt>Type</dt><dd><span class="arr__type kat" data-kat={gruppeFor(a.type).slug}>{typeTekst(a.type)}</span></dd></div>
   </dl>
   {a.pamelding && !ferdig && <a class="arr__knapp" href={url(a.pamelding)}>Meld deg på</a>}

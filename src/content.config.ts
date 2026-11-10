@@ -7,8 +7,9 @@ const permalink = z.string().regex(/^\/.*\/$/, "Må starte og slutte med /").opt
 // Tomme felt fra CMS-et ("") regnes som ikke utfylt
 const tom = (v: unknown) => (v === "" || v === null ? undefined : v);
 // Faste typer «Gruppe / Type». Gruppen (før /) brukes til filter og farge i kalenderen.
+// Kurs klubben har kjørt eller har instruktør til (PP2, SPG2, PPG3, SIV). Navn etter NLFs utdanningsprogrammer.
 export const ARRANGEMENTSTYPER = [
-  "Kurs / PP2 (grunnkurs paragliding)", "Kurs / SPG2 (grunnkurs speedgliding)", "Kurs / PPG (grunnkurs paramotor)", "Kurs / SIV (sikkerhetskurs)", "Kurs / Prøvedag", "Kurs / Annet kurs",
+  "Kurs / PP2", "Kurs / SPG2", "Kurs / PPG3", "Kurs / SIV", "Kurs / Prøvedag", "Kurs / Annet kurs",
   "Fagdag / Nødskjerm og vingesjekk", "Fagdag / Sikkerhetsseminar", "Fagdag / Annen fagdag",
   "Møte / Årsmøte", "Møte / Klubbmøte", "Møte / Styremøte",
   "Sosialt / Julebord", "Sosialt / Afterflight", "Sosialt / Kickoff", "Sosialt / Tur",
@@ -23,6 +24,8 @@ const arrangement = z.object({
   sted: z.preprocess(tom, z.string().optional()),
   digital: z.preprocess(tom, z.string().url("Må være en full lenke (https://…)").optional()),
   pamelding: z.preprocess(tom, z.string().optional()),
+  // Tomt = HPGT. Brukes når medlemmer inviteres til noe andre arrangerer (f.eks. SIV i Narvik, NorgesCup).
+  arrangor: z.preprocess(tom, z.string().optional()),
 }).optional();
 
 const innlegg = defineCollection({
