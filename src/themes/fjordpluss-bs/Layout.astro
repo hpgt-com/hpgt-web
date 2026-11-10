@@ -29,10 +29,10 @@ const aktiv = (u: string) => !ekstern(u) && here.startsWith(url(u));
     </div>
   </nav>
   <main id="innhold"><slot /></main>
-  <footer class="border-top mt-4 pt-5 pb-4">
+  <footer class="site-foot border-top pt-4 pb-3">
     <div class="container">
       <div class="row g-4">
-        <div class="col-6 col-md-4"><p class="h-tight fs-2 mb-1">HPGT</p><p class="text-body-secondary small">Harstad Hang og Paragliderklubb<br />Org.nr. {site.orgnr} · Vipps {site.vipps}</p></div>
+        <div class="col-6 col-md-4"><p class="h-tight fs-4 mb-1">HPGT</p><p class="text-body-secondary small">Harstad Hang og Paragliderklubb<br />Org.nr. {site.orgnr} · Vipps {site.vipps}</p></div>
         <div class="col-6 col-md"><h2 class="fs-6 fw-bolder">Klubben</h2><ul class="list-unstyled small">{meny.klubben.map((m) => <li><a class="link-secondary link-underline-opacity-0 link-underline-opacity-100-hover" href={url(m.url)}>{m.tekst}</a></li>)}</ul></div>
         <div class="col-6 col-md"><h2 class="fs-6 fw-bolder">For piloter</h2><ul class="list-unstyled small">{meny.piloter.map((m) => <li><a class="link-secondary link-underline-opacity-0 link-underline-opacity-100-hover" href={url(m.url)}>{m.tekst}{ekstern(m.url) && " ↗"}</a></li>)}</ul></div>
         <div class="col-6 col-md"><h2 class="fs-6 fw-bolder">Følg oss</h2><ul class="list-unstyled small"><li><a class="link-secondary link-underline-opacity-0" href={site.facebook}>Facebook ↗</a></li><li><a class="link-secondary link-underline-opacity-0" href={site.instagram}>Instagram ↗</a></li><li><a class="link-secondary link-underline-opacity-0" href={`mailto:${site.epost.post}`}>{site.epost.post}</a></li></ul></div>

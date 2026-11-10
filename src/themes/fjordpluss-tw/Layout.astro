@@ -7,7 +7,7 @@ import { site, meny, url, ekstern } from "../../lib/site";
 const { title, description, image } = Astro.props;
 const here = Astro.url.pathname;
 const aktiv = (u: string) => !ekstern(u) && here.startsWith(url(u));
-const fotLenke = "text-sm text-muted no-underline hover:text-ink hover:underline";
+const fotLenke = "text-[0.8rem] text-muted no-underline hover:text-ink hover:underline";
 ---
 <!doctype html>
 <html lang="nb">
@@ -28,14 +28,14 @@ const fotLenke = "text-sm text-muted no-underline hover:text-ink hover:underline
     </div>
   </header>
   <main id="innhold"><slot /></main>
-  <footer class="mt-6 border-t border-line pt-9 pb-6">
+  <footer class="border-t border-line pt-7.5 pb-5 text-[0.82rem]">
     <div class="mx-auto grid w-[min(1000px,100%-32px)] grid-cols-2 gap-7 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
-      <div><p class="m-0 mb-1 text-[1.8rem] font-extrabold tracking-tighter">HPGT</p><p class="text-muted">Harstad Hang og Paragliderklubb<br />Org.nr. {site.orgnr} · Vipps {site.vipps}</p></div>
-      <nav class="grid content-start gap-1" aria-label="Klubben"><h2 class="m-0 mb-2 text-sm font-extrabold">Klubben</h2>{meny.klubben.map((m) => <a class={fotLenke} href={url(m.url)}>{m.tekst}</a>)}</nav>
-      <nav class="grid content-start gap-1" aria-label="For piloter"><h2 class="m-0 mb-2 text-sm font-extrabold">For piloter</h2>{meny.piloter.map((m) => <a class={fotLenke} href={url(m.url)}>{m.tekst}{ekstern(m.url) && " ↗"}</a>)}</nav>
-      <nav class="grid content-start gap-1" aria-label="Følg oss"><h2 class="m-0 mb-2 text-sm font-extrabold">Følg oss</h2><a class={fotLenke} href={site.facebook}>Facebook ↗</a><a class={fotLenke} href={site.instagram}>Instagram ↗</a><a class={fotLenke} href={`mailto:${site.epost.post}`}>{site.epost.post}</a></nav>
+      <div><p class="m-0 mb-1 text-[1.4rem] font-extrabold tracking-tighter">HPGT</p><p class="text-muted">Harstad Hang og Paragliderklubb<br />Org.nr. {site.orgnr} · Vipps {site.vipps}</p></div>
+      <nav class="grid content-start gap-1" aria-label="Klubben"><h2 class="m-0 mb-2 text-[0.78rem] font-extrabold">Klubben</h2>{meny.klubben.map((m) => <a class={fotLenke} href={url(m.url)}>{m.tekst}</a>)}</nav>
+      <nav class="grid content-start gap-1" aria-label="For piloter"><h2 class="m-0 mb-2 text-[0.78rem] font-extrabold">For piloter</h2>{meny.piloter.map((m) => <a class={fotLenke} href={url(m.url)}>{m.tekst}{ekstern(m.url) && " ↗"}</a>)}</nav>
+      <nav class="grid content-start gap-1" aria-label="Følg oss"><h2 class="m-0 mb-2 text-[0.78rem] font-extrabold">Følg oss</h2><a class={fotLenke} href={site.facebook}>Facebook ↗</a><a class={fotLenke} href={site.instagram}>Instagram ↗</a><a class={fotLenke} href={`mailto:${site.epost.post}`}>{site.epost.post}</a></nav>
     </div>
-    <div class="mx-auto mt-8 flex w-[min(1000px,100%-32px)] flex-wrap justify-between gap-3 border-t border-line pt-3.5 text-[0.82rem]">
+    <div class="mx-auto mt-6 flex w-[min(1000px,100%-32px)] flex-wrap justify-between gap-3 border-t border-line pt-3.5 text-[0.74rem]">
       <p class="m-0 italic">«{site.sitat.tekst}» <span class="not-italic text-muted">– {site.sitat.kilde}</span></p><p class="m-0 text-muted">Ingen sporing eller informasjonskapsler.</p>
     </div>
   </footer>

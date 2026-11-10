@@ -2,7 +2,6 @@
 import Aktivitetskalender from "../../components/Aktivitetskalender.astro";
 import { forside, url, dato, dag, mnd, lenke, slug, utdrag, bildeFor, tidSted } from "../../lib/site";
 const { innlegg, kommende, tidligere } = Astro.props;
-const fremhevet = kommende[0] ?? tidligere[0];
 const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", day: "2-digit", month: "short", year: "numeric" }).format(d).replace(/\./g, "");
 ---
 <section class="hero">
@@ -16,16 +15,6 @@ const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", da
       <a class="btn btn--ghost" href={url("/flysteder/")}>Fly med oss <span aria-hidden="true">→</span></a>
       <a class="hero__cal" href="#aktivitetskalender">Aktivitetskalender ↓</a>
     </p>
-    {fremhevet && (
-      <a class="hero__next" href="#aktivitetskalender">
-        <span class="eyebrow eyebrow--light">{kommende.length ? "Neste aktivitet" : "Sist i kalenderen"}</span>
-        <span class="hero__next-row">
-          <span class="hero__next-date"><b>{dag(fremhevet.data.start)}</b>{mnd(fremhevet.data.start)}</span>
-          <span><b class="hero__next-t">{fremhevet.data.title}</b><small>{tidSted(fremhevet) || dato(fremhevet.data.start)}</small></span>
-        </span>
-        <span class="hero__next-link">Se hele kalenderen ↓</span>
-      </a>
-    )}
     <div class="hero__strip"><span>Harstad / Sør-Troms</span><span>{forside.heltebildeKreditt}</span></div>
   </div>
 </section>
@@ -67,9 +56,9 @@ const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", da
   </div>
 </section>
 
-<hr class="wrap rule" />
-
-<section class="wrap section" id="aktivitetskalender">
+<section class="band band--cal" id="aktivitetskalender">
+  <div class="wrap section">
   <div class="head"><div><p class="eyebrow">Det skjer i HPGT</p><h2 class="h2">Aktivitetskalender</h2></div><a class="more" href={url("/arrangementer/")}>Alle arrangementer →</a></div>
   <Aktivitetskalender kommende={kommende} tidligere={tidligere} />
+  </div>
 </section>

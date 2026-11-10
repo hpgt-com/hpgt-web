@@ -1,7 +1,7 @@
 /* Aktivitetskalender. Hvert design setter --kal-*-variablene; standardverdiene er Fjord+ sine. */
 .kal { --_text: var(--kal-text, #0e1b2b); --_muted: var(--kal-muted, #56657a); --_line: var(--kal-line, #ccd7e4); --_surface: var(--kal-surface, #fff);
-  --_tint: var(--kal-tint, #e2eaf3); --_accent: var(--kal-accent, #1f86d1); --_accent-ink: var(--kal-accent-ink, #1569a8); --_mono: var(--kal-mono, ui-monospace, monospace);
-  display: grid; gap: 20px; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); align-items: start; color: var(--_text); }
+  --_tint: var(--kal-tint, #e2eaf3); --_accent: var(--kal-accent, #1f86d1); --_accent-ink: var(--kal-accent-ink, #1569a8); --_mono: var(--kal-mono, ui-monospace, monospace); --_tint-strong: var(--kal-tint-strong, #cfe3f4);
+  display: grid; gap: 14px; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); align-items: stretch; color: var(--_text); }
 .kal:not(:has(.kal-grid:not([hidden]))) { grid-template-columns: minmax(0, 1fr); }
 @media (max-width: 760px) { .kal { grid-template-columns: minmax(0, 1fr); } }
 .kal-grid { background: var(--_surface); border: 1px solid var(--_line); padding: 16px; }
@@ -14,14 +14,14 @@
 .kal-days { width: 100%; border-collapse: collapse; table-layout: fixed; font-variant-numeric: tabular-nums; }
 .kal-days th { font: 600 .66rem/1 var(--_mono); letter-spacing: .1em; text-transform: uppercase; color: var(--_muted); padding: 6px 0; text-align: center; }
 .kal-days td { text-align: center; padding: 2px; }
-.kal-day { display: grid; place-items: center; width: 34px; height: 34px; margin: auto; border-radius: 50%; font-size: .9rem; color: var(--_text); position: relative; }
-.kal-day--on { background: var(--_accent); color: #fff; font-weight: 700; }
-.kal-day--today { box-shadow: inset 0 0 0 2px var(--_text); }
-.kal-day--on.kal-day--today { box-shadow: inset 0 0 0 2px var(--_surface), 0 0 0 2px var(--_text); }
+.kal-day { display: grid; place-items: center; width: 34px; height: 30px; margin: auto; border-radius: 4px; font-size: .88rem; color: var(--_text); position: relative; }
+.kal-day--on { background: var(--_tint-strong, #cfe3f4); color: var(--_accent-ink); font-weight: 800; }
+.kal-day--today { box-shadow: inset 0 0 0 1.5px var(--_text); font-weight: 800; }
+
 .kal-legend { margin: 10px 0 0; font-size: .8rem; color: var(--_muted); display: flex; align-items: center; gap: 6px; }
-.kal-legend span { width: 12px; height: 12px; border-radius: 50%; background: var(--_accent); display: inline-block; }
-.kal-agenda { display: grid; gap: 10px; align-content: start; min-width: 0; }
-.kal-summary { background: var(--_tint); border: 1px solid var(--_line); padding: 12px 14px; }
+.kal-legend span { width: 12px; height: 12px; border-radius: 3px; background: var(--_tint-strong, #cfe3f4); border: 1px solid var(--_accent); display: inline-block; }
+.kal-agenda { display: grid; gap: 10px; align-content: start; min-width: 0; background: var(--_surface); border: 1px solid var(--_line); padding: 16px 18px; min-height: 100%; }
+.kal-summary { background: var(--_tint); border-left: 3px solid var(--_accent-ink); padding: 10px 14px; }
 .kal-summary p { margin: 2px 0 0; }
 .kal-summary a { color: var(--_accent-ink); font-weight: 700; }
 .kal-eyebrow { font: 600 .66rem/1.2 var(--_mono); letter-spacing: .12em; text-transform: uppercase; color: var(--_muted); }
@@ -33,7 +33,7 @@
 .kal-list a { grid-column: 1; font-weight: 700; color: var(--_text); text-decoration: none; }
 .kal-list a:hover { color: var(--_accent-ink); text-decoration: underline; }
 .kal-list small { grid-column: 1; color: var(--_muted); font-size: .85rem; }
-.kal-past { grid-column: 2; grid-row: 1 / span 2; align-self: center; font: 600 .6rem/1 var(--_mono); letter-spacing: .1em; text-transform: uppercase; color: var(--_muted); border: 1px solid var(--_line); padding: 4px 6px; }
+.kal-past { grid-column: 2; grid-row: 1 / span 2; align-self: start; font-size: .72rem; color: var(--_muted); background: var(--_tint); border-radius: 999px; padding: 3px 9px; }
 .kal-empty { margin: 4px 0 0; color: var(--_muted); }
 .kal-jump { justify-self: start; }
-.kal-fb { font-size: .88rem; font-weight: 700; color: var(--_accent-ink); }
+.kal-fb { margin-top: auto; align-self: end; font-size: .88rem; font-weight: 700; color: var(--_accent-ink); }

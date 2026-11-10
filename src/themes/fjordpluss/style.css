@@ -61,13 +61,13 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--sky); outline-o
 .hero { position: relative; overflow: hidden; color: #fff; isolation: isolate; }
 .hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; transform: scale(1.45); transform-origin: 23% 62%; z-index: -2; }
 .hero::after { content: ""; position: absolute; inset: 0; z-index: -1;
-  background: linear-gradient(90deg, rgba(8,28,52,.92) 0%, rgba(8,28,52,.62) 38%, rgba(8,28,52,.08) 70%), linear-gradient(0deg, rgba(8,28,52,.55), transparent 35%); }
+  background: linear-gradient(90deg, rgba(12,44,82,.86) 0%, rgba(14,52,96,.62) 34%, rgba(16,58,108,.18) 62%, rgba(16,58,108,0) 82%), linear-gradient(180deg, rgba(12,44,82,.28) 0%, rgba(12,44,82,0) 30%, rgba(12,44,82,0) 62%, rgba(10,36,68,.62) 100%), linear-gradient(rgba(30,90,150,.14), rgba(30,90,150,.14)); }
 .hero__in { padding-block: 80px 0; }
 .hero__title { font-size: clamp(3.4rem, 10vw, 6.6rem); letter-spacing: -.06em; line-height: .86; max-width: 7.5ch; margin-bottom: 18px; }
 .hero__lead { max-width: 42ch; margin: 0; font-size: 1.08rem; color: #eaf2fa; }
 .hero__strip { display: flex; justify-content: space-between; gap: 16px; margin-top: 70px; padding-block: 12px 16px; border-top: 1px solid rgba(255,255,255,.35);
   font: 600 .62rem/1.2 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: #dfe9f3; }
-@media (max-width: 600px) { .hero__img { transform: scale(1.9); transform-origin: 56% 64%; } .hero::after { background: linear-gradient(180deg, rgba(8,28,52,.35), rgba(8,28,52,.9) 70%); } }
+@media (max-width: 600px) { .hero__img { transform: scale(1.9); transform-origin: 56% 64%; } .hero::after { background: linear-gradient(180deg, rgba(12,44,82,.35) 0%, rgba(14,52,96,.62) 45%, rgba(10,36,68,.9) 100%); } }
 
 /* Seksjoner */
 .section { padding-block: 56px; }
@@ -175,20 +175,30 @@ code { font: 600 .9em var(--mono); background: var(--tint); padding: 1px 6px; }
 .quote { margin: 0; font-style: italic; color: var(--text); }
 .quote span { font-style: normal; color: var(--muted); }
 
-/* Overlay-kort på toppbildet: neste (eller siste) aktivitet, lenker ned til kalenderen. Frostet glass over bildet. */
 .hero__in { position: relative; }
 .hero__cal { align-self: center; color: #fff; font-weight: 700; font-size: .92rem; text-decoration: none; border-bottom: 1.5px solid rgba(255,255,255,.6); padding: 2px 0; }
 .hero__cal:hover { border-color: #fff; }
-.hero__next { display: grid; gap: 10px; width: min(330px, 100%); margin-top: 28px; padding: 16px 18px; color: #fff; text-decoration: none;
-  background: rgba(8, 28, 52, .42); border: 1px solid rgba(255,255,255,.28); -webkit-backdrop-filter: blur(10px) saturate(1.2); backdrop-filter: blur(10px) saturate(1.2); }
-.hero__next:hover { background: rgba(8, 28, 52, .58); border-color: rgba(255,255,255,.5); }
-.hero__next .eyebrow { margin: 0; }
-.hero__next-row { display: flex; gap: 14px; align-items: center; }
-.hero__next-date { display: grid; place-items: center; min-width: 52px; height: 52px; background: var(--sky); font: 600 .62rem/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
-.hero__next-date b { font: 800 1.45rem/1 var(--display); letter-spacing: -.03em; }
-.hero__next-t { display: block; font-size: 1.05rem; letter-spacing: -.02em; line-height: 1.2; }
-.hero__next small { color: #cfe0ef; }
-.hero__next-link { font: 600 .66rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: #cfe0ef; }
-@media (min-width: 900px) { .hero__next { position: absolute; right: 0; bottom: 74px; margin: 0; } }
+
+/* Kortene i «Finn din vei inn» blir mørke når pekeren er over dem */
+.path { transition: background-color .2s, border-color .2s, color .2s; }
+.path:hover, .path:focus-visible { background: var(--navy); border-color: var(--navy); color: #fff; }
+.path:hover .path__text, .path:focus-visible .path__text { color: #cfe0ef; }
+.path:hover .eyebrow, .path:focus-visible .eyebrow { color: #9cc3e6; }
+.path__arrow { transition: transform .2s; }
+.path:hover .path__arrow { transform: translate(3px, -3px); }
+@media (prefers-reduced-motion: reduce) { .path, .path__arrow { transition: none; } }
 /* Kalenderen bruker designets farger */
 .kal { --kal-text: var(--text); --kal-muted: var(--muted); --kal-line: var(--line); --kal-surface: var(--surface); --kal-tint: var(--tint); --kal-accent: var(--sky); --kal-accent-ink: var(--sky-ink); --kal-mono: var(--mono); }
+
+/* Kalenderen på et lyseblått bånd i full bredde (som i Friluft+-utkastet) */
+.band--cal { background: #e3edf7; border-top: 1px solid var(--line); }
+@media (prefers-color-scheme: dark) { .band--cal { background: #0f1e2e; } }
+.kal { --kal-tint-strong: #cfe3f4; }
+@media (prefers-color-scheme: dark) { .kal { --kal-tint-strong: #1d3a58; } }
+.band--cal + * { margin-top: 0; }
+/* Mindre skrift i bunnen */
+.foot { padding-block: 30px 20px; margin-top: 0; font-size: .82rem; }
+.foot__logo { font-size: 1.4rem; }
+.foot h2 { font-size: .78rem; }
+.foot nav a { font-size: .8rem; }
+.foot__end { font-size: .74rem; margin-top: 24px; }

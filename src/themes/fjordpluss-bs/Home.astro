@@ -1,9 +1,7 @@
 ---
 import Aktivitetskalender from "../../components/Aktivitetskalender.astro";
-import HeroNeste from "../../components/HeroNeste.astro";
 import { forside, url, dato, lenke, slug, utdrag, bildeFor } from "../../lib/site";
 const { innlegg, kommende, tidligere } = Astro.props;
-const fremhevet = kommende[0] ?? tidligere[0];
 const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", day: "2-digit", month: "short", year: "numeric" }).format(d).replace(/\./g, "");
 ---
 <section class="hero text-white">
@@ -15,9 +13,8 @@ const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", da
     <div class="d-flex flex-wrap gap-3 mt-4">
       <a class="btn btn-primary" href={url("/kurs-2026/")}>Utforsk kurs ↗</a>
       <a class="btn btn-outline-light" href={url("/flysteder/")}>Fly med oss →</a>
-      <a class="hn-cal" href="#aktivitetskalender">Aktivitetskalender ↓</a>
+      <a class="hero-cal" href="#aktivitetskalender">Aktivitetskalender ↓</a>
     </div>
-    <HeroNeste e={fremhevet} kommende={kommende.length > 0} />
     <div class="hero-strip d-flex justify-content-between"><span>Harstad / Sør-Troms</span><span>{forside.heltebildeKreditt}</span></div>
   </div>
 </section>
@@ -60,9 +57,9 @@ const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", da
   </div>
 </section>
 
-<div class="container"><hr class="m-0" /></div>
-
-<section class="container py-5" id="aktivitetskalender">
+<section class="cal-band border-top" id="aktivitetskalender">
+  <div class="container py-5">
   <div class="d-flex justify-content-between align-items-end gap-3 mb-3"><div><p class="eyebrow mb-2">Det skjer i HPGT</p><h2 class="h-tight display-6 m-0">Aktivitetskalender</h2></div><a class="link-more" href={url("/arrangementer/")}>Alle arrangementer →</a></div>
   <Aktivitetskalender kommende={kommende} tidligere={tidligere} />
+  </div>
 </section>
