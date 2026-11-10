@@ -4,6 +4,7 @@ date: "2017-10-27T12:23:45"
 kategorier: ["Sosialt"]
 bilde: "/wp-content/uploads/2017/10/Christmas-party.png"
 permalink: "/avstemning-dato-for-julebord-2017-tidsfrist-31-10/"
+forfatter: "Aage"
 wp_id: 2089
 ---
 JULEBORD🎄🎉🎊

@@ -1,17 +1,12 @@
 ---
-import { getCollection } from "astro:content";
 import styret from "../../data/styret.json";
-import flysteder from "../../data/flysteder.json";
-import Vindrose from "../../components/Vindrose.astro";
-import { forside, site, url, ekstern, dato, dag, mnd, tidSted, bildeFor, utdrag, lenke, kursStatus, hentDokumenter } from "../../lib/site";
+import { forside, site, url, ekstern, dato, dag, mnd, tidSted, bildeFor, lenke, slug, kursStatus, hentDokumenter } from "../../lib/site";
 const { innlegg, kommende, tidligere } = Astro.props;
 const k = forside.kurs;
 const status = kursStatus(k);
-const aktiviteter = kommende.length ? kommende.slice(0, 4) : tidligere.slice(0, 4);
+const aktiviteter = kommende.length ? kommende.slice(0, 5) : tidligere.slice(0, 5);
 const dokumenter = await hentDokumenter(5);
-const [hoved, ...resten] = innlegg;
 const kurs = (d: string) => dato(new Date(d));
-const utvalgte = forside.utvalgteFlysteder.map((id) => flysteder.steder.find((s) => s.id === id)).filter(Boolean);
 ---
 <section class="hero">
   <img class="hero__img" src={url(forside.heltebilde)} alt="Tandemflyging over Harstad" />
@@ -62,31 +57,29 @@ const utvalgte = forside.utvalgteFlysteder.map((id) => flysteder.steder.find((s)
 </section>
 
 
-<section class="wrap section section--tight">
-  <div class="sites">
-    <div class="sites__intro">
-      <p class="eyebrow eyebrow--light">Planlegg turen</p>
-      <h2 class="sites__title">{flysteder.steder.length} flysteder i Harstad, Kvæfjord og omegn</h2>
-      <p>Kart med vindretning, nivå, målt vind, luftrom og NOTAM ligger på flysteder.hpgt.com. Fylte felt i rosen viser hvilke vindretninger startstedet tåler.</p>
-      <p class="actions"><a class="btn" href={site.flysteder}>Åpne flysteder.hpgt.com ↗</a></p>
-    </div>
-    <ul class="sites__list">
-      {utvalgte.map((s) => (
-        <li><a href={s!.url}>
-          <Vindrose retninger={s!.retninger} />
-          <span><b>{s!.navn}</b><small>{s!.moh} moh · {s!.retninger.join(" ")}</small></span>
-          <span aria-hidden="true">↗</span>
-        </a></li>
-      ))}
-    </ul>
-  </div>
-</section>
-
-<section class="band">
-  <div class="wrap split">
+<section class="wrap section">
+  <div class="feed">
     <div>
-      <div class="section__head"><div><p class="eyebrow">Kalender</p><h2 class="h-section">{kommende.length ? "Kommende aktiviteter" : "Siste aktiviteter"}</h2></div><a class="more" href={url("/arrangementer/")}>Alle →</a></div>
-      {kommende.length === 0 && <p class="hint">Ingen nye aktiviteter er lagt inn ennå. Her er de siste.</p>}
+      <div class="section__head"><div><p class="eyebrow">Fra klubben</p><h2 class="h-section">Siste nytt</h2></div><a class="more" href={url("/nytt/")}>Alle innlegg →</a></div>
+      <div class="cards">
+        {innlegg.slice(0, 6).map((p) => {
+          const b = bildeFor(p);
+          return (
+            <a class="card" data-kat={slug(p.data.kategorier[0])} href={url(lenke(p))}>
+              {b ? <img src={url(b)} alt="" loading="lazy" /> : <span class="card__noimg" data-kat={slug(p.data.kategorier[0])} aria-hidden="true">{p.data.kategorier[0]}</span>}
+              <span class="card__body">
+                <span class="tag" data-kat={slug(p.data.kategorier[0])}>{p.data.kategorier[0]}</span>
+                <span class="card__title">{p.data.title}</span>
+                <span class="byline">{p.data.forfatter && <>Av <b>{p.data.forfatter}</b> · </>}{dato(p.data.date)}</span>
+              </span>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+    <aside class="feed__side">
+      <div class="section__head"><div><p class="eyebrow">Kalender</p><h2 class="h-section">Aktiviteter</h2></div><a class="more" href={url("/arrangementer/")}>Alle →</a></div>
+      {kommende.length === 0 && <p class="hint">Ingen nye aktiviteter er lagt inn. Her er de siste.</p>}
       <ul class="events">
         {aktiviteter.map((e) => (
           <li><a href={url(lenke(e))}>
@@ -95,37 +88,11 @@ const utvalgte = forside.utvalgteFlysteder.map((id) => flysteder.steder.find((s)
           </a></li>
         ))}
       </ul>
-    </div>
-    <aside class="panel">
-      <h2 class="panel__title">For piloter</h2>
-      <ul class="linklist">{forside.snarveier.map((s) => <li><a href={url(s.url)}><span>{s.tekst}</span><span aria-hidden="true">{ekstern(s.url) ? "↗" : "→"}</span></a></li>)}</ul>
+      <h2 class="side__title">For piloter</h2>
+      <ul class="chips">{forside.snarveier.map((s) => <li><a href={url(s.url)}>{s.tekst}{ekstern(s.url) && " ↗"}</a></li>)}</ul>
     </aside>
   </div>
 </section>
-
-<section class="wrap section">
-  <div class="section__head"><div><p class="eyebrow">Fra klubben</p><h2 class="h-section">Siste nytt</h2></div><a class="more" href={url("/nytt/")}>Alle innlegg →</a></div>
-  <div class="news">
-    <a class="lead-story" href={url(lenke(hoved))}>
-      {bildeFor(hoved) && <img src={url(bildeFor(hoved)!)} alt="" />}
-      <span class="eyebrow">{hoved.data.kategorier[0]} · {dato(hoved.data.date)}</span>
-      <span class="lead-story__title">{hoved.data.title}</span>
-      <span class="lead-story__text">{utdrag(hoved.body, 200)}</span>
-    </a>
-    <ul class="newslist">
-      {resten.slice(0, 5).map((p) => {
-        const b = bildeFor(p);
-        return (
-          <li><a href={url(lenke(p))}>
-            {b ? <img src={url(b)} alt="" loading="lazy" /> : <span class="thumb-empty" aria-hidden="true"></span>}
-            <span><span class="eyebrow">{p.data.kategorier[0]} · {dato(p.data.date)}</span><span class="newslist__t">{p.data.title}</span></span>
-          </a></li>
-        );
-      })}
-    </ul>
-  </div>
-</section>
-
 
 <section class="wrap section section--tight">
   <div class="section__head"><div><p class="eyebrow">Fra klubbens bildesamling</p><h2 class="h-section">Flygelivet i HPGT</h2></div><a class="more" href={site.instagram}>#harstadparagliding ↗</a></div>

@@ -3,6 +3,7 @@ title: "Referat fra medlemsmøte 07.08.2013"
 date: "2013-08-08T13:37:23"
 kategorier: ["Møter og referater"]
 permalink: "/referat-fra-medlemsmote-07-08-2013/"
+forfatter: "Erlend"
 wp_id: 585
 ---
 Medlemsmøte

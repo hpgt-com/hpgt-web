@@ -3,6 +3,7 @@ title: "Torget og Evenes 23-24. august!"
 date: "2013-08-22T21:37:45"
 kategorier: ["Sosialt"]
 permalink: "/torget-og-evenes-23-24-august/"
+forfatter: "Erlend"
 wp_id: 611
 ---
 Vi gelder oss til i morgen ( fredag 23.08.13) og oppfordrer alle dere til å møte opp på torget i morgen fra kl. 1300!

@@ -3,6 +3,7 @@ title: "Klubbmøte Mandag 26.05.2014 19:00"
 date: "2014-05-13T16:04:16"
 kategorier: ["Møter og referater"]
 permalink: "/klubbmote-mandag-26-05-2014-1900/"
+forfatter: "Aage"
 wp_id: 746
 ---
 Heihå.

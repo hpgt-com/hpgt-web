@@ -3,6 +3,7 @@ title: "Klubbmøte onsdag 7.august 2013"
 date: "2013-08-06T15:45:16"
 kategorier: ["Møter og referater"]
 permalink: "/klubbmote-onsdag-7-august-2013/"
+forfatter: "Erlend"
 wp_id: 580
 ---
 Hei,

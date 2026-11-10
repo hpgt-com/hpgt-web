@@ -3,6 +3,7 @@ title: "Klubbmøte 25 August 19:15"
 date: "2014-08-20T20:38:34"
 kategorier: ["Møter og referater"]
 permalink: "/klubbmote-25-august-1900/"
+forfatter: "Aage"
 wp_id: 938
 ---
 Da kjører vi i gang med klubbmøte igjen som tittelen sier.

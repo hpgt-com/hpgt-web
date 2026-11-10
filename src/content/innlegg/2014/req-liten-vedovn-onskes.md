@@ -3,6 +3,7 @@ title: "REQ: Liten vedovn ønskes"
 date: "2014-03-12T21:21:57"
 kategorier: ["Sosialt"]
 permalink: "/req-liten-vedovn-onskes/"
+forfatter: "Aage"
 wp_id: 697
 ---
 Klubben er på let etter en liten vedovn til bruk i klubbens «tipi».

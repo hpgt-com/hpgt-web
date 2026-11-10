@@ -3,6 +3,7 @@ title: "Referat ekstraordinært årsmøte 09.07.2019"
 date: "2019-07-09T20:44:28"
 kategorier: ["Møter og referater"]
 permalink: "/referat-ekstraordinaert-arsmote-09-07-2019/"
+forfatter: "Aage"
 wp_id: 3118
 ---
 ***Protokoll årsmøte***

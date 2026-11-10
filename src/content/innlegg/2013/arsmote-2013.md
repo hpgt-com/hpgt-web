@@ -3,6 +3,7 @@ title: "Årsmøte 2013"
 date: "2013-02-04T22:29:20"
 kategorier: ["Møter og referater"]
 permalink: "/arsmote-2013/"
+forfatter: "Erlend"
 wp_id: 534
 ---
 Årsmøte 20 februar 2013 Innkalling to uker før  (møte på peppez pizza)   KL: 19:00- 23

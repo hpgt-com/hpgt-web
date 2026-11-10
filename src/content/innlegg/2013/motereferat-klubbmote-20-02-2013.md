@@ -3,6 +3,7 @@ title: "Møtereferat klubbmøte 20.02.2013"
 date: "2013-02-27T18:18:54"
 kategorier: ["Møter og referater"]
 permalink: "/motereferat-klubbmote-20-02-2013/"
+forfatter: "Erlend"
 wp_id: 548
 ---
 Sted: Peppes Pizza

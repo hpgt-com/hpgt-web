@@ -3,6 +3,7 @@ title: "Styremøte 12.03.2014"
 date: "2014-03-16T15:15:43"
 kategorier: ["Møter og referater"]
 permalink: "/styremote-12-03-2014/"
+forfatter: "Børre"
 wp_id: 709
 ---
 Styremøte 12.03.2014 kl 1900

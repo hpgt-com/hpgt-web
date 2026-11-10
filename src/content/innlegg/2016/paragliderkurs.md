@@ -4,6 +4,7 @@ date: "2016-07-31T12:55:18"
 kategorier: ["Kurs", "Nyhet"]
 bilde: "/wp-content/uploads/2015/01/vlcsnap-2014-08-10-18h25m27s146.png"
 permalink: "/paragliderkurs/"
+forfatter: "Aage"
 wp_id: 1618
 ---
 Paragliderkurs?

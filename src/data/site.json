@@ -4,12 +4,20 @@
   "url": "https://hpgt.com",
   "beskrivelse": "Paragliding og hanggliding i Harstad og omegn. Kurs, tandem, flysteder og et sosialt klubbmiljø.",
   "prototype": true,
-  "epost": { "post": "post@hpgt.com", "leder": "leder@hpgt.com", "fagligLeder": "faglig.leder@hpgt.com" },
+  "epost": {
+    "post": "post@hpgt.com",
+    "leder": "leder@hpgt.com",
+    "fagligLeder": "faglig.leder@hpgt.com"
+  },
   "orgnr": "996870618",
   "vipps": "967338",
   "facebook": "https://www.facebook.com/groups/281075801914003",
   "instagram": "https://www.instagram.com/harstadparagliding/",
   "flysteder": "https://flysteder.hpgt.com/",
   "minidrett": "https://www.minidrett.no",
-  "cms": "https://app.pagescms.org"
+  "cms": "https://app.pagescms.org",
+  "sitat": {
+    "tekst": "Skjønner ikke hvorfor folk gidder å ruse seg når de bare kan fly paraglider",
+    "kilde": "tidligere tandempassasjer"
+  }
 }

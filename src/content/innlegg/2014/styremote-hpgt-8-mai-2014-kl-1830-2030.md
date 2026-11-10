@@ -3,6 +3,7 @@ title: "Styremøte HPGT 8 mai 2014 kl 1830 – 2030"
 date: "2014-05-08T21:26:02"
 kategorier: ["Møter og referater"]
 permalink: "/styremote-hpgt-8-mai-2014-kl-1830-2030/"
+forfatter: "Børre"
 wp_id: 733
 ---
 Tilstede:

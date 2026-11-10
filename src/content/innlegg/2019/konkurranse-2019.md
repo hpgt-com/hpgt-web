@@ -4,6 +4,7 @@ date: "2019-01-21T20:25:48"
 kategorier: ["Konkurranser"]
 bilde: "/wp-content/uploads/2018/05/20170708_132817.jpg"
 permalink: "/konkurranse-2019/"
+forfatter: "Aage"
 wp_id: 2632
 ---
 #### Året er 2019 og vi har kjørt i gang en foto og video konkurranse.

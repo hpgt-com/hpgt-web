@@ -4,6 +4,7 @@ date: "2018-04-10T11:17:23"
 kategorier: ["Nyhet"]
 bilde: "/wp-content/uploads/2018/04/KA-kurs-Harstad-april-2018.jpg"
 permalink: "/kurs-i-klubbadmin/"
+forfatter: "Aage"
 wp_id: 2251
 ---
 **Til idrettslag i Harstad og omegn**

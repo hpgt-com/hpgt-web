@@ -3,6 +3,7 @@ title: "Værstasjonen på Heia."
 date: "2013-08-25T16:23:25"
 kategorier: ["Nyhet"]
 permalink: "/vaerstasjonen-pa-heia/"
+forfatter: "Aage"
 wp_id: 615
 ---
 Sagaen om værastasjonen fortsetter…

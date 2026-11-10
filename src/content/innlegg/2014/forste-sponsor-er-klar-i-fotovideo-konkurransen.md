@@ -4,6 +4,7 @@ date: "2014-06-19T18:07:05"
 kategorier: ["Konkurranser"]
 bilde: "/wp-content/uploads/2014/06/cropped-Madsen-Luftsport-logo.png"
 permalink: "/forste-sponsor-er-klar-i-fotovideo-konkurransen/"
+forfatter: "Aage"
 wp_id: 814
 ---
 Klubben har vært så heldig å bli sponset av «vår egen» [MadsenLuftsport](http://madsenluftsport.no/) med en hurtigpakksekk fra AirCross.

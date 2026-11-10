@@ -3,6 +3,7 @@ title: "Den store Foto og video konkurransen 2017"
 date: "2017-03-20T22:48:10"
 kategorier: ["Konkurranser"]
 permalink: "/den-store-foto-og-video-konkurransen-2017/"
+forfatter: "Aage"
 wp_id: 1845
 ---
 ### [Da kjører vi på med den store Foto og Video konkurransen for året 2017](/konkurranser/konkurranse-2017)

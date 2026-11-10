@@ -4,6 +4,7 @@ date: "2014-07-08T18:51:47"
 kategorier: ["Konkurranser"]
 bilde: "/wp-content/uploads/2014/07/gingliders1.jpg"
 permalink: "/sponsor-nr-6-gin-gliders-scandinavia/"
+forfatter: "Aage"
 wp_id: 875
 ---
 Siden 1998 har GIN laget kvalitets paraglidere. I de siste årene også speedrider/flying skjermer.

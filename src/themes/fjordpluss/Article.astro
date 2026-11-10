@@ -1,11 +1,11 @@
 ---
-import { url } from "../../lib/site";
+import { url, slug } from "../../lib/site";
 const { title, ingress, bilde, meta, kategorier, tilbake } = Astro.props;
 ---
 <article class="wrap article">
   <nav class="crumbs" aria-label="Brødsmuler"><a href={url("/")}>Hjem</a>{tilbake && <><span aria-hidden="true">/</span><a href={tilbake.url}>{tilbake.tekst}</a></>}<span aria-hidden="true">/</span><span aria-current="page">{title}</span></nav>
   <header>
-    {meta && <p class="eyebrow">{kategorier ? kategorier.join(", ") + " · " : ""}{meta}</p>}
+    {meta && <p class="article__meta">{kategorier?.map((k) => <a class="tag" data-kat={slug(k)} href={url(`/nytt/kategori/${slug(k)}/`)}>{k}</a>)}<span class="eyebrow">{meta}</span></p>}
     <h1 class="article__title">{title}</h1>
     {ingress && <p class="lead">{ingress}</p>}
   </header>

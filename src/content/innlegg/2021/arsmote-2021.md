@@ -4,6 +4,7 @@ date: "2021-01-19T22:18:27"
 kategorier: ["Møter og referater"]
 bilde: "/wp-content/uploads/2021/01/130935291_406650453814718_2118685917216542309_n.png"
 permalink: "/arsmote-2021/"
+forfatter: "Aage"
 wp_id: 3504
 ---
 Du inviteres herved til årsmøte i Harstad Hang og Paragliderklubb

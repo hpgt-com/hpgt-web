@@ -3,6 +3,7 @@ title: "Støtt HPGT via Grasrotandelen"
 date: "2012-09-05T09:23:51"
 kategorier: ["Nyhet"]
 permalink: "/stott-hpgt-via-grasrotandelen/"
+forfatter: "Aage"
 wp_id: 323
 ---
 **Vil Du gi [![](/wp-content/uploads/2012/09/grasrot.png)](/wp-content/uploads/2012/09/grasrot.png)din støtte til HARSTAD HANG OG PARAGLIDERKLUBB?**

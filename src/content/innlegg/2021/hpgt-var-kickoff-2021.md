@@ -4,6 +4,7 @@ date: "2021-03-22T13:55:32"
 kategorier: ["Nyhet"]
 bilde: "/wp-content/uploads/2021/03/97628728_675142126552015_2441936856237998080_n.jpg"
 permalink: "/hpgt-var-kickoff-2021/"
+forfatter: "Aage"
 wp_id: 3546
 ---
 Termikken har vært og flyttet på vingene våre den siste måneden så det er påtide med årets kickoff.

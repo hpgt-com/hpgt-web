@@ -3,6 +3,7 @@ title: "PROTOKOLL FRA ÅRSMØTE 2020"
 date: "2020-02-25T21:06:08"
 kategorier: ["Møter og referater"]
 permalink: "/protokoll-fra-arsmote-2020/"
+forfatter: "Aage"
 wp_id: 3385
 ---
 ***Protokoll årsmøte***

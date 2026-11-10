@@ -4,6 +4,7 @@ date: "2014-08-27T10:02:39"
 kategorier: ["Konkurranser"]
 bilde: "/wp-content/uploads/2014/08/julebord.jpg"
 permalink: "/tid-for-a-bestemme-dato-for-arets-julebord/"
+forfatter: "Aage"
 wp_id: 952
 ---
 I den demokratiske ånd kjører vi i gang en liten undersøkelse for å finne ut av når folk har mulighet til å delta på årets julebord.

@@ -4,6 +4,7 @@ date: "2015-01-12T20:28:08"
 kategorier: ["Møter og referater", "Sosialt"]
 bilde: "/wp-content/uploads/2015/01/nlf_logo.png"
 permalink: "/invitasjon-til-luftsportsmote-2015/"
+forfatter: "Aage"
 wp_id: 1221
 ---
 Luftsportsmiljøet i vår vakre landsdel er stort. Sporten vi driver med er facinerende og spektakulær. Mange er nysgjerrige på de ulike grenene innad i miljøet, eller det være seg vel så ofte utenfor selve miljøet hvor mange har lyst å prøve/se eller oppleve det vi alle gjør!

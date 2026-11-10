@@ -4,6 +4,7 @@ date: "2017-09-26T07:58:58"
 kategorier: ["Møter og referater"]
 bilde: "/wp-content/uploads/2017/09/21167291_10159309368955613_8191481922905991626_o.jpg"
 permalink: "/instruktor-samling-13-10-17-tore-hunds-hate-5-harstad/"
+forfatter: "Aage"
 wp_id: 2036
 ---
 Klubben er som andre frivillige organisasjoner avhengig av stadig påfyll av nye medlemmer slik at vi får en naturlig vekst og klubbens ildsjeler ikke brennes ut.

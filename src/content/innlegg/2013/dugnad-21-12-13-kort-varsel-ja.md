@@ -3,6 +3,7 @@ title: "Dugnad 21.12.13 (Kort varsel ja….)"
 date: "2013-12-19T23:17:55"
 kategorier: ["Nyhet"]
 permalink: "/dugnad-21-12-13-kort-varsel-ja/"
+forfatter: "Erlend"
 wp_id: 646
 ---
 Nå har jeg ordnet disp til å lage speedrider løype utfor bakken i Sollia! Det blir en super og etterlengtet kursbakke for speedriding!

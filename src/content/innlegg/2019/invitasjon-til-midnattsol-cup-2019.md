@@ -4,6 +4,7 @@ date: "2019-03-26T19:14:37"
 kategorier: ["Nyhet"]
 bilde: "/wp-content/uploads/2019/03/54729455_10161492700705573_4450356537004654592_n.jpg"
 permalink: "/invitasjon-til-midnattsol-cup-2019/"
+forfatter: "Aage"
 wp_id: 2795
 ---
 Da har vi den glede av å invitere til årets Midnattsol Cup 2019

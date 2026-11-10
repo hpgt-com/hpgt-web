@@ -3,6 +3,7 @@ title: "Faglig ledergruppe i HPGT tok opp saken om nye hjelmregler"
 date: "2014-01-27T16:43:18"
 kategorier: ["Møter og referater"]
 permalink: "/faglig-ledergruppe-i-hpgt-tok-opp-saken-om-nye-hjelmregler/"
+forfatter: "Erlend"
 wp_id: 666
 ---
 Faglig ledergruppe i HPGT har sendt inn klage på nye hjelmregler.

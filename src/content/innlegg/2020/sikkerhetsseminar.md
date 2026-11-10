@@ -4,6 +4,7 @@ date: "2020-05-12T11:26:43"
 kategorier: ["Nyhet"]
 bilde: "/wp-content/uploads/2020/05/96118762_325730868406201_4296637921393806537_n.jpg"
 permalink: "/sikkerhetsseminar/"
+forfatter: "Aage"
 wp_id: 3441
 ---
 Det har vært gode termikkforhold og fine forhold for distanse i den senere tid. I den forbindelse kaller vi inn til et sikkerhetsseminar med tema luftrom.

@@ -3,6 +3,7 @@ title: "Fagseminar med Ronny Helgesen på Andenes den 4 April 2013"
 date: "2014-03-31T07:49:39"
 kategorier: ["Nyhet"]
 permalink: "/fagseminar-med-ronny-helgesen-pa-andenes-den-4-april-2013/"
+forfatter: "Aage"
 wp_id: 715
 ---
 Lofoten & Vesterålen Paragliderklubb har gleden av å invitere alle interesserte til fagseminar og kurs i pakking av nødskjerm ved Ronny Helgesen samt sosial helg med flyging.

@@ -4,6 +4,7 @@ date: "2017-03-20T19:11:13"
 kategorier: ["Møter og referater"]
 bilde: "/wp-content/uploads/2017/03/16908129_417813881906254_5417242830265384960_n.jpg"
 permalink: "/arsberetning-for-harstad-hang-og-paragliderklubb-2016-2/"
+forfatter: "Aage"
 wp_id: 1834
 ---
 **Årsberetning for Harstad hang og paragliderklubb 2016**

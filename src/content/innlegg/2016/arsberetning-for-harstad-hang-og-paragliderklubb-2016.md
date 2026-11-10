@@ -3,6 +3,7 @@ title: "Årsberetning for Harstad hang og paragliderklubb 2015"
 date: "2016-02-22T19:37:38"
 kategorier: ["Møter og referater"]
 permalink: "/arsberetning-for-harstad-hang-og-paragliderklubb-2016/"
+forfatter: "Aage"
 wp_id: 1502
 ---
 **Årsberetning for Harstad hang og paragliderklubb 2015**

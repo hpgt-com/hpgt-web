@@ -3,6 +3,7 @@ title: "Møtereferat: Styremøte 29.08.2012"
 date: "2012-09-01T11:37:47"
 kategorier: ["Møter og referater"]
 permalink: "/styremote-29-08-2012/"
+forfatter: "Erlend"
 wp_id: 291
 ---
 Styremøte HHPGK 29. august

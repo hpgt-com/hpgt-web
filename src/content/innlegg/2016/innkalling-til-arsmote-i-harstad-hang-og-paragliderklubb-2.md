@@ -4,6 +4,7 @@ date: "2016-01-18T17:10:03"
 kategorier: ["Møter og referater"]
 bilde: "/wp-content/uploads/2016/01/vlcsnap-2012-10-21-23h07m24s22.png"
 permalink: "/innkalling-til-arsmote-i-harstad-hang-og-paragliderklubb-2/"
+forfatter: "Aage"
 wp_id: 1453
 ---
 Innkalling til årsmøte i Harstad Hang og Paragliderklubb Mandag 22 Februar 2016 19:00 Årsmøtet avholdes på Funn Harstad  (Tore Hundsgate 5. 9404 Harstad).

@@ -30,6 +30,7 @@ content:
           multiple: true
           values: [Nyhet, Møter og referater, Kurs, Sosialt, Turer, Tilbud, Konkurranser]
       - { name: bilde, label: Hovedbilde, type: image, description: "Vises øverst og på forsiden. Liggende bilder blir finest." }
+      - { name: forfatter, label: "Skrevet av (fornavn)", type: string }
       - { name: ingress, label: Ingress, type: text, description: "1–2 setninger som oppsummerer saken." }
       - name: vedlegg
         label: Vedlegg (PDF, referater, innkallinger)
@@ -107,7 +108,6 @@ content:
           - { name: url, label: Lenke, type: string }
           - { name: bilde, type: image }
       - { name: galleri, label: Bildegalleri, type: image, list: { max: 6 } }
-      - { name: utvalgteFlysteder, label: "Utvalgte flysteder (ID fra flysteder.hpgt.com)", type: string, list: { max: 4 } }
       - { name: tittel, label: Overskrift (eldre design), type: string }
       - { name: ingress, label: Ingress, type: text }
       - { name: bilde, label: Toppbilde, type: image }

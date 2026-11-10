@@ -4,6 +4,7 @@ date: "2015-07-28T23:49:33"
 kategorier: ["Møter og referater"]
 bilde: "/wp-content/uploads/2015/07/11807537_10155915607060613_5713019667104345371_o.jpg"
 permalink: "/innkalling-til-klubbmote-10-08-15-kl-1900/"
+forfatter: "Aage"
 wp_id: 1311
 ---
 Vi kjører i gang med klubbmøte Mandag den 10 August i lokalene til Funn Harstad klokken 19:00.

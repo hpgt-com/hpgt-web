@@ -3,6 +3,7 @@ title: "Regler 2019"
 date: "2019-10-10T20:43:24"
 kategorier: ["Møter og referater"]
 permalink: "/regler-2019/"
+forfatter: "Aage"
 wp_id: 3207
 ---
 ### [Da kjører vi på med den store Foto og Video konkurransen for året 2019](/konkurranse-2019/)

@@ -4,6 +4,7 @@ date: "2021-03-01T22:18:41"
 kategorier: ["Møter og referater"]
 bilde: "/wp-content/uploads/2021/03/Bilde1-1.jpg"
 permalink: "/protokoll-arsmote-2021/"
+forfatter: "Aage"
 wp_id: 3525
 ---
 **Protokoll fra årsmøte**

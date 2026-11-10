@@ -3,6 +3,7 @@ title: "Årsmøte for Harstad Hang og Paragliderklubb den 26.03.2012"
 date: "2012-03-06T10:32:56"
 kategorier: ["Møter og referater"]
 permalink: "/arsmote-for-harstad-hang-og-paragliderklubb-den-26-03-2012/"
+forfatter: "Erlend"
 wp_id: 98
 ---
 Harstad

@@ -4,6 +4,7 @@ date: "2014-06-19T18:15:16"
 kategorier: ["Konkurranser"]
 bilde: "/wp-content/uploads/2014/06/flybyfester.png"
 permalink: "/flybyfester-stiller-som-sponsor-i-fotovideo-konkurransen/"
+forfatter: "Aage"
 wp_id: 819
 ---
 Ikke før tikket første epost inn med sponsor så kom nr 2.

@@ -3,6 +3,7 @@ title: "Klubbmøte tirsdag 15.01.13 kl.19:00 på iTet"
 date: "2013-01-09T23:02:00"
 kategorier: ["Møter og referater"]
 permalink: "/klubbmote-tirsdag-15-01-13-kl-1900-pa-itet/"
+forfatter: "Erlend"
 wp_id: 511
 ---
 Hei,

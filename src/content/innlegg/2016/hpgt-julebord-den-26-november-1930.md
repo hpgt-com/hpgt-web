@@ -4,6 +4,7 @@ date: "2016-10-19T21:49:28"
 kategorier: ["Sosialt"]
 bilde: "/wp-content/uploads/2016/10/14725748_10154420571060380_486994829013379985_n.jpg"
 permalink: "/hpgt-julebord-den-26-november-1930/"
+forfatter: "Aage"
 wp_id: 1688
 ---
 Heihå!

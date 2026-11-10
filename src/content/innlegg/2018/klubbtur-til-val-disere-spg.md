@@ -4,6 +4,7 @@ date: "2018-02-13T09:55:26"
 kategorier: ["Sosialt"]
 bilde: "/wp-content/uploads/2018/02/Skjermbilde2.png"
 permalink: "/klubbtur-til-val-disere-spg/"
+forfatter: "Aage"
 wp_id: 2211
 ---
 Et par av klubbens medlemmer drar til World meet i Val d’Isère den 17-24 mars.

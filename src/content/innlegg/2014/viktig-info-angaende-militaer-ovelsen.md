@@ -3,6 +3,7 @@ title: "Viktig info angående militær øvelsen"
 date: "2014-03-10T21:49:43"
 kategorier: ["Nyhet"]
 permalink: "/viktig-info-angaende-militaer-ovelsen/"
+forfatter: "Aage"
 wp_id: 692
 ---
 Grunnet øvelse cold respons er det økt flytrafikk i landsdelen.

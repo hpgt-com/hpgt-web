@@ -3,6 +3,7 @@ title: "Godt tilbud i Narvikfjellet."
 date: "2012-11-01T16:19:46"
 kategorier: ["Nyhet"]
 permalink: "/godt-tilbud-i-narvikfjellet/"
+forfatter: "Stefan"
 wp_id: 450
 ---
 Narvikfjellet selger billige sesongkort i perioden fram til 1. desember. Dersom du kunne tenkt deg å bruke anlegget i Narvik i kommende sesong, er det penger å spare!!Sesongkort koster kr. 1250 fram til 1. desember, og man skal ikke ta gondolen mange ganger for at dette skal lønne seg…-StefanSakset fra [Narvikfjellets hjemmeside](http://narvikfjellet.no/ "Narvikfjellet"):——————————————————-HAR DU TENKT DEG PÅ SKI FLERE ENN 3 DAGER I VINTER, BØR DU LESE VIDERE…

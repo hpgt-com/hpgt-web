@@ -3,6 +3,7 @@ title: "Referat fra Årsmøte 2013"
 date: "2013-02-27T18:15:40"
 kategorier: ["Møter og referater"]
 permalink: "/referat-fra-arsmote-2013/"
+forfatter: "Erlend"
 wp_id: 545
 ---
 Referat fra Årsmøte 2013

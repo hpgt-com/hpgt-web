@@ -24,7 +24,7 @@ const { type, entry } = Astro.props as any;
 const { Content } = await render(entry);
 const d = entry.data;
 let meta: string | undefined;
-if (type === "innlegg") meta = dato(d.date);
+if (type === "innlegg") meta = `${d.forfatter ? `Av ${d.forfatter} · ` : ""}${dato(d.date)}`;
 if (type === "arrangement") meta = `${dato(d.start)}${d.heldag ? "" : " kl. " + klokke(d.start)}${d.sted ? " · " + d.sted : ""}`;
 if (type === "side" && d.sist_endret) meta = `Sist oppdatert ${dato(d.sist_endret)}`;
 const tilbake = type === "innlegg" ? { tekst: "Alle nyheter", url: url("/nytt/") } : type === "arrangement" ? { tekst: "Alle arrangementer", url: url("/arrangementer/") } : undefined;

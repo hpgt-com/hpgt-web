@@ -4,6 +4,7 @@ date: "2016-02-15T19:12:21"
 kategorier: ["Møter og referater"]
 bilde: "/wp-content/uploads/2016/02/2014-08-30-17.48.27.png"
 permalink: "/saker-til-arsmote/"
+forfatter: "Aage"
 wp_id: 1472
 ---
 # Sakliste og saksdokumenter for årsmøte i Harstad Hang og Paragliderklubb

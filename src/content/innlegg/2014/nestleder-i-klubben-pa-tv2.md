@@ -3,6 +3,7 @@ title: "Nestleder i klubben på Tv2"
 date: "2014-05-27T12:03:51"
 kategorier: ["Nyhet"]
 permalink: "/nestleder-i-klubben-pa-tv2/"
+forfatter: "Aage"
 wp_id: 778
 ---
 # Øyvind ble lam i bilulykke – her flyr han igjen

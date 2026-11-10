@@ -4,6 +4,7 @@ date: "2017-03-20T20:35:19"
 kategorier: ["Møter og referater", "Sosialt"]
 bilde: "/wp-content/uploads/2017/03/IMG_1161.jpg"
 permalink: "/referat-arsmote-2017/"
+forfatter: "Aage"
 wp_id: 1840
 ---
 **Referat fra Årsmøte 2017**

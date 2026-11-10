@@ -4,6 +4,7 @@ date: "2017-10-27T11:33:36"
 kategorier: ["Møter og referater"]
 bilde: "/wp-content/uploads/2017/10/22467477_10159493900535613_3778531973099777065_o.jpg"
 permalink: "/styremote-mandag-30-10-17-1900-tore-hunds-gate-5-harstad/"
+forfatter: "Aage"
 wp_id: 2086
 ---
 Agenda:

@@ -3,6 +3,7 @@ title: "Husk årsmøtet!"
 date: "2014-02-18T22:29:34"
 kategorier: ["Nyhet", "Møter og referater"]
 permalink: "/husk-arsmotet/"
+forfatter: "Erlend"
 wp_id: 673
 ---
 **Minner på om årsmøtet nå på torsdag den 20. februar 2014 kl 19:00 på Itet (2.etg)**

@@ -4,6 +4,7 @@ date: "2026-09-22T10:22:19"
 kategorier: ["Sosialt"]
 bilde: "/wp-content/uploads/2026/09/HPGT_Julebord_2026.png"
 permalink: "/hpgt-julebord-2026-🎄/"
+forfatter: "Kristoffer"
 wp_id: 10828
 ---
 Da er det tid for årets julebord! Vi samler PG-gjengen fredag 6. november kl. 19:00 til en kveld med god mat, god stemning og flyhistorier fra sesongen.

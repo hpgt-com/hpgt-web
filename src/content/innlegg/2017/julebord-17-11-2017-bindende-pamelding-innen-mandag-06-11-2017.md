@@ -4,6 +4,7 @@ date: "2017-11-04T13:57:37"
 kategorier: ["Sosialt"]
 bilde: "/wp-content/uploads/2017/11/23031596_10155568588715380_5326097892034816717_n.jpg"
 permalink: "/julebord-17-11-2017-bindende-pamelding-innen-mandag-06-11-2017/"
+forfatter: "Aage"
 wp_id: 2097
 ---
 Ønsker dere alle velkommen til Julebord og ta gjerne med følge.

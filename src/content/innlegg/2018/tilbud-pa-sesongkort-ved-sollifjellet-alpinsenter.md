@@ -4,6 +4,7 @@ date: "2018-11-17T15:07:45"
 kategorier: ["Tilbud"]
 bilde: "/wp-content/uploads/2018/11/Sollifjellet_LOGO_FARGE_275x80px_NY.png"
 permalink: "/tilbud-pa-sesongkort-ved-sollifjellet-alpinsenter/"
+forfatter: "Kristoffer"
 wp_id: 2525
 ---
 [Sollifjellet Alpinsenter](https://sollifjellet.no/) har kommet med et tilbud på sesongkort til klubbens medlemmer for 1900,- om vi klarer samle 10 stk.

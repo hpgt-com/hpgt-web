@@ -4,6 +4,7 @@ date: "2017-05-15T14:55:39"
 kategorier: ["Møter og referater", "Sosialt"]
 bilde: "/wp-content/uploads/2017/05/18489878_10158737522100613_1876450312469130243_o.jpg"
 permalink: "/klubbmote-1-juni-2017/"
+forfatter: "Aage"
 wp_id: 1964
 ---
 Vi kjører igang et klubbmøte Torsdag den 01.06.17 19:00 på [Funn AS sine lokaler i Tore hundsgate 5. 9404 Harstad](https://goo.gl/maps/Bvq6Jqc1GNm)

@@ -4,6 +4,7 @@ date: "2016-10-17T18:45:57"
 kategorier: ["Møter og referater", "Sosialt"]
 bilde: "/wp-content/uploads/2016/10/14712625_10157676589190613_1006688407228025225_o.jpg"
 permalink: "/klubbkveld-28-oktober-1900/"
+forfatter: "Aage"
 wp_id: 1674
 ---
 EDIT: endret dato til over helgen for å passe med størsteparten av de nye medlemmene.

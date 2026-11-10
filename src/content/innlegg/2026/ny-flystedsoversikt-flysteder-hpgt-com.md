@@ -4,6 +4,7 @@ date: "2026-09-24T23:32:46"
 kategorier: ["Nyhet"]
 bilde: "/wp-content/uploads/2026/09/flysteder.hpgt_.com_.jpg"
 permalink: "/ny-flystedsoversikt-flysteder-hpgt-com/"
+forfatter: "Kristoffer"
 wp_id: 10839
 ---
 Den gamle flystedsoversikten til Lars Sletten har fått ny drakt. Her finner du alle startene i området, luftrommet over hver start og en grov vindvurdering fra værvarselet.

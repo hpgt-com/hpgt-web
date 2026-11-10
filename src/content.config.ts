@@ -12,6 +12,7 @@ const innlegg = defineCollection({
     date: z.coerce.date(),
     kategorier: z.array(z.string()).default(["Nyhet"]),
     bilde: z.string().optional(),
+    forfatter: z.string().optional(),
     ingress: z.string().optional(),
     vedlegg: z.array(z.object({ tittel: z.string(), fil: z.string() })).default([]),
     permalink,

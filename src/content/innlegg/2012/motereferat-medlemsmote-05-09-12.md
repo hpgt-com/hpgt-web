@@ -3,6 +3,7 @@ title: "Møtereferat: Medlemsmøte 05.09.12"
 date: "2012-09-06T08:15:13"
 kategorier: ["Møter og referater"]
 permalink: "/motereferat-medlemsmote-05-09-12/"
+forfatter: "Kristoffer"
 wp_id: 356
 ---
 Sted: HLK

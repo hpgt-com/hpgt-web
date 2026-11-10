@@ -4,6 +4,7 @@ date: "2016-09-26T13:05:58"
 kategorier: ["Kurs"]
 bilde: "/wp-content/uploads/2016/09/7a.jpg"
 permalink: "/radio-telefonikurs-for-hgpg-piloter/"
+forfatter: "Aage"
 wp_id: 1651
 ---
 Norges luftsportforbund arrangerer kurskveld for de av dere som kunne tenkt seg å avlegge eksamen for utstedelse av radiotelefoni sertifikat.

@@ -4,6 +4,7 @@ date: "2015-08-12T18:09:40"
 kategorier: ["Møter og referater"]
 bilde: "/wp-content/uploads/2015/08/11821165_776168799162447_1322873854_n.jpg"
 permalink: "/referat-fra-klubbmote-10-08-15/"
+forfatter: "Aage"
 wp_id: 1319
 ---
 Referat fra klubbmøte.

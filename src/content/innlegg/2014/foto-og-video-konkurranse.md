@@ -4,6 +4,7 @@ date: "2014-06-18T21:26:55"
 kategorier: ["Konkurranser"]
 bilde: "/wp-content/uploads/2014/06/vlcsnap-2014-08-10-18h36m02s107.png"
 permalink: "/foto-og-video-konkurranse/"
+forfatter: "Aage"
 wp_id: 809
 ---
 Da kjører vi på med den store Foto og Video konkurransen for året 2014

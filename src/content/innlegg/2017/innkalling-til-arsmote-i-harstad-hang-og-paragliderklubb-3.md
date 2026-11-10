@@ -4,6 +4,7 @@ date: "2017-02-08T20:31:55"
 kategorier: ["Møter og referater", "Sosialt"]
 bilde: "/wp-content/uploads/2017/02/16463294_10154845404185856_3569094671958502422_o.jpg"
 permalink: "/innkalling-til-arsmote-i-harstad-hang-og-paragliderklubb-3/"
+forfatter: "Aage"
 wp_id: 1776
 ---
 #

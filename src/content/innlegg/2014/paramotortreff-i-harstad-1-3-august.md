@@ -3,6 +3,7 @@ title: "Paramotortreff i Harstad 1-3 August"
 date: "2014-05-23T07:46:53"
 kategorier: ["Nyhet"]
 permalink: "/paramotortreff-i-harstad-1-3-august/"
+forfatter: "Børre"
 wp_id: 764
 ---
 Hei alle sammen.

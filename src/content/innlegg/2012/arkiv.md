@@ -3,6 +3,7 @@ title: "Arkiv"
 date: "2012-08-14T20:43:47"
 kategorier: ["Nyhet"]
 permalink: "/arkiv/"
+forfatter: "Erlend"
 wp_id: 177
 ---
 Dette er en samling av gamle poster:

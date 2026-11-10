@@ -4,6 +4,7 @@ date: "2019-03-25T19:34:24"
 kategorier: ["Møter og referater"]
 bilde: "/wp-content/uploads/2019/03/waffles.png"
 permalink: "/protokoll-fra-arsmote-2019/"
+forfatter: "Aage"
 wp_id: 2787
 ---
 ***Protokoll årsmøte***

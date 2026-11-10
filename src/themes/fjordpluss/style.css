@@ -69,7 +69,7 @@ h1, h2, h3 { font-family: var(--head); font-weight: 800; line-height: .98; lette
 
 /* Helt */
 .hero { position: relative; color: #fff; isolation: isolate; display: grid; align-content: end; min-height: min(86vh, 720px); }
-.hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 30%; z-index: -2; }
+.hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 55% 72%; z-index: -2; }
 .hero::after { content: ""; position: absolute; inset: 0; z-index: -1;
   background: linear-gradient(90deg, rgba(10,38,33,.88) 0%, rgba(10,38,33,.55) 45%, rgba(10,38,33,.1) 75%), linear-gradient(0deg, rgba(10,38,33,.6), transparent 40%); }
 .hero__text { padding-block: 96px 40px; }
@@ -241,3 +241,73 @@ code { font: 500 .92em var(--mono); background: var(--sunk); padding: 1px 6px; b
 .contribute p { max-width: 54ch; color: var(--muted); margin: 0; }
 .article:has(.rd) { max-width: 1120px; }
 @media (max-width: 600px) { .hero__img { object-position: 35% 72%; } }
+
+/* Siste nytt + aktiviteter, strukturert som Nordlys: kortrutenett til venstre, kalender og snarveier til høyre */
+.feed { display: grid; gap: 36px; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); align-items: start; }
+@media (max-width: 960px) { .feed { grid-template-columns: 1fr; } }
+.feed .h-section { font-size: clamp(2rem, 4vw, 2.8rem); }
+.cards { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+.card { display: grid; grid-template-rows: auto 1fr; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; text-decoration: none; color: var(--text); transition: border-color .15s; }
+.card:hover { border-color: var(--wing); }
+.card img, .card__noimg { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+.card__noimg { display: grid; place-items: center; background: var(--fjord); color: #cfe0da; font: 500 .72rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+.card__body { display: grid; gap: 6px; padding: 12px 14px 16px; align-content: start; }
+.card__meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; color: var(--muted); font-size: .85rem; }
+.tag { font: 500 .66rem/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; background: var(--sunk); color: var(--text); padding: 5px 8px; border-radius: 999px; }
+.card__title { font: 700 1.3rem/1.1 var(--head); }
+.feed__side { background: var(--sunk); border-radius: 14px; padding: 20px; }
+.feed__side .events a { border-color: transparent; }
+.side__title { font-size: 1.5rem; margin: 26px 0 12px; }
+.chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.chips a { display: inline-block; padding: 7px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--text); text-decoration: none; font-weight: 600; font-size: .92rem; }
+.chips a:hover { border-color: var(--wing); }
+
+/* Kategorifarger. Hver kategori har én farge (--k) og en lys/mørk tekstfarge (--k-ink); brukes på merkelapper,
+   kortstriper, bilder som mangler og kategorilista i arkivet. Bytt verdiene her for å matche klubbens farger. */
+[data-kat] { --k: #5b6770; --k-ink: #fff; }
+[data-kat="nyhet"] { --k: #2b6a8a; --k-ink: #fff; }
+[data-kat="moter-og-referater"] { --k: #6a4c9c; --k-ink: #fff; }
+[data-kat="sosialt"] { --k: #e08a2c; --k-ink: #1b1206; }
+[data-kat="kurs"] { --k: #2f8a5b; --k-ink: #fff; }
+[data-kat="turer"] { --k: #b23a48; --k-ink: #fff; }
+[data-kat="konkurranser"] { --k: #c9a227; --k-ink: #1b1606; }
+[data-kat="tilbud"] { --k: #4f6d7a; --k-ink: #fff; }
+[data-kat="norgescup"] { --k: #1f5c52; --k-ink: #fff; }
+.tag[data-kat] { background: var(--k); color: var(--k-ink); text-decoration: none; }
+.card[data-kat] { border-top: 4px solid var(--k); }
+.card__noimg[data-kat] { background: var(--k); color: var(--k-ink); }
+.kdot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--k); margin-right: 8px; vertical-align: 1px; }
+.cats a[data-kat][aria-current] { background: var(--k); color: var(--k-ink); }
+.cats a[data-kat][aria-current] .kdot { background: var(--k-ink); }
+.article__meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 .6em; }
+.article__meta .eyebrow { margin: 0; }
+.list__tags { grid-column: 2; display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+@media (max-width: 560px) { .list__tags { grid-column: 1; } }
+
+/* Kategorier som på dagens hpgt.com: farget tekst i versaler over tittelen, ikke merkelapp med bakgrunn.
+   Fargene følger dagens side (lilla nyhet, turkis sosialt, oransje møter). */
+[data-kat] { --k: #5f6b73; }
+[data-kat="nyhet"] { --k: #9c27b0; }
+[data-kat="sosialt"] { --k: #0097a7; }
+[data-kat="moter-og-referater"] { --k: #e67e00; }
+[data-kat="kurs"] { --k: #2e7d32; }
+[data-kat="turer"] { --k: #d32f2f; }
+[data-kat="konkurranser"] { --k: #c2185b; }
+[data-kat="tilbud"] { --k: #1565c0; }
+[data-kat="norgescup"] { --k: #00796b; }
+@media (prefers-color-scheme: dark) {
+  [data-kat="nyhet"] { --k: #d17ae0; } [data-kat="sosialt"] { --k: #4dd0e1; } [data-kat="moter-og-referater"] { --k: #ffb74d; }
+  [data-kat="kurs"] { --k: #81c784; } [data-kat="turer"] { --k: #ef7b7b; } [data-kat="konkurranser"] { --k: #f06292; }
+  [data-kat="tilbud"] { --k: #64b5f6; } [data-kat="norgescup"] { --k: #4db6ac; } [data-kat] { --k-ink: #10161a; }
+}
+.tag[data-kat] { background: none; padding: 0; border-radius: 0; color: var(--k); font: 600 .72rem/1.2 var(--mono); letter-spacing: .1em; }
+a.tag[data-kat]:hover { text-decoration: underline; }
+.card[data-kat] { border-top: 4px solid var(--k); }
+.card__noimg[data-kat] { background: var(--k); color: #fff; }
+.cats a[data-kat][aria-current] { background: var(--k); color: #fff; }
+.cats a[data-kat][aria-current] .kdot { background: #fff; }
+.byline { color: var(--muted); font-size: .85rem; }
+.byline b { color: var(--text); font-weight: 600; }
+.quote { margin: 40px auto 0; border-left: 3px solid var(--wing); padding: 4px 0 4px 18px; }
+.quote blockquote { margin: 0; font: 600 italic 1.25rem/1.4 var(--body); color: #e8efeb; max-width: 48ch; }
+.quote figcaption { margin-top: 6px; font: 500 .72rem/1.3 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: #9fbcb2; }

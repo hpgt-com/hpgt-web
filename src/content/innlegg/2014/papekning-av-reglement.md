@@ -4,6 +4,7 @@ date: "2014-09-30T21:31:42"
 kategorier: ["Konkurranser"]
 bilde: "/wp-content/uploads/2014/09/do-more-speak-less-note-means-be-productive-and-constructive-100236327.jpg"
 permalink: "/papekning-av-reglement/"
+forfatter: "Aage"
 wp_id: 1120
 ---
 Vi har fått påpekning på at flere muligens ikke har forstått reglene for konkurransen.

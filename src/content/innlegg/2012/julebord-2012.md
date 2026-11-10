@@ -3,6 +3,7 @@ title: "Julebord 2012"
 date: "2012-09-22T21:54:51"
 kategorier: ["Sosialt"]
 permalink: "/julebord-2012/"
+forfatter: "Erlend"
 wp_id: 402
 ---
 Hei alle piloter, x´er, y´er, sofapiloter og enkepiloter!

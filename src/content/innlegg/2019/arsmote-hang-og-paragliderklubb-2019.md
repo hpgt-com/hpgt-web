@@ -4,6 +4,7 @@ date: "2019-02-11T10:03:15"
 kategorier: ["Møter og referater"]
 bilde: "/wp-content/uploads/2015/07/11807537_10155915607060613_5713019667104345371_o.jpg"
 permalink: "/arsmote-hang-og-paragliderklubb-2019/"
+forfatter: "Aage"
 wp_id: 2693
 ---
 Du inviteres herved til årsmøte i Harstad Hang og Paragliderklubb

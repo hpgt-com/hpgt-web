@@ -3,6 +3,7 @@ title: "Årsberetning for Harstad hang og paragliderklubb 2019"
 date: "2020-02-25T20:10:10"
 kategorier: ["Møter og referater"]
 permalink: "/arsberetning-for-harstad-hang-og-paragliderklubb-2020/"
+forfatter: "Aage"
 wp_id: 3386
 ---
 Styret har bestått av:

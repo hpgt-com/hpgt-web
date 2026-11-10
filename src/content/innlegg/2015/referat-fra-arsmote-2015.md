@@ -4,6 +4,7 @@ date: "2015-03-23T20:15:18"
 kategorier: ["Møter og referater", "Sosialt"]
 bilde: "/wp-content/uploads/2015/03/2015-03-23-20.13.04.jpg"
 permalink: "/referat-fra-arsmote-2015/"
+forfatter: "Aage"
 wp_id: 1243
 ---
 Referat fra Årsmøte 2015

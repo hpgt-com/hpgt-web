@@ -4,6 +4,7 @@ date: "2017-11-09T22:01:34"
 kategorier: ["Konkurranser"]
 bilde: "/wp-content/uploads/2014/11/Blog_dinner_party-650x3501.jpg"
 permalink: "/premiering-og-vors-for-julebordet-1800-17-11-2017/"
+forfatter: "Aage"
 wp_id: 2118
 ---
 Da møtes vi i Tore Hunds Gate 5. 9404 Harstad klokken 18:00 fredag den 17.11.2017

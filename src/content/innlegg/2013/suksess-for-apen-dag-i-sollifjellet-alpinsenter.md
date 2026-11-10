@@ -4,6 +4,7 @@ date: "2013-01-29T12:52:58"
 kategorier: ["Nyhet", "Sosialt"]
 bilde: "/wp-content/uploads/2013/01/774549_10152445460665613_237053621_o.jpg"
 permalink: "/suksess-for-apen-dag-i-sollifjellet-alpinsenter/"
+forfatter: "Aage"
 wp_id: 523
 ---
 Klubben stilte i forbindelse med åpen dag i endel alpin anlegg i landet opp med tandem turer i Sollifjellet alpinsenter.

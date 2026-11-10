@@ -3,6 +3,7 @@ title: "Møtereferat: Medlemsmøte 06.06.12"
 date: "2012-06-11T16:52:56"
 kategorier: ["Møter og referater"]
 permalink: "/motereferat/"
+forfatter: "Erlend"
 wp_id: 116
 ---
 Sted: HLK

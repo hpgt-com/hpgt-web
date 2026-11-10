@@ -3,6 +3,7 @@ title: "Sponsor nummer 5 er nå klar: NOVA"
 date: "2014-06-26T11:54:26"
 kategorier: ["Konkurranser"]
 permalink: "/sponsor-nummer-5-er-na-klar-nova/"
+forfatter: "Aage"
 wp_id: 853
 ---
 [![logo von nova](/wp-content/uploads/2014/06/logo-von-nova.jpg)](/wp-content/uploads/2014/06/logo-von-nova.jpg)

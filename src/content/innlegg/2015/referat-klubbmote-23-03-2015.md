@@ -4,6 +4,7 @@ date: "2015-03-23T21:21:38"
 kategorier: ["Møter og referater"]
 bilde: "/wp-content/uploads/2015/03/5fc14b24eb864340d73a2a58a625e182.png"
 permalink: "/referat-klubbmote-23-03-2015/"
+forfatter: "Aage"
 wp_id: 1252
 ---
 Referat klubbmøte 23.03.2015

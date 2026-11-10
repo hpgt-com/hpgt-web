@@ -3,6 +3,7 @@ title: "Møtereferat 15.01.13"
 date: "2013-01-15T22:36:49"
 kategorier: ["Møter og referater"]
 permalink: "/motereferat-15-01-13/"
+forfatter: "Erlend"
 wp_id: 517
 ---
 Medlemsmøte

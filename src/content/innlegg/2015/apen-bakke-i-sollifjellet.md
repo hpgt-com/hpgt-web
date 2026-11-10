@@ -4,6 +4,7 @@ date: "2015-01-12T19:18:32"
 kategorier: ["Nyhet"]
 bilde: "/wp-content/uploads/2015/01/vlcsnap-2013-01-20-17h08m54s170.png"
 permalink: "/apen-bakke-i-sollifjellet/"
+forfatter: "Aage"
 wp_id: 1203
 ---
 Da er Julen og nyttårsaften forbi for  de fleste av oss. Noen har kansje fått abstinenser og ligger til sengs.

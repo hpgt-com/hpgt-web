@@ -3,6 +3,7 @@ title: "Referat årsmøte 2018"
 date: "2018-03-02T16:53:00"
 kategorier: ["Møter og referater"]
 permalink: "/referat-arsmote-2018/"
+forfatter: "Aage"
 wp_id: 2230
 ---
 ***Protokoll årsmøte***

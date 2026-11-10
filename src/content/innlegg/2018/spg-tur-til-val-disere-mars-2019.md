@@ -4,6 +4,7 @@ date: "2018-11-27T15:04:48"
 kategorier: ["Sosialt", "Turer"]
 bilde: "/wp-content/uploads/2018/02/Skjermbilde2.png"
 permalink: "/spg-tur-til-val-disere-mars-2019/"
+forfatter: "Aage"
 wp_id: 2544
 ---
 Et par av klubbens medlemmer drar til Val d’Isère den 23 februar til 3 mars 2019.

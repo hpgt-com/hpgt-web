@@ -4,6 +4,7 @@ date: "2016-12-16T14:54:18"
 kategorier: ["Nyhet"]
 bilde: "/wp-content/uploads/2015/01/vlcsnap-2013-01-20-17h08m54s170.png"
 permalink: "/dispensasjon-for-flyging-i-flombelyst-alpinbakke-sollifjellet/"
+forfatter: "Aage"
 wp_id: 1722
 ---
 FagligLeder har påny søkt om disp for flyving i sollifjellet etter mørkets frembrudd.

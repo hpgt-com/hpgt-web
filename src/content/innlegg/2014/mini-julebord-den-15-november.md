@@ -4,6 +4,7 @@ date: "2014-11-04T23:24:34"
 kategorier: ["Konkurranser"]
 bilde: "/wp-content/uploads/2014/11/Blog_dinner_party-650x3501.jpg"
 permalink: "/mini-julebord-den-15-november/"
+forfatter: "Aage"
 wp_id: 1154
 ---
 Siden det ble for få som meldte sin interesse for å delta på julebord i år setter vi en dato for sosialt samvær istedet.

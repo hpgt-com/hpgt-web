@@ -4,6 +4,7 @@ date: "2015-02-24T20:38:40"
 kategorier: ["Møter og referater"]
 bilde: "/wp-content/uploads/2015/02/snap.png"
 permalink: "/innkalling-til-arsmote-i-harstad-hang-og-paragliderklubb/"
+forfatter: "Aage"
 wp_id: 1235
 ---
 Innkalling til årsmøte i Harstad Hang og Paragliderklubb 23 mars 2015 19:00 Årsmøtet avholdes på Peppes Pizza Harstad .

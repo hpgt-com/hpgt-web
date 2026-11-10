@@ -4,6 +4,7 @@ date: "2019-03-25T17:44:02"
 kategorier: ["Møter og referater"]
 bilde: "/wp-content/uploads/2018/01/HPGT-Logo-e1514922395501.png"
 permalink: "/arsberetning-for-harstad-hang-og-paragliderklubb-2018/"
+forfatter: "Aage"
 wp_id: 2785
 ---
 Styret har bestått av:

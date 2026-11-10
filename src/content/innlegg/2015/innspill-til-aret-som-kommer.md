@@ -4,6 +4,7 @@ date: "2015-01-12T20:03:25"
 kategorier: ["Nyhet"]
 bilde: "/wp-content/uploads/2015/01/vlcsnap-2014-08-10-18h25m27s146.png"
 permalink: "/innspill-til-aret-som-kommer/"
+forfatter: "Aage"
 wp_id: 1215
 ---
 Da er det nytt år og nye muligheter.

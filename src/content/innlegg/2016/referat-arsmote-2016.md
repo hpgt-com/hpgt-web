@@ -4,6 +4,7 @@ date: "2016-02-22T21:01:04"
 kategorier: ["Møter og referater"]
 bilde: "/wp-content/uploads/2016/02/12744310_10156639920275613_232409865075862318_n.jpg"
 permalink: "/referat-arsmote-2016/"
+forfatter: "Aage"
 wp_id: 1500
 ---
 Referat fra Årsmøte 2015

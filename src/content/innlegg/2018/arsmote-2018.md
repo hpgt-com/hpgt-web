@@ -4,6 +4,7 @@ date: "2018-01-22T23:10:51"
 kategorier: ["Møter og referater"]
 bilde: "/wp-content/uploads/2015/01/vlcsnap-2014-01-19-22h16m08s83.png"
 permalink: "/arsmote-2018/"
+forfatter: "Kristoffer"
 wp_id: 2199
 ---
 Du inviteres herved til årsmøte i Harstad Hang og Paragliderklubb

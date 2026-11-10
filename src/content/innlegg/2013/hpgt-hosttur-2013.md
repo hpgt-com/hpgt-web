@@ -3,6 +3,7 @@ title: "HPGT høsttur 27-28.09.2013"
 date: "2013-09-25T20:53:00"
 kategorier: ["Sosialt"]
 permalink: "/hpgt-hosttur-2013/"
+forfatter: "Erlend"
 wp_id: 621
 ---
 HPGT høsttur 27-28.09.13!

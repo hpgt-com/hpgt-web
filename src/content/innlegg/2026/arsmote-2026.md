@@ -3,6 +3,7 @@ title: "Årsmøte 2026"
 date: "2026-03-24T15:02:15"
 kategorier: ["Møter og referater"]
 permalink: "/arsmote-2026/"
+forfatter: "Kjerstine"
 wp_id: 10686
 vedlegg: [{"tittel": "Årsmøte-HPGT-26-1 signert", "fil": "/wp-content/uploads/2026/03/Arsmote-HPGT-26-1-signert.pdf"}]
 ---

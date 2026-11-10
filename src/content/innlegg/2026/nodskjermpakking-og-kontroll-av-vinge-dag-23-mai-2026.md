@@ -3,6 +3,7 @@ title: "Nødskjermpakking og kontroll-av-vinge-dag 23.mai 2026"
 date: "2026-05-20T10:03:12"
 kategorier: ["Nyhet"]
 permalink: "/nodskjermpakking-og-kontroll-av-vinge-dag-23-mai-2026/"
+forfatter: "Jonathan"
 wp_id: 10771
 ---
 [Eksternt bilde](https://i0.wp.com/www.shgpgk.org/wp-content/uploads/2022/04/Repack.png?fit=758%2C434&ssl=1)

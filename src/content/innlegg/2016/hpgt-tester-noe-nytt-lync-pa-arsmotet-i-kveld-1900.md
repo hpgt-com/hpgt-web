@@ -4,6 +4,7 @@ date: "2016-02-22T17:19:55"
 kategorier: ["Møter og referater", "Nyhet"]
 bilde: "/wp-content/uploads/2016/02/UC-messaging.jpg"
 permalink: "/hpgt-tester-noe-nytt-lync-pa-arsmotet-i-kveld-1900/"
+forfatter: "Aage"
 wp_id: 1494
 ---
 Vi er så heldige at lokalene vi bruker til årsmøtet har video konferanse system.

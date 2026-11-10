@@ -4,6 +4,7 @@ date: "2014-06-20T15:06:23"
 kategorier: ["Konkurranser"]
 bilde: "/wp-content/uploads/2014/06/japanphoto.png"
 permalink: "/japanphoto-xxl-stiller-som-sponsor-i-den-store-fotovideo-konkurransen/"
+forfatter: "Aage"
 wp_id: 837
 ---
 Det tikker fortsatt inn med sponsorer på inboxen min selv om sommervarmen er fraværende her i Nord.

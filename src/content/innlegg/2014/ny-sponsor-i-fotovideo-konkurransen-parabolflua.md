@@ -4,6 +4,7 @@ date: "2014-06-26T11:40:21"
 kategorier: ["Konkurranser"]
 bilde: "/wp-content/uploads/2014/06/Parabolflua.jpg"
 permalink: "/ny-sponsor-i-fotovideo-konkurransen-parabolflua/"
+forfatter: "Aage"
 wp_id: 849
 ---
 Vår lokale friluftsliv butikk [Parabolflua](https://www.parabolflua.no) stiller med premier.

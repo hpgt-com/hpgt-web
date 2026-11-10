@@ -3,6 +3,7 @@ title: "Møtereferat fra styremøte i HPGT. NB: Årsmøte og Årsfest!"
 date: "2014-01-22T10:21:27"
 kategorier: ["Møter og referater"]
 permalink: "/motereferat-fra-styremote-i-hpgt-nb-arsmote-og-arsfest/"
+forfatter: "Erlend"
 wp_id: 659
 ---
 Møtereferat 19.januar 2014

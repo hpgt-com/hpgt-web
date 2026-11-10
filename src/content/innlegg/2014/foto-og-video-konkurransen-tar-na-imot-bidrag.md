@@ -4,6 +4,7 @@ date: "2014-07-31T20:07:14"
 kategorier: ["Konkurranser"]
 bilde: "/wp-content/uploads/2014/07/1080-mal.png"
 permalink: "/foto-og-video-konkurransen-tar-na-imot-bidrag/"
+forfatter: "Aage"
 wp_id: 919
 ---
 Da er reglene oppdatert og konkurransen åpnet for innsending av bidrag. 
