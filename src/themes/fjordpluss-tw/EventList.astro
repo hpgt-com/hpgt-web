@@ -1,15 +1,25 @@
 ---
-import { url, dato, tidSted, lenke } from "../../lib/site";
+import { url, dato, tidSted, lenke, arrangementerPaaAar } from "../../lib/site";
 const { kommende, tidligere } = Astro.props;
-const rad = "grid grid-cols-[150px_minmax(0,1fr)] gap-x-4 border-b border-line px-1 py-3.5 text-ink no-underline max-sm:grid-cols-1";
+const aar = arrangementerPaaAar(tidligere);
+const chip = "border border-line bg-surface px-[11px] py-1.5 text-[0.88rem] font-bold text-ink no-underline hover:border-sky";
+const rad = "group grid grid-cols-[150px_minmax(0,1fr)_auto] gap-x-3.5 gap-y-1 border-b border-line px-0.5 py-2.5 text-ink no-underline max-sm:grid-cols-1";
 ---
 <div class="mx-auto w-[min(1000px,100%-32px)] py-14">
   <p class="eyebrow mb-2">Kalender</p>
-  <h1 class="m-0 mb-3.5 text-[clamp(2.4rem,6vw,3.8rem)] leading-[0.95] font-extrabold tracking-[-0.045em]">Aktiviteter</h1>
-  <p class="text-[1.15rem] text-muted">Kurs, sikkerhetsdager, årsmøter og sosiale treff.</p>
-  <h2 class="mt-9 mb-3 text-2xl font-extrabold tracking-tight">Kommende</h2>
-  {kommende.length === 0 ? <p class="text-muted">Ingen nye aktiviteter er lagt inn ennå.</p> :
-    <ol class="m-0 list-none border-t border-line p-0">{kommende.map((e) => <li><a class={rad} href={url(lenke(e))}><span class="font-mono text-[0.74rem] font-semibold uppercase text-sky-ink">{dato(e.data.start)}</span><span><b>{e.data.title}</b><br /><small class="text-muted">{tidSted(e)}</small></span></a></li>)}</ol>}
-  <h2 class="mt-9 mb-3 text-2xl font-extrabold tracking-tight">Tidligere</h2>
-  <ol class="m-0 list-none border-t border-line p-0">{tidligere.map((e) => <li><a class={rad} href={url(lenke(e))}><span class="font-mono text-[0.74rem] font-semibold uppercase text-sky-ink">{dato(e.data.start)}</span><span><b>{e.data.title}</b><br /><small class="text-muted">{tidSted(e)}</small></span></a></li>)}</ol>
+  <h1 class="m-0 mb-3.5 text-[clamp(2.4rem,6vw,3.8rem)] leading-[0.95] font-extrabold tracking-[-0.045em]">Arrangementer</h1>
+  <p class="max-w-[60ch] text-[1.15rem] text-muted">Kurs, sikkerhetsdager, årsmøter og sosiale treff – helt tilbake til 2018.</p>
+  <nav class="mt-5.5 mb-2 flex flex-wrap gap-1.5" aria-label="Hopp til år">
+    <a class={chip} href="#kommende">Kommende <small class="font-mono text-muted">{kommende.length}</small></a>
+    {aar.map(([a, liste]) => <a class={chip} href={`#ar-${a}`}>{a} <small class="font-mono text-muted">{liste.length}</small></a>)}
+  </nav>
+  <section class="scroll-mt-4" id="kommende"><h2 class="mt-8.5 mb-1.5 text-[1.8rem] font-extrabold tracking-[-0.04em]">Kommende</h2>
+    {kommende.length === 0 ? <p class="text-muted">Ingen nye arrangementer er lagt inn ennå. Følg med i Facebook-gruppa.</p> :
+      <ul class="m-0 list-none border-t border-line p-0">{kommende.map((e) => <li><a class={rad} href={url(lenke(e))}><time class="text-[0.88rem] text-muted tabular-nums">{dato(e.data.start)}</time><span class="group-hover:text-sky-ink">{e.data.title}</span><span class="text-[0.85rem] text-muted">{tidSted(e)}</span></a></li>)}</ul>}
+  </section>
+  {aar.map(([a, liste]) => (
+    <section class="scroll-mt-4" id={`ar-${a}`}><h2 class="mt-8.5 mb-1.5 text-[1.8rem] font-extrabold tracking-[-0.04em]">{a}</h2>
+      <ul class="m-0 list-none border-t border-line p-0">{liste.map((e) => <li><a class={rad} href={url(lenke(e))}><time class="text-[0.88rem] text-muted tabular-nums">{dato(e.data.start)}</time><span class="group-hover:text-sky-ink">{e.data.title}</span><span class="text-[0.85rem] text-muted">{tidSted(e)}</span></a></li>)}</ul>
+    </section>
+  ))}
 </div>

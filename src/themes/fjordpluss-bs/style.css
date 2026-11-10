@@ -95,3 +95,4 @@ body { -webkit-font-smoothing: antialiased; }
 .site-foot h2 { font-size: .78rem !important; }
 .site-foot .small, .site-foot small { font-size: .8rem; }
 .site-foot .border-top.small { font-size: .74rem; }
+.year-date { min-width: 150px; }

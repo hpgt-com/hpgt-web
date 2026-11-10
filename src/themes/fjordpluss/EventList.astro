@@ -1,14 +1,23 @@
 ---
-import { url, dato, tidSted, lenke } from "../../lib/site";
+import { url, dato, tidSted, lenke, arrangementerPaaAar } from "../../lib/site";
 const { kommende, tidligere } = Astro.props;
+const aar = arrangementerPaaAar(tidligere);
 ---
 <div class="wrap section">
   <p class="eyebrow">Kalender</p>
-  <h1 class="h1">Aktiviteter</h1>
-  <p class="lead">Kurs, sikkerhetsdager, årsmøter og sosiale treff.</p>
-  <h2 class="h3">Kommende</h2>
-  {kommende.length === 0 ? <p class="hint">Ingen nye aktiviteter er lagt inn ennå.</p> :
-    <ol class="events">{kommende.map((e) => <li><a href={url(lenke(e))}><span class="events__date">{dato(e.data.start)}</span><span class="events__t">{e.data.title}</span><span class="events__where">{tidSted(e)}</span></a></li>)}</ol>}
-  <h2 class="h3">Tidligere</h2>
-  <ol class="events">{tidligere.map((e) => <li><a href={url(lenke(e))}><span class="events__date">{dato(e.data.start)}</span><span class="events__t">{e.data.title}</span><span class="events__where">{tidSted(e)}</span></a></li>)}</ol>
+  <h1 class="h1">Arrangementer</h1>
+  <p class="lead">Kurs, sikkerhetsdager, årsmøter og sosiale treff – helt tilbake til 2018.</p>
+  <nav class="filters" aria-label="Hopp til år">
+    <a href="#kommende">Kommende <small>{kommende.length}</small></a>
+    {aar.map(([a, liste]) => <a href={`#ar-${a}`}>{a} <small>{liste.length}</small></a>)}
+  </nav>
+  <section class="year" id="kommende"><h2 class="year__h">Kommende</h2>
+    {kommende.length === 0 ? <p class="hint">Ingen nye arrangementer er lagt inn ennå. Følg med i Facebook-gruppa.</p> :
+      <ul class="rows">{kommende.map((e) => <li><a href={url(lenke(e))}><time>{dato(e.data.start)}</time><span>{e.data.title}</span><span class="rows__where">{tidSted(e)}</span></a></li>)}</ul>}
+  </section>
+  {aar.map(([a, liste]) => (
+    <section class="year" id={`ar-${a}`}><h2 class="year__h">{a}</h2>
+      <ul class="rows">{liste.map((e) => <li><a href={url(lenke(e))}><time>{dato(e.data.start)}</time><span>{e.data.title}</span><span class="rows__where">{tidSted(e)}</span></a></li>)}</ul>
+    </section>
+  ))}
 </div>

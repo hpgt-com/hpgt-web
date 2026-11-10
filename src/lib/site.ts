@@ -73,3 +73,10 @@ export async function hentDokumenter(antall = 5) {
     return { tittel: p.data.title, dato: p.data.date, side: lenke(p), pdf };
   });
 }
+
+/** Arrangementer gruppert på år (nyeste først), til arrangementsoversikten. */
+export const arrangementerPaaAar = (liste: Arrangement[]) => {
+  const g = new Map<number, Arrangement[]>();
+  for (const e of liste) g.set(e.data.start.getUTCFullYear(), [...(g.get(e.data.start.getUTCFullYear()) ?? []), e]);
+  return [...g].sort((a, b) => b[0] - a[0]);
+};

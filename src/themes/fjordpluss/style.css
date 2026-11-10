@@ -202,3 +202,5 @@ code { font: 600 .9em var(--mono); background: var(--tint); padding: 1px 6px; }
 .foot h2 { font-size: .78rem; }
 .foot nav a { font-size: .8rem; }
 .foot__end { font-size: .74rem; margin-top: 24px; }
+.rows__where { color: var(--muted); font-size: .85rem; }
+.year { scroll-margin-top: 16px; }
