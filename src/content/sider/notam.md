@@ -4,6 +4,8 @@ permalink: "/notam/"
 wp_id: 3641
 sist_endret: "2021-06-04"
 ---
+> Spørsmål om NOTAM og vinsjing går til [faglig leder](/om-klubben/#faglig-leder).
+
 Vi må søke om notam hver gang vi skal vinsje. På denne siden ligger mal(er) + bakgrunn- og prosedyren for registrering av NOTAM.
 
 **Mal Ballangen:**

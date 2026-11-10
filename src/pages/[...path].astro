@@ -5,6 +5,7 @@ import Layout from "@theme/Layout.astro";
 import Article from "@theme/Article.astro";
 import Styret from "../components/Styret.astro";
 import RadioId from "../components/RadioId.astro";
+import RadioIdSkjema from "../components/RadioIdSkjema.astro";
 import RedaktorDemo from "../components/RedaktorDemo.astro";
 import Vedlegg from "../components/Vedlegg.astro";
 import { dato, klokke, url, lenke } from "../lib/site";
@@ -36,6 +37,7 @@ const tilbake = type === "innlegg" ? { tekst: "Alle nyheter", url: url("/nytt/")
     {d.mal === "radioid" && <RadioId />}
     {d.mal === "redaktordemo" && <RedaktorDemo />}
     <Content />
+    {d.mal === "radioid" && <RadioIdSkjema />}
     {d.vedlegg?.length > 0 && <Vedlegg filer={d.vedlegg} />}
   </Article>
 </Layout>

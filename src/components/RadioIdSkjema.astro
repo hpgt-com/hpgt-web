@@ -1,0 +1,40 @@
+---
+// Skjema for å melde inn, endre eller fjerne en RadioID. Sendes til /api/radioid (worker/index.js),
+// som sjekker Turnstile og lager en GitHub-issue. I prototypen sendes ingenting; skjemaet viser bare hva saken ville blitt.
+import { site, url } from "../lib/site";
+import "./skjema.css";
+const demo = site.prototype;
+const varioer = ["XCTracer Maxx", "XCTracer Maxx II", "XCTracer Maxx III", "Oudie Omni", "XCTrack + FANET-modul", "Skytraxx 5", "Skytraxx 5 Mini", "Syride", "Flymaster"];
+---
+<section class="skjema" id="meld-inn" aria-labelledby="meld-inn-h">
+  <h2 id="meld-inn-h">Meld inn, endre eller fjern din RadioID</h2>
+  <p class="skjema__info">Innmeldingen går rett til den som vedlikeholder listen. Vi spør bare om det som vises i listen over – ikke e-post eller telefon.</p>
+  <form class="skjema__form" method="post" action="/api/radioid" data-demo={demo ? "" : undefined}>
+    <fieldset class="skjema__valg">
+      <legend>Hva vil du gjøre?</legend>
+      <label><input type="radio" name="handling" value="ny" checked /> Legg meg til</label>
+      <label><input type="radio" name="handling" value="endre" /> Endre min oppføring</label>
+      <label><input type="radio" name="handling" value="fjern" /> Fjern meg fra listen</label>
+    </fieldset>
+    <div class="skjema__rad">
+      <div><label for="rid-navn">Navn i listen</label>
+        <input id="rid-navn" name="navn" required maxlength="60" autocomplete="given-name" placeholder="F.eks. Kari" /></div>
+      <div><label for="rid-id">RadioID</label>
+        <input id="rid-id" name="radioid" required maxlength="8" pattern="(0[xX])?[0-9A-Fa-f]{6}" autocapitalize="characters" spellcheck="false" placeholder="F.eks. 200B6A" aria-describedby="rid-id-hjelp" />
+        <small id="rid-id-hjelp">6 tegn, 0–9 og A–F. Se tabellen over for hvor du finner den.</small></div>
+    </div>
+    <div><label for="rid-utstyr">Vario / utstyr <span class="skjema__valgfri">(valgfritt)</span></label>
+      <input id="rid-utstyr" name="utstyr" maxlength="60" list="rid-varioer" />
+      <datalist id="rid-varioer">{varioer.map((v) => <option value={v} />)}</datalist></div>
+    <div><label for="rid-kommentar">Kommentar <span class="skjema__valgfri">(valgfritt)</span></label>
+      <textarea id="rid-kommentar" name="kommentar" maxlength="500" rows="3"></textarea></div>
+    <div class="skjema__hp" aria-hidden="true"><label>Nettside <input name="nettside" tabindex="-1" autocomplete="off" /></label></div>
+    {demo
+      ? <p class="skjema__turnstile">Her kommer Cloudflare Turnstile – en usynlig «er du et menneske?»-sjekk uten bildegåter eller sporing.</p>
+      : <div class="cf-turnstile" data-sitekey={site.turnstile} data-action="radioid"></div>}
+    <div class="skjema__send"><button type="submit">Send inn</button><p class="skjema__status" role="status" aria-live="polite"></p></div>
+    <pre class="skjema__demo" hidden></pre>
+  </form>
+</section>
+{!demo && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
+<script is:inline src={url("/assets/js/skjema.js")} defer></script>

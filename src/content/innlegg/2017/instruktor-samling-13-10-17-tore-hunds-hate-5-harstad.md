@@ -1,7 +1,7 @@
 ---
 title: "Instruktør samling – 13.10.17 – Tore Hunds Gate 5. Harstad"
 date: "2017-09-26T07:58:58"
-kategorier: ["Kurs"]
+kategorier: ["Kurs og fagdag"]
 bilde: "/wp-content/uploads/2017/09/21167291_10159309368955613_8191481922905991626_o.jpg"
 permalink: "/instruktor-samling-13-10-17-tore-hunds-hate-5-harstad/"
 forfatter: "Aage"

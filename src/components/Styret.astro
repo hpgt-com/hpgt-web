@@ -1,15 +1,17 @@
 ---
-// Rekkefølgen i styret.json (redigeres i CMS-et) bestemmer rekkefølgen på siden.
+// Rekkefølgen i styret.json (redigeres i CMS-et) bestemmer rekkefølgen på siden. id brukes som anker, f.eks. /om-klubben/#faglig-leder.
+import "./styret.css";
 import styret from "../data/styret.json";
 import { url } from "../lib/site";
 ---
 <ul class="people" aria-label="Styret">
   {styret.medlemmer.map((p) => (
-    <li class="person">
+    <li class="person" id={p.id}>
       {p.bilde && <img src={url(p.bilde)} alt={`Portrett av ${p.navn}`} width="160" height="160" loading="lazy" />}
       <div>
         <p class="person__rolle">{p.rolle}</p>
         <p class="person__navn">{p.navn}</p>
+        {"ansvar" in p && p.ansvar && <p class="person__ansvar"><b>Kontakt meg om:</b> {p.ansvar}</p>}
         {p.telefon && <p><a href={`tel:${p.telefon.replace(/\s/g, "")}`}>{p.telefon}</a></p>}
         {"epost" in p && p.epost && <p><a href={`mailto:${p.epost}`}>{p.epost}</a></p>}
       </div>

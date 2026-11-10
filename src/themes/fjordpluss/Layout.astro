@@ -32,10 +32,10 @@ const aktiv = (u: string) => !ekstern(u) && (u === "/" ? here === url("/") : her
   <main id="innhold"><slot /></main>
   <footer class="foot">
     <div class="wrap foot__grid">
-      <div><p class="foot__logo">HPGT</p><p class="muted">Harstad Hang og Paragliderklubb<br />Org.nr. {site.orgnr} · Vipps {site.vipps}</p></div>
+      <div><p class="foot__logo">HPGT</p><p class="muted">Harstad Hang og Paragliderklubb<br />Org.nr. {site.orgnr} · Vipps {site.vipps}<br /><a href={`mailto:${site.epost.leder}`}>{site.epost.leder}</a></p></div>
       <nav aria-label="Klubben"><h2>Klubben</h2>{meny.klubben.map((m) => <a href={url(m.url)}>{m.tekst}</a>)}</nav>
       <nav aria-label="For piloter"><h2>For piloter</h2>{meny.piloter.map((m) => <a href={url(m.url)}>{m.tekst}{ekstern(m.url) && " ↗"}</a>)}</nav>
-      <nav aria-label="Følg oss"><h2>Følg oss</h2><a href={site.facebook}>Facebook ↗</a><a href={site.instagram}>Instagram ↗</a><a href={`mailto:${site.epost.leder}`}>{site.epost.leder}</a></nav>
+      <nav aria-label="Følg oss"><h2>Følg oss</h2><a href={site.facebook}>Facebook ↗</a><a href={site.instagram}>Instagram ↗</a></nav>
     </div>
     <div class="wrap foot__end"><p class="quote">«{site.sitat.tekst}» <span>– {site.sitat.kilde}</span></p><p class="muted">Ingen sporing eller informasjonskapsler.</p></div>
   </footer>

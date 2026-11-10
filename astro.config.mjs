@@ -15,11 +15,13 @@ export default defineConfig({
   base: BASE,
   outDir: process.env.OUT || "dist",
   trailingSlash: "always",
-  redirects: { "/events/": "/arrangementer/", "/galleri/": "/konkurranser/konkurranse-2014/" },
+  redirects: { "/events/": "/arrangementer/", "/nytt/kategori/kurs/": "/nytt/kategori/kurs-og-fagdag/", "/galleri/": "/konkurranser/konkurranse-2014/" },
   build: { format: "directory", inlineStylesheets: "never" },
   markdown: { processor: unified({ rehypePlugins: [[rehypeBase, { base: BASE }]] }) },
   vite: {
     plugins: [tailwindcss()],
+    // Ryddige filnavn: siden [...path] ville ellers gitt CSS-filer som heter «_..xxxx.css»
+    build: { rollupOptions: { output: { assetFileNames: (a) => `_astro/${(a.names?.[0] ?? a.name ?? "").split(".")[0].replace(/[^\w-]/g, "").replace(/^_+/, "") || "side"}.[hash][extname]` } } },
     resolve: { alias: { "@theme": fileURLToPath(new URL(`./src/themes/${THEME}`, import.meta.url)) } },
   },
 });

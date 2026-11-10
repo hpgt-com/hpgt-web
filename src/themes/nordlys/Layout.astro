@@ -34,7 +34,7 @@ const dock = [
     <aside><p class="font-bold text-lg">HPGT</p><p>{site.navn}<br />Vipps {site.vipps} · Org.nr. {site.orgnr}</p></aside>
     <nav><h6 class="footer-title">For piloter</h6>{meny.piloter.map((m) => <a class="link link-hover" href={url(m.url)}>{m.tekst}</a>)}</nav>
     <nav><h6 class="footer-title">Klubben</h6>{meny.klubben.map((m) => <a class="link link-hover" href={url(m.url)}>{m.tekst}</a>)}</nav>
-    <nav><h6 class="footer-title">Kontakt</h6><a class="link link-hover" href={`mailto:${site.epost.leder}`}>{site.epost.leder}</a><a class="link link-hover" href={site.facebook}>Facebook</a><a class="link link-hover" href={site.instagram}>Instagram</a></nav>
+    <nav><h6 class="footer-title">Kontakt</h6><a class="link link-hover" href={url("/om-klubben/")}>Kontakt styret</a><a class="link link-hover" href={site.facebook}>Facebook</a><a class="link link-hover" href={site.instagram}>Instagram</a></nav>
   </footer>
   <nav class="dock lg:hidden" aria-label="Snarveier">
     {dock.map((d) => (

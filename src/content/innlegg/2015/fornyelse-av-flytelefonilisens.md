@@ -1,7 +1,7 @@
 ---
 title: "Fornyelse av flytelefonilisens"
 date: "2015-03-31T15:53:18"
-kategorier: ["Kurs"]
+kategorier: ["Kurs og fagdag"]
 permalink: "/fornyelse-av-flytelefonilisens/"
 forfatter: "Stefan"
 wp_id: 1272

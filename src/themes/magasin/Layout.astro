@@ -31,7 +31,7 @@ const here = Astro.url.pathname;
       <div><p class="font-serif text-3xl font-extrabold text-white">HPGT</p><p class="mt-2">Harstad Hang- og Paragliderklubb<br />Org.nr. {site.orgnr} · Vipps {site.vipps}</p></div>
       <div><p class="uppercase tracking-widest text-xs text-white mb-2">For piloter</p>{meny.piloter.map((m) => <a class="block py-0.5 hover:text-white" href={url(m.url)}>{m.tekst}</a>)}</div>
       <div><p class="uppercase tracking-widest text-xs text-white mb-2">Klubben</p>{meny.klubben.map((m) => <a class="block py-0.5 hover:text-white" href={url(m.url)}>{m.tekst}</a>)}</div>
-      <div><p class="uppercase tracking-widest text-xs text-white mb-2">Kontakt</p><a class="block" href={`mailto:${site.epost.leder}`}>{site.epost.leder}</a><a class="block" href={site.facebook}>Facebook</a><a class="block" href={site.instagram}>Instagram</a></div>
+      <div><p class="uppercase tracking-widest text-xs text-white mb-2">Kontakt</p><a class="block" href={url("/om-klubben/")}>Kontakt styret</a><a class="block" href={site.facebook}>Facebook</a><a class="block" href={site.instagram}>Instagram</a></div>
     </div>
   </footer>
 </body>

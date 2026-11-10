@@ -47,7 +47,7 @@ const dock = [
       <section><h2>For piloter</h2><ul>{meny.piloter.map((m) => <li><a href={url(m.url)}>{m.tekst}</a></li>)}</ul></section>
       <section><h2>Klubben</h2><ul>{meny.klubben.map((m) => <li><a href={url(m.url)}>{m.tekst}</a></li>)}</ul></section>
       <section><h2>Kontakt</h2><ul>
-        <li><a href={`mailto:${site.epost.leder}`}>{site.epost.leder}</a></li>
+        <li><a href={url("/om-klubben/")}>Kontakt styret</a></li>
         <li><a href={site.facebook}>Facebook-gruppa ↗</a></li>
         <li><a href={site.instagram}>Instagram ↗</a></li>
       </ul></section>

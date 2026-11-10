@@ -8,8 +8,8 @@
 |---|---|---|
 | Plattform | WordPress + MySQL + PHP, 9 utvidelser (Jetpack, The Events Calendar, NextGEN m.fl.) | Statisk side bygget med **Astro**, kildekode og innhold i **GitHub** |
 | Redigering | WordPress-admin | **Pages CMS**: enkel editor i nettleseren, innlogging med e-post (ingen GitHub-konto) |
-| Drift | Webhotell ca. 1 000 kr/år, oppdatering av WP og utvidelser | **Cloudflare** (gratis): hosting, DNS, e-postvideresending og tilgangskontroll |
-| Angrepsflate | PHP, database, innloggingsside på nett, utvidelser | Bare statiske filer: ingen database, ingen server-kode og ingen innloggingsside på hpgt.com |
+| Drift | Webhotell ca. 1 000 kr/år, oppdatering av WP og utvidelser | **Cloudflare** (gratis): hosting, DNS, skjema og tilgangskontroll. E-posten blir hos Google som i dag. |
+| Angrepsflate | PHP, database, innloggingsside på nett, utvidelser | Statiske filer, pluss én liten Worker for RadioID-skjemaet. Ingen database og ingen innloggingsside på hpgt.com. |
 | Kostnad | ca. 1 000 kr/år + domene | **Kun domenet**, ca. 120 kr/år for .com hos Cloudflare Registrar (til kostpris) |
 
 ## 2. Arkitektur
@@ -27,8 +27,12 @@
                                                     ▼
                                            ┌──────────────────┐
                                            │ Cloudflare       │  statiske filer + sikkerhetshoder
-                                           │ hpgt.com         │  DNS, e-postvideresending
-                                           └──────────────────┘
+                                           │ hpgt.com         │  DNS (MX peker fortsatt til Google)
+                                           └────────┬─────────┘
+                                                    │ /api/radioid: Turnstile-sjekk
+                                                    ▼
+                                           GitHub-issue med etikett «radioid»
+                                           (token: kun Issues på dette repoet)
 ```
 
 - **Astro** bygger ferdige HTML-sider. Innholdsmodellen (`src/content.config.ts`) validerer hvert felt. En feil fra CMS-et, for eksempel en ugyldig dato, stopper bygget i stedet for å publisere en ødelagt side.
@@ -59,13 +63,30 @@ Hugo bygger raskere og er én fil uten Node, men med ca. 180 sider bygger Astro 
 2. Styret får beskjed og klikker «Inviter» i Pages CMS. Det tar ett minutt.
 3. Medlemmet får e-post, logger inn og kan skrive med en gang.
 
+### RadioID-skjemaet
+Pilotene melder inn, endrer eller fjerner sin RadioID med et skjema nederst på `/flysteder/flarm-fanet-radioid/`. I stedet for en e-post havner det som en **GitHub-issue** med etiketten `radioid`. Den som vedlikeholder listen, oppdaterer registeret i CMS-et og lukker saken. Da har man historikk, og ingenting blir borte i en innboks.
+
+- Skjemaet går til `worker/index.js`, den eneste serverkoden på siden. Wrangler sender bare `/api/*` dit, og alt annet er statiske filer.
+- **Cloudflare Turnstile** (usynlig «er du et menneske?»-sjekk, ingen sporing) sjekkes på serveren, sammen med `action` og vertsnavn. I tillegg sjekkes opprinnelse, og det er en grense på 3 innsendinger per minutt per IP og en honningkrukke mot roboter.
+- **GitHub-tokenet** er fine-grained med *kun* «Issues: Read and write» på `hpgt-web`. Det kan ikke lese kode eller endre filer. Det og Turnstile-hemmeligheten legges inn med `wrangler secret put` og finnes verken i repoet eller i GitHub Actions.
+- Skjemaet spør bare om det som uansett vises i listen: navn, RadioID og vario. Det spør ikke om e-post eller telefon. Innsendt tekst gjøres ufarlig, så den ikke kan bli lenker eller @-varsler i saken.
+- Bare RadioID-siden får laste Turnstile. Alle andre sider beholder CSP uten tredjepart (`public/_headers` og `Head.astro`).
+- *Mulig senere:* en GitHub Action som lager endringen i `radioid.json` automatisk fra saken, så den bare må godkjennes.
+
+### Kontakt: roller i stedet for adresser
+`/om-klubben/` er nå **«Styret og roller»**. Hver rolle har en linje «Kontakt meg om», som redigeres i CMS-et, og siden har en tabell over hvem du kontakter om hva. Bunnteksten og NOTAM-siden lenker hit i stedet for å vise e-postadresser. Hver rolle har et eget anker, for eksempel `/om-klubben/#faglig-leder`.
+- `leder@hpgt.com`: generelle spørsmål, medlemskap, økonomi og tilgang til nettsiden.
+- `faglig.leder@hpgt.com`: det faglige, som sikkerhet, NOTAM og vinsjing, flysteder, luftrom og hendelser.
+- `kurs@hpgt.com`: står bare på kurssiden og i eldre innlegg.
+
 ## 4. Sikkerhet: zero trust og minste privilegium
 
 | Lag | Tiltak |
 |---|---|
-| Nettsiden | Bare statiske filer. Strenge HTTP-hoder (`public/_headers`): CSP uten `unsafe-inline`, HSTS, `frame-ancestors 'none'` og `nosniff`. Ingen skjemaer eller skript fra andre. |
+| Nettsiden | Statiske filer. Strenge HTTP-hoder (`public/_headers`): CSP uten `unsafe-inline`, HSTS, `frame-ancestors 'none'` og `nosniff`. Ingen skript fra andre, bortsett fra Turnstile på RadioID-siden. |
 | Redigering | Pages CMS sin GitHub App installeres **bare på `hpgt-web`-repoet**, ikke på hele kontoen. E-postbrukere ser bare det `.pages.yml` viser. `site.json`, menyer, kode og arbeidsflyter er utelatt med vilje. |
 | Kodeendringer | Bare administratorer har tilgang til repoet. 2FA er påkrevd. Grenbeskyttelse på `main`: ingen force-push eller sletting. |
+| Skjema (Worker) | Bare `/api/radioid`. Turnstile, opprinnelsessjekk, hastighetsgrense og lengdegrenser. GitHub-tokenet har bare «Issues» på ett repo. Hemmeligheter ligger i Cloudflare, ikke i Git eller Actions. Ingen logging av innsendt innhold. |
 | Bygg og publisering | GitHub Actions har `contents: read`. Cloudflare-tokenet har bare «Workers Scripts: Edit» og ligger i miljøet `produksjon`, som bare `main` kan bruke. Actions festes til commit-SHA. Dependabot holder avhengigheter oppdatert. |
 | Forhåndsvisning før lansering | Kjøres på `ny.hpgt.com` bak **Cloudflare Access**: e-post-OTP, bare styret, gratis opptil 50 brukere. Siden har `noindex` til den lanseres. |
 | Personvern | Ingen sporing. Telefonnumre og navn vises bare der det står i dag. RadioID-registeret er frivillig. |
@@ -79,7 +100,7 @@ Hentet automatisk via WordPress-API-et (`scripts/` og konverteringsskriptet):
 
 | Innhold | Antall | Status |
 |---|---|---|
-| Innlegg (2012–2026) | 138 | Markdown med dato, kategori og hovedbilde. Referater er samlet i «Møter og referater». |
+| Innlegg (2012–2026) | 138 | Markdown med dato, én kategori og hovedbilde. Fem kategorier: Nyhet, Møter og referater, Kurs og fagdag, Sosialt og turer, Konkurranser. |
 | Sider | 13 | Alle med. Kontakt, Om oss, Fly med oss og RadioID er skrevet om til redigerbare data. |
 | Arrangementer (The Events Calendar) | 17 | Eget arrangementsformat |
 | Bilder og PDF-er | 222 | Lokalt, nedskalert til maks 1600 px (36 MB) |
@@ -87,7 +108,8 @@ Hentet automatisk via WordPress-API-et (`scripts/` og konverteringsskriptet):
 | Bilder fra andre nettsteder | 8 | Gjort om til lenker. De fleste er døde. |
 
 **Gjenstår før lansering:**
-- [ ] **E-POST: viktigst!** `leder@`, `faglig.leder@` og eventuelt `kurs@hpgt.com` ligger trolig hos ProISP. Sjekk MX-postene og hvordan e-posten brukes. Løsning: Cloudflare Email Routing (gratis) videresender til private adresser. Hvis noen *sender* fra @hpgt.com, trengs SMTP-oppsett eller gratis Zoho Mail. Det må være på plass **før** webhotellet sies opp.
+- [ ] **E-post ligger hos Google**, ikke hos ProISP, så den påvirkes ikke av at webhotellet sies opp. Når DNS flyttes til Cloudflare, må **MX, SPF (TXT), DKIM (`google._domainkey`) og eventuell DMARC** kopieres nøyaktig. Cloudflare importerer de fleste automatisk, men sjekk listen før navnetjenerne byttes.
+- [ ] RadioID-skjemaet: opprett Turnstile-widget for `hpgt.com`, etiketten `radioid` i repoet og et fine-grained token. Legg inn begge hemmelighetene med `wrangler secret put`, og bytt test-nøkkelen i `site.json` (`turnstile`) med den ekte.
 - [ ] Flytt domenet fra ProISP til Cloudflare Registrar god tid før februar. Overføring tar 5–7 dager, og domenet må låses opp og ha autorisasjonskode.
 - [ ] Forsiden i WordPress ble ikke hentet; den var utilgjengelig fra skriptet. Innholdet på den nye forsiden er bygd fra menyene, sidene og de siste innleggene, så sammenlign med dagens forside.
 - [ ] Gå gjennom 3–4 eldre innlegg med spesielle oppsett: konkurransesidene for 2014, 2017 og 2019, og et gammelt avstemningsskjema.
@@ -100,9 +122,9 @@ Hentet automatisk via WordPress-API-et (`scripts/` og konverteringsskriptet):
 | Uke | Oppgave |
 |---|---|
 | 1 | Styret velger design. Repo, Cloudflare og forhåndsvisning bak Access settes opp. |
-| 2 | Sjekk av e-post og domeneoverføring. Pages CMS settes opp, og 2–3 testbrukere prøver å skrive. |
+| 2 | Domeneoverføring, og eksport av DNS-oppføringene for Google-e-posten. Pages CMS settes opp, og 2–3 testbrukere prøver å skrive. |
 | 3 | Siste innholdssjekk. DNS for hpgt.com flyttes til Cloudflare-siden, og `noindex` fjernes. |
-| 4+ | Webhotellet hos ProISP sies opp når e-post og alt annet er bekreftet. |
+| 4+ | Webhotellet hos ProISP sies opp når alt er bekreftet. E-posten hos Google berøres ikke. |
 
 ## 7. De fem prototypene
 

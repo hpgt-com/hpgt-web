@@ -1,7 +1,7 @@
 ---
 title: "Sikkerhetskurs / Acrokurs 20-22-april-2012 i Narvik!"
 date: "2012-02-23T21:10:01"
-kategorier: ["Kurs"]
+kategorier: ["Kurs og fagdag"]
 permalink: "/sikkerhetskurs-20-22-april-2012-i-narvik/"
 forfatter: "Erlend"
 wp_id: 36

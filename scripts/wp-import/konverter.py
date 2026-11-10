@@ -112,14 +112,14 @@ def yaml_str(s):
 MOTE = re.compile(r"årsmøte|arsmote|protokoll|referat|beretning|styremøte|regler", re.I)
 
 
-PRIORITET = ["Konkurranser", "Møter og referater", "Kurs", "Sosialt og turer", "Nyhet"]
+PRIORITET = ["Konkurranser", "Møter og referater", "Kurs og fagdag", "Sosialt og turer", "Nyhet"]
 
 
 def hovedkategori(names, title):
     """Hvert innlegg får én kategori, så kategorisidene ikke overlapper."""
-    # Faglige opplegg (NLF-krav om årlig sikkerhetsaktivitet) regnes som kurs
+    # Fagdager (nødskjermpakking, sikkerhetsseminar o.l. – NLF krever årlig sikkerhetsaktivitet) hører til «Kurs og fagdag»
     if re.search(r"nødskjerm|sikkerhetskurs|sikkerhetsseminar|fagseminar|instruktør ?samling|nybegynner ?kurs|speedglider kurs", title, re.I):
-        return ["Kurs"]
+        return ["Kurs og fagdag"]
     if re.search(r"^klubbmøte", title, re.I):
         return ["Møter og referater"]
     if len(names) > 1 and re.search(r"kick ?off|klubbkveld", title, re.I) and "Sosialt og turer" in names:
@@ -136,8 +136,8 @@ def categories(p):
         names = ["Nyhet"]
     if any(n.lower().startswith("foto/video") for n in names):
         names = ["Konkurranser"]
-    # Slått sammen til fem kategorier (Nyhet, Møter og referater, Kurs, Sosialt og turer, Konkurranser)
-    samle = {"Møter": "Møter og referater", "Tilbud": "Nyhet", "Sosialt": "Sosialt og turer", "Turer": "Sosialt og turer",
+    # Slått sammen til fem kategorier (Nyhet, Møter og referater, Kurs og fagdag, Sosialt og turer, Konkurranser)
+    samle = {"Kurs": "Kurs og fagdag", "Møter": "Møter og referater", "Tilbud": "Nyhet", "Sosialt": "Sosialt og turer", "Turer": "Sosialt og turer",
              "norgescup": "Konkurranser", "10-nedturer 2016": "Konkurranser"}
     return list(dict.fromkeys(samle.get(n, n) for n in names))
 

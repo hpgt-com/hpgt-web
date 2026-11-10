@@ -6,14 +6,16 @@
       "telefon": "+47 412 02 000",
       "epost": "leder@hpgt.com",
       "bilde": "/wp-content/uploads/2026/03/image_editor_output_image1169016827-17743533286506307351329439192490.jpeg",
-      "id": "leder"
+      "id": "leder",
+      "ansvar": "Generelle spørsmål, medlemskap, økonomi, samarbeid og sponsorer, tilgang til nettsiden."
     },
     {
       "rolle": "Nestleder / skolesjef",
       "navn": "Erlend Borge Madsen",
       "telefon": "+47 975 78 061",
       "bilde": "/wp-content/uploads/2026/03/image_editor_output_image-873138208-17743579660303691002794240163423.jpeg",
-      "id": "nestleder"
+      "id": "nestleder",
+      "ansvar": "Kurs og opplæring, tandem og spørsmål om å begynne å fly."
     },
     {
       "rolle": "Faglig leder",
@@ -21,7 +23,8 @@
       "telefon": "+47 955 27 485",
       "epost": "faglig.leder@hpgt.com",
       "bilde": "/wp-content/uploads/2026/04/messenger_creation_cf294fe1-3c18-445e-918a-12ec525a4aec3985823306367981125.jpeg",
-      "id": "faglig-leder"
+      "id": "faglig-leder",
+      "ansvar": "Sikkerhet, NOTAM og vinsjing, flysteder og luftrom, hendelser og nestenulykker, RadioID-registeret."
     }
   ]
 }

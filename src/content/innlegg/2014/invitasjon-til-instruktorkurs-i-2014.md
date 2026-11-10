@@ -1,7 +1,7 @@
 ---
 title: "Invitasjon til instruktørkurs i 2014"
 date: "2014-01-14T12:57:53"
-kategorier: ["Kurs"]
+kategorier: ["Kurs og fagdag"]
 permalink: "/invitasjon-til-instruktorkurs-i-2014/"
 forfatter: "Erlend"
 wp_id: 655

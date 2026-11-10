@@ -1,0 +1,4 @@
+/* Ansvarsområde under hver rolle på «Styret og roller». */
+.person .person__ansvar { font-size: .88rem; line-height: 1.45; margin: 6px 0; }
+.person { scroll-margin-top: 90px; }
+.person:target { outline: 3px solid var(--kal-accent, #1f86d1); outline-offset: 2px; }

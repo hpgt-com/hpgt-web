@@ -1,7 +1,7 @@
 ---
 title: "Nybegynnerkurs i Paragliding (PP2)"
 date: "2018-05-15T20:01:00"
-kategorier: ["Kurs"]
+kategorier: ["Kurs og fagdag"]
 bilde: "/wp-content/uploads/2014/06/vlcsnap-2014-08-10-18h36m02s107.png"
 permalink: "/nybegynnerkurs-i-paragliding-pp2/"
 forfatter: "Aage"

@@ -29,7 +29,7 @@ content:
         default: [Nyhet]
         options:
           multiple: { min: 1, max: 1 }
-          values: [Nyhet, Møter og referater, Kurs, Sosialt og turer, Konkurranser]
+          values: [Nyhet, Møter og referater, Kurs og fagdag, Sosialt og turer, Konkurranser]
       - { name: bilde, label: Hovedbilde, type: image, description: "Vises øverst og på forsiden. Liggende bilder blir finest." }
       - { name: forfatter, label: "Skrevet av (fornavn)", type: string }
       - { name: ingress, label: Ingress, type: text, description: "1–2 setninger som oppsummerer saken." }
@@ -148,6 +148,7 @@ content:
           - { name: id, label: "Kort ID (f.eks. leder)", type: string, required: true }
           - { name: rolle, type: string, required: true }
           - { name: navn, type: string, required: true }
+          - { name: ansvar, label: "Kontakt meg om", type: text, description: "Hva medlemmer bør kontakte denne rollen om." }
           - { name: telefon, type: string }
           - { name: epost, label: E-post, type: string }
           - { name: bilde, type: image }
