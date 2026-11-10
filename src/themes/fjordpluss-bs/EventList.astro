@@ -1,5 +1,5 @@
 ---
-import { url, dato, tidSted, lenke, arrangementerPaaAar } from "../../lib/site";
+import { url, dato, sted, tid, lenke, arrangementerPaaAar } from "../../lib/site";
 const { kommende, tidligere } = Astro.props;
 const aar = arrangementerPaaAar(tidligere);
 ---
@@ -13,11 +13,11 @@ const aar = arrangementerPaaAar(tidligere);
   </nav>
   <section class="mb-4" id="kommende"><h2 class="h-tight fs-2 mt-4">Kommende</h2>
     {kommende.length === 0 ? <div class="alert alert-light border">Ingen nye arrangementer er lagt inn ennå. Følg med i Facebook-gruppa.</div> :
-      <div class="list-group list-group-flush list-events border-top">{kommende.map((e) => <a class="list-group-item list-group-item-action d-md-flex gap-3 py-2" href={url(lenke(e))}><span class="text-body-secondary small year-date">{dato(e.data.start)}</span><span class="flex-grow-1 d-block">{e.data.title}</span><span class="text-body-secondary small">{tidSted(e)}</span></a>)}</div>}
+      <div class="list-group list-group-flush list-events border-top"><div class="list-group-item ev-row ev-head py-2" aria-hidden="true"><span>Dato</span><span>Arrangement</span><span>Sted</span><span>Tid</span></div>{kommende.map((e) => <a class="list-group-item list-group-item-action ev-row py-2" href={url(lenke(e))}><span class="text-body-secondary small">{dato(e.data.start)}</span><span class="ev-t">{e.data.title}</span><span class="text-body-secondary small">{sted(e) || "–"}</span><span class="text-body-secondary small text-end">{tid(e)}</span></a>)}</div>}
   </section>
   {aar.map(([a, liste]) => (
     <section class="mb-4" id={`ar-${a}`}><h2 class="h-tight fs-2 mt-4">{a}</h2>
-      <div class="list-group list-group-flush list-events border-top">{liste.map((e) => <a class="list-group-item list-group-item-action d-md-flex gap-3 py-2" href={url(lenke(e))}><span class="text-body-secondary small year-date">{dato(e.data.start)}</span><span class="flex-grow-1 d-block">{e.data.title}</span><span class="text-body-secondary small">{tidSted(e)}</span></a>)}</div>
+      <div class="list-group list-group-flush list-events border-top"><div class="list-group-item ev-row ev-head py-2" aria-hidden="true"><span>Dato</span><span>Arrangement</span><span>Sted</span><span>Tid</span></div>{liste.map((e) => <a class="list-group-item list-group-item-action ev-row py-2" href={url(lenke(e))}><span class="text-body-secondary small">{dato(e.data.start)}</span><span class="ev-t">{e.data.title}</span><span class="text-body-secondary small">{sted(e) || "–"}</span><span class="text-body-secondary small text-end">{tid(e)}</span></a>)}</div>
     </section>
   ))}
 </div>

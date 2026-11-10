@@ -1,9 +1,10 @@
 ---
-import { url, dato, tidSted, lenke, arrangementerPaaAar } from "../../lib/site";
+import { url, dato, sted, tid, lenke, arrangementerPaaAar } from "../../lib/site";
 const { kommende, tidligere } = Astro.props;
 const aar = arrangementerPaaAar(tidligere);
 const chip = "border border-line bg-surface px-[11px] py-1.5 text-[0.88rem] font-bold text-ink no-underline hover:border-sky";
-const rad = "group grid grid-cols-[150px_minmax(0,1fr)_auto] gap-x-3.5 gap-y-1 border-b border-line px-0.5 py-2.5 text-ink no-underline max-sm:grid-cols-1";
+const rad = "group grid grid-cols-[150px_minmax(0,1fr)_190px_90px] items-baseline gap-x-3.5 gap-y-1 border-b border-line px-0.5 py-2.5 text-ink no-underline max-sm:grid-cols-[1fr_auto]";
+const hode = "grid grid-cols-[150px_minmax(0,1fr)_190px_90px] gap-x-3.5 border-b border-line px-0.5 pt-2 pb-1.5 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-muted max-sm:hidden";
 ---
 <div class="mx-auto w-[min(1000px,100%-32px)] py-14">
   <p class="eyebrow mb-2">Kalender</p>
@@ -15,11 +16,11 @@ const rad = "group grid grid-cols-[150px_minmax(0,1fr)_auto] gap-x-3.5 gap-y-1 b
   </nav>
   <section class="scroll-mt-4" id="kommende"><h2 class="mt-8.5 mb-1.5 text-[1.8rem] font-extrabold tracking-[-0.04em]">Kommende</h2>
     {kommende.length === 0 ? <p class="text-muted">Ingen nye arrangementer er lagt inn ennå. Følg med i Facebook-gruppa.</p> :
-      <ul class="m-0 list-none border-t border-line p-0">{kommende.map((e) => <li><a class={rad} href={url(lenke(e))}><time class="text-[0.88rem] text-muted tabular-nums">{dato(e.data.start)}</time><span class="group-hover:text-sky-ink">{e.data.title}</span><span class="text-[0.85rem] text-muted">{tidSted(e)}</span></a></li>)}</ul>}
+      <ul class="m-0 list-none border-t border-line p-0"><li class={hode} aria-hidden="true"><span>Dato</span><span>Arrangement</span><span>Sted</span><span class="text-right">Tid</span></li>{kommende.map((e) => <li><a class={rad} href={url(lenke(e))}><time class="text-[0.88rem] text-muted tabular-nums max-sm:col-span-full">{dato(e.data.start)}</time><span class="group-hover:text-sky-ink max-sm:col-span-full">{e.data.title}</span><span class="text-[0.88rem] text-muted">{sted(e) || "–"}</span><span class="text-right text-[0.88rem] text-muted tabular-nums">{tid(e)}</span></a></li>)}</ul>}
   </section>
   {aar.map(([a, liste]) => (
     <section class="scroll-mt-4" id={`ar-${a}`}><h2 class="mt-8.5 mb-1.5 text-[1.8rem] font-extrabold tracking-[-0.04em]">{a}</h2>
-      <ul class="m-0 list-none border-t border-line p-0">{liste.map((e) => <li><a class={rad} href={url(lenke(e))}><time class="text-[0.88rem] text-muted tabular-nums">{dato(e.data.start)}</time><span class="group-hover:text-sky-ink">{e.data.title}</span><span class="text-[0.85rem] text-muted">{tidSted(e)}</span></a></li>)}</ul>
+      <ul class="m-0 list-none border-t border-line p-0"><li class={hode} aria-hidden="true"><span>Dato</span><span>Arrangement</span><span>Sted</span><span class="text-right">Tid</span></li>{liste.map((e) => <li><a class={rad} href={url(lenke(e))}><time class="text-[0.88rem] text-muted tabular-nums max-sm:col-span-full">{dato(e.data.start)}</time><span class="group-hover:text-sky-ink max-sm:col-span-full">{e.data.title}</span><span class="text-[0.88rem] text-muted">{sted(e) || "–"}</span><span class="text-right text-[0.88rem] text-muted tabular-nums">{tid(e)}</span></a></li>)}</ul>
     </section>
   ))}
 </div>

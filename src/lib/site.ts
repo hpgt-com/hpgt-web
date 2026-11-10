@@ -80,3 +80,5 @@ export const arrangementerPaaAar = (liste: Arrangement[]) => {
   for (const e of liste) g.set(e.data.start.getUTCFullYear(), [...(g.get(e.data.start.getUTCFullYear()) ?? []), e]);
   return [...g].sort((a, b) => b[0] - a[0]);
 };
+export const sted = (e: Arrangement) => e.data.sted ?? "";
+export const tid = (e: Arrangement) => (e.data.heldag ? "Hele dagen" : `kl. ${klokke(e.data.start)}`);

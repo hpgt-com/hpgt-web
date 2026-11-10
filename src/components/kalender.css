@@ -37,3 +37,6 @@
 .kal-empty { margin: 4px 0 0; color: var(--_muted); }
 .kal-jump { justify-self: start; }
 .kal-fb { margin-top: auto; align-self: end; font-size: .88rem; font-weight: 700; color: var(--_accent-ink); }
+.kal-meta { display: flex; flex-wrap: wrap; gap: 2px 14px; }
+.kal-meta span + span::before { content: "Sted: "; color: var(--_muted); }
+.kal-meta span:first-child::before { content: "Tid: "; }

@@ -204,3 +204,11 @@ code { font: 600 .9em var(--mono); background: var(--tint); padding: 1px 6px; }
 .foot__end { font-size: .74rem; margin-top: 24px; }
 .rows__where { color: var(--muted); font-size: .85rem; }
 .year { scroll-margin-top: 16px; }
+
+/* Arrangementer: dato, navn, sted og tid i hver sin kolonne */
+.ev a, .ev__head { grid-template-columns: 150px minmax(0, 1fr) 190px 90px; align-items: baseline; }
+.ev__head { display: grid; gap: 4px 14px; padding: 8px 2px 6px; font: 600 .62rem/1.2 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--line); }
+.ev__sted { color: var(--muted); font-size: .88rem; }
+.ev__tid { color: var(--muted); font-size: .88rem; font-variant-numeric: tabular-nums; text-align: right; }
+@media (max-width: 600px) { .ev__head { display: none; } .ev a { grid-template-columns: 1fr auto; } .ev a time, .ev__t { grid-column: 1 / -1; } .ev__tid { text-align: right; } }
+.ev__head span:last-child { text-align: right; }

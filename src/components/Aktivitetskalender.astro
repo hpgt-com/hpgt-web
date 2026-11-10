@@ -2,7 +2,7 @@
 // Aktivitetskalender: månedsrutenett + liste over månedens aktiviteter. Rutenettet tegnes av /assets/js/kalender.js;
 // uten JavaScript vises en vanlig liste med de siste aktivitetene. Farger og skrift styres av --kal-*-variabler i hvert design.
 import "./kalender.css";
-import { url, lenke, tidSted, site, type Arrangement } from "../lib/site";
+import { url, lenke, sted, tid, site, type Arrangement } from "../lib/site";
 interface Props { kommende: Arrangement[]; tidligere: Arrangement[]; }
 const { kommende, tidligere } = Astro.props;
 const alle = [...tidligere].reverse().concat(kommende);
@@ -40,7 +40,7 @@ const neste = kommende[0];
           <li data-kal-item data-start={iso(e.data.start)} data-end={iso(e.data.slutt ?? e.data.start)} hidden={!synligUtenJs.has(e.id)}>
             <span class="kal-date">{fmt(e.data.start)}</span>
             <a href={url(lenke(e))}>{e.data.title} <span aria-hidden="true">↗</span></a>
-            {tidSted(e) && <small>{tidSted(e)}</small>}
+            <small class="kal-meta"><span>{tid(e)}</span>{sted(e) && <span>{sted(e)}</span>}</small>
             <span class="kal-past" data-kal-past hidden={!ferdig}>Avholdt</span>
           </li>
         );

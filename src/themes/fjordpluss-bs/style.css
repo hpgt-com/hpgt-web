@@ -96,3 +96,7 @@ body { -webkit-font-smoothing: antialiased; }
 .site-foot .small, .site-foot small { font-size: .8rem; }
 .site-foot .border-top.small { font-size: .74rem; }
 .year-date { min-width: 150px; }
+.ev-row { display: grid !important; grid-template-columns: 150px minmax(0, 1fr) 190px 90px; gap: 4px 14px; align-items: baseline; }
+.ev-head { font-family: var(--bs-font-monospace); font-size: .62rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--bs-secondary-color); }
+@media (max-width: 600px) { .ev-head { display: none !important; } .ev-row { grid-template-columns: 1fr auto; } .ev-row > :nth-child(-n+2) { grid-column: 1 / -1; } }
+.ev-head span:last-child { text-align: right; }
