@@ -45,7 +45,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--sky); outline-o
 .top__in { display: flex; align-items: center; gap: 20px; min-height: 60px; flex-wrap: wrap; }
 .brand { display: flex; align-items: center; gap: 8px; color: var(--text); text-decoration: none; margin-right: auto; }
 .brand b { display: block; font-weight: 800; font-size: 1.3rem; letter-spacing: -.04em; line-height: 1; }
-.brand small { font: 600 .55rem/1.2 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.brand small { display: block; margin-top: 3px; font: 600 .55rem/1.2 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
 .nav { display: flex; gap: 20px; }
 .nav a { color: var(--text); text-decoration: none; font-weight: 700; font-size: .92rem; padding: 6px 0; border-bottom: 2px solid transparent; }
 .nav a:hover, .nav a[aria-current] { border-color: var(--sky); }
