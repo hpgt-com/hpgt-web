@@ -36,7 +36,7 @@ const here = Astro.url.pathname;
   <footer class="foot">
     <div class="wrap foot__grid">
       <section><h2>Kontakt</h2>
-        <p><a href={`mailto:${site.epost.post}`}>{site.epost.post}</a><br /><a href={`mailto:${site.epost.leder}`}>{site.epost.leder}</a></p>
+        <p><a href={`mailto:${site.epost.leder}`}>{site.epost.leder}</a></p>
         <p><a href={site.facebook}>Facebook</a> · <a href={site.instagram}>Instagram</a></p></section>
       <section><h2>For piloter</h2><ul>{meny.piloter.map((m) => <li><a href={url(m.url)}>{m.tekst}</a></li>)}</ul></section>
       <section><h2>Klubben</h2><ul>{meny.klubben.map((m) => <li><a href={url(m.url)}>{m.tekst}</a></li>)}</ul></section>

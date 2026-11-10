@@ -15,7 +15,7 @@ sist_endret: "2026-06-18"
 
 ## Legg til eller oppdater din ID
 
-Send navn, vario og RadioID til [post@hpgt.com](mailto:post@hpgt.com?subject=FLARM%2FFANET%20RadioID%20registrering), så oppdateres listen.
+Send navn, vario og RadioID til [faglig.leder@hpgt.com](mailto:faglig.leder@hpgt.com?subject=FLARM%2FFANET%20RadioID%20registrering), så oppdateres listen.
 
 ## Hvordan finne din RadioID
 

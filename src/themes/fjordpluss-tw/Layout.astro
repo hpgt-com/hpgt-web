@@ -33,7 +33,7 @@ const fotLenke = "text-[0.8rem] text-muted no-underline hover:text-ink hover:und
       <div><p class="m-0 mb-1 text-[1.4rem] font-extrabold tracking-tighter">HPGT</p><p class="text-muted">Harstad Hang og Paragliderklubb<br />Org.nr. {site.orgnr} · Vipps {site.vipps}</p></div>
       <nav class="grid content-start gap-1" aria-label="Klubben"><h2 class="m-0 mb-2 text-[0.78rem] font-extrabold">Klubben</h2>{meny.klubben.map((m) => <a class={fotLenke} href={url(m.url)}>{m.tekst}</a>)}</nav>
       <nav class="grid content-start gap-1" aria-label="For piloter"><h2 class="m-0 mb-2 text-[0.78rem] font-extrabold">For piloter</h2>{meny.piloter.map((m) => <a class={fotLenke} href={url(m.url)}>{m.tekst}{ekstern(m.url) && " ↗"}</a>)}</nav>
-      <nav class="grid content-start gap-1" aria-label="Følg oss"><h2 class="m-0 mb-2 text-[0.78rem] font-extrabold">Følg oss</h2><a class={fotLenke} href={site.facebook}>Facebook ↗</a><a class={fotLenke} href={site.instagram}>Instagram ↗</a><a class={fotLenke} href={`mailto:${site.epost.post}`}>{site.epost.post}</a></nav>
+      <nav class="grid content-start gap-1" aria-label="Følg oss"><h2 class="m-0 mb-2 text-[0.78rem] font-extrabold">Følg oss</h2><a class={fotLenke} href={site.facebook}>Facebook ↗</a><a class={fotLenke} href={site.instagram}>Instagram ↗</a><a class={fotLenke} href={`mailto:${site.epost.leder}`}>{site.epost.leder}</a></nav>
     </div>
     <div class="mx-auto mt-6 flex w-[min(1000px,100%-32px)] flex-wrap justify-between gap-3 border-t border-line pt-3.5 text-[0.74rem]">
       <p class="m-0 italic">«{site.sitat.tekst}» <span class="not-italic text-muted">– {site.sitat.kilde}</span></p><p class="m-0 text-muted">Ingen sporing eller informasjonskapsler.</p>

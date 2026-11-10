@@ -29,7 +29,7 @@ const here = Astro.url.pathname;
   <footer class="container">
     <hr />
     <div class="grid">
-      <section><h6>Kontakt</h6><small><a href={`mailto:${site.epost.post}`}>{site.epost.post}</a><br /><a href={site.facebook}>Facebook</a> · <a href={site.instagram}>Instagram</a></small></section>
+      <section><h6>Kontakt</h6><small><a href={site.facebook}>Facebook</a> · <a href={site.instagram}>Instagram</a></small></section>
       <section><h6>For piloter</h6><small>{meny.piloter.map((m) => <><a href={url(m.url)}>{m.tekst}</a><br /></>)}</small></section>
       <section><h6>Klubben</h6><small>{meny.klubben.map((m) => <><a href={url(m.url)}>{m.tekst}</a><br /></>)}</small></section>
       <section><h6>Støtt oss</h6><small>Vipps {site.vipps}<br />Grasrotandelen {site.orgnr}</small></section>

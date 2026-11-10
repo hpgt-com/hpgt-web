@@ -5,7 +5,7 @@ ingress: "Alle medlemmer kan få tilgang til å skrive nyheter, legge ut referat
 ---
 ## Slik får du tilgang
 
-1. **Be om tilgang** – send e-post til [post@hpgt.com](mailto:post@hpgt.com?subject=Tilgang%20til%20hpgt.com) med navn og hva du vil bidra med. *(I ferdig løsning: et skjema her på siden.)*
+1. **Be om tilgang** – send e-post til [leder@hpgt.com](mailto:leder@hpgt.com?subject=Tilgang%20til%20hpgt.com) med navn og hva du vil bidra med. *(I ferdig løsning: et skjema her på siden.)*
 2. **Styret godkjenner** – en redaktør sender deg en invitasjon på e-post. Du trenger ingen GitHub-konto.
 3. **Logg inn** – klikk lenken i e-posten og logg inn med e-postadressen din. Du får en enkel editor med felt for tittel, dato, bilde, tekst og vedlegg.
 

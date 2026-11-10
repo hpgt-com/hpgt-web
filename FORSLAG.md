@@ -87,7 +87,7 @@ Hentet automatisk via WordPress-API-et (`scripts/` og konverteringsskriptet):
 | Bilder fra andre nettsteder | 8 | Gjort om til lenker. De fleste er døde. |
 
 **Gjenstår før lansering:**
-- [ ] **E-POST: viktigst!** `post@`, `leder@` og `faglig.leder@hpgt.com` ligger trolig hos ProISP. Sjekk MX-postene og hvordan e-posten brukes. Løsning: Cloudflare Email Routing (gratis) videresender til private adresser. Hvis noen *sender* fra @hpgt.com, trengs SMTP-oppsett eller gratis Zoho Mail. Det må være på plass **før** webhotellet sies opp.
+- [ ] **E-POST: viktigst!** `leder@`, `faglig.leder@` og eventuelt `kurs@hpgt.com` ligger trolig hos ProISP. Sjekk MX-postene og hvordan e-posten brukes. Løsning: Cloudflare Email Routing (gratis) videresender til private adresser. Hvis noen *sender* fra @hpgt.com, trengs SMTP-oppsett eller gratis Zoho Mail. Det må være på plass **før** webhotellet sies opp.
 - [ ] Flytt domenet fra ProISP til Cloudflare Registrar god tid før februar. Overføring tar 5–7 dager, og domenet må låses opp og ha autorisasjonskode.
 - [ ] Forsiden i WordPress ble ikke hentet; den var utilgjengelig fra skriptet. Innholdet på den nye forsiden er bygd fra menyene, sidene og de siste innleggene, så sammenlign med dagens forside.
 - [ ] Gå gjennom 3–4 eldre innlegg med spesielle oppsett: konkurransesidene for 2014, 2017 og 2019, og et gammelt avstemningsskjema.

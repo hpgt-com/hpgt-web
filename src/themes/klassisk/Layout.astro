@@ -30,7 +30,7 @@ const here = Astro.url.pathname;
   <main id="innhold"><slot /></main>
   <footer class="bg-dark text-white-50 py-5 mt-5">
     <div class="container"><div class="row g-4">
-      <div class="col-md-3"><h2 class="h6 text-white">Kontakt</h2><a class="link-light d-block" href={`mailto:${site.epost.post}`}>{site.epost.post}</a><a class="link-light d-block" href={`mailto:${site.epost.leder}`}>{site.epost.leder}</a><a class="link-light" href={site.facebook}>Facebook</a> · <a class="link-light" href={site.instagram}>Instagram</a></div>
+      <div class="col-md-3"><h2 class="h6 text-white">Kontakt</h2><a class="link-light d-block" href={`mailto:${site.epost.leder}`}>{site.epost.leder}</a><a class="link-light" href={site.facebook}>Facebook</a> · <a class="link-light" href={site.instagram}>Instagram</a></div>
       <div class="col-md-3"><h2 class="h6 text-white">For piloter</h2>{meny.piloter.map((m) => <a class="link-light d-block" href={url(m.url)}>{m.tekst}</a>)}</div>
       <div class="col-md-3"><h2 class="h6 text-white">Klubben</h2>{meny.klubben.map((m) => <a class="link-light d-block" href={url(m.url)}>{m.tekst}</a>)}</div>
       <div class="col-md-3"><h2 class="h6 text-white">Støtt oss</h2><p>Vipps {site.vipps}<br />Grasrotandelen: {site.orgnr}</p></div>
