@@ -6,8 +6,8 @@ import { url, dato, sted, tid, lenke, gruppe, typeTekst, arrangementerPaaAar } f
 const { kommende, tidligere } = Astro.props;
 const aar = arrangementerPaaAar(tidligere);
 const chip = "border border-line bg-surface px-[11px] py-1.5 text-[0.88rem] font-bold text-ink no-underline hover:border-sky";
-const rad = "group grid grid-cols-[150px_minmax(0,1fr)_190px_90px] items-baseline gap-x-3.5 gap-y-1 border-b border-line px-0.5 py-2.5 text-ink no-underline max-sm:grid-cols-[1fr_auto]";
-const hode = "grid grid-cols-[150px_minmax(0,1fr)_190px_90px] gap-x-3.5 border-b border-line px-0.5 pt-2 pb-1.5 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-muted max-sm:hidden";
+const rad = "group grid grid-cols-[150px_minmax(0,1fr)_190px_90px] items-baseline gap-x-3.5 gap-y-1 border-b border-line px-2 py-2.5 text-ink no-underline transition-colors hover:bg-surface focus-visible:bg-surface max-sm:grid-cols-[1fr_auto]";
+const hode = "grid grid-cols-[150px_minmax(0,1fr)_190px_90px] gap-x-3.5 border-b border-line px-2 pt-2 pb-1.5 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-muted max-sm:hidden";
 ---
 <div class="mx-auto w-[min(1000px,100%-32px)] py-14">
   <p class="eyebrow mb-2">Kalender</p>
