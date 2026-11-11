@@ -6,7 +6,7 @@ const bilder = [
   "/wp-content/uploads/2026/03/received_14693510906506755701209126633616533.jpeg",
   "/wp-content/uploads/2026/04/hpgt1.jpg",
 ];
-const samlinger = ["Nyheter og referater", "Arrangementer", "Faste sider", "Forsiden", "Styret", "RadioID-register", "Bilder og filer"];
+const samlinger = ["Nyheter, referater og arrangementer", "Faste sider", "Forsiden", "Styret", "RadioID-register", "Bilder og filer"];
 ---
 <div class="rd">
   <p class="rd__note">Demo: slik ser det ut når et medlem skriver en nyhet. Ingenting lagres.</p>
@@ -26,7 +26,12 @@ const samlinger = ["Nyheter og referater", "Arrangementer", "Faste sider", "Fors
           <select id="rd-kat" name="kategori"><option>Nyhet</option><option>Møter og referater</option><option>Kurs og fagdag</option><option selected>Sosialt og turer</option><option>Konkurranser</option></select></div>
       </div>
       <fieldset><legend>Hovedbilde</legend>
-        <div class="rd__pics">{bilder.map((b, i) => <label><input type="radio" name="bilde" value={String(i)} checked={i === 0} /><img src={url(b)} alt="" /></label>)}</div>
+        <div class="rd__pics">
+          {bilder.map((b, i) => <label><input type="radio" name="bilde" value={String(i)} checked={i === 0} /><img src={url(b)} alt="" /></label>)}
+          <label id="rd-eget" hidden><input type="radio" name="bilde" value="eget" /><img id="rd-eget-mini" alt="Ditt bilde" /></label>
+          <label class="rd__opplast" for="rd-fil">+ Last opp<input type="file" id="rd-fil" accept="image/*" /></label>
+        </div>
+        <p class="rd__hint">I CMS-et laster du opp bilder fra mobil eller PC. De skaleres ned automatisk.</p>
       </fieldset>
       <label for="rd-ingress">Ingress</label>
       <input id="rd-ingress" name="ingress" value="Meld deg på i Facebook-gruppa. Vi samles på parkeringen kl. 10." />
@@ -41,6 +46,7 @@ const samlinger = ["Nyheter og referater", "Arrangementer", "Faste sider", "Fors
       <p class="rd__plabel">Forhåndsvisning</p>
       <article>
         {bilder.map((b, i) => <img class="pv-bilde" src={url(b)} alt="" hidden={i !== 0} />)}
+        <img class="pv-bilde" id="pv-eget" alt="" hidden />
         <p class="rd__meta" id="pv-meta">Sosialt · 14. november 2026</p>
         <h3 id="pv-tittel">Klubbtur til Sollifjellet lørdag</h3>
         <p class="rd__ingress" id="pv-ingress">Meld deg på i Facebook-gruppa. Vi samles på parkeringen kl. 10.</p>
@@ -83,6 +89,13 @@ const samlinger = ["Nyheter og referater", "Arrangementer", "Faste sider", "Fors
   .rd__pics img { width: 84px; height: 60px; object-fit: cover; border-radius: 6px; border: 3px solid transparent; cursor: pointer; }
   .rd__pics input:checked + img { border-color: var(--rd-accent); }
   .rd__pics input:focus-visible + img { outline: 2px solid var(--rd-accent); outline-offset: 2px; }
+  .rd__pics { flex-wrap: wrap; }
+  .rd #rd-eget[hidden] { display: none; }
+  .rd__opplast { width: 84px; height: 60px; margin: 0 !important; display: grid; place-items: center; text-align: center; border: 2px dashed var(--rd-line); border-radius: 6px; font-size: 12px !important; color: var(--rd-accent) !important; cursor: pointer; position: relative; }
+  .rd__opplast:hover, .rd__opplast:focus-within { border-color: var(--rd-accent); }
+  .rd__opplast input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+  .rd__hint { margin: 4px 0 0; font-size: 12px; color: var(--rd-muted); }
+  .rd textarea { resize: vertical; min-height: 7.5em; field-sizing: content; }
   .rd__tools { display: flex; gap: 4px; }
   .rd__tools span { font-size: 12px; padding: 3px 8px; border: 1px solid var(--rd-line); border-radius: 4px; background: var(--rd-surface); }
   .rd__file { margin: 0; padding: 12px; border: 1px dashed var(--rd-line); border-radius: 6px; color: var(--rd-muted); display: flex; gap: 10px; align-items: center; }
@@ -93,6 +106,8 @@ const samlinger = ["Nyheter og referater", "Arrangementer", "Faste sider", "Fors
   .rd__plabel { margin: 0 0 10px; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--rd-muted); }
   .rd__preview img[hidden] { display: none; }
   .rd__preview img { width: 100%; aspect-ratio: 16/10; object-fit: cover; border-radius: 8px; }
+  .rd__preview article { overflow-wrap: anywhere; }
+  #pv-tekst { white-space: pre-line; }
   .rd__preview h3 { font-size: 22px; line-height: 1.15; margin: 6px 0; }
   .rd__meta { margin: 10px 0 0; font-size: 12px; color: var(--rd-muted); text-transform: uppercase; letter-spacing: .06em; }
   .rd__ingress { font-weight: 600; }
