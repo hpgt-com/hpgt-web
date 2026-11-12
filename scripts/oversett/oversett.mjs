@@ -6,12 +6,16 @@
 //
 // Oversettelsene fra forrige publisering hentes fra den publiserte siden (OVERSETT_FORRIGE, /en/oversettelser.json),
 // så bare ny eller endret norsk tekst sendes til oversettelse. Uten ANTHROPIC_API_KEY (lokalt og i PR-sjekken)
-// brukes bare de eksisterende oversettelsene. OVERSETT_TEST=1 lager «[EN] …»-tekster for å teste oppsettet lokalt. Feiler en oversettelse, beholdes den forrige og publiseringen fortsetter.
+// I GitHub Actions logger jobben inn uten lagret nøkkel (workload identity federation): GitHub utsteder et
+// kortlivet OIDC-token for akkurat dette repoet og miljøet, og Anthropic veksler det inn. ID-ene i
+// ANTHROPIC_ORGANIZATION_ID, ANTHROPIC_FEDERATION_RULE_ID og ANTHROPIC_SERVICE_ACCOUNT_ID er ikke hemmelige.
+// Uten innlogging brukes bare de eksisterende oversettelsene. OVERSETT_TEST=1 lager «[EN] …»-tekster for å teste oppsettet lokalt. Feiler en oversettelse, beholdes den forrige og publiseringen fortsetter.
 //
 // Ingen avhengigheter utenom Anthropic-SDK-en, som bare lastes når nøkkelen finnes (egen package.json i denne mappa).
 import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, readdirSync, writeFileSync, existsSync } from "node:fs";
 import { join, basename } from "node:path";
+import { tmpdir } from "node:os";
 
 const ROT = new URL("../../", import.meta.url).pathname;
 const UT = join(ROT, ".oversatt");
@@ -53,7 +57,25 @@ async function hentForrige() {
 const forrige = await hentForrige();
 const ny = {};
 let klient = null;
-if (process.env.ANTHROPIC_API_KEY) {
+
+// Henter et nytt OIDC-token fra GitHub til en fil SDK-en leser. Tokenet varer bare noen minutter, så det fornyes underveis.
+async function githubToken() {
+  const { ACTIONS_ID_TOKEN_REQUEST_URL: u, ACTIONS_ID_TOKEN_REQUEST_TOKEN: t } = process.env;
+  const svar = await fetch(`${u}&audience=${encodeURIComponent("https://api.anthropic.com")}`, { headers: { Authorization: `Bearer ${t}` } });
+  if (!svar.ok) throw new Error(`GitHub OIDC: HTTP ${svar.status}`);
+  writeFileSync(process.env.ANTHROPIC_IDENTITY_TOKEN_FILE, (await svar.json()).value, { mode: 0o600 });
+}
+if (process.env.ANTHROPIC_FEDERATION_RULE_ID && process.env.ACTIONS_ID_TOKEN_REQUEST_URL) {
+  process.env.ANTHROPIC_IDENTITY_TOKEN_FILE = join(tmpdir(), `anthropic-oidc-${process.pid}`);
+  try {
+    await githubToken();
+    setInterval(() => githubToken().catch((e) => console.warn(`oversett: ${e.message}`)), 4 * 60 * 1000).unref();
+  } catch (e) {
+    console.warn(`oversett: fikk ikke logget inn (${e.message}) – bruker eksisterende oversettelser`);
+    delete process.env.ANTHROPIC_FEDERATION_RULE_ID;
+  }
+}
+if (process.env.ANTHROPIC_API_KEY || (process.env.ANTHROPIC_FEDERATION_RULE_ID && process.env.ANTHROPIC_ORGANIZATION_ID)) {
   const { default: Anthropic } = await import("@anthropic-ai/sdk");
   klient = new Anthropic();
 }
