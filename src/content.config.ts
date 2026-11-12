@@ -58,9 +58,24 @@ const sider = defineCollection({
   }),
 });
 
+// Kurssidene (/kurs/<filnavn>/). Vises i kursmenyen øverst på alle kurssider, sortert etter «rekkefolge».
+const kurs = defineCollection({
+  loader: glob({ pattern: "*.md", base: "./src/content/kurs" }),
+  schema: z.object({
+    title: z.string(),
+    menynavn: z.preprocess(tom, z.string().optional()),
+    ingress: z.preprocess(tom, z.string().optional()),
+    bilde: z.preprocess(tom, z.string().optional()),
+    // Kommende datoer på kurssiden hentes fra arrangementer med denne typen
+    kurstype: z.preprocess(tom, z.enum(ARRANGEMENTSTYPER).optional()),
+    rekkefolge: z.preprocess(tom, z.coerce.number().default(50)),
+    sist_endret: z.preprocess(tom, z.coerce.date().optional()),
+  }),
+});
+
 const styret = defineCollection({
   loader: file("./src/data/styret.json", { parser: (t) => JSON.parse(t).medlemmer }),
   schema: z.object({ rolle: z.string(), navn: z.string(), telefon: z.string().optional(), epost: z.string().optional(), bilde: z.string().optional() }),
 });
 
-export const collections = { innlegg, sider, styret };
+export const collections = { innlegg, sider, kurs, styret };

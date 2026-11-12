@@ -6,7 +6,7 @@
   "knapper": [
     {
       "tekst": "Nybegynnerkurs",
-      "url": "/kurs/"
+      "url": "/kurs/paragliding-pp2/"
     },
     {
       "tekst": "Se flysteder",
@@ -17,7 +17,7 @@
     {
       "tittel": "Lær å fly",
       "tekst": "Nybegynnerkurs til PP2 i juni. 6 plasser – førstemann til mølla.",
-      "url": "/kurs/",
+      "url": "/kurs/paragliding-pp2/",
       "bilde": "/wp-content/uploads/2019/01/20190803_175328.jpg",
       "ikon": "kurs"
     },
@@ -75,7 +75,7 @@
       "verb": "Lær",
       "tittel": "Paragliderkurs",
       "tekst": "Fra første øvelse på bakken til PP2-nivå. Se klubbens kursinformasjon.",
-      "url": "/kurs/"
+      "url": "/kurs/paragliding-pp2/"
     },
     {
       "verb": "Opplev",
@@ -98,7 +98,7 @@
     "frist": "2026-05-31",
     "pris": "15 000 kr",
     "plasser": "6",
-    "url": "/kurs/",
+    "url": "/kurs/paragliding-pp2/",
     "etterKurs": "Neste kurs blir annonsert her og i Facebook-gruppa. Ta gjerne kontakt hvis du vil stå på interesselisten."
   },
   "galleri": [

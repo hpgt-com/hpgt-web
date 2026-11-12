@@ -1,0 +1,12 @@
+---
+// Kort for hver kursside på /kurs/
+import { hentKurs, kursLenke, url } from "../lib/site";
+import "./kurs.css";
+const kurs = await hentKurs();
+---
+{kurs.length > 0 && <section class="kurskort" aria-labelledby="kurskort-h">
+  <h2 id="kurskort-h">Kursene våre</h2>
+  <ul>{kurs.map((k) => <li><a href={url(kursLenke(k))}>
+    {k.data.bilde && <img src={url(k.data.bilde)} alt="" loading="lazy" />}
+    <b>{k.data.title}</b>{k.data.ingress && <span>{k.data.ingress}</span>}</a></li>)}</ul>
+</section>}
