@@ -32,6 +32,7 @@ const aktiv = (u: string) => !ekstern(u) && (u === "/" ? sti === "/" : sti.start
         <img src={url("/assets/img/hpgt-logo.png")} alt="" width="36" height="36" />
         <span><b>HPGT</b><small>Harstad Hang og Paragliderklubb</small></span>
       </a>
+      <button class="tema-btn" type="button" data-tema-knapp hidden data-til-lys={t.tilLys} data-til-mork={t.tilMork}></button>
       <button class="menu-btn" type="button" data-menu-button aria-expanded="false" aria-controls="nav">{t.meny}</button>
       <nav id="nav" class="nav" aria-label={t.hovedmeny}>
         {meny.hoved.map((m) => <a href={lenk(m.url)} aria-current={aktiv(m.url) ? "page" : undefined}>{menyTekst(sprak, m.tekst)}{ekstern(m.url) && " ↗"}</a>)}

@@ -15,10 +15,10 @@
   --mono: "IBM Plex Mono", ui-monospace, monospace;
   color-scheme: light;
 }
-@media (prefers-color-scheme: dark) {
-  :root { --bg: #0b131d; --surface: #111c29; --tint: #16263a; --text: #e6edf5; --muted: #9aabbf; --line: #24364b;
+@media (prefers-color-scheme: dark) { :root:not([data-tema="lys"]) { --bg: #0b131d; --surface: #111c29; --tint: #16263a; --text: #e6edf5; --muted: #9aabbf; --line: #24364b;
+    --sky: #5fb0ea; --sky-ink: #8ccaf4; --navy: #07182c; color-scheme: dark; } }
+:root[data-tema="mork"] { --bg: #0b131d; --surface: #111c29; --tint: #16263a; --text: #e6edf5; --muted: #9aabbf; --line: #24364b;
     --sky: #5fb0ea; --sky-ink: #8ccaf4; --navy: #07182c; color-scheme: dark; }
-}
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--text); font: 400 1rem/1.6 var(--display); -webkit-font-smoothing: antialiased; }
 img { max-width: 100%; height: auto; display: block; }
@@ -51,6 +51,11 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--sky); outline-o
 .nav a:hover, .nav a[aria-current] { border-color: var(--sky); }
 .nav .nav__sprak { font: 600 .72rem/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; border: 1.5px solid var(--line); border-radius: 4px; padding: 6px 8px; align-self: center; }
 .nav .nav__sprak:hover { border-color: var(--sky); }
+/* Knapp for lyst/mørkt tema (vises bare med JavaScript, se public/assets/js/tema.js) */
+.nav { order: 1; }
+.tema-btn { order: 2; background: none; border: 1.5px solid var(--line); border-radius: 4px; color: var(--text); width: 34px; height: 30px; padding: 0; font-size: 1rem; line-height: 1; cursor: pointer; }
+.tema-btn:hover { border-color: var(--sky); }
+@media (max-width: 760px) { .tema-btn { order: 0; } .top__in { gap: 10px; } }
 .menu-btn { display: none; font: 700 .9rem var(--display); background: none; color: var(--text); border: 1.5px solid var(--text); border-radius: 4px; padding: 6px 12px; }
 @media (max-width: 760px) {
   .js .menu-btn { display: block; }
@@ -125,11 +130,8 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--sky); outline-o
 [data-kat="nyhet"] { --k: #9c27b0; } [data-kat="sosialt"], [data-kat="sosialt-og-turer"] { --k: #0091a7; } [data-kat="moter-og-referater"] { --k: #d97300; }
 [data-kat="kurs"], [data-kat="kurs-og-fagdag"] { --k: #2e7d32; } [data-kat="turer"] { --k: #d32f2f; } [data-kat="konkurranser"] { --k: #c2185b; }
 [data-kat="tilbud"] { --k: #1565c0; } [data-kat="norgescup"] { --k: #00796b; }
-@media (prefers-color-scheme: dark) {
-  [data-kat="nyhet"] { --k: #d48be0; } [data-kat="sosialt"], [data-kat="sosialt-og-turer"] { --k: #5fd3e3; } [data-kat="moter-og-referater"] { --k: #ffb866; }
-  [data-kat="kurs"], [data-kat="kurs-og-fagdag"] { --k: #86c98a; } [data-kat="turer"] { --k: #f08a8a; } [data-kat="konkurranser"] { --k: #f27aa3; }
-  [data-kat="tilbud"] { --k: #7dbcf2; } [data-kat="norgescup"] { --k: #5cc2b6; }
-}
+@media (prefers-color-scheme: dark) { :root:not([data-tema="lys"]) [data-kat="nyhet"] { --k: #d48be0; } :root:not([data-tema="lys"]) [data-kat="sosialt"], :root:not([data-tema="lys"]) [data-kat="sosialt-og-turer"] { --k: #5fd3e3; } :root:not([data-tema="lys"]) [data-kat="moter-og-referater"] { --k: #ffb866; } :root:not([data-tema="lys"]) [data-kat="kurs"], :root:not([data-tema="lys"]) [data-kat="kurs-og-fagdag"] { --k: #86c98a; } :root:not([data-tema="lys"]) [data-kat="turer"] { --k: #f08a8a; } :root:not([data-tema="lys"]) [data-kat="konkurranser"] { --k: #f27aa3; } :root:not([data-tema="lys"]) [data-kat="tilbud"] { --k: #7dbcf2; } :root:not([data-tema="lys"]) [data-kat="norgescup"] { --k: #5cc2b6; } }
+:root[data-tema="mork"] [data-kat="nyhet"] { --k: #d48be0; } :root[data-tema="mork"] [data-kat="sosialt"], :root[data-tema="mork"] [data-kat="sosialt-og-turer"] { --k: #5fd3e3; } :root[data-tema="mork"] [data-kat="moter-og-referater"] { --k: #ffb866; } :root[data-tema="mork"] [data-kat="kurs"], :root[data-tema="mork"] [data-kat="kurs-og-fagdag"] { --k: #86c98a; } :root[data-tema="mork"] [data-kat="turer"] { --k: #f08a8a; } :root[data-tema="mork"] [data-kat="konkurranser"] { --k: #f27aa3; } :root[data-tema="mork"] [data-kat="tilbud"] { --k: #7dbcf2; } :root[data-tema="mork"] [data-kat="norgescup"] { --k: #5cc2b6; }
 
 /* Artikkel og arkiv */
 .article { padding-block: 40px 72px; max-width: 760px; }
@@ -215,13 +217,15 @@ code { font: 600 .9em var(--mono); background: var(--tint); padding: 1px 6px; }
 .path:hover .path__arrow { transform: translate(3px, -3px); }
 @media (prefers-reduced-motion: reduce) { .path, .path__arrow { transition: none; } }
 /* Kalenderen bruker designets farger */
-.kal { --kal-text: var(--text); --kal-muted: var(--muted); --kal-line: var(--line); --kal-surface: var(--surface); --kal-tint: var(--tint); --kal-accent: var(--sky); --kal-accent-ink: var(--sky-ink); --kal-mono: var(--mono); }
+:root, .kal { --kal-text: var(--text); --kal-muted: var(--muted); --kal-line: var(--line); --kal-surface: var(--surface); --kal-tint: var(--tint); --kal-accent: var(--sky); --kal-accent-ink: var(--sky-ink); --kal-mono: var(--mono); }
 
 /* Kalenderen på et lyseblått bånd i full bredde (som i Friluft+-utkastet) */
 .band--cal { background: #e3edf7; border-top: 1px solid var(--line); }
-@media (prefers-color-scheme: dark) { .band--cal { background: #0f1e2e; } }
+@media (prefers-color-scheme: dark) { :root:not([data-tema="lys"]) .band--cal { background: #0f1e2e; } }
+:root[data-tema="mork"] .band--cal { background: #0f1e2e; }
 .kal { --kal-tint-strong: #cfe3f4; }
-@media (prefers-color-scheme: dark) { .kal { --kal-tint-strong: #1d3a58; } }
+@media (prefers-color-scheme: dark) { :root:not([data-tema="lys"]) .kal { --kal-tint-strong: #1d3a58; } }
+:root[data-tema="mork"] .kal { --kal-tint-strong: #1d3a58; }
 .band--cal + * { margin-top: 0; }
 /* Mindre skrift i bunnen */
 .foot { padding-block: 30px 20px; margin-top: 0; font-size: .82rem; }
