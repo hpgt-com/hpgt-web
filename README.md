@@ -26,6 +26,18 @@ npm run forhandsvisning      # bygger forhåndsvisningen (utvalg sider, relative
 | `public/filer` | Nye opplastinger fra CMS-et |
 | `scripts/wp-import` | Engangsskript som konverterte WordPress-eksporten |
 
+## Engelsk versjon
+
+Kurs, tandem, flysteder, klubbsidene og forsiden finnes også på engelsk under `/en/`. Ingen skriver teksten to ganger:
+ved hver publisering oversetter `scripts/oversett/oversett.mjs` ny eller endret norsk tekst med Claude (Anthropic API).
+Oversettelsene fra forrige publisering hentes fra `/en/oversettelser.json`, så uendret tekst oversettes ikke på nytt.
+Nyheter og arrangementer er bare på norsk. Faste tekster (menyer, knapper) står i `src/lib/i18n.ts`.
+
+- Nøkkelen `ANTHROPIC_API_KEY` ligger i miljøet **oversetting** (Settings → Environments), begrenset til `main`.
+  Uten nøkkel publiseres siden som før, med de forrige oversettelsene.
+- Hvilke sider som oversettes: `SIDER` øverst i `scripts/oversett/oversett.mjs`.
+- Teste lokalt uten nøkkel: `OVERSETT_TEST=1 npm run build` gir «[EN] …»-tekster.
+
 ## Sikkerhet
 
 Se [SECURITY.md](SECURITY.md). Repoet er laget fra `hpgt-com/repo-template`. Regelsettet for `main` og sikkerhetsinnstillingene settes av en org-eier:

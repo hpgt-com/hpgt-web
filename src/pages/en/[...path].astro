@@ -1,0 +1,38 @@
+---
+// Engelske sider: /en/<samme adresse som den norske>. Innholdet er oversatt automatisk (scripts/oversett).
+import { getCollection, render } from "astro:content";
+import Layout from "@design/Layout.astro";
+import Article from "@design/Article.astro";
+import Styret from "../../components/Styret.astro";
+import KommendeKurs from "../../components/KommendeKurs.astro";
+import KursMeny from "../../components/KursMeny.astro";
+import KursOversikt from "../../components/KursOversikt.astro";
+import { url, lenke, kursLenke } from "../../lib/site";
+import { T, datoFor } from "../../lib/i18n";
+
+export async function getStaticPaths() {
+  const trim = (s: string) => s.replace(/^\/|\/$/g, "");
+  const [sider, kurs] = await Promise.all([getCollection("sider_en"), getCollection("kurs_en")]);
+  return [
+    ...sider.map((entry) => ({ params: { path: trim(lenke(entry)) }, props: { type: "side", entry } })),
+    ...kurs.map((entry) => ({ params: { path: trim(kursLenke(entry)) }, props: { type: "kurs", entry } })),
+  ];
+}
+const { type, entry } = Astro.props as any;
+const { Content, headings } = await render(entry);
+const d = entry.data;
+const t = T.en;
+const meta = d.sist_endret ? `${t.sistOppdatert} ${datoFor("en", d.sist_endret)}` : undefined;
+const tilbake = type === "kurs" ? { tekst: t.kurs, url: url("/en/kurs/") } : undefined;
+const kursSide = type === "kurs" || d.mal === "kurs";
+---
+<Layout title={d.title} description={d.ingress} image={d.bilde}>
+  <Article title={d.title} ingress={d.ingress} bilde={d.bilde} meta={meta} tilbake={tilbake} type={type} overskrifter={headings}>
+    {kursSide && <KursMeny slot="foran" />}
+    {type === "kurs" && d.kurstype && <KommendeKurs type={d.kurstype} />}
+    {d.mal === "kurs" && <KommendeKurs />}
+    {d.mal === "kontakt" && <Styret />}
+    <Content />
+    {d.mal === "kurs" && <KursOversikt />}
+  </Article>
+</Layout>

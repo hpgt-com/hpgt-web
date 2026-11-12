@@ -58,8 +58,8 @@ export async function hentArrangementer() {
 }
 /** Kurssidene i kursmenyen, i valgt rekkefølge. */
 export const kursLenke = (k: { id: string }) => `/kurs/${k.id}/`;
-export async function hentKurs() {
-  return (await getCollection("kurs")).sort((a, b) => a.data.rekkefolge - b.data.rekkefolge || a.data.title.localeCompare(b.data.title, "nb"));
+export async function hentKurs(sprak: "nb" | "en" = "nb") {
+  return (await getCollection(sprak === "en" ? "kurs_en" : "kurs")).sort((a, b) => a.data.rekkefolge - b.data.rekkefolge || a.data.title.localeCompare(b.data.title, "nb"));
 }
 export async function hentKategorier() {
   const map = new Map<string, Innlegg[]>();

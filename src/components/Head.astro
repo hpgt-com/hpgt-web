@@ -1,8 +1,11 @@
 ---
 // Felles <head> for alle design: streng CSP (kun egne filer, ingen sporing), noindex mens dette er en prototype.
 import { site, url } from "../lib/site";
-interface Props { title: string; description?: string; image?: string }
-const { title, description = site.beskrivelse, image } = Astro.props;
+interface Props { title: string; description?: string; image?: string; sprak?: "nb" | "en"; sti?: string; alternativ?: boolean }
+const { title, description = site.beskrivelse, image, sprak = "nb", sti: normalSti, alternativ = false } = Astro.props;
+// Begge språkversjonene peker på hverandre (hreflang), så søkemotorer viser riktig språk
+const nbUrl = normalSti && new URL(normalSti, site.url);
+const enUrl = normalSti && new URL(`/en${normalSti}`, site.url);
 const fullTitle = title === site.navn ? site.navn : `${title} – ${site.kortnavn}`;
 // Sider med skjema får laste Cloudflare Turnstile – ingen andre. Må stemme med public/_headers.
 const SKJEMASIDER = ["/flysteder/flarm-fanet-radioid/"];
@@ -23,7 +26,8 @@ const canonical = new URL(Astro.url.pathname.replace(import.meta.env.BASE_URL.re
 <meta property="og:site_name" content={site.navn} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:locale" content="nb_NO" />
+<meta property="og:locale" content={sprak === "en" ? "en_GB" : "nb_NO"} />
+{alternativ && nbUrl && <><link rel="alternate" hreflang="nb" href={nbUrl} /><link rel="alternate" hreflang="en" href={enUrl} /><link rel="alternate" hreflang="x-default" href={nbUrl} /></>}
 {image && <meta property="og:image" content={new URL(image, site.url)} />}
 <link rel="icon" href={url("/assets/img/hpgt-logo.png")} />
 <script is:inline src={url("/assets/js/meny.js")} defer></script>

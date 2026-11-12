@@ -49,6 +49,8 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--sky); outline-o
 .nav { display: flex; gap: 20px; }
 .nav a { color: var(--text); text-decoration: none; font-weight: 700; font-size: .92rem; padding: 6px 0; border-bottom: 2px solid transparent; }
 .nav a:hover, .nav a[aria-current] { border-color: var(--sky); }
+.nav .nav__sprak { font: 600 .72rem/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; border: 1.5px solid var(--line); border-radius: 4px; padding: 6px 8px; align-self: center; }
+.nav .nav__sprak:hover { border-color: var(--sky); }
 .menu-btn { display: none; font: 700 .9rem var(--display); background: none; color: var(--text); border: 1.5px solid var(--text); border-radius: 4px; padding: 6px 12px; }
 @media (max-width: 760px) {
   .js .menu-btn { display: block; }

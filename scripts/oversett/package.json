@@ -1,0 +1,9 @@
+{
+  "name": "hpgt-oversett",
+  "private": true,
+  "type": "module",
+  "description": "Oversetter utvalgte sider til engelsk ved publisering. Egen pakke så nøkkelen aldri er tilgjengelig for nettstedets byggepakker.",
+  "dependencies": {
+    "@anthropic-ai/sdk": "1.3.0"
+  }
+}

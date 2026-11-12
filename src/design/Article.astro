@@ -1,6 +1,9 @@
 ---
 import { url, slug } from "../lib/site";
 import Innhold from "./Innhold.astro";
+import { T, sideInfo } from "../lib/i18n";
+const { sprak } = sideInfo(Astro.url.pathname);
+const t = T[sprak];
 const { title, ingress, bilde, meta, kategorier, tilbake, overskrifter = [] } = Astro.props;
 // Innholdsfortegnelse bare når teksten har minst tre overskrifter
 const toc = overskrifter.filter((h: { depth: number }) => h.depth <= 3).length >= 3;
@@ -8,7 +11,7 @@ const toc = overskrifter.filter((h: { depth: number }) => h.depth <= 3).length >
 <article class:list={["wrap article", { "article--toc": toc }]}>
   {toc && <Innhold overskrifter={overskrifter} />}
   <div class="article__main">
-    <nav class="crumbs" aria-label="Brødsmuler"><a href={url("/")}>Hjem</a>{tilbake && <><span>/</span><a href={tilbake.url}>{tilbake.tekst}</a></>}</nav>
+    <nav class="crumbs" aria-label={t.brodsmuler}><a href={url(sprak === "en" ? "/en/" : "/")}>{t.hjem}</a>{tilbake && <><span>/</span><a href={tilbake.url}>{tilbake.tekst}</a></>}</nav>
     <slot name="foran" />
     {meta && <p class="post__meta">{kategorier?.map((k) => <><a class="kat" data-kat={slug(k)} href={url(`/nytt/kategori/${slug(k)}/`)}>{k}</a> · </>)}{meta}</p>}
     <h1 class="h1">{title}</h1>

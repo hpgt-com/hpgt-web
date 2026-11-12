@@ -7,25 +7,35 @@ import "@fontsource/ibm-plex-mono/500.css";
 import "@fontsource/ibm-plex-mono/600.css";
 import "./style.css";
 import { site, meny, url, ekstern } from "../lib/site";
+import { T, sideInfo, engelskeStier, lenkeFor, menyTekst } from "../lib/i18n";
 const { title, description, image } = Astro.props;
-const here = Astro.url.pathname;
-const aktiv = (u: string) => !ekstern(u) && (u === "/" ? here === url("/") : here.startsWith(url(u)));
+// Språket bestemmes av adressen: /en/… er engelsk
+const { sti, sprak } = sideInfo(Astro.url.pathname);
+const t = T[sprak];
+const engelske = await engelskeStier();
+const finnes = engelske.has(sti);
+// Språkbryteren går til samme side på det andre språket, eller til forsiden hvis siden ikke er oversatt
+const annen = sprak === "nb" ? url(finnes ? `/en${sti}` : "/en/") : url(sti);
+const visBryter = engelske.has("/");
+const lenk = (u: string) => lenkeFor(sprak, u, engelske);
+const aktiv = (u: string) => !ekstern(u) && (u === "/" ? sti === "/" : sti.startsWith(u));
 ---
 <!doctype html>
-<html lang="nb">
-<head><Head title={title} description={description} image={image} /></head>
+<html lang={sprak}>
+<head><Head title={title} description={description} image={image} sprak={sprak} sti={sti} alternativ={finnes} /></head>
 <body>
-  <a class="skip" href="#innhold">Hopp til innhold</a>
+  <a class="skip" href="#innhold">{t.hopp}</a>
   <ProtoBanner />
   <header class="top">
     <div class="wrap top__in">
-      <a class="brand" href={url("/")}>
+      <a class="brand" href={url(sprak === "en" ? "/en/" : "/")}>
         <img src={url("/assets/img/hpgt-logo.png")} alt="" width="36" height="36" />
         <span><b>HPGT</b><small>Harstad Hang og Paragliderklubb</small></span>
       </a>
-      <button class="menu-btn" type="button" data-menu-button aria-expanded="false" aria-controls="nav">Meny</button>
-      <nav id="nav" class="nav" aria-label="Hovedmeny">
-        {meny.hoved.map((m) => <a href={url(m.url)} aria-current={aktiv(m.url) ? "page" : undefined}>{m.tekst}{ekstern(m.url) && " ↗"}</a>)}
+      <button class="menu-btn" type="button" data-menu-button aria-expanded="false" aria-controls="nav">{t.meny}</button>
+      <nav id="nav" class="nav" aria-label={t.hovedmeny}>
+        {meny.hoved.map((m) => <a href={lenk(m.url)} aria-current={aktiv(m.url) ? "page" : undefined}>{menyTekst(sprak, m.tekst)}{ekstern(m.url) && " ↗"}</a>)}
+        {visBryter && <a class="nav__sprak" href={annen} hreflang={t.annetSprakLang} lang={t.annetSprakLang} title={t.byttSprak}>{t.annetSprak}</a>}
       </nav>
     </div>
   </header>
@@ -33,11 +43,11 @@ const aktiv = (u: string) => !ekstern(u) && (u === "/" ? here === url("/") : her
   <footer class="foot">
     <div class="wrap foot__grid">
       <div><p class="foot__logo">HPGT</p><p class="muted">Harstad Hang og Paragliderklubb<br />Org.nr. {site.orgnr} · Vipps {site.vipps}<br /><a href={`mailto:${site.epost.leder}`}>{site.epost.leder}</a></p></div>
-      <nav aria-label="Klubben"><h2>Klubben</h2>{meny.klubben.map((m) => <a href={url(m.url)}>{m.tekst}</a>)}</nav>
-      <nav aria-label="For piloter"><h2>For piloter</h2>{meny.piloter.map((m) => <a href={url(m.url)}>{m.tekst}{ekstern(m.url) && " ↗"}</a>)}</nav>
-      <nav aria-label="Følg oss"><h2>Følg oss</h2><a href={site.facebook}>Facebook ↗</a><a href={site.instagram}>Instagram ↗</a></nav>
+      <nav aria-label={t.klubben}><h2>{t.klubben}</h2>{meny.klubben.map((m) => <a href={lenk(m.url)}>{menyTekst(sprak, m.tekst)}</a>)}</nav>
+      <nav aria-label={t.piloter}><h2>{t.piloter}</h2>{meny.piloter.map((m) => <a href={lenk(m.url)}>{menyTekst(sprak, m.tekst)}{ekstern(m.url) && " ↗"}</a>)}</nav>
+      <nav aria-label={t.folg}><h2>{t.folg}</h2><a href={site.facebook}>Facebook ↗</a><a href={site.instagram}>Instagram ↗</a></nav>
     </div>
-    <div class="wrap foot__end"><p class="quote">«{site.sitat.tekst}» <span>– {site.sitat.kilde}</span></p><p class="muted">Ingen sporing eller informasjonskapsler.</p></div>
+    <div class="wrap foot__end"><p class="quote">«{site.sitat.tekst}» <span>– {site.sitat.kilde}</span></p><p class="muted">{t.sporing}</p></div>
   </footer>
 </body>
 </html>

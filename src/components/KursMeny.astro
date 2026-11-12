@@ -1,10 +1,13 @@
 ---
 // Egen meny for kursene, øverst på /kurs/ og på hver kursside. Nye kurssider (Pages CMS → Kurs) dukker opp her automatisk.
 import { hentKurs, kursLenke, url } from "../lib/site";
+import { T, sideInfo } from "../lib/i18n";
 import "./kurs.css";
 const here = Astro.url.pathname;
-const lenker = [{ tekst: "Alle kurs", href: url("/kurs/") }, ...(await hentKurs()).map((k) => ({ tekst: k.data.menynavn ?? k.data.title, href: url(kursLenke(k)) }))];
+const { sprak } = sideInfo(here);
+const p = sprak === "en" ? "/en" : "";
+const lenker = [{ tekst: T[sprak].alleKurs, href: url(`${p}/kurs/`) }, ...(await hentKurs(sprak)).map((k) => ({ tekst: k.data.menynavn ?? k.data.title, href: url(p + kursLenke(k)) }))];
 ---
-<nav class="kursmeny" aria-label="Kurs">
+<nav class="kursmeny" aria-label={T[sprak].kurs}>
   {lenker.map((l) => <a href={l.href} aria-current={here === l.href ? "page" : undefined}>{l.tekst}</a>)}
 </nav>

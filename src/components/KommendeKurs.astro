@@ -1,7 +1,10 @@
 ---
 // På kurssiden: kommende kurs og fagdager hentes fra kalenderen, så datoene bare skrives ett sted (i innlegget).
 import { hentArrangementer, dato, sted, tid, lenke, url, gruppeFor, typeTekst } from "../lib/site";
+import { T, sideInfo, datoFor } from "../lib/i18n";
 import "./arrangement.css";
+const { sprak } = sideInfo(Astro.url.pathname);
+const t = T[sprak];
 // type: bare dette kurset (på en kursside). Uten type: alle kurs og fagdager (på /kurs/).
 const { type } = Astro.props as { type?: string };
 const { kommende, tidligere } = await hentArrangementer();
@@ -10,9 +13,9 @@ const neste = kommende.filter(erKurs);
 const forrige = tidligere.find(erKurs);
 ---
 <section class="kurs-neste" aria-labelledby="kurs-neste-h">
-  <h2 id="kurs-neste-h">{type ? "Neste kurs" : "Kommende kurs og fagdager"}</h2>
+  <h2 id="kurs-neste-h">{type ? t.nesteKurs : t.kommende}</h2>
   {neste.length > 0
-    ? <ul>{neste.map((e) => <li><a href={url(lenke(e))}><b>{e.data.title}</b><span>{dato(e.data.start)} · {[sted(e), tid(e)].filter(Boolean).join(" · ")} · {typeTekst(e.data.type)}</span></a></li>)}</ul>
-    : <p>Ingen kurs er satt opp akkurat nå. Følg med her og i Facebook-gruppa{forrige && <> – forrige var <a href={url(lenke(forrige))}>{forrige.data.title}</a> ({dato(forrige.data.start)})</>}.</p>}
-  <p class="kurs-neste__alle"><a href={url("/arrangementer/")}>Hele kalenderen →</a></p>
+    ? <ul>{neste.map((e) => <li><a href={url(lenke(e))}><b>{e.data.title}</b><span>{datoFor(sprak, e.data.start)} · {[sted(e), tid(e)].filter(Boolean).join(" · ")} · {typeTekst(e.data.type)}</span></a></li>)}</ul>
+    : <p>{t.ingenKurs}{forrige && <> – {t.forrigeVar} <a href={url(lenke(forrige))}>{forrige.data.title}</a> ({datoFor(sprak, forrige.data.start)})</>}.</p>}
+  <p class="kurs-neste__alle"><a href={url("/arrangementer/")}>{t.heleKalenderen}</a></p>
 </section>
