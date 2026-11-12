@@ -1,29 +1,36 @@
 ---
 import Aktivitetskalender from "../components/Aktivitetskalender.astro";
-import { forside, url, dato, dag, mnd, lenke, slug, utdrag, bildeFor, tidSted } from "../lib/site";
+import { url, dato, dag, mnd, lenke, slug, utdrag, bildeFor, tidSted } from "../lib/site";
+import { T, sideInfo, forsideFor, engelskeStier, lenkeFor } from "../lib/i18n";
 const { innlegg, kommende, tidligere } = Astro.props;
+// Engelsk forside: samme oppsett, men nyheter og kalender (som bare finnes på norsk) erstattes av en kort henvisning
+const { sprak } = sideInfo(Astro.url.pathname);
+const t = T[sprak];
+const forside = forsideFor(sprak);
+const engelske = await engelskeStier();
+const lenk = (u: string) => lenkeFor(sprak, u, engelske);
 const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", day: "2-digit", month: "short", year: "numeric" }).format(d).replace(/\./g, "");
 ---
 <section class="hero">
-  <img class="hero__img" src={url(forside.heltebilde)} alt="Tandemflyging over snødekte fjell ved Harstad" />
+  <img class="hero__img" src={url(forside.heltebilde)} alt={t.heltebildeAlt} />
   <div class="wrap hero__in">
     <p class="eyebrow eyebrow--light"><span class="dot" aria-hidden="true"></span>{forside.stikkord}</p>
     <h1 class="hero__title">{forside.slagord}</h1>
     <p class="hero__lead">{forside.slagordIngress}</p>
     <p class="actions">
-      <a class="btn" href={url("/kurs/")}>Utforsk kurs <span aria-hidden="true">↗</span></a>
-      <a class="btn btn--ghost" href={url("/flysteder/")}>Fly med oss <span aria-hidden="true">→</span></a>
-      <a class="hero__cal" href="#aktivitetskalender">Aktivitetskalender ↓</a>
+      <a class="btn" href={lenk("/kurs/")}>{t.utforskKurs} <span aria-hidden="true">↗</span></a>
+      <a class="btn btn--ghost" href={lenk("/flysteder/")}>{t.flyMedOss} <span aria-hidden="true">→</span></a>
+      {sprak === "nb" && <a class="hero__cal" href="#aktivitetskalender">{t.kalender} ↓</a>}
     </p>
     <div class="hero__strip"><span>Harstad / Sør-Troms</span><span>{forside.heltebildeKreditt}</span></div>
   </div>
 </section>
 
 <section class="wrap section">
-  <div class="head"><div><p class="eyebrow">Ut i lufta</p><h2 class="h2">Finn din vei inn.</h2></div><a class="more" href={url("/om-oss/")}>Om klubben ↗</a></div>
+  <div class="head"><div><p class="eyebrow">{t.utILufta}</p><h2 class="h2">{t.finnVei}</h2></div><a class="more" href={lenk("/om-oss/")}>{t.omKlubben} ↗</a></div>
   <div class="paths">
     {forside.veier.map((v, i) => (
-      <a class="path" href={url(v.url)}>
+      <a class="path" href={lenk(v.url)}>
         <span class="eyebrow">{String(i + 1).padStart(2, "0")} / {v.verb}</span>
         <span class="path__title">{v.tittel}</span>
         <span class="path__text">{v.tekst}</span>
@@ -34,6 +41,12 @@ const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", da
 </section>
 
 <hr class="wrap rule" />
+{sprak === "en" && <section class="wrap section">
+  <div class="head"><div><p class="eyebrow">{T.en.fraKlubben}</p><h2 class="h2">{T.en.norskInnhold}</h2></div></div>
+  <p class="lead">{T.en.norskInnholdTekst}</p>
+  <p class="actions"><a class="btn" href={url("/nytt/")}>{T.en.nyheter}</a> <a class="btn" href={url("/arrangementer/")}>{T.en.arrangementer}</a></p>
+</section>}
+{sprak === "nb" && <>
 
 
 <section class="wrap section">
@@ -62,3 +75,4 @@ const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", da
   <Aktivitetskalender kommende={kommende} tidligere={tidligere} />
   </div>
 </section>
+</>}

@@ -11,6 +11,7 @@ __pycache__/
 .astro/
 .wrangler/
 .forhandsvisning-bygg/
+.oversatt/
 forhandsvisning/
 
 # Lokalt oppsett

@@ -74,6 +74,27 @@ content:
       - { name: mal, label: Mal, type: string, hidden: true }
       - { name: body, label: Tekst, type: rich-text }
 
+  - name: kurs
+    label: Kurs
+    type: collection
+    path: src/content/kurs
+    filename: "{primary}.md"
+    view: { fields: [title, rekkefolge], primary: title, sort: [rekkefolge, title], default: { sort: rekkefolge, order: asc } }
+    description: "Én side per kurs, f.eks. /kurs/paragliding-pp2/. Nye kurs dukker automatisk opp i kursmenyen og som kort på Kurs-siden. Datoene skrives ikke her, men i et innlegg med arrangement av samme type – da vises de øverst på kurssiden."
+    fields:
+      - { name: title, label: Tittel, type: string, required: true, description: "F.eks. «Grunnkurs i speedgliding (SPG2)». Adressen lages av tittelen første gang siden lagres." }
+      - { name: menynavn, label: Kort navn i kursmenyen, type: string, description: "F.eks. «Speedgliding (SPG2)». Tomt = tittelen." }
+      - { name: ingress, label: Ingress, type: text, description: "1–2 setninger. Vises også på kortet på Kurs-siden." }
+      - { name: bilde, label: Toppbilde, type: image }
+      - name: kurstype
+        label: Kurstype
+        type: select
+        description: "Kommende arrangementer med denne typen vises som «Neste kurs» øverst på siden."
+        options: { values: ["Kurs / PP2", "Kurs / SPG2", "Kurs / PPG3", "Kurs / SIV", "Kurs / Prøvedag", "Kurs / Annet kurs", "Fagdag / Nødskjerm og vingesjekk", "Fagdag / Sikkerhetsseminar", "Fagdag / Annen fagdag"] }
+      - { name: rekkefolge, label: Rekkefølge i menyen, type: number, default: 50, description: "Lavest først." }
+      - { name: sist_endret, label: Sist oppdatert, type: date }
+      - { name: body, label: Tekst, type: rich-text }
+
   - name: forside
     label: Forsiden
     type: file

@@ -56,6 +56,11 @@ export async function hentArrangementer() {
   const ferdig = (e: Arrangement) => +(e.data.slutt ?? e.data.start) < naa;
   return { kommende: alle.filter((e) => !ferdig(e)), tidligere: alle.filter(ferdig).reverse() };
 }
+/** Kurssidene i kursmenyen, i valgt rekkefølge. */
+export const kursLenke = (k: { id: string }) => `/kurs/${k.id}/`;
+export async function hentKurs(sprak: "nb" | "en" = "nb") {
+  return (await getCollection(sprak === "en" ? "kurs_en" : "kurs")).sort((a, b) => a.data.rekkefolge - b.data.rekkefolge || a.data.title.localeCompare(b.data.title, "nb"));
+}
 export async function hentKategorier() {
   const map = new Map<string, Innlegg[]>();
   for (const p of await hentInnlegg()) for (const k of p.data.kategorier) map.set(k, [...(map.get(k) ?? []), p]);

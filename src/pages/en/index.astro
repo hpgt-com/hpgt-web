@@ -1,0 +1,13 @@
+---
+// Engelsk forside. Bygges bare når forsidetekstene er oversatt (.oversatt/forside.json).
+import Layout from "@design/Layout.astro";
+import Home from "@design/Home.astro";
+import { site } from "../../lib/site";
+import { engelskeStier } from "../../lib/i18n";
+export async function getStaticPaths() {
+  return (await engelskeStier()).has("/") ? [{ params: {} }] : [];
+}
+---
+<Layout title={site.navn} description="Paragliding, speedflying and paramotor in Harstad, Northern Norway. Courses, tandem flights, flying sites and a friendly club.">
+  <Home innlegg={[]} kommende={[]} tidligere={[]} />
+</Layout>

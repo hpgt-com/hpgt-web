@@ -45,22 +45,37 @@ const innlegg = defineCollection({
   }),
 });
 
-const sider = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/sider" }),
-  schema: z.object({
-    title: z.string(),
-    permalink,
-    ingress: z.string().optional(),
-    bilde: z.string().optional(),
-    mal: z.enum(["standard", "kontakt", "radioid", "redaktordemo", "kurs"]).default("standard"),
-    sist_endret: z.coerce.date().optional(),
-    wp_id: z.number().optional(),
-  }),
+const sideSkjema = z.object({
+  title: z.string(),
+  permalink,
+  ingress: z.string().optional(),
+  bilde: z.string().optional(),
+  mal: z.enum(["standard", "kontakt", "radioid", "redaktordemo", "kurs"]).default("standard"),
+  sist_endret: z.coerce.date().optional(),
+  wp_id: z.number().optional(),
 });
+const sider = defineCollection({ loader: glob({ pattern: "**/*.md", base: "./src/content/sider" }), schema: sideSkjema });
+
+// Kurssidene (/kurs/<filnavn>/). Vises i kursmenyen øverst på alle kurssider, sortert etter «rekkefolge».
+const kursSkjema = z.object({
+  title: z.string(),
+  menynavn: z.preprocess(tom, z.string().optional()),
+  ingress: z.preprocess(tom, z.string().optional()),
+  bilde: z.preprocess(tom, z.string().optional()),
+  // Kommende datoer på kurssiden hentes fra arrangementer med denne typen
+  kurstype: z.preprocess(tom, z.enum(ARRANGEMENTSTYPER).optional()),
+  rekkefolge: z.preprocess(tom, z.coerce.number().default(50)),
+  sist_endret: z.preprocess(tom, z.coerce.date().optional()),
+});
+const kurs = defineCollection({ loader: glob({ pattern: "*.md", base: "./src/content/kurs" }), schema: kursSkjema });
+
+// Engelske versjoner, laget automatisk av scripts/oversett/oversett.mjs før bygget (mappa .oversatt er ikke i git)
+const sider_en = defineCollection({ loader: glob({ pattern: "*.md", base: "./.oversatt/sider" }), schema: sideSkjema });
+const kurs_en = defineCollection({ loader: glob({ pattern: "*.md", base: "./.oversatt/kurs" }), schema: kursSkjema });
 
 const styret = defineCollection({
   loader: file("./src/data/styret.json", { parser: (t) => JSON.parse(t).medlemmer }),
   schema: z.object({ rolle: z.string(), navn: z.string(), telefon: z.string().optional(), epost: z.string().optional(), bilde: z.string().optional() }),
 });
 
-export const collections = { innlegg, sider, styret };
+export const collections = { innlegg, sider, kurs, sider_en, kurs_en, styret };

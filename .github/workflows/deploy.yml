@@ -3,7 +3,11 @@ name: Bygg og publiser
 # Bygger siden og publiserer den til Cloudflare (Workers static assets + workeren for RadioID-skjemaet)
 # når main endres, også når en redaktør lagrer i Pages CMS.
 #
-# To jobber, så kode fra repoet aldri kjører med publiseringsnøkkelen:
+# Tre jobber, så ingen nøkkel er tilgjengelig for mer kode enn nødvendig:
+#   oversett  oversetter ny eller endret tekst til engelsk (scripts/oversett). Logger inn hos Anthropic uten
+#             lagret nøkkel: GitHubs OIDC-token for miljøet «oversetting» veksles inn (workload identity federation).
+#             Installerer bare Anthropic-SDK-en, ikke nettstedets byggepakker. Uten innlogging brukes
+#             oversettelsene fra forrige publisering uendret.
 #   bygg      installerer pakkene og bygger, uten hemmeligheter. Resultatet leveres videre som artifact.
 #   publiser  har Cloudflare-tokenet (bare «Workers Scripts: Edit» på klubbens konto), men kjører ingen npm-kode
 #             fra repoet. Tokenet ligger i miljøet «produksjon», som bare main får bruke.
@@ -21,8 +25,48 @@ concurrency:
   group: publiser
   cancel-in-progress: false
 
+env:
+  # Oversettelsene fra forrige publisering. Bytt til https://hpgt.com/en/oversettelser.json hvis workers.dev-adressen skrus av.
+  OVERSETT_FORRIGE: https://hpgt-web.hpgt.workers.dev/en/oversettelser.json
+
 jobs:
+  oversett:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: oversetting
+    permissions:
+      contents: read
+      id-token: write # kortlivet OIDC-token som Anthropic veksler inn; ingen lagret nøkkel
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+
+      - run: npm ci --ignore-scripts
+        working-directory: scripts/oversett
+
+      - run: node scripts/oversett/oversett.mjs
+        env:
+          # Ikke hemmelige: sier bare hvilken føderasjonsregel og tjenestekonto innloggingen gjelder (miljøvariabler i «oversetting»)
+          ANTHROPIC_ORGANIZATION_ID: ${{ vars.ANTHROPIC_ORGANIZATION_ID }}
+          ANTHROPIC_FEDERATION_RULE_ID: ${{ vars.ANTHROPIC_FEDERATION_RULE_ID }}
+          ANTHROPIC_SERVICE_ACCOUNT_ID: ${{ vars.ANTHROPIC_SERVICE_ACCOUNT_ID }}
+          ANTHROPIC_WORKSPACE_ID: ${{ vars.ANTHROPIC_WORKSPACE_ID }}
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: oversatt
+          path: .oversatt
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 3
+
   bygg:
+    needs: oversett
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -38,6 +82,11 @@ jobs:
           node-version-file: .nvmrc
 
       - run: npm ci --ignore-scripts
+
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: oversatt
+          path: .oversatt
 
       - run: npm run build
 

@@ -1,0 +1,13 @@
+---
+// Innholdsfortegnelse for lange sider: overskriftene i teksten (h2/h3). Vises til venstre på store skjermer
+// og som en sammenleggbar boks øverst på mobil. public/assets/js/innhold.js markerer hvor du er på siden.
+import type { MarkdownHeading } from "astro";
+import { T, sideInfo } from "../lib/i18n";
+const t = T[sideInfo(Astro.url.pathname).sprak];
+const { overskrifter, mobil = false } = Astro.props as { overskrifter: MarkdownHeading[]; mobil?: boolean };
+const liste = overskrifter.filter((h) => h.depth <= 3);
+const grunn = Math.min(...liste.map((h) => h.depth));
+---
+{mobil
+  ? <details class="toc toc--mobil"><summary>{t.paaSiden}</summary><ol>{liste.map((h) => <li class={h.depth > grunn ? "toc__under" : undefined}><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol></details>
+  : <nav class="toc toc--side" aria-label={t.paaSiden} data-toc><p class="toc__h">{t.paaSiden}</p><ol>{liste.map((h) => <li class={h.depth > grunn ? "toc__under" : undefined}><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol></nav>}

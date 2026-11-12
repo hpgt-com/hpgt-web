@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build && node scripts/skaler-bilder.mjs",
+    "dev": "node scripts/oversett/oversett.mjs && astro dev",
+    "build": "node scripts/oversett/oversett.mjs && astro build && node scripts/skaler-bilder.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "forhandsvisning": "./scripts/bygg-forhandsvisning.sh"

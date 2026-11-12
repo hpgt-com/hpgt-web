@@ -1,17 +1,20 @@
 ---
 // Rekkefølgen i styret.json (redigeres i CMS-et) bestemmer rekkefølgen på siden. id brukes som anker, f.eks. /om-klubben/#faglig-leder.
 import "./styret.css";
-import styret from "../data/styret.json";
 import { url } from "../lib/site";
+import { T, sideInfo, styretFor } from "../lib/i18n";
+const { sprak } = sideInfo(Astro.url.pathname);
+const t = T[sprak];
+const styret = styretFor(sprak);
 ---
-<ul class="people" aria-label="Styret">
+<ul class="people" aria-label={t.styret}>
   {styret.medlemmer.map((p) => (
     <li class="person" id={p.id}>
-      {p.bilde && <img src={url(p.bilde)} alt={`Portrett av ${p.navn}`} width="160" height="160" loading="lazy" />}
+      {p.bilde && <img src={url(p.bilde)} alt={`${t.portrett} ${p.navn}`} width="160" height="160" loading="lazy" />}
       <div>
         <p class="person__rolle">{p.rolle}</p>
         <p class="person__navn">{p.navn}</p>
-        {"ansvar" in p && p.ansvar && <p class="person__ansvar"><b>Kontakt meg om:</b> {p.ansvar}</p>}
+        {"ansvar" in p && p.ansvar && <p class="person__ansvar"><b>{t.kontaktMeg}</b> {p.ansvar}</p>}
         {p.telefon && <p><a href={`tel:${p.telefon.replace(/\s/g, "")}`}>{p.telefon}</a></p>}
         {"epost" in p && p.epost && <p><a href={`mailto:${p.epost}`}>{p.epost}</a></p>}
       </div>
