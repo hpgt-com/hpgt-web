@@ -17,7 +17,9 @@ export default defineConfig({
   base: BASE,
   outDir: process.env.OUT || "dist",
   trailingSlash: "always",
-  redirects: { ...omdirigeringer, "/kurs-2026/": "/kurs/", "/events/": "/arrangementer/", "/nytt/kategori/kurs/": "/nytt/kategori/kurs-og-fagdag/", "/galleri/": "/konkurranser/konkurranse-2014/" },
+  redirects: { ...omdirigeringer, "/kurs-2026/": "/kurs/", "/events/": "/arrangementer/", "/nytt/kategori/kurs/": "/nytt/kategori/kurs-og-fagdag/", "/galleri/": "/konkurranser/konkurranse-2014/",
+    // «Fly med oss» ble slått sammen med For piloter (samme innhold); RadioID ligger fortsatt under /flysteder/
+    "/flysteder/": "/for-piloter/", "/en/flysteder/": "/en/for-piloter/" },
   build: { format: "directory", inlineStylesheets: "never" },
   // Ingen syntaksfarger: Shiki legger fargene i style-attributter, som den strenge CSP-en blokkerer.
   // Kodeblokker (f.eks. NOTAM-malen) styles i stedet av .prose pre i designet.

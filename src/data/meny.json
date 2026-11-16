@@ -37,10 +37,6 @@
       "forste": "Oversikt",
       "sider": [
         {
-          "tekst": "Fly med oss",
-          "url": "/flysteder/"
-        },
-        {
           "tekst": "Vær og lenker",
           "url": "/lenker/"
         },
@@ -53,7 +49,7 @@
           "url": "/flysteder/flarm-fanet-radioid/"
         },
         {
-          "tekst": "Flysteder (kart)",
+          "tekst": "Flysteder",
           "url": "https://flysteder.hpgt.com/",
           "ekstern": true,
           "ingress": "Kartet over klubbens flysteder med start- og landingsplasser.",
