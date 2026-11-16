@@ -63,12 +63,22 @@ async function githubToken() {
   const { ACTIONS_ID_TOKEN_REQUEST_URL: u, ACTIONS_ID_TOKEN_REQUEST_TOKEN: t } = process.env;
   const svar = await fetch(`${u}&audience=${encodeURIComponent("https://api.anthropic.com")}`, { headers: { Authorization: `Bearer ${t}` } });
   if (!svar.ok) throw new Error(`GitHub OIDC: HTTP ${svar.status}`);
-  writeFileSync(process.env.ANTHROPIC_IDENTITY_TOKEN_FILE, (await svar.json()).value, { mode: 0o600 });
+  const token = (await svar.json()).value;
+  writeFileSync(process.env.ANTHROPIC_IDENTITY_TOKEN_FILE, token, { mode: 0o600 });
+  return token;
+}
+// Feltene føderasjonsregelen sammenligner med (ikke hemmelige; selve tokenet logges aldri)
+function visKrav(token) {
+  try {
+    const k = JSON.parse(Buffer.from(token.split(".")[1], "base64url").toString());
+    const felt = ["iss", "aud", "sub", "ref", "event_name", "environment", "repository", "repository_id", "repository_owner", "repository_owner_id"];
+    console.log(`oversett: GitHub-token for ${felt.map((f) => `${f}=${k[f]}`).join(" ")}`);
+  } catch {}
 }
 if (process.env.ANTHROPIC_FEDERATION_RULE_ID && process.env.ACTIONS_ID_TOKEN_REQUEST_URL) {
   process.env.ANTHROPIC_IDENTITY_TOKEN_FILE = join(tmpdir(), `anthropic-oidc-${process.pid}`);
   try {
-    await githubToken();
+    visKrav(await githubToken());
     setInterval(() => githubToken().catch((e) => console.warn(`oversett: ${e.message}`)), 4 * 60 * 1000).unref();
   } catch (e) {
     console.warn(`oversett: fikk ikke logget inn (${e.message}) – bruker eksisterende oversettelser`);
@@ -108,6 +118,11 @@ async function oversett(nokkel, tekst, kort) {
     } catch (e) {
       feilet++;
       console.warn(`oversett: ${nokkel} feilet (${e.message}) – beholder forrige oversettelse`);
+      // Avvist innlogging blir ikke bedre av å prøve på nytt for hver tekst
+      if (e?.status === 401 || e?.status === 403 || /Token exchange failed/.test(e?.message ?? "")) {
+        console.warn("oversett: innloggingen ble avvist – hopper over resten. Sjekk føderasjonsregelen mot feltene over.");
+        klient = null;
+      }
     }
   }
   if (gammel) return (ny[nokkel] = gammel).en; // utdatert, men bedre enn ingenting
