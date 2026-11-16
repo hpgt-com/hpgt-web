@@ -46,7 +46,7 @@ export default {
 
     const rader = [["Handling", HANDLINGER[handling]], ["Navn", navn], ["RadioID", id], ["Vario / utstyr", utstyr || "–"]];
     const body = [
-      "Innmelding fra skjemaet på hpgt.com/flysteder/flarm-fanet-radioid/.",
+      "Innmelding fra skjemaet på hpgt.com/for-piloter/radioid/.",
       "",
       "| Felt | Verdi |", "|---|---|",
       ...rader.map(([k, v]) => `| ${k} | ${md(v)} |`),

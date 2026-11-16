@@ -44,7 +44,7 @@ Ved spørsmål rundt konkurransen ta kontakt via kontaktskjemaet vårt her på 
 
 Del gjerne med alle medlemmer i klubben!
 
-[Sist gang konkuransen ble kjørt var i 2017. Se bidragene den gang da her](/konkurranser/konkurranse-2017/)
+[Sist gang konkuransen ble kjørt var i 2017. Se bidragene den gang da her](/klubben/konkurranser/2017/)
 
 MVH
 

@@ -1,7 +1,7 @@
 ---
 title: "Økonomisk støtte"
 ingress: "Fire enkle måter å støtte klubben økonomisk på."
-permalink: "/grasrotandelen/"
+permalink: "/klubben/stotte/"
 wp_id: 298
 sist_endret: "2026-03-23"
 ---

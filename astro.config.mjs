@@ -17,9 +17,11 @@ export default defineConfig({
   base: BASE,
   outDir: process.env.OUT || "dist",
   trailingSlash: "always",
-  redirects: { ...omdirigeringer, "/kurs-2026/": "/kurs/", "/events/": "/arrangementer/", "/nytt/kategori/kurs/": "/nytt/kategori/kurs-og-fagdag/", "/galleri/": "/konkurranser/konkurranse-2014/",
+  redirects: { ...omdirigeringer, "/kurs-2026/": "/kurs/", "/events/": "/arrangementer/", "/nytt/kategori/kurs/": "/nytt/kategori/kurs-og-fagdag/", "/galleri/": "/klubben/konkurranser/2014/",
     // «Fly med oss» ble slått sammen med For piloter (samme innhold); RadioID ligger fortsatt under /flysteder/
-    "/flysteder/": "/for-piloter/", "/en/flysteder/": "/en/for-piloter/" },
+    "/flysteder/": "/for-piloter/", "/en/flysteder/": "/en/for-piloter/",
+    // Adressene følger menyen (Klubben, For piloter); de gamle fra WordPress videresendes
+    "/flysteder/flarm-fanet-radioid/": "/for-piloter/radioid/", "/konkurranser/konkurranse-2014/": "/klubben/konkurranser/2014/", "/konkurranser/konkurranse-2017/": "/klubben/konkurranser/2017/", "/grasrotandelen/": "/klubben/stotte/", "/en/grasrotandelen/": "/en/klubben/stotte/", "/redaktor-demo/": "/klubben/redaktor/", "/konkurranser/": "/klubben/konkurranser/", "/om-klubben/": "/klubben/styret/", "/en/om-klubben/": "/en/klubben/styret/", "/om-oss/": "/klubben/", "/en/om-oss/": "/en/klubben/", "/lenker/": "/for-piloter/vaer/", "/en/lenker/": "/en/for-piloter/vaer/", "/bidra/": "/klubben/bidra/", "/notam/": "/for-piloter/notam/", "/en/notam/": "/en/for-piloter/notam/" },
   build: { format: "directory", inlineStylesheets: "never" },
   // Ingen syntaksfarger: Shiki legger fargene i style-attributter, som den strenge CSP-en blokkerer.
   // Kodeblokker (f.eks. NOTAM-malen) styles i stedet av .prose pre i designet.

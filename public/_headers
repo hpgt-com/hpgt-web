@@ -9,6 +9,6 @@
   X-Robots-Tag: noindex
 
 # RadioID-skjemaet: samme regler, men Cloudflare Turnstile får laste skript og vise sin sjekk. Bare denne siden.
-/flysteder/flarm-fanet-radioid/
+/for-piloter/radioid/
   ! Content-Security-Policy
   Content-Security-Policy: default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src https://challenges.cloudflare.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests

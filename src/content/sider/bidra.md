@@ -1,6 +1,6 @@
 ---
 title: "Skriv på siden"
-permalink: "/bidra/"
+permalink: "/klubben/bidra/"
 ingress: "Alle medlemmer kan få tilgang til å skrive nyheter, legge ut referater og oppdatere sider – uten å kunne noe om nettsider."
 ---
 ## Slik får du tilgang

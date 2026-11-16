@@ -22,7 +22,7 @@
     },
     {
       "tekst": "Klubben",
-      "url": "/om-oss/"
+      "url": "/klubben/"
     },
     {
       "tekst": "Flysteder",
@@ -38,15 +38,15 @@
       "sider": [
         {
           "tekst": "Vær og lenker",
-          "url": "/lenker/"
+          "url": "/for-piloter/vaer/"
         },
         {
           "tekst": "NOTAM",
-          "url": "/notam/"
+          "url": "/for-piloter/notam/"
         },
         {
           "tekst": "RadioID",
-          "url": "/flysteder/flarm-fanet-radioid/"
+          "url": "/for-piloter/radioid/"
         },
         {
           "tekst": "Flysteder",
@@ -59,12 +59,12 @@
     },
     {
       "tekst": "Klubben",
-      "url": "/om-oss/",
+      "url": "/klubben/",
       "forste": "Om klubben",
       "sider": [
         {
           "tekst": "Styret og roller",
-          "url": "/om-klubben/"
+          "url": "/klubben/styret/"
         },
         {
           "tekst": "Møter og referater",
@@ -74,21 +74,21 @@
         },
         {
           "tekst": "Økonomisk støtte",
-          "url": "/grasrotandelen/"
+          "url": "/klubben/stotte/"
         },
         {
           "tekst": "Konkurranser",
-          "url": "/konkurranser/"
+          "url": "/klubben/konkurranser/"
         },
         {
           "tekst": "Skriv på siden",
-          "url": "/bidra/"
+          "url": "/klubben/bidra/"
         }
       ],
       "bareIBunnen": [
         {
           "tekst": "Prøv redaktøren",
-          "url": "/redaktor-demo/"
+          "url": "/klubben/redaktor/"
         }
       ]
     }

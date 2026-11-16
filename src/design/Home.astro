@@ -28,7 +28,7 @@ const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", da
 </section>
 
 <section class="wrap section">
-  <div class="head"><div><p class="eyebrow">{t.utILufta}</p><h2 class="h2">{t.finnVei}</h2></div><a class="more" href={lenk("/om-oss/")}>{t.omKlubben}&nbsp;<Pil /></a></div>
+  <div class="head"><div><p class="eyebrow">{t.utILufta}</p><h2 class="h2">{t.finnVei}</h2></div><a class="more" href={lenk("/klubben/")}>{t.omKlubben}&nbsp;<Pil /></a></div>
   <div class="paths">
     {forside.veier.map((v, i) => (
       <a class="path" href={lenk(v.url)}>
