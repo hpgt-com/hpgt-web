@@ -45,6 +45,7 @@ content:
         label: Vedlegg (PDF, referater, innkallinger)
         type: object
         list: true
+        description: "Bare dokumenter som kan være offentlige (f.eks. signerte referater og årsberetninger) – alt som lastes opp her kan lastes ned av alle. Utkast, regnskap, medlemslister og andre interne dokumenter hører hjemme i klubbens Google Drive."
         fields:
           - { name: tittel, label: Navn på dokumentet, type: string, required: true }
           - { name: fil, label: Fil, type: file, required: true, options: { media: dokumenter } }

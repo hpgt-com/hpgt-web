@@ -49,6 +49,10 @@ Faste klubbsponsorer ligger i `sponsors/`. Samme firma kan ligge begge steder.
 Gamle `/wp-content/…`-adresser videresendes til `archive/` og `competitions/ÅR/entries/` (`public/_redirects`).
 Designets egne filer (logo, skript) ligger i `public/assets/`.
 
+**Hva hører hjemme hvor:** bilder som brukes på siden og ferdige, offentlige dokumenter (signerte referater, årsberetninger)
+ligger her. Repoet er offentlig – utkast, regnskap, medlemslister og andre interne dokumenter hører hjemme i klubbens
+Google Drive, ikke her, og lenkes helst ikke fra nettsiden (lenker til Drive brytes lett og deling blir fort feil).
+
 ## Engelsk versjon
 
 Kurs, tandem, flysteder, klubbsidene og forsiden finnes også på engelsk under `/en/`. Ingen skriver teksten to ganger:
