@@ -20,7 +20,7 @@ const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", da
     <p class="hero__lead">{forside.slagordIngress}</p>
     <p class="actions">
       <a class="btn" href={lenk("/kurs/")}>{t.utforskKurs} <Pil /></a>
-      <a class="btn btn--ghost" href={lenk("/flysteder/")}>{t.flyMedOss} <Pil retning="hoyre" /></a>
+      <a class="btn btn--ghost" href={lenk("/for-piloter/")}>{t.flyMedOss} <Pil retning="hoyre" /></a>
       {sprak === "nb" && <a class="hero__cal" href="#aktivitetskalender">{t.kalender}&nbsp;<Pil retning="ned" /></a>}
     </p>
     <div class="hero__strip"><span>Harstad / Sør-Troms</span><span>{forside.heltebildeKreditt}</span></div>
@@ -28,7 +28,7 @@ const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", da
 </section>
 
 <section class="wrap section">
-  <div class="head"><div><p class="eyebrow">{t.utILufta}</p><h2 class="h2">{t.finnVei}</h2></div><a class="more" href={lenk("/om-oss/")}>{t.omKlubben}&nbsp;<Pil /></a></div>
+  <div class="head"><div><p class="eyebrow">{t.utILufta}</p><h2 class="h2">{t.finnVei}</h2></div><a class="more" href={lenk("/klubben/")}>{t.omKlubben}&nbsp;<Pil /></a></div>
   <div class="paths">
     {forside.veier.map((v, i) => (
       <a class="path" href={lenk(v.url)}>

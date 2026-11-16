@@ -59,12 +59,12 @@ Hugo bygger raskere og er én fil uten Node, men med ca. 180 sider bygger Astro 
 **Anbefaling: Pages CMS.** Kravet var at medlemmer kan få bruker selv uten at du må gjøre jobben. Det er bare Pages CMS som lar folk logge inn med e-post uten GitHub-konto. Ifølge [dokumentasjonen](https://pagescms.org/docs/configuration/collaborators/) kan e-postbrukere bare redigere innhold og media. De kan ikke endre konfigurasjonen eller administrere andre brukere.
 
 **Selvbetjent registrering, men med godkjenning.** Helt åpen registrering på en offentlig klubbside gir spam og hærverk. Flyten blir:
-1. Medlemmet fyller ut «Be om tilgang» på `/bidra/`. I prototypen er det en e-postlenke. I ferdig løsning blir det et skjema med Cloudflare Turnstile via en Worker, som «Meld fra» på flysteder.hpgt.com.
+1. Medlemmet fyller ut «Be om tilgang» på `/klubben/bidra/`. I prototypen er det en e-postlenke. I ferdig løsning blir det et skjema med Cloudflare Turnstile via en Worker, som «Meld fra» på flysteder.hpgt.com.
 2. Styret får beskjed og klikker «Inviter» i Pages CMS. Det tar ett minutt.
 3. Medlemmet får e-post, logger inn og kan skrive med en gang.
 
 ### RadioID-skjemaet
-Pilotene melder inn, endrer eller fjerner sin RadioID med et skjema nederst på `/flysteder/flarm-fanet-radioid/`. I stedet for en e-post havner det som en **GitHub-issue** med etiketten `radioid`. Den som vedlikeholder listen, oppdaterer registeret i CMS-et og lukker saken. Da har man historikk, og ingenting blir borte i en innboks.
+Pilotene melder inn, endrer eller fjerner sin RadioID med et skjema nederst på `/for-piloter/radioid/`. I stedet for en e-post havner det som en **GitHub-issue** med etiketten `radioid`. Den som vedlikeholder listen, oppdaterer registeret i CMS-et og lukker saken. Da har man historikk, og ingenting blir borte i en innboks.
 
 - Skjemaet går til `worker/index.js`, den eneste serverkoden på siden. Wrangler sender bare `/api/*` dit, og alt annet er statiske filer.
 - **Cloudflare Turnstile** (usynlig «er du et menneske?»-sjekk, ingen sporing) sjekkes på serveren, sammen med `action` og vertsnavn. I tillegg sjekkes opprinnelse, og det er en grense på 3 innsendinger per minutt per IP og en honningkrukke mot roboter.
@@ -74,7 +74,7 @@ Pilotene melder inn, endrer eller fjerner sin RadioID med et skjema nederst på 
 - *Mulig senere:* en GitHub Action som lager endringen i `radioid.json` automatisk fra saken, så den bare må godkjennes.
 
 ### Kontakt: roller i stedet for adresser
-`/om-klubben/` er nå **«Styret og roller»**. Hver rolle har en linje «Kontakt meg om», som redigeres i CMS-et, og siden har en tabell over hvem du kontakter om hva. Bunnteksten og NOTAM-siden lenker hit i stedet for å vise e-postadresser. Hver rolle har et eget anker, for eksempel `/om-klubben/#faglig-leder`.
+`/klubben/styret/` er nå **«Styret og roller»**. Hver rolle har en linje «Kontakt meg om», som redigeres i CMS-et, og siden har en tabell over hvem du kontakter om hva. Bunnteksten og NOTAM-siden lenker hit i stedet for å vise e-postadresser. Hver rolle har et eget anker, for eksempel `/klubben/styret/#faglig-leder`.
 - `leder@hpgt.com`: generelle spørsmål, medlemskap, økonomi og tilgang til nettsiden.
 - `faglig.leder@hpgt.com`: det faglige, som sikkerhet, NOTAM og vinsjing, flysteder, luftrom og hendelser.
 - `kurs@hpgt.com`: står bare på kurssiden og i eldre innlegg.

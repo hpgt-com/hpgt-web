@@ -1,6 +1,6 @@
 ---
 title: "Konkurranse 2014"
-permalink: "/konkurranser/konkurranse-2014/"
+permalink: "/klubben/konkurranser/2014/"
 wp_id: 78
 sist_endret: "2017-03-23"
 ---

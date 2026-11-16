@@ -50,7 +50,7 @@ const sideSkjema = z.object({
   permalink,
   ingress: z.string().optional(),
   bilde: z.string().optional(),
-  mal: z.enum(["standard", "kontakt", "radioid", "redaktordemo", "kurs", "seksjon"]).default("standard"),
+  mal: z.enum(["standard", "kontakt", "radioid", "kurs", "seksjon", "bidra"]).default("standard"),
   sist_endret: z.coerce.date().optional(),
   wp_id: z.number().optional(),
 });

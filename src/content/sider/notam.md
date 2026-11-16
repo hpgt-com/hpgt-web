@@ -2,10 +2,10 @@
 title: NOTAM – HPGT
 ingress: "Slik søker vi om NOTAM når vi skal vinsje – med mal og bakgrunn fra NLF."
 sist_endret: 2026-11-16
-permalink: /notam/
+permalink: /for-piloter/notam/
 wp_id: 3641
 ---
-> Spørsmål om NOTAM og vinsjing går til [faglig leder](/om-klubben/#faglig-leder).
+> Spørsmål om NOTAM og vinsjing går til [faglig leder](/klubben/styret/#faglig-leder).
 
 Vi må søke om notam hver gang vi skal vinsje. På denne siden ligger mal(er) + bakgrunn- og prosedyren for registrering av NOTAM.
 

@@ -6,7 +6,7 @@ permalink: "/den-store-foto-og-video-konkurransen-2017/"
 forfatter: "Aage"
 wp_id: 1845
 ---
-### [Da kjører vi på med den store Foto og Video konkurransen for året 2017](/konkurranser/konkurranse-2017)
+### [Da kjører vi på med den store Foto og Video konkurransen for året 2017](/klubben/konkurranser/2017/)
 
 [![](/wp-content/uploads/2014/06/vlcsnap-2014-08-10-18h36m02s107.png)](/wp-content/uploads/2014/06/vlcsnap-2014-08-10-18h36m02s107.png)
 
@@ -24,7 +24,7 @@ Vi oppfordrer folk til å levere bidragene fortløpende.
 
 **5:** Premiering blir gitt til 1,2 og 3 plass ~~dersom det er mer en 5 deltakere i den aktuelle kategorien (Foto/Video)Dersom det ikke er nok deltagere kårer vi bare 1 og 2 plass.~~
 
-[I år som i 2014 har vi fått nok premier til at 123 plass får premier i begge kategorier =) Stor takk til sponsorene våre!](/konkurranser/konkurranse-2017)
+[I år som i 2014 har vi fått nok premier til at 123 plass får premier i begge kategorier =) Stor takk til sponsorene våre!](/klubben/konkurranser/2017/)
 
 **6:** Deltakerne må eie eller ha tillatelse til å bruke bidraget de stiller med.
 Vi gjør oppmerksom på at dersom det ikke varsles spesifikt om det på forhånd, vil klubben kunne bruke bidraget til promotering, vi vil da kreditere bidragsyter skriftlig.

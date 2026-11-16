@@ -1,6 +1,6 @@
 ---
 title: "Styret og roller"
-permalink: "/om-klubben/"
+permalink: "/klubben/styret/"
 mal: "kontakt"
 ingress: "Hvem i styret tar seg av hva – og hvem du bør kontakte. Raskest svar får du ofte i Facebook-gruppa."
 ---
@@ -11,8 +11,8 @@ ingress: "Hvem i styret tar seg av hva – og hvem du bør kontakte. Raskest sva
 | Medlemskap, økonomi, samarbeid, sponsorer eller noe generelt | [Leder](#leder) – leder@hpgt.com |
 | Kurs, opplæring, tandem eller å begynne å fly | [Nestleder / skolesjef](#nestleder) – se også [kurssiden](/kurs/) |
 | Sikkerhet, NOTAM og vinsjing, flysteder, luftrom eller en hendelse | [Faglig leder](#faglig-leder) – faglig.leder@hpgt.com |
-| Ny, endret eller fjernet RadioID | [Skjemaet på RadioID-siden](/flysteder/flarm-fanet-radioid/#meld-inn) |
-| Tilgang til å skrive på nettsiden | [Leder](#leder) – se [Skriv på siden](/bidra/) |
+| Ny, endret eller fjernet RadioID | [Skjemaet på RadioID-siden](/for-piloter/radioid/#meld-inn) |
+| Tilgang til å skrive på nettsiden | [Leder](#leder) – se [Skriv på siden](/klubben/bidra/) |
 
 ## Sosiale medier
 

@@ -1,10 +1,10 @@
 ---
 title: "Konkurranse 2017"
-permalink: "/konkurranser/konkurranse-2017/"
+permalink: "/klubben/konkurranser/2017/"
 wp_id: 1888
 sist_endret: "2019-02-04"
 ---
-#### Året er 2017 og vi har kjørt i gang en foto og video konkurranse på samme lesten [som i 2014.](/konkurranser/konkurranse-2014)
+#### Året er 2017 og vi har kjørt i gang en foto og video konkurranse på samme lesten [som i 2014.](/klubben/konkurranser/2014/)
 
 Denne gangen regner med vi et enda større antall deltakere og mange nye spennende bilder og videoer.
 Sponsorene har også slått på stortrommen i år og premiene er rekordhøye!

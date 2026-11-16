@@ -1,6 +1,6 @@
 ---
 title: "FLARM- og FANET RadioID-register"
-permalink: "/flysteder/flarm-fanet-radioid/"
+permalink: "/for-piloter/radioid/"
 mal: "radioid"
 ingress: "Oversikt over RadioID-er for aktive piloter i klubben. Brukes til å sette opp buddy-lister i varioer som støtter FANET/FLARM, slik at du ser medpiloter i lufta."
 sist_endret: "2026-06-18"

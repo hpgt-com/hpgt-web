@@ -4,7 +4,7 @@ Nettsiden til Harstad Hang- og Paragliderklubb: statisk [Astro](https://astro.bu
 Les **[FORSLAG.md](FORSLAG.md)** for arkitektur, sikkerhet og migreringsplan.
 
 ## For redaktører
-Logg inn på Pages CMS, eller se `/bidra/` på siden. Du trenger ikke røre noe her.
+Logg inn på Pages CMS, eller se `/klubben/bidra/` på siden. Du trenger ikke røre noe her.
 
 ## For utviklere
 ```bash

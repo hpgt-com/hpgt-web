@@ -38,7 +38,7 @@
     {
       "tittel": "Bli medlem",
       "tekst": "Meld deg inn via Min idrett, eller støtt oss med Grasrotandelen og Vipps.",
-      "url": "/grasrotandelen/",
+      "url": "/klubben/stotte/",
       "bilde": "/wp-content/uploads/2026/04/hpgt5.jpg",
       "ikon": "medlem"
     }
@@ -50,15 +50,15 @@
     },
     {
       "tekst": "Lenker og vær",
-      "url": "/lenker/"
+      "url": "/for-piloter/vaer/"
     },
     {
       "tekst": "NOTAM ved vinsjing",
-      "url": "/notam/"
+      "url": "/for-piloter/notam/"
     },
     {
       "tekst": "RadioID-register",
-      "url": "/flysteder/flarm-fanet-radioid/"
+      "url": "/for-piloter/radioid/"
     },
     {
       "tekst": "Møter og referater",
@@ -87,7 +87,7 @@
       "verb": "Delta",
       "tittel": "Fly med oss",
       "tekst": "Finn fellesskapet og inngangen til klubbens flystedsoversikt.",
-      "url": "/flysteder/"
+      "url": "/for-piloter/"
     }
   ],
   "kurs": {
