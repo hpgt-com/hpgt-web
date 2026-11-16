@@ -179,8 +179,10 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--sky); outline-o
 .prose th, .prose td, .data-table th, .data-table td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); }
 code { font: 600 .9em var(--mono); background: var(--tint); padding: 1px 6px; }
 /* Kodeblokker, f.eks. NOTAM-malen: beholder linjeskift, kan kopieres som den står */
-.prose pre { margin: 1em 0; padding: 14px 16px; background: var(--tint); border: 1px solid var(--line); border-left: 3px solid var(--sky); overflow-x: auto; }
+.prose pre { position: relative; margin: 1em 0; padding: 14px 16px; padding-right: 92px; background: var(--tint); border: 1px solid var(--line); border-left: 3px solid var(--sky); overflow-x: auto; }
 .prose pre code { font: 500 .85rem/1.55 var(--mono); background: none; padding: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.kopier { position: absolute; top: 8px; right: 8px; font: 700 .78rem var(--display); padding: 5px 10px; border: 1.5px solid var(--line); border-radius: 4px; background: var(--surface); color: var(--text); cursor: pointer; }
+.kopier:hover { border-color: var(--sky); }
 .people { list-style: none; padding: 0; margin: 24px 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
 .person { background: var(--surface); border: 1px solid var(--line); }
 .person img { width: 100%; aspect-ratio: 1; object-fit: cover; margin: 0; }
