@@ -10,7 +10,8 @@ Vi må søke om notam hver gang vi skal vinsje. På denne siden ligger mal(er) +
 
 **Mal Ballangen:**
 
-Your NOTAM proposal has been successfully validated and issued by AIS/NOTAM.
+```text
+Your NOTAM proposal has been successfully validated and issued by AIS/NOTAM.
 Reference number is: 43085
 Submitting unit: NLF
 Name: Trond Nilsen
@@ -19,11 +20,12 @@ A) Location indicator: ENOR
 B) Start of validity: Mon Feb 01 07:00:00 UTC 2021
 C) End of validity: Sat Mar 27 21:00:00 UTC 2021
 D) Schedule of activity:
-E) NOTAM text: PARAGLIDING FLYING LAUNCHED BY WINCH WILL TAKE PLACE AT BALLANGSLEIRA PSN 682011N 0164950E, RADIUS 1.5 NM
+E) NOTAM text: PARAGLIDING FLYING LAUNCHED BY WINCH WILL TAKE PLACE AT BALLANGSLEIRA PSN 682011N 0164950E, RADIUS 1.5 NM
 F) Lower limit: GND
 G) Upper limit: 2500FT AMSL
 
-NOTAM number: A0193/21
+NOTAM number: A0193/21
+```
 
 **Bakgrunn- og prosedyre for registrering av NOTAM (Epost fra NLF 20201-06-03)**:
 Da kom vi til punktet der en del aktører + Avinor anså at vi legger beslag på for mye luftrom over for lang tid når det utstedes NOTAM for hele sesongen.
