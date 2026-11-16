@@ -1,4 +1,5 @@
 ---
+import Pil from "./Pil.astro";
 // Aktivitetskalender: månedsrutenett + liste over månedens aktiviteter. Rutenettet tegnes av /assets/js/kalender.js;
 // uten JavaScript vises en vanlig liste med de siste aktivitetene. Farger og skrift styres av --kal-*-variabler i hvert design.
 import "./kalender.css";
@@ -39,7 +40,7 @@ const neste = kommende[0];
         return (
           <li data-kal-item data-start={iso(e.data.start)} data-end={iso(e.data.slutt ?? e.data.start)} hidden={!synligUtenJs.has(e.id)}>
             <span class="kal-date">{fmt(e.data.start)}</span>
-            <a href={url(lenke(e))}>{e.data.title} <span aria-hidden="true">↗︎</span></a>
+            <a href={url(lenke(e))}>{e.data.title} <Pil /></a>
             <small class="kal-meta"><span>{tid(e)}</span>{sted(e) && <span>{sted(e)}</span>}</small>
             <span class="kal-past" data-kal-past hidden={!ferdig}>Avholdt</span>
           </li>
@@ -48,7 +49,7 @@ const neste = kommende[0];
     </ul>
     <p class="kal-empty" data-kal-empty hidden>Ingen aktiviteter denne måneden.</p>
     <button type="button" class="kal-jump" data-kal-jump hidden></button>
-    <a class="kal-fb" href={site.facebook}>Klubbens Facebook-gruppe ↗︎</a>
+    <a class="kal-fb" href={site.facebook}>Klubbens Facebook-gruppe&nbsp;<Pil /></a>
   </div>
 </div>
 <script is:inline src={url("/assets/js/kalender.js")} defer></script>

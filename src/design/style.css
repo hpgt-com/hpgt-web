@@ -68,6 +68,8 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--sky); outline-o
 .sprakvalg a[aria-current] { background: var(--text); color: var(--bg); }
 /* Knapp for lyst/mørkt tema (vises bare med JavaScript, se public/assets/js/tema.js) */
 .nav { order: 1; }
+/* Pil for eksterne lenker og «gå videre» (src/components/Pil.astro) */
+.pil { display: inline-block; width: .85em; height: .85em; vertical-align: -.08em; }
 /* Lyst/mørkt: bryter med sol/måne i knotten (role=switch, se tema.js) */
 .tema-bryter { order: 3; position: relative; flex: none; width: 54px; height: 30px; padding: 0; border: 1.5px solid var(--line); border-radius: 999px; background: var(--tint); cursor: pointer; }
 .tema-bryter:hover { border-color: var(--sky); }
