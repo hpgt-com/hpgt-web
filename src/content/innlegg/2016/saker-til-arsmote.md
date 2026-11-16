@@ -2,7 +2,7 @@
 title: "Saker til årsmøte"
 date: "2016-02-15T19:12:21"
 kategorier: ["Møter og referater"]
-bilde: "/wp-content/uploads/2016/02/2014-08-30-17.48.27.png"
+bilde: "/filer/arkiv/2016/02/2014-08-30-17.48.27.png"
 permalink: "/saker-til-arsmote/"
 forfatter: "Aage"
 wp_id: 1472
@@ -40,7 +40,7 @@ Fra Kristoffer Hofstad
 
 - Hvordan få opp aktivitet i klubben
   - Felles tur til utlandet?
-    [Kommentar av Aage: Har forøvrig kommet epost tilbud på dette til klubben](/wp-content/uploads/2016/02/2335e32b-036d-498f-9818-bca170d7acf7.jpg)
+    [Kommentar av Aage: Har forøvrig kommet epost tilbud på dette til klubben](/filer/arkiv/2016/02/2335e32b-036d-498f-9818-bca170d7acf7.jpg)
   - Felles tur til andre klubber i Norge?
   - Invitere andre klubber til Harstad
   - Prøve arrangere noe event blant medlemmene?
@@ -57,10 +57,10 @@ Fra Kristoffer Hofstad
 FRA NLF
 
 - Revisjon av klubbens lover og regler slik at de innholder minstekravene til Norsk idrettsforbund
-  [lovnorm-for-idrettslag](/wp-content/uploads/2016/02/lovnorm-for-idrettslag.pdf)
+  [lovnorm-for-idrettslag](/filer/arkiv/2016/02/lovnorm-for-idrettslag.pdf)
 - Revisjon av hvem som kan håndtere klubbens regninger.
   Må nå være 2 stk som godkjenner de.
-  [NLF klubbinformasjon om økonomiske forsikringer (1)](/wp-content/uploads/2016/02/NLF-klubbinformasjon-om-økonomiske-forsikringer-1.pdf)
+  [NLF klubbinformasjon om økonomiske forsikringer (1)](/filer/arkiv/2016/02/NLF-klubbinformasjon-om-økonomiske-forsikringer-1.pdf)
 
 7. Medlemskontigent
 

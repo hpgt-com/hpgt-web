@@ -36,7 +36,7 @@
 ```
 
 - **Astro** bygger ferdige HTML-sider. Innholdsmodellen (`src/content.config.ts`) validerer hvert felt. En feil fra CMS-et, for eksempel en ugyldig dato, stopper bygget i stedet for å publisere en ødelagt side.
-- **Alle gamle adresser beholdes**: `/arsmote-2026/`, `/kurs-2026/`, `/event/...` og `/wp-content/uploads/...`. Lenker fra Facebook og Google virker etter flyttingen, og `/events` og `/galleri` blir omdirigert.
+- **Alle gamle adresser beholdes**: `/arsmote-2026/`, `/kurs-2026/`, `/event/...` og `/filer/arkiv/...`. Lenker fra Facebook og Google virker etter flyttingen, og `/events` og `/galleri` blir omdirigert.
 - **Samme prinsipper som flysteder.hpgt.com**: ingen tredjepartsskript, egne skrifttyper, streng CSP, ingen sporing og ingen informasjonskapsler.
 
 ### Hvorfor Astro, og ikke Hugo?

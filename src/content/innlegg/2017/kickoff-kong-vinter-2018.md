@@ -2,7 +2,7 @@
 title: "Kickoff kong vinter 2018"
 date: "2017-11-04T14:02:09"
 kategorier: ["Sosialt og turer"]
-bilde: "/wp-content/uploads/2017/11/23157084_1381436048621196_3644381309586951911_o.jpg"
+bilde: "/filer/arkiv/2017/11/23157084_1381436048621196_3644381309586951911_o.jpg"
 permalink: "/kickoff-kong-vinter-2018/"
 forfatter: "Aage"
 wp_id: 2103

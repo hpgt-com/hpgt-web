@@ -2,7 +2,7 @@
 title: "For piloter"
 permalink: "/for-piloter/"
 mal: "seksjon"
-bilde: "/wp-content/uploads/2026/03/received_14693510906506755701209126633616533.jpeg"
+bilde: "/filer/arkiv/2026/03/received_14693510906506755701209126633616533.jpeg"
 ingress: "Alt du trenger som pilot i HPGT: flysteder, vær, NOTAM ved vinsjing og RadioID-registeret."
 sist_endret: "2026-11-16"
 ---

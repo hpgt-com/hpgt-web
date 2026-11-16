@@ -2,7 +2,7 @@
 title: "HPGT tester noe «nytt». Lync  på årsmøtet i kveld 19:00"
 date: "2016-02-22T17:19:55"
 kategorier: ["Møter og referater"]
-bilde: "/wp-content/uploads/2016/02/UC-messaging.jpg"
+bilde: "/filer/arkiv/2016/02/UC-messaging.jpg"
 permalink: "/hpgt-tester-noe-nytt-lync-pa-arsmotet-i-kveld-1900/"
 forfatter: "Aage"
 wp_id: 1494
@@ -19,4 +19,4 @@ Bruke linken for å bli med i møtet: – FJERNET – SVAR SÅ JA OG AKSEPTER A
 1. klikk på linke
 2. velg use web app om du ikke har lync installert i dag.
 3. klikk så på join meeting (går ikke før du har installert plugin og muligens klikket på linken pånyDet kommer til å ligne det bildet under.
-   [![lync](/wp-content/uploads/2016/02/lync.png)](https://meet.compartner.no/aage/RSNKYJV1)
+   [![lync](/filer/arkiv/2016/02/lync.png)](https://meet.compartner.no/aage/RSNKYJV1)

@@ -2,7 +2,7 @@
 title: "Referat fra klubbmøte 10.08.15"
 date: "2015-08-12T18:09:40"
 kategorier: ["Møter og referater"]
-bilde: "/wp-content/uploads/2015/08/11821165_776168799162447_1322873854_n.jpg"
+bilde: "/filer/arkiv/2015/08/11821165_776168799162447_1322873854_n.jpg"
 permalink: "/referat-fra-klubbmote-10-08-15/"
 forfatter: "Aage"
 wp_id: 1319
@@ -33,7 +33,7 @@ vi skiller ikke mellom vinter og vår eller hvordan man kom seg opp på plassen,
 
 ***Tips til å finne nye starter på kartet:*** www.norgei3d.no 3d flyfoto bilde av norge. enkelt å se potensielt gode hang plasser. Bruk www.seeiendom.no for å finne grunneier  slik at man kan klarere en evt rydding av området.
 
-[![norgei3d](/wp-content/uploads/2015/08/norgei3d.png)](/wp-content/uploads/2015/08/norgei3d.png)
+[![norgei3d](/filer/arkiv/2015/08/norgei3d.png)](/filer/arkiv/2015/08/norgei3d.png)
 
 **Speedrider/Paragliderkurs.** Det er planlagt et SPG kurs til vinteren dersom instruktøren får tid, muligens også et PG kurs dersom man får tak på hovedinstruktør, noen av klubbens «nye» instruktører har lyst å kjøre et kurs.
 

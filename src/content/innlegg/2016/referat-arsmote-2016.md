@@ -2,7 +2,7 @@
 title: "Referat årsmøte 2016"
 date: "2016-02-22T21:01:04"
 kategorier: ["Møter og referater"]
-bilde: "/wp-content/uploads/2016/02/12744310_10156639920275613_232409865075862318_n.jpg"
+bilde: "/filer/arkiv/2016/02/12744310_10156639920275613_232409865075862318_n.jpg"
 permalink: "/referat-arsmote-2016/"
 forfatter: "Aage"
 wp_id: 1500
@@ -35,7 +35,7 @@ Camilla stilte med skoleboller! Meget godt mottatt.
 - Forespørsel om Salg av Lavvo
   - Klubben har sjekket seeiendom.no Vi kan ikke se at gunnar fredriksen er eier. vi ber dermed om at Gunnar frembringer dokumentasjon på at han eier eiendommen før vi tar stilling til henvendelsen.
 - Få opp aktivitet i klubben
-  - Tur til Madeira kommer opp som alternativ: [meldt inn i](/wp-content/uploads/2016/02/2335e32b-036d-498f-9818-bca170d7acf7.jpg)sakslisten
+  - Tur til Madeira kommer opp som alternativ: [meldt inn i](/filer/arkiv/2016/02/2335e32b-036d-498f-9818-bca170d7acf7.jpg)sakslisten
     - Inspirasjon: https://vimeo.com/730906
   - Tur til sørafrika?
     - http://adventureescapades.co.za/adventure-paragliding/SkyguideParagliding

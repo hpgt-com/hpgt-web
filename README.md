@@ -22,7 +22,7 @@ npm run forhandsvisning      # bygger forhåndsvisningen (utvalg sider, relative
 | `src/design` | Designet «Fjord+»: `style.css` og malene Layout, Home, Article, PostList og EventList |
 | `src/components` | Felles deler: kalender, kort, RadioID-skjema, styret, faktaboks for arrangementer |
 | `worker/index.js` | Den eneste serverkoden: RadioID-skjemaet, som lager en GitHub-issue |
-| `public/wp-content/uploads` | Bilder og PDF-er fra WordPress (samme adresser som før) |
+| `public/filer/arkiv` | Bilder og PDF-er fra WordPress. Gamle `/wp-content/…`-adresser videresendes (`public/_redirects`) |
 | `public/filer` | Nye opplastinger fra CMS-et |
 | `scripts/wp-import` | Engangsskript som konverterte WordPress-eksporten |
 

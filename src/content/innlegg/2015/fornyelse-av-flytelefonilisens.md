@@ -6,7 +6,7 @@ permalink: "/fornyelse-av-flytelefonilisens/"
 forfatter: "Stefan"
 wp_id: 1272
 ---
-[![Paramotor på tur inn mot den nedlagte flystripen på Værøy.](/wp-content/uploads/2015/03/DSC_4795.jpg)](/wp-content/uploads/2015/03/DSC_4795.jpg)
+[![Paramotor på tur inn mot den nedlagte flystripen på Værøy.](/filer/arkiv/2015/03/DSC_4795.jpg)](/filer/arkiv/2015/03/DSC_4795.jpg)
 
 Paramotor på tur inn mot den nedlagte flystripen på Værøy.
 

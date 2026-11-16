@@ -2,7 +2,7 @@
 title: "Referat klubbmøte 23.03.2015"
 date: "2015-03-23T21:21:38"
 kategorier: ["Møter og referater"]
-bilde: "/wp-content/uploads/2015/03/5fc14b24eb864340d73a2a58a625e182.png"
+bilde: "/filer/arkiv/2015/03/5fc14b24eb864340d73a2a58a625e182.png"
 permalink: "/referat-klubbmote-23-03-2015/"
 forfatter: "Aage"
 wp_id: 1252
@@ -21,7 +21,7 @@ Sted: Peppes Pizza
 — Beste potensialet i Skandinavia!!
 — Gjennomgang av løypenett, rutiner og tillatelser.
 
-![5fc14b24eb864340d73a2a58a625e182](/wp-content/uploads/2015/03/5fc14b24eb864340d73a2a58a625e182.png)
+![5fc14b24eb864340d73a2a58a625e182](/filer/arkiv/2015/03/5fc14b24eb864340d73a2a58a625e182.png)
 
 — Nedre landing krevende og bør ikke prøves uten utsjekk på site/god erfaring.
 — Muligheter frammover

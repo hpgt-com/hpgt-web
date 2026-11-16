@@ -1,38 +1,38 @@
 {
   "beskrivelse": "Bilder som brukes på innlegg og arrangementer som ikke har eget bilde. Hvert innlegg får alltid samme bilde fra listen.",
   "nyhet": [
-    "/wp-content/uploads/2015/07/11807537_10155915607060613_5713019667104345371_o.jpg",
-    "/wp-content/uploads/2019/10/IMG_20191015_124633_3.jpg",
-    "/wp-content/uploads/2026/03/received_24415437096123797173128654438448749.jpeg",
-    "/wp-content/uploads/2019/01/20190803_175328.jpg"
+    "/filer/arkiv/2015/07/11807537_10155915607060613_5713019667104345371_o.jpg",
+    "/filer/arkiv/2019/10/IMG_20191015_124633_3.jpg",
+    "/filer/arkiv/2026/03/received_24415437096123797173128654438448749.jpeg",
+    "/filer/arkiv/2019/01/20190803_175328.jpg"
   ],
   "moter-og-referater": [
-    "/wp-content/uploads/2019/10/Refsnes-sklitur.jpg",
-    "/wp-content/uploads/2019/03/saltdal.png",
-    "/wp-content/uploads/2015/07/11807181_10155915606940613_2081166630703148541_o.jpg"
+    "/filer/arkiv/2019/10/Refsnes-sklitur.jpg",
+    "/filer/arkiv/2019/03/saltdal.png",
+    "/filer/arkiv/2015/07/11807181_10155915606940613_2081166630703148541_o.jpg"
   ],
   "kurs": [
-    "/wp-content/uploads/2016/10/14712625_10157676589190613_1006688407228025225_o.jpg",
-    "/wp-content/uploads/2019/10/2019-07-14-12.29.33-1.jpg",
-    "/wp-content/uploads/2019/10/PA121002.jpg",
-    "/wp-content/uploads/2016/02/2014-08-30-17.48.27.png"
+    "/filer/arkiv/2016/10/14712625_10157676589190613_1006688407228025225_o.jpg",
+    "/filer/arkiv/2019/10/2019-07-14-12.29.33-1.jpg",
+    "/filer/arkiv/2019/10/PA121002.jpg",
+    "/filer/arkiv/2016/02/2014-08-30-17.48.27.png"
   ],
   "fagdag": [
-    "/wp-content/uploads/2019/01/IMG_9242-e1547990583247.jpg",
-    "/wp-content/uploads/2019/01/20190712_235228-06.jpeg",
-    "/wp-content/uploads/2017/09/21167291_10159309368955613_8191481922905991626_o.jpg"
+    "/filer/arkiv/2019/01/IMG_9242-e1547990583247.jpg",
+    "/filer/arkiv/2019/01/20190712_235228-06.jpeg",
+    "/filer/arkiv/2017/09/21167291_10159309368955613_8191481922905991626_o.jpg"
   ],
   "sosialt-og-turer": [
-    "/wp-content/uploads/2018/11/28827840_10160194736005613_8867314187029733721_o.jpg",
-    "/wp-content/uploads/2018/11/26233345_10160194919580613_4575733513357971044_o.jpg",
-    "/wp-content/uploads/2019/10/2019-09-30-09.26.22.jpg",
-    "/wp-content/uploads/2019/10/IMG_1992.jpg",
-    "/wp-content/uploads/2026/03/received_14693510906506755701209126633616533.jpeg"
+    "/filer/arkiv/2018/11/28827840_10160194736005613_8867314187029733721_o.jpg",
+    "/filer/arkiv/2018/11/26233345_10160194919580613_4575733513357971044_o.jpg",
+    "/filer/arkiv/2019/10/2019-09-30-09.26.22.jpg",
+    "/filer/arkiv/2019/10/IMG_1992.jpg",
+    "/filer/arkiv/2026/03/received_14693510906506755701209126633616533.jpeg"
   ],
   "konkurranser": [
-    "/wp-content/uploads/2018/05/20170708_132817.jpg",
-    "/wp-content/uploads/2021/03/Bilde2.png",
-    "/wp-content/uploads/2019/10/72640391_781568312275943_7486841880622137344_n.png",
-    "/wp-content/uploads/2019/10/72290228_782016988885334_3204416855494098944_n.jpg"
+    "/filer/arkiv/2018/05/20170708_132817.jpg",
+    "/filer/arkiv/2021/03/Bilde2.png",
+    "/filer/arkiv/2019/10/72640391_781568312275943_7486841880622137344_n.png",
+    "/filer/arkiv/2019/10/72290228_782016988885334_3204416855494098944_n.jpg"
   ]
 }

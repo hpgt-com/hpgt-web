@@ -6,7 +6,7 @@ permalink: "/stott-hpgt-via-grasrotandelen/"
 forfatter: "Aage"
 wp_id: 323
 ---
-**Vil Du gi [![](/wp-content/uploads/2012/09/grasrot.png)](/wp-content/uploads/2012/09/grasrot.png)din støtte til HARSTAD HANG OG PARAGLIDERKLUBB?**
+**Vil Du gi [![](/filer/arkiv/2012/09/grasrot.png)](/filer/arkiv/2012/09/grasrot.png)din støtte til HARSTAD HANG OG PARAGLIDERKLUBB?**
 
 Grasrotandelen er en ordning fra Norsk Tipping, hvor du som registrert spiller kan velge ett lag eller én forening som du ønsker støtte – din Grasrotmottaker. Vi oppfordrer deg til å støtte oss i HARSTAD HANG OG PARAGLIDERKLUBB!
 

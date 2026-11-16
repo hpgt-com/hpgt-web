@@ -10,4 +10,4 @@ På årets julebord ble det annonsert vinnere i foto video konkurransen 2019. k�
 
  [https://hpgt.com/konkurranse-2019/](/klubben/konkurranser/2019/)
 
-![](/wp-content/uploads/2017/03/HAFK_mainlogo_sort-bakgrund.png)![](/wp-content/uploads/2019/11/image.png)
+![](/filer/arkiv/2017/03/HAFK_mainlogo_sort-bakgrund.png)![](/filer/arkiv/2019/11/image.png)
