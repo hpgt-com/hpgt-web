@@ -14,7 +14,11 @@ const turnstile = !site.prototype && SKJEMASIDER.includes(sti);
 const cf = "https://challenges.cloudflare.com";
 // Videoer spilles av i overlay (public/assets/js/galleri.js) først når noen trykker – bare fra disse to. Må stemme med public/_headers.
 const VIDEO = "https://www.youtube-nocookie.com https://player.vimeo.com";
-const csp = `default-src 'self'; script-src 'self'${turnstile ? " " + cf : ""}; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src ${turnstile ? cf + " " : ""}${VIDEO}; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests`;
+// Anonym besøksstatistikk (Cloudflare Web Analytics): ingen informasjonskapsler, ingen sporing mellom nettsteder.
+// Slås på med tokenet i site.json → statistikk. Uten token lastes ingenting. Må stemme med public/_headers.
+const statistikk = site.statistikk;
+const CFA_SKRIPT = "https://static.cloudflareinsights.com", CFA_DATA = "https://cloudflareinsights.com";
+const csp = `default-src 'self'; script-src 'self'${turnstile ? " " + cf : ""}${statistikk ? " " + CFA_SKRIPT : ""}; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'${statistikk ? " " + CFA_DATA : ""}; frame-src ${turnstile ? cf + " " : ""}${VIDEO}; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests`;
 const canonical = new URL(Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ""), ""), site.url);
 ---
 <meta charset="utf-8" />
@@ -37,3 +41,4 @@ const canonical = new URL(Astro.url.pathname.replace(import.meta.env.BASE_URL.re
 <script is:inline src={url("/assets/js/innhold.js")} defer></script>
 <script is:inline src={url("/assets/js/kopier.js")} defer></script>
 <script is:inline src={url("/assets/js/galleri.js")} defer></script>
+{statistikk && <script is:inline defer src={`${CFA_SKRIPT}/beacon.min.js`} data-cf-beacon={JSON.stringify({ token: statistikk })}></script>}

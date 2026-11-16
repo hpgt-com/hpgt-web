@@ -11,7 +11,7 @@ export type Sprak = "nb" | "en";
 export const T = {
   nb: {
     hopp: "Hopp til innhold", meny: "Meny", hovedmeny: "Hovedmeny", klubben: "Klubben", piloter: "For piloter", folg: "Følg oss",
-    sporing: "Ingen sporing eller informasjonskapsler.", hjem: "Hjem", brodsmuler: "Brødsmuler", paaSiden: "På denne siden",
+    sporing: "Ingen sporing eller informasjonskapsler.", sporingStatistikk: "Ingen informasjonskapsler eller sporing. Anonym besøksstatistikk via Cloudflare.", hjem: "Hjem", brodsmuler: "Brødsmuler", paaSiden: "På denne siden",
     sistOppdatert: "Sist oppdatert", kurs: "Kurs", alleKurs: "Alle kurs", kursene: "Kursene våre", nesteKurs: "Neste kurs",
     kommende: "Kommende kurs og fagdager", ingenKurs: "Ingen kurs er satt opp akkurat nå. Følg med her og i Facebook-gruppa",
     forrigeVar: "forrige var", heleKalenderen: "Hele kalenderen", kontaktMeg: "Kontakt meg om:", portrett: "Portrett av", styret: "Styret",
@@ -21,7 +21,7 @@ export const T = {
   },
   en: {
     hopp: "Skip to content", meny: "Menu", hovedmeny: "Main menu", klubben: "The club", piloter: "For pilots", folg: "Follow us",
-    sporing: "No tracking or cookies.", hjem: "Home", brodsmuler: "Breadcrumb", paaSiden: "On this page",
+    sporing: "No tracking or cookies.", sporingStatistikk: "No cookies or tracking. Anonymous visitor statistics via Cloudflare.", hjem: "Home", brodsmuler: "Breadcrumb", paaSiden: "On this page",
     sistOppdatert: "Last updated", kurs: "Courses", alleKurs: "All courses", kursene: "Our courses", nesteKurs: "Next course",
     kommende: "Upcoming courses and training days", ingenKurs: "No courses are scheduled right now. Keep an eye on this page and our Facebook group",
     forrigeVar: "the last one was", heleKalenderen: "Full calendar (in Norwegian)", kontaktMeg: "Contact me about:", portrett: "Portrait of", styret: "Board",
