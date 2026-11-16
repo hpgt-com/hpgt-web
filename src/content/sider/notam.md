@@ -1,6 +1,6 @@
 ---
 title: NOTAM – HPGT
-sist_endret: 2021-06-04
+sist_endret: 2026-11-16
 permalink: /notam/
 wp_id: 3641
 ---
