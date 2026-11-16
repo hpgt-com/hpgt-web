@@ -33,7 +33,10 @@ jobs:
       - run: npm ci --ignore-scripts
 
       # Validerer alt innhold mot skjemaene i src/content.config.ts og bygger alle sidene.
+      # Engelske sider bygges fra de publiserte oversettelsene (ingen nøkkel her, ingenting oversettes).
       - run: npm run build
+        env:
+          OVERSETT_FORRIGE: https://hpgt-web.hpgt.workers.dev/en/oversettelser.json
 
       # Workeren for RadioID-skjemaet skal i det minste være gyldig JavaScript.
       - run: node --check worker/index.js
