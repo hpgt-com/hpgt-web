@@ -100,6 +100,21 @@ content:
       - { name: sist_endret, label: Sist oppdatert, type: date }
       - { name: body, label: Tekst, type: rich-text }
 
+  - name: standardbilder
+    label: Standardbilder
+    type: file
+    path: src/data/standardbilder.json
+    format: json
+    description: "Bilder som brukes på innlegg og arrangementer uten eget bilde. Legg gjerne inn flere per kategori – innleggene fordeles på dem, og hvert innlegg får alltid samme bilde. Tom liste = farge med ikon."
+    fields:
+      - { name: beskrivelse, type: string, hidden: true }
+      - { name: nyhet, label: Nyhet, type: image, list: true }
+      - { name: moter-og-referater, label: Møter og referater, type: image, list: true }
+      - { name: kurs, label: Kurs, type: image, list: true }
+      - { name: fagdag, label: Fagdag, type: image, list: true }
+      - { name: sosialt-og-turer, label: Sosialt og turer, type: image, list: true }
+      - { name: konkurranser, label: Konkurranser, type: image, list: true }
+
   - name: forside
     label: Forsiden
     type: file

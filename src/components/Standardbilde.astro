@@ -1,8 +1,22 @@
 ---
-// Standardbilde for innlegg og arrangementer uten bilde: kategoriens farge med et enkelt ikon og en kort tekst
-// (kategorien for innlegg, datoen for arrangementer). Brukes i bildevisningen og på forsiden.
-interface Props { kat?: string; tekst?: string; class?: string }
-const { kat = "nyhet", tekst, class: klasse } = Astro.props;
+// Standardbilde for innlegg og arrangementer uten eget bilde. Et klubbilde fra src/data/standardbilder.json
+// (redigeres i Pages CMS under «Standardbilder»), valgt fra kategoriens liste. Samme innlegg får alltid samme bilde,
+// og innleggene fordeles på bildene, så lister ikke viser ett og samme bilde om og om igjen.
+// Har kategorien ingen bilder, vises kategoriens farge med et ikon. tekst: kategorien (innlegg) eller datoen (arrangementer).
+import { url } from "../lib/site";
+import standardbilder from "../data/standardbilder.json";
+interface Props { kat?: string; tekst?: string; class?: string; nokkel?: string }
+const { kat = "nyhet", tekst, class: klasse, nokkel = "" } = Astro.props;
+// Arrangementsgruppene og kategoriene deler bildelister
+const LISTE: Record<string, keyof typeof standardbilder> = {
+  nyhet: "nyhet", "moter-og-referater": "moter-og-referater", mote: "moter-og-referater",
+  "kurs-og-fagdag": "kurs", kurs: "kurs", fagdag: "fagdag",
+  "sosialt-og-turer": "sosialt-og-turer", sosialt: "sosialt-og-turer", konkurranser: "konkurranser", konkurranse: "konkurranser",
+};
+const bilder = (standardbilder[LISTE[kat] ?? "nyhet"] ?? []) as string[];
+let h = 0;
+for (const c of nokkel) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+const foto = Array.isArray(bilder) && bilder.length ? bilder[h % bilder.length] : undefined;
 // Ikon etter kategori (innlegg) eller gruppe (arrangementer). Tegnet på et 24×24-rutenett med strek.
 const IKON: Record<string, string> = {
   nyhet: "M4 10v4h3l8 4.5V5.5L7 10H4zM18.5 9a4 4 0 0 1 0 6",
@@ -18,7 +32,12 @@ const IKON: Record<string, string> = {
 };
 const d = IKON[kat] ?? IKON["kurs"];
 ---
-<span class:list={["standardbilde", klasse]} data-kat={kat} aria-hidden="true">
-  <svg viewBox="0 0 24 24" focusable="false"><path d={d} fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
-  {tekst && <span>{tekst}</span>}
-</span>
+{foto
+  ? <span class:list={["standardbilde standardbilde--foto", klasse]} data-kat={kat}>
+      <img src={url(foto)} alt="" loading="lazy" decoding="async" />
+      {tekst && <span class="standardbilde__etikett">{tekst}</span>}
+    </span>
+  : <span class:list={["standardbilde", klasse]} data-kat={kat} aria-hidden="true">
+      <svg viewBox="0 0 24 24" focusable="false"><path d={d} fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      {tekst && <span>{tekst}</span>}
+    </span>}
