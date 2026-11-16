@@ -6,7 +6,7 @@ permalink: "/regler-2019/"
 forfatter: "Aage"
 wp_id: 3207
 ---
-### [Da kjører vi på med den store Foto og Video konkurransen for året 2019](/konkurranse-2019/)
+### [Da kjører vi på med den store Foto og Video konkurransen for året 2019](/klubben/konkurranser/2019/)
 
 [![](/wp-content/uploads/2018/05/20170708_132817.jpg)](/wp-content/uploads/2018/05/20170708_132817.jpg)
 
@@ -22,7 +22,7 @@ Vi oppfordrer folk til å levere bidragene fortløpende
 
 **5:** Premiering blir gitt til 1,2 og 3 plass.
 
-[I år som i 2014 og 2017 har vi fått nok premier til at 1,2,3 plass får premier i begge kategorier =) Stor takk til sponsorene våre!](/konkurranse-2019/)
+[I år som i 2014 og 2017 har vi fått nok premier til at 1,2,3 plass får premier i begge kategorier =) Stor takk til sponsorene våre!](/klubben/konkurranser/2019/)
 
 **6:** Deltakerne må eie eller ha tillatelse til å bruke bidraget de stiller med.
 Vi gjør oppmerksom på at dersom det ikke varsles spesifikt om det på forhånd, vil klubben kunne bruke bidraget til promotering, vi vil da kreditere bidragsyter skriftlig.

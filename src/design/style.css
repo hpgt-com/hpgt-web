@@ -78,6 +78,23 @@ span.standardbilde { display: flex; flex-direction: column; align-items: center;
 .standardbilde--foto .standardbilde__etikett { position: absolute; left: 10px; bottom: 10px; padding: 4px 8px; border-radius: 3px; background: color-mix(in srgb, var(--k, var(--sky)) 85%, #000); color: #fff; font-size: .8rem; font-weight: 700; }
 .standardbilde svg { width: 34%; max-width: 76px; height: auto; opacity: .95; }
 .standardbilde span { font-weight: 800; font-size: .95rem; letter-spacing: -.01em; text-align: center; padding: 0 12px; opacity: .95; }
+/* Konkurransesider: lister under bestemte overskrifter vises som rutenett/kort, men skrives som vanlige lister i CMS-et.
+   «Sponsorer» → logoer, «Innsendte bilder» → bilder med navn, «Videoer» → kort med ▶ og kilde (YouTube/Vimeo). */
+.prose :is(h2[id^="sponsor"], h2[id^="sponsor"] + p) + ul { list-style: none; padding: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+.prose :is(h2[id^="sponsor"], h2[id^="sponsor"] + p) + ul li { display: grid; place-items: center; height: 96px; padding: 12px; margin: 0; background: #fff; border: 1px solid var(--line); border-radius: 4px; }
+.prose :is(h2[id^="sponsor"], h2[id^="sponsor"] + p) + ul img { margin: 0; max-width: 100%; max-height: 64px; width: auto; object-fit: contain; }
+.prose h2[id^="innsendte-bilder"] + ul { list-style: none; padding: 0; display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+.prose h2[id^="innsendte-bilder"] + ul li { margin: 0; font-size: .88rem; color: var(--muted); }
+.prose h2[id^="innsendte-bilder"] + ul img { margin: 0 0 6px; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.prose h2[id^="video"] + ul { list-style: none; padding: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.prose h2[id^="video"] + ul li { position: relative; margin: 0; padding: 12px 14px 12px 56px; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; color: var(--muted); font-size: .9rem; }
+.prose h2[id^="video"] + ul li:hover { border-color: var(--sky); }
+.prose h2[id^="video"] + ul a { display: block; color: var(--text); font-weight: 700; text-decoration: none; }
+.prose h2[id^="video"] + ul a::after { content: ""; position: absolute; inset: 0; } /* hele kortet er klikkbart */
+.prose h2[id^="video"] + ul a::before { content: "▶\FE0E"; position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 30px; height: 30px; border-radius: 50%; background: var(--sky); color: #fff; display: grid; place-items: center; font-size: .75rem; }
+.prose h2[id^="video"] + ul li:has(a[href*="youtube"])::after { content: "YouTube"; }
+.prose h2[id^="video"] + ul li:has(a[href*="vimeo"])::after { content: "Vimeo"; }
+.prose h2[id^="video"] + ul li::after { display: block; margin-top: 2px; font: 600 .62rem/1.3 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 /* Pil for eksterne lenker og «gå videre» (src/components/Pil.astro) */
 .pil { display: inline-block; width: .85em; height: .85em; vertical-align: -.08em; }
 /* Lyst/mørkt: bryter med sol/måne i knotten (role=switch, se tema.js) */

@@ -1,83 +1,40 @@
 ---
-title: "Konkurranse 2014"
+title: "Foto- og videokonkurransen 2014"
+ingress: "Klubbens første store foto- og videokonkurranse, med Harstad Fotoklubb som jury."
 permalink: "/klubben/konkurranser/2014/"
 wp_id: 78
-sist_endret: "2017-03-23"
+sist_endret: "2026-11-16"
 ---
-Da er konkurransen over for 2014 sin del.
+Takk for alle bidragene – og takk til Harstad Fotoklubb for juryeringen og til sponsorene, uten dem ingen premier!
 
-Vi takker for alle bidrag og håper folk stiller også til neste gang vi kjører igang noe slikt.
+## Vinnere
 
-Vinnerne ble kåret av Harstad Fotoklubb og vi takker for jurieringen!
-Ikke minst takker vi Sponsorene, uten de ingen premie!
+| Plass | Foto | Video |
+|---|---|---|
+| 1. | Aage D. Hofstad | Erlend Madsen |
+| 2. | Erlend Madsen | Kristoffer D. Hofstad |
+| 3. | Stephan Tellaroli | Lars Sletten |
 
-**1. Plass foto:** Aage D. Hofstad
-**2. Plass foto:** Erlend Madsen
-**3. Plass foto**: Stephan Tellaroli
+## Sponsorer
 
-**1. Plass video:** Erlend Madsen
-**2. Plass video:** Kristoffer D. Hofstad
-**3. Plass video:** Lars Sletten
-[![Parabolflua](/wp-content/uploads/2014/06/Parabolflua.jpg)](/wp-content/uploads/2014/06/Parabolflua.jpg)
+- [![Parabolflua Sport](/wp-content/uploads/2014/06/Parabolflua.jpg)](https://www.facebook.com/parabolflua/)
+- ![Flyby Fester](/wp-content/uploads/2014/06/flybyfester.png)
+- [![Nova](/wp-content/uploads/2014/06/Nova.png)](https://www.nova.eu/)
+- [![Madsen Luftsport](/wp-content/uploads/2014/06/cropped-Madsen-Luftsport-logo.png)](https://madsenluftsport.no/)
+- [![Japan Photo](/wp-content/uploads/2014/06/japanphoto.png)](https://www.japanphoto.no/)
+- [![Gin Gliders](/wp-content/uploads/2014/07/gingliders1.jpg)](https://www.gingliders.com/)
 
-![flybyfester](/wp-content/uploads/2014/06/flybyfester.png)
+## Videoer
 
-[![Nova](/wp-content/uploads/2014/06/Nova.png)](/wp-content/uploads/2014/06/Nova.png)
+- [PPG XC-sertifiseringen](https://vimeo.com/104787759) Børre Arntsen
+- [Prosjekt: Tidenes sommer](https://vimeo.com/104947278) Kristoffer D. Hofstad
+- [HPGT videobidrag 2014](https://vimeo.com/105601038) Johnny Nilsen
+- [PPG XC HPGT 2014](https://vimeo.com/107386211) Lars Sletten
+- [«Fly Flate» – Harstad](https://vimeo.com/107392802) Erlend Madsen
+- [Den uheldige mannen](https://vimeo.com/107410391) Camilla Bjordal
+- [Videobidrag](https://www.youtube.com/watch?v=7zb9taflRFU) Aage D. Hofstad
+- [Videobidrag](https://www.youtube.com/watch?v=jmZO1AHKiGM) Stephan Tellaroli
 
-[![cropped-Madsen-Luftsport-logo](/wp-content/uploads/2014/06/cropped-Madsen-Luftsport-logo.png)](/wp-content/uploads/2014/06/cropped-Madsen-Luftsport-logo.png)
+## Regler
 
-![japanphoto](/wp-content/uploads/2014/06/japanphoto.png)
-
-[![gingliders](/wp-content/uploads/2014/07/gingliders1.jpg)](/wp-content/uploads/2014/07/gingliders1.jpg)
-
-~~Bilde bidragene så langt i konkurransen kommer fortløpende under her~~
-
-ngg\_shortcode\_1\_placeholder
-
-For å laste opp ditt bidrag i bilde kategorien bruk opplastings funksjonen under.
-
-Bildet må godkjennes av adminstrator før det vises her, så last opp bare en gang.
-Husk og skriv inn navnet ditt før du laster opp!
-Se ellers reglemanget her: [http://hpgt.com/archives/809](/foto-og-video-konkurranse/)
-
-Videoen vil også publiseres nederst på siden etterhvert som de kommer inn.
-Vi henviser til punkt 9 i reglene:
-
-> **9:** Bidraget i video kategorien må vise [**DETTE BILDET**](/wp-content/uploads/2014/07/1080-mal.png)minst 3 sekunder i starten for å være godkjent.
-> Video kan publiseres via www.youtube.com eller www.vimeo.com. Lenken til videoen skal sendes til ledelsen i klubben **[HER](/om-klubben)**
-
-[▶ Se video på Vimeo](//vimeo.com/104787759)
-
-[PPG XC sertifiseringen](http://vimeo.com/104787759) from [Boerre Arntsen](http://vimeo.com/boerre) on [Vimeo](https://vimeo.com).
-
-~~HPGT videobidrag 2014 JohannNormann~~ Trukket fra konkurransen
-
-[▶ Se video på Vimeo](//vimeo.com/104947278)
-
-[Prosjekt: Tidenes sommer](http://vimeo.com/104947278) from [Kristoffer D. Hofstad](http://vimeo.com/krissfizz) on [Vimeo](https://vimeo.com).
-
-[▶ Se video på Vimeo](//vimeo.com/105601038)
-
-[HPGT Videobidrag 2014](http://vimeo.com/105601038) from [Johnny Nilsen](http://vimeo.com/user3830933) on [Vimeo](https://vimeo.com).
-
-[▶ Se video på Vimeo](//vimeo.com/107386211)
-
-[PPG xc hpgt-2014](http://vimeo.com/107386211) from [Lars Sletten](http://vimeo.com/user6689153) on [Vimeo](https://vimeo.com).
-
-[▶ Se video på Vimeo](//vimeo.com/107392802)
-
-[«Fly Flate» – Harstad](http://vimeo.com/107392802) from [Erlend Madsen](http://vimeo.com/madsenluftsport) on [Vimeo](https://vimeo.com).
-
-[▶ Se video på Vimeo](//vimeo.com/107410391)
-
-[Den uheldige mannen](http://vimeo.com/107410391) from [Camilla Bjordal](http://vimeo.com/user32789559) on [Vimeo](https://vimeo.com).
-
-[▶ Se video på YouTube](//www.youtube.com/watch?v=7zb9taflRFU)
-
-
-Bidrag fra Aage D. Hofstad
-
-[▶ Se video på YouTube](//www.youtube.com/watch?v=jmZO1AHKiGM)
-
-
-Bidrag fra Stephan Tellaroli
+Reglene for konkurransen står i [innlegget om foto- og videokonkurransen 2014](/foto-og-video-konkurranse/).
