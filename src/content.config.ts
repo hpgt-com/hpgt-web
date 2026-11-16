@@ -50,7 +50,11 @@ const sideSkjema = z.object({
   permalink,
   ingress: z.string().optional(),
   bilde: z.string().optional(),
-  mal: z.enum(["standard", "kontakt", "radioid", "kurs", "seksjon", "bidra"]).default("standard"),
+  mal: z.enum(["standard", "kontakt", "radioid", "kurs", "seksjon", "bidra", "konkurranser"]).default("standard"),
+  // Konkurransesider (src/content/sider/konkurranser/ÅR.md): år og vinnere vises i oversikten på /klubben/konkurranser/
+  aar: z.preprocess(tom, z.coerce.number().optional()),
+  vinner_foto: z.preprocess(tom, z.string().optional()),
+  vinner_video: z.preprocess(tom, z.string().optional()),
   sist_endret: z.coerce.date().optional(),
   wp_id: z.number().optional(),
 });

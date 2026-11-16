@@ -74,7 +74,9 @@ export const grupperPaaAar = (poster: Innlegg[]) => {
 export const tidSted = (e: Arrangement) => [e.data.sted, !e.data.heldag && `kl. ${klokke(e.data.start)}`].filter(Boolean).join(" · ");
 /** Adressen til et innlegg/side/arrangement: permalink fra WordPress, ellers filnavnet uten datoprefiks (nye saker fra CMS-et). */
 export const lenke = (e: { id: string; data: { permalink?: string } }) =>
-  e.data.permalink ?? `/${e.id.split("/").pop()!.replace(/^\d{4}-\d{2}-\d{2}-/, "")}/`;
+  e.data.permalink ??
+  // Konkurranser opprettet i Pages CMS (sider/konkurranser/2027.md) får /klubben/konkurranser/2027/
+  (e.id.startsWith("konkurranser/") ? `/klubben/${e.id}/` : `/${e.id.split("/").pop()!.replace(/^\d{4}-\d{2}-\d{2}-/, "")}/`);
 
 /** Status for kursblokken på forsiden, regnet ut fra datoene i forside.json ved hvert bygg. */
 export function kursStatus(k: { start: string; slutt: string; frist: string }, naa = new Date()) {
