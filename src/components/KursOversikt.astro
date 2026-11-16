@@ -5,11 +5,12 @@ import { T, sideInfo } from "../lib/i18n";
 import "./kurs.css";
 const { sprak } = sideInfo(Astro.url.pathname);
 const kurs = await hentKurs(sprak);
-const p = sprak === "en" ? "/en" : "";
+import { tilEngelsk } from "../lib/engelske-adresser.mjs";
+const adr = (u: string) => (sprak === "en" ? `/en${tilEngelsk(u)}` : u);
 ---
 {kurs.length > 0 && <section class="kurskort" aria-labelledby="kurskort-h">
   <h2 id="kurskort-h">{T[sprak].kursene}</h2>
-  <ul>{kurs.map((k) => <li><a href={url(p + kursLenke(k))}>
+  <ul>{kurs.map((k) => <li><a href={url(adr(kursLenke(k)))}>
     {k.data.bilde && <img src={url(k.data.bilde)} alt="" loading="lazy" />}
     <b>{k.data.title}</b>{k.data.ingress && <span>{k.data.ingress}</span>}</a></li>)}</ul>
 </section>}

@@ -8,7 +8,7 @@ import "@fontsource/ibm-plex-mono/500.css";
 import "@fontsource/ibm-plex-mono/600.css";
 import "./style.css";
 import { site, meny, url, ekstern } from "../lib/site";
-import { T, sideInfo, engelskeStier, lenkeFor, menyTekst } from "../lib/i18n";
+import { T, sideInfo, engelskeStier, lenkeFor, menyTekst, tilEngelsk } from "../lib/i18n";
 import { seksjonFor, alleSeksjoner, seksjonsHref } from "../lib/seksjoner";
 const { title, description, image } = Astro.props;
 // Språket bestemmes av adressen: /en/… er engelsk
@@ -18,7 +18,7 @@ const engelske = await engelskeStier();
 const finnes = engelske.has(sti);
 // Språkbryteren går til samme side på det andre språket, eller til forsiden hvis siden ikke er oversatt
 const tilNorsk = url(sti);
-const tilEngelsk = url(finnes ? `/en${sti}` : "/en/");
+const tilEngelskSide = url(finnes ? `/en${tilEngelsk(sti)}` : "/en/");
 const visBryter = engelske.has("/");
 const lenk = (u: string) => lenkeFor(sprak, u, engelske);
 // Sider i en seksjon (For piloter, Klubben, Kurs) markerer seksjonen i toppmenyen, f.eks. referater under Klubben, ikke Nytt
@@ -39,10 +39,10 @@ const aktiv = (u: string) => !ekstern(u) && (seksjon ? u === seksjon.url : u ===
         <img src={url("/assets/img/hpgt-logo.png")} alt="" width="36" height="36" />
         <span><b>HPGT</b><small>Harstad Hang og Paragliderklubb</small></span>
       </a>
-      <a class="sok-knapp" href={url(sprak === "en" ? "/en/sok/" : "/sok/")} aria-label={t.sok} title={t.sok}><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2" /><path d="M15.5 15.5 21 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg></a>
+      <a class="sok-knapp" href={url(sprak === "en" ? "/en/search/" : "/sok/")} aria-label={t.sok} title={t.sok}><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2" /><path d="M15.5 15.5 21 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg></a>
       {visBryter && <nav class="sprakvalg" aria-label="Språk / Language">
         <a href={tilNorsk} lang="nb" hreflang="nb" aria-current={sprak === "nb" ? "true" : undefined} title="Norsk">NO</a>
-        <a href={tilEngelsk} lang="en" hreflang="en" aria-current={sprak === "en" ? "true" : undefined} title={finnes || sprak === "en" ? "English" : "English (this page is only in Norwegian – opens the English front page)"}>EN</a>
+        <a href={tilEngelskSide} lang="en" hreflang="en" aria-current={sprak === "en" ? "true" : undefined} title={finnes || sprak === "en" ? "English" : "English (this page is only in Norwegian – opens the English front page)"}>EN</a>
       </nav>}
       <button class="tema-bryter" type="button" role="switch" aria-checked="false" aria-label={t.morkTema} data-tema-knapp hidden><span class="tema-bryter__knott" aria-hidden="true"></span></button>
       <button class="menu-btn" type="button" data-menu-button aria-expanded="false" aria-controls="nav">{t.meny}</button>

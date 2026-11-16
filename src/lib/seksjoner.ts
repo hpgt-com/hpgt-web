@@ -2,7 +2,7 @@
 // Hver seksjon får en knapperad øverst på alle sidene sine (SeksjonsMeny) og kort på oversiktssiden (SeksjonOversikt).
 import { getCollection } from "astro:content";
 import { meny, hentKurs, kursLenke, lenke, ekstern } from "./site";
-import { lenkeFor, type Sprak } from "./i18n";
+import { lenkeFor, tilEngelsk, type Sprak } from "./i18n";
 import { url } from "./site";
 
 export type SeksjonsLenke = { tekst: string; url: string; ekstern?: boolean; ingress?: string; ingress_en?: string; bilde?: string };
@@ -35,7 +35,7 @@ export async function alleSeksjoner(sprak: Sprak) {
 
 /** Lenke til en side i seksjonen på riktig språk. Kurssidene finnes alltid på engelsk; andre bare når de er oversatt. */
 export const seksjonsHref = (s: Seksjon, u: string, sprak: Sprak, engelske: Set<string>) =>
-  s.url === "/kurs/" && sprak === "en" && !ekstern(u) ? url(`/en${u}`) : lenkeFor(sprak, u, engelske);
+  s.url === "/kurs/" && sprak === "en" && !ekstern(u) ? url(`/en${tilEngelsk(u)}`) : lenkeFor(sprak, u, engelske);
 
 /** Den mest presise lenken i seksjonen som siden er (eller ligger under). */
 export function aktivLenke(s: Seksjon, sti: string) {

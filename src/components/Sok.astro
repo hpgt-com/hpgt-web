@@ -5,7 +5,7 @@ import { sideInfo } from "../lib/i18n";
 const { sprak } = sideInfo(Astro.url.pathname);
 const en = sprak === "en";
 ---
-<form class="sok" role="search" data-sok data-base={import.meta.env.BASE_URL.replace(/\/$/, "")} action={url(en ? "/en/sok/" : "/sok/")} method="get">
+<form class="sok" role="search" data-sok data-base={import.meta.env.BASE_URL.replace(/\/$/, "")} action={url(en ? "/en/search/" : "/sok/")} method="get">
   <label for="sok-felt" class="sok__etikett">{en ? "Search the site" : "Søk på siden"}</label>
   <div class="sok__rad">
     <input id="sok-felt" type="search" name="q" autocomplete="off" placeholder={en ? "E.g. course, tandem, NOTAM …" : "F.eks. kurs, tandem, NOTAM, årsmøte …"} />
