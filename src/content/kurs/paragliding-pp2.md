@@ -14,7 +14,7 @@ Dette er et kurs som tar deg gradvis fra helt ukjent med sporten, opp til PP2-ni
 - Pris: 15 000 kr
 - Depositum på kr 5000 sikrer plassen din på kurs, og må være betalt innen påmeldingsfrist. Depositum blir ikke tilbakebetalt ved avmelding etter påmeldingsfrist.
 - Kursavgift inkluderer hjelm til odel og eie, pensumlitteratur, samt lån av komplett kursutstyr.
-- Ikke inkludert i prisen kommer forsikring og medlemskap for 2026, på 2436kr
+- Ikke inkludert i prisen kommer forsikring og medlemskap. For 2026 var dette på 2436 kr.
 - Elev kan få rabattert kursavgift med kroner 3000 ved bruk av eget utstyr. Dette MÅ godkjennes av instruktør før kurs
 - Det vil bli mulig å leie kursutstyr etter endt kurs, frem til anskaffelse av eget utstyr
 
