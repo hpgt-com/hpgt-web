@@ -1,6 +1,7 @@
 ---
 title: "Skriv på siden"
 permalink: "/klubben/bidra/"
+mal: "bidra"
 ingress: "Alle medlemmer kan få tilgang til å skrive nyheter, legge ut referater og oppdatere sider – uten å kunne noe om nettsider."
 ---
 ## Slik får du tilgang

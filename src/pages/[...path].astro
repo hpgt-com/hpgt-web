@@ -11,7 +11,8 @@ import ArrangementBoks from "../components/ArrangementBoks.astro";
 import KommendeKurs from "../components/KommendeKurs.astro";
 import SeksjonOversikt from "../components/SeksjonOversikt.astro";
 import KursOversikt from "../components/KursOversikt.astro";
-import { dato, url, lenke, kursLenke } from "../lib/site";
+import { dato, url, lenke, kursLenke, site } from "../lib/site";
+import Pil from "../components/Pil.astro";
 
 export async function getStaticPaths() {
   const trim = (e: any) => lenke(e).replace(/^\/|\/$/g, "");
@@ -39,6 +40,7 @@ const tilbake = type === "kurs" ? { tekst: "Kurs", url: url("/kurs/") } : erArr 
     {d.mal === "kurs" && <KommendeKurs />}
     {d.mal === "kontakt" && <Styret />}
     {d.mal === "radioid" && <RadioId />}
+    {d.mal === "bidra" && <p><a class="btn" href={site.cms}>Logg inn i Pages CMS <Pil /></a></p>}
     <Content />
     {d.mal === "kurs" && <KursOversikt />}
     {d.mal === "seksjon" && <SeksjonOversikt />}
