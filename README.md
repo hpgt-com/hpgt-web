@@ -65,6 +65,7 @@ Nyheter og arrangementer er bare på norsk. Faste tekster (menyer, knapper) stå
   `ANTHROPIC_ORGANIZATION_ID`, `ANTHROPIC_FEDERATION_RULE_ID`, `ANTHROPIC_SERVICE_ACCOUNT_ID` og ev. `ANTHROPIC_WORKSPACE_ID`.
   Uten innlogging publiseres siden som før, med de forrige oversettelsene.
 - Hvilke sider som oversettes: `SIDER` øverst i `scripts/oversett/oversett.mjs`.
+- Engelske adresser (`/klubben/styret/` → `/en/club/board/`): `src/lib/engelske-adresser.mjs`. Gamle `/en/…`-adresser videresendes.
 - Teste lokalt uten nøkkel: `OVERSETT_TEST=1 npm run build` gir «[EN] …»-tekster.
 
 ## Sikkerhet

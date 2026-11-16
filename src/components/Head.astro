@@ -1,11 +1,12 @@
 ---
 // Felles <head> for alle design: streng CSP (kun egne filer, ingen sporing), noindex mens dette er en prototype.
 import { site, url } from "../lib/site";
+import { tilEngelsk } from "../lib/engelske-adresser.mjs";
 interface Props { title: string; description?: string; image?: string; sprak?: "nb" | "en"; sti?: string; alternativ?: boolean }
 const { title, description = site.beskrivelse, image, sprak = "nb", sti: normalSti, alternativ = false } = Astro.props;
 // Begge språkversjonene peker på hverandre (hreflang), så søkemotorer viser riktig språk
 const nbUrl = normalSti && new URL(normalSti, site.url);
-const enUrl = normalSti && new URL(`/en${normalSti}`, site.url);
+const enUrl = normalSti && new URL(`/en${tilEngelsk(normalSti)}`, site.url);
 const fullTitle = title === site.navn ? site.navn : `${title} – ${site.kortnavn}`;
 // Sider med skjema får laste Cloudflare Turnstile – ingen andre. Må stemme med public/_headers.
 const SKJEMASIDER = ["/for-piloter/radioid/"];

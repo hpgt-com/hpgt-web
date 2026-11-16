@@ -5,6 +5,8 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { forside as forsideNb, url, lenke, ekstern } from "./site";
 import styretNb from "../data/styret.json";
+import { tilEngelsk, tilNorsk } from "./engelske-adresser.mjs";
+export { tilEngelsk, tilNorsk };
 
 export type Sprak = "nb" | "en";
 
@@ -68,11 +70,12 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
 /** Sti uten base og uten /en, og språket den er på. */
 export function sideInfo(pathname: string): { sti: string; sprak: Sprak } {
   const p = pathname.slice(BASE.length) || "/";
-  return p === "/en/" || p.startsWith("/en/") ? { sti: p.slice(3) || "/", sprak: "en" } : { sti: p, sprak: "nb" };
+  // sti er alltid den norske adressen, også på engelske sider (/en/club/board/ → /klubben/styret/)
+  return p === "/en/" || p.startsWith("/en/") ? { sti: tilNorsk(p.slice(3) || "/"), sprak: "en" } : { sti: p, sprak: "nb" };
 }
 /** Lenke på riktig språk: engelsk versjon hvis den finnes, ellers den norske siden. */
 export const lenkeFor = (sprak: Sprak, u: string, engelske: Set<string>) =>
-  ekstern(u) ? u : url(sprak === "en" && engelske.has(u) ? `/en${u}` : u);
+  ekstern(u) ? u : url(sprak === "en" && engelske.has(u) ? `/en${tilEngelsk(u)}` : u);
 
 export const datoFor = (sprak: Sprak, d: Date) =>
   new Intl.DateTimeFormat(sprak === "en" ? "en-GB" : "nb-NO", { timeZone: "UTC", day: "numeric", month: "long", year: "numeric" }).format(d);
