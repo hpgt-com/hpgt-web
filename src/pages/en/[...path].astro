@@ -5,7 +5,7 @@ import Layout from "@design/Layout.astro";
 import Article from "@design/Article.astro";
 import Styret from "../../components/Styret.astro";
 import KommendeKurs from "../../components/KommendeKurs.astro";
-import KursMeny from "../../components/KursMeny.astro";
+import SeksjonOversikt from "../../components/SeksjonOversikt.astro";
 import KursOversikt from "../../components/KursOversikt.astro";
 import { url, lenke, kursLenke } from "../../lib/site";
 import { T, datoFor } from "../../lib/i18n";
@@ -28,11 +28,11 @@ const kursSide = type === "kurs" || d.mal === "kurs";
 ---
 <Layout title={d.title} description={d.ingress} image={d.bilde}>
   <Article title={d.title} ingress={d.ingress} bilde={d.bilde} meta={meta} tilbake={tilbake} type={type} overskrifter={headings}>
-    {kursSide && <KursMeny slot="foran" />}
     {type === "kurs" && d.kurstype && <KommendeKurs type={d.kurstype} />}
     {d.mal === "kurs" && <KommendeKurs />}
     {d.mal === "kontakt" && <Styret />}
     <Content />
     {d.mal === "kurs" && <KursOversikt />}
+    {d.mal === "seksjon" && <SeksjonOversikt />}
   </Article>
 </Layout>

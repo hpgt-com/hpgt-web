@@ -38,7 +38,8 @@ const MENY_EN: Record<string, string> = {
   "Kurs": "Courses", "Tandem": "Tandem", "Flysteder": "Flying sites", "Arrangementer": "Events", "Nytt": "News", "Klubben": "Club",
   "Lenker og værstasjoner": "Links and weather stations", "NOTAM ved vinsjing": "NOTAM for winch towing",
   "FLARM/FANET RadioID-register": "FLARM/FANET RadioID register", "Flysteder (kart)": "Flying sites (map)",
-  "Om klubben": "About the club", "Styret og roller": "Board and roles", "Møter og referater": "Meetings and minutes",
+  "Om klubben": "About the club", "For piloter": "For pilots", "Fly med oss": "Fly with us", "Vær og lenker": "Weather and links",
+  "Oversikt": "Overview", "Alle kurs": "All courses", "Styret og roller": "Board and roles", "Møter og referater": "Meetings and minutes",
   "Økonomisk støtte": "Financial support", "Konkurranser": "Competitions", "Skriv på siden": "Write for the site", "Prøv redaktøren": "Try the editor",
 };
 export const menyTekst = (sprak: Sprak, tekst: string) => (sprak === "en" ? MENY_EN[tekst] ?? tekst : tekst);
