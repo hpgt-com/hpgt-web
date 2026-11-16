@@ -10,7 +10,7 @@ import RedaktorDemo from "../components/RedaktorDemo.astro";
 import Vedlegg from "../components/Vedlegg.astro";
 import ArrangementBoks from "../components/ArrangementBoks.astro";
 import KommendeKurs from "../components/KommendeKurs.astro";
-import KursMeny from "../components/KursMeny.astro";
+import SeksjonOversikt from "../components/SeksjonOversikt.astro";
 import KursOversikt from "../components/KursOversikt.astro";
 import { dato, url, lenke, kursLenke } from "../lib/site";
 
@@ -35,7 +35,6 @@ const tilbake = type === "kurs" ? { tekst: "Kurs", url: url("/kurs/") } : erArr 
 <Layout title={d.title} description={d.ingress} image={d.bilde}>
   <Article title={d.title} ingress={d.ingress} bilde={type !== "innlegg" ? d.bilde : undefined} meta={meta}
     kategorier={type === "innlegg" ? d.kategorier : undefined} tilbake={tilbake} type={type} overskrifter={headings}>
-    {(type === "kurs" || d.mal === "kurs") && <KursMeny slot="foran" />}
     {type === "kurs" && d.kurstype && <KommendeKurs type={d.kurstype} />}
     {erArr && <ArrangementBoks a={d.arrangement} />}
     {d.mal === "kurs" && <KommendeKurs />}
@@ -44,6 +43,7 @@ const tilbake = type === "kurs" ? { tekst: "Kurs", url: url("/kurs/") } : erArr 
     {d.mal === "redaktordemo" && <RedaktorDemo />}
     <Content />
     {d.mal === "kurs" && <KursOversikt />}
+    {d.mal === "seksjon" && <SeksjonOversikt />}
     {d.mal === "radioid" && <RadioIdSkjema />}
     {d.vedlegg?.length > 0 && <Vedlegg filer={d.vedlegg} />}
   </Article>

@@ -8,6 +8,7 @@ import "@fontsource/ibm-plex-mono/600.css";
 import "./style.css";
 import { site, meny, url, ekstern } from "../lib/site";
 import { T, sideInfo, engelskeStier, lenkeFor, menyTekst } from "../lib/i18n";
+import { seksjonFor, alleSeksjoner, seksjonsHref } from "../lib/seksjoner";
 const { title, description, image } = Astro.props;
 // Språket bestemmes av adressen: /en/… er engelsk
 const { sti, sprak } = sideInfo(Astro.url.pathname);
@@ -19,7 +20,11 @@ const tilNorsk = url(sti);
 const tilEngelsk = url(finnes ? `/en${sti}` : "/en/");
 const visBryter = engelske.has("/");
 const lenk = (u: string) => lenkeFor(sprak, u, engelske);
-const aktiv = (u: string) => !ekstern(u) && (u === "/" ? sti === "/" : sti.startsWith(u));
+// Sider i en seksjon (For piloter, Klubben, Kurs) markerer seksjonen i toppmenyen, f.eks. referater under Klubben, ikke Nytt
+const seksjon = await seksjonFor(sti, sprak);
+// Toppmenyens punkter med undersider får et nedtrekkspanel (PC) og vises som tre på mobil
+const seksjoner = await alleSeksjoner(sprak);
+const aktiv = (u: string) => !ekstern(u) && (seksjon ? u === seksjon.url : u === "/" ? sti === "/" : sti.startsWith(u));
 ---
 <!doctype html>
 <html lang={sprak}>
@@ -40,7 +45,19 @@ const aktiv = (u: string) => !ekstern(u) && (u === "/" ? sti === "/" : sti.start
       <button class="tema-bryter" type="button" role="switch" aria-checked="false" aria-label={t.morkTema} data-tema-knapp hidden><span class="tema-bryter__knott" aria-hidden="true"></span></button>
       <button class="menu-btn" type="button" data-menu-button aria-expanded="false" aria-controls="nav">{t.meny}</button>
       <nav id="nav" class="nav" aria-label={t.hovedmeny}>
-        {meny.hoved.map((m) => <a href={lenk(m.url)} aria-current={aktiv(m.url) ? "page" : undefined}>{menyTekst(sprak, m.tekst)}{ekstern(m.url) && " ↗"}</a>)}
+        {meny.hoved.map((m, i) => {
+          const s = seksjoner.get(m.url);
+          const topp = <a href={lenk(m.url)} aria-current={aktiv(m.url) ? "page" : undefined}>{menyTekst(sprak, m.tekst)}{ekstern(m.url) && " ↗︎"}</a>;
+          if (!s) return topp;
+          const id = `undermeny-${i}`;
+          return <div class="nav__gruppe" data-nedtrekk>
+            {topp}
+            <button class="nav__pil" type="button" aria-expanded="false" aria-controls={id} aria-label={`${menyTekst(sprak, m.tekst)}: ${t.visUndersider}`}><span aria-hidden="true">▾</span></button>
+            <ul class="nav__under" id={id}>
+              {[{ tekst: s.forste, url: s.url }, ...s.sider].map((l) => <li><a href={seksjonsHref(s, l.url, sprak, engelske)} aria-current={sti === l.url ? "page" : undefined}>{s.url === "/kurs/" && l.url !== "/kurs/" ? l.tekst : menyTekst(sprak, l.tekst)}{ekstern(l.url) && " ↗︎"}</a></li>)}
+            </ul>
+          </div>;
+        })}
       </nav>
     </div>
   </header>
@@ -48,9 +65,10 @@ const aktiv = (u: string) => !ekstern(u) && (u === "/" ? sti === "/" : sti.start
   <footer class="foot">
     <div class="wrap foot__grid">
       <div><p class="foot__logo">HPGT</p><p class="muted">Harstad Hang og Paragliderklubb<br />Org.nr. {site.orgnr} · Vipps {site.vipps}<br /><a href={`mailto:${site.epost.leder}`}>{site.epost.leder}</a></p></div>
-      <nav aria-label={t.klubben}><h2>{t.klubben}</h2>{meny.klubben.map((m) => <a href={lenk(m.url)}>{menyTekst(sprak, m.tekst)}</a>)}</nav>
-      <nav aria-label={t.piloter}><h2>{t.piloter}</h2>{meny.piloter.map((m) => <a href={lenk(m.url)}>{menyTekst(sprak, m.tekst)}{ekstern(m.url) && " ↗"}</a>)}</nav>
-      <nav aria-label={t.folg}><h2>{t.folg}</h2><a href={site.facebook}>Facebook ↗</a><a href={site.instagram}>Instagram ↗</a></nav>
+      {/* Bunnen viser de samme seksjonene som toppmenyen (meny.json → seksjoner), som et nettstedskart */}
+      {meny.seksjoner.map((s) => <nav aria-label={menyTekst(sprak, s.tekst)}><h2>{menyTekst(sprak, s.tekst)}</h2>
+        {[{ tekst: s.forste, url: s.url }, ...s.sider, ...(s.bareIBunnen ?? [])].map((m) => <a href={lenk(m.url)}>{menyTekst(sprak, m.tekst)}{ekstern(m.url) && " ↗︎"}</a>)}</nav>)}
+      <nav aria-label={t.folg}><h2>{t.folg}</h2><a href={site.facebook}>Facebook ↗︎</a><a href={site.instagram}>Instagram ↗︎</a></nav>
     </div>
     <div class="wrap foot__end"><p class="quote">«{site.sitat.tekst}» <span>– {site.sitat.kilde}</span></p><p class="muted">{t.sporing}</p></div>
   </footer>

@@ -1,6 +1,7 @@
 ---
 title: "Om klubben"
 permalink: "/om-oss/"
+mal: "seksjon"
 ingress: "Harstad Hang- og Paragliderklubb (HPGT) er en idrettsforening tilknyttet Norges Luftsportforbund. Vi er en sosial gjeng som møtes så fort været tillater det."
 bilde: "/wp-content/uploads/2026/03/received_24415437096123797173128654438448749.jpeg"
 ---

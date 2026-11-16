@@ -1,5 +1,6 @@
 ---
 title: NOTAM – HPGT
+ingress: "Slik søker vi om NOTAM når vi skal vinsje – med mal og bakgrunn fra NLF."
 sist_endret: 2026-11-16
 permalink: /notam/
 wp_id: 3641

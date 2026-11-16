@@ -1,5 +1,6 @@
 ---
 title: "Lenker / Værstasjoner"
+ingress: "Værvarsler, værstasjoner og andre nyttige lenker for piloter."
 permalink: "/lenker/"
 wp_id: 104
 sist_endret: "2026-05-18"

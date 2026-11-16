@@ -15,7 +15,7 @@ export const T = {
     sistOppdatert: "Sist oppdatert", kurs: "Kurs", alleKurs: "Alle kurs", kursene: "Kursene våre", nesteKurs: "Neste kurs",
     kommende: "Kommende kurs og fagdager", ingenKurs: "Ingen kurs er satt opp akkurat nå. Følg med her og i Facebook-gruppa",
     forrigeVar: "forrige var", heleKalenderen: "Hele kalenderen →", kontaktMeg: "Kontakt meg om:", portrett: "Portrett av", styret: "Styret",
-    morkTema: "Mørkt tema",
+    morkTema: "Mørkt tema", visUndersider: "vis undersider",
     utforskKurs: "Utforsk kurs", flyMedOss: "Fly med oss", kalender: "Aktivitetskalender", utILufta: "Ut i lufta", finnVei: "Finn din vei inn.",
     omKlubben: "Om klubben", heltebildeAlt: "Tandemflyging over snødekte fjell ved Harstad",
   },
@@ -25,7 +25,7 @@ export const T = {
     sistOppdatert: "Last updated", kurs: "Courses", alleKurs: "All courses", kursene: "Our courses", nesteKurs: "Next course",
     kommende: "Upcoming courses and training days", ingenKurs: "No courses are scheduled right now. Keep an eye on this page and our Facebook group",
     forrigeVar: "the last one was", heleKalenderen: "Full calendar (in Norwegian) →", kontaktMeg: "Contact me about:", portrett: "Portrait of", styret: "Board",
-    morkTema: "Dark mode",
+    morkTema: "Dark mode", visUndersider: "show subpages",
     utforskKurs: "Explore courses", flyMedOss: "Fly with us", kalender: "Activity calendar", utILufta: "Into the air", finnVei: "Find your way in.",
     omKlubben: "About the club", heltebildeAlt: "Tandem flight over snow-covered mountains near Harstad",
     norskInnhold: "News and events", norskInnholdTekst: "News, meeting minutes and the event calendar are published in Norwegian. Your browser can translate them for you.",
@@ -38,7 +38,8 @@ const MENY_EN: Record<string, string> = {
   "Kurs": "Courses", "Tandem": "Tandem", "Flysteder": "Flying sites", "Arrangementer": "Events", "Nytt": "News", "Klubben": "Club",
   "Lenker og værstasjoner": "Links and weather stations", "NOTAM ved vinsjing": "NOTAM for winch towing",
   "FLARM/FANET RadioID-register": "FLARM/FANET RadioID register", "Flysteder (kart)": "Flying sites (map)",
-  "Om klubben": "About the club", "Styret og roller": "Board and roles", "Møter og referater": "Meetings and minutes",
+  "Om klubben": "About the club", "For piloter": "For pilots", "Fly med oss": "Fly with us", "Vær og lenker": "Weather and links",
+  "Oversikt": "Overview", "Alle kurs": "All courses", "Styret og roller": "Board and roles", "Møter og referater": "Meetings and minutes",
   "Økonomisk støtte": "Financial support", "Konkurranser": "Competitions", "Skriv på siden": "Write for the site", "Prøv redaktøren": "Try the editor",
 };
 export const menyTekst = (sprak: Sprak, tekst: string) => (sprak === "en" ? MENY_EN[tekst] ?? tekst : tekst);

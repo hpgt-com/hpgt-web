@@ -1,5 +1,6 @@
 ---
 title: "Konkurranser"
+ingress: "Foto- og videokonkurranser klubben har arrangert."
 permalink: "/konkurranser/"
 wp_id: 1890
 sist_endret: "2019-01-21"
