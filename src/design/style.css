@@ -68,6 +68,13 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--sky); outline-o
 .sprakvalg a[aria-current] { background: var(--text); color: var(--bg); }
 /* Knapp for lyst/mørkt tema (vises bare med JavaScript, se public/assets/js/tema.js) */
 .nav { order: 1; }
+/* Standardbilde når innlegg/arrangementer mangler bilde (src/components/Standardbilde.astro) */
+span.standardbilde { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: #fff; background: linear-gradient(135deg, color-mix(in srgb, var(--k, var(--sky)) 85%, #0c2c52), color-mix(in srgb, var(--k, var(--sky)) 45%, #0c2c52)); }
+/* Mørkt tema har lysere kategorifarger – mørkere bakgrunn så hvit tekst fortsatt har god kontrast */
+:root[data-tema="mork"] span.standardbilde { background: linear-gradient(135deg, color-mix(in srgb, var(--k) 55%, #0c2c52), color-mix(in srgb, var(--k) 30%, #0c2c52)); }
+@media (prefers-color-scheme: dark) { :root:not([data-tema="lys"]) span.standardbilde { background: linear-gradient(135deg, color-mix(in srgb, var(--k) 55%, #0c2c52), color-mix(in srgb, var(--k) 30%, #0c2c52)); } }
+.standardbilde svg { width: 34%; max-width: 76px; height: auto; opacity: .95; }
+.standardbilde span { font-weight: 800; font-size: .95rem; letter-spacing: -.01em; text-align: center; padding: 0 12px; opacity: .95; }
 /* Pil for eksterne lenker og «gå videre» (src/components/Pil.astro) */
 .pil { display: inline-block; width: .85em; height: .85em; vertical-align: -.08em; }
 /* Lyst/mørkt: bryter med sol/måne i knotten (role=switch, se tema.js) */

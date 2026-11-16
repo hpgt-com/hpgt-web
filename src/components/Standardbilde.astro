@@ -1,0 +1,24 @@
+---
+// Standardbilde for innlegg og arrangementer uten bilde: kategoriens farge med et enkelt ikon og en kort tekst
+// (kategorien for innlegg, datoen for arrangementer). Brukes i bildevisningen og på forsiden.
+interface Props { kat?: string; tekst?: string; class?: string }
+const { kat = "nyhet", tekst, class: klasse } = Astro.props;
+// Ikon etter kategori (innlegg) eller gruppe (arrangementer). Tegnet på et 24×24-rutenett med strek.
+const IKON: Record<string, string> = {
+  nyhet: "M4 10v4h3l8 4.5V5.5L7 10H4zM18.5 9a4 4 0 0 1 0 6",
+  "moter-og-referater": "M7 3h7l4 4v14H7zM14 3v4h4M10 12h5M10 16h5",
+  mote: "M7 3h7l4 4v14H7zM14 3v4h4M10 12h5M10 16h5",
+  "kurs-og-fagdag": "M3 9.5c3.5-4.5 14.5-4.5 18 0M3 9.5 12 20l9-10.5M8 7.6 12 20l4-12.4",
+  kurs: "M3 9.5c3.5-4.5 14.5-4.5 18 0M3 9.5 12 20l9-10.5M8 7.6 12 20l4-12.4",
+  fagdag: "M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6zM9 12l2 2 4-4",
+  "sosialt-og-turer": "M3 19l6-9 4 6 3-4 5 7zM17 5.5a1.5 1.5 0 1 0 0 .01",
+  sosialt: "M3 19l6-9 4 6 3-4 5 7zM17 5.5a1.5 1.5 0 1 0 0 .01",
+  konkurranser: "M8 4h8v5a4 4 0 0 1-8 0zM8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M9 20h6",
+  konkurranse: "M8 4h8v5a4 4 0 0 1-8 0zM8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M9 20h6",
+};
+const d = IKON[kat] ?? IKON["kurs"];
+---
+<span class:list={["standardbilde", klasse]} data-kat={kat} aria-hidden="true">
+  <svg viewBox="0 0 24 24" focusable="false"><path d={d} fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+  {tekst && <span>{tekst}</span>}
+</span>
