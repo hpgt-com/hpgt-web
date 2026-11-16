@@ -1,5 +1,5 @@
 # Bilder og filer fra WordPress ligger nå i /media/ (se README). Gamle lenker (Google, Facebook, andre nettsider)
 # videresendes permanent. Leses av Cloudflare (Workers static assets). Mest spesifikke regel først.
-/wp-content/gallery/foto-konkurranse/* /media/competitions/2014/:splat 301
-/wp-content/gallery/foto_konk_2017/* /media/competitions/2017/:splat 301
+/wp-content/gallery/foto-konkurranse/* /media/competitions/2014/entries/:splat 301
+/wp-content/gallery/foto_konk_2017/* /media/competitions/2017/entries/:splat 301
 /wp-content/uploads/* /media/archive/:splat 301

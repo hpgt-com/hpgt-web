@@ -37,13 +37,16 @@ Pages CMS laster opp til riktig mappe automatisk (`options.path` per felt i `.pa
 | `pages/` | Toppbilder til faste sider, kurssider og forsiden | Toppbilde, forsidens bilder |
 | `board/` | Portretter av styret | Styret |
 | `defaults/` | Standardbilder per kategori | Standardbilder |
-| `competitions/ÅR/` | Bildebidrag og toppbilder per konkurranse | Konkurranser |
-| `sponsors/` | Sponsorlogoer som brukes flere steder | Legges inn manuelt ved behov |
+| `competitions/ÅR/` | Alt om én konkurranse: `entries/` (bildebidrag) og `sponsors/` (logoene slik de var det året) | Konkurranser |
+| `sponsors/NAVN/` | Faste klubbsponsorer, én mappe per sponsor. Nye logoversjoner ved siden av de gamle, med år i navnet (`logo-2026.svg`) | Legges inn ved behov |
 | `documents/` | PDF-er: referater, innkallinger, årsberetninger | Vedlegg på innlegg |
 | `archive/ÅR/MÅNED/` | Alt fra WordPress, slik det lå der | – (bare lesing) |
 | `generated/` | Lages ved bygg (videominiatyrer), ikke i git | – |
 
-Gamle `/wp-content/…`-adresser videresendes til `archive/` og `competitions/` (`public/_redirects`).
+Sponsorer i en konkurranse ligger hos konkurransen (logoen slik den var det året, også om sponsoren senere bytter logo).
+Faste klubbsponsorer ligger i `sponsors/`. Samme firma kan ligge begge steder.
+
+Gamle `/wp-content/…`-adresser videresendes til `archive/` og `competitions/ÅR/entries/` (`public/_redirects`).
 Designets egne filer (logo, skript) ligger i `public/assets/`.
 
 ## Engelsk versjon
