@@ -1,14 +1,9 @@
 ---
-title: "Tandem"
-permalink: "/tandem/"
-wp_id: 10648
-sist_endret: "2026-04-19"
+title: Tandem
+sist_endret: 2026-04-19
+permalink: /tandem/
 ---
 Nord-Norge kan tilby mange fine fjell og fantastisk natur, men stabilt vær kan vi desverre ikke skryte av. Likevel har vi i Harstad mange gode flydager, og vi er mer enn glade for å introdusere denne fantastiske sporten til andre! Ta kontakt for å planlegge tur med en av våre flinke piloter.
-
-—–
-
-We are blessed with wonderful mountains and nature in the northern part og Norway, but we are not equally blessed with stable weather. Still, we have plenty of good flying days, and we love to share our passion for this sport with others. Reach out to explore the opportunity for a tandem flight, you won’t regret it!
 
 —–
 
