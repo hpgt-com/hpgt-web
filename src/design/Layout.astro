@@ -39,6 +39,7 @@ const aktiv = (u: string) => !ekstern(u) && (seksjon ? u === seksjon.url : u ===
         <img src={url("/assets/img/hpgt-logo.png")} alt="" width="36" height="36" />
         <span><b>HPGT</b><small>Harstad Hang og Paragliderklubb</small></span>
       </a>
+      <a class="sok-knapp" href={url(sprak === "en" ? "/en/sok/" : "/sok/")} aria-label={t.sok} title={t.sok}><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2" /><path d="M15.5 15.5 21 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg></a>
       {visBryter && <nav class="sprakvalg" aria-label="Språk / Language">
         <a href={tilNorsk} lang="nb" hreflang="nb" aria-current={sprak === "nb" ? "true" : undefined} title="Norsk">NO</a>
         <a href={tilEngelsk} lang="en" hreflang="en" aria-current={sprak === "en" ? "true" : undefined} title={finnes || sprak === "en" ? "English" : "English (this page is only in Norwegian – opens the English front page)"}>EN</a>
