@@ -20,8 +20,8 @@ const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", da
     <p class="hero__lead">{forside.slagordIngress}</p>
     <p class="actions">
       <a class="btn" href={lenk("/kurs/")}>{t.utforskKurs} <Pil /></a>
-      <a class="btn btn--ghost" href={lenk("/flysteder/")}>{t.flyMedOss} <span aria-hidden="true">→</span></a>
-      {sprak === "nb" && <a class="hero__cal" href="#aktivitetskalender">{t.kalender} ↓</a>}
+      <a class="btn btn--ghost" href={lenk("/flysteder/")}>{t.flyMedOss} <Pil retning="hoyre" /></a>
+      {sprak === "nb" && <a class="hero__cal" href="#aktivitetskalender">{t.kalender}&nbsp;<Pil retning="ned" /></a>}
     </p>
     <div class="hero__strip"><span>Harstad / Sør-Troms</span><span>{forside.heltebildeKreditt}</span></div>
   </div>
@@ -45,13 +45,13 @@ const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", da
 {sprak === "en" && <section class="wrap section">
   <div class="head"><div><p class="eyebrow">{T.en.fraKlubben}</p><h2 class="h2">{T.en.norskInnhold}</h2></div></div>
   <p class="lead">{T.en.norskInnholdTekst}</p>
-  <p class="actions"><a class="btn" href={url("/nytt/")}>{T.en.nyheter}</a> <a class="btn" href={url("/arrangementer/")}>{T.en.arrangementer}</a></p>
+  <p class="actions"><a class="btn" href={url("/nytt/")}>{T.en.nyheter} <Pil retning="hoyre" /></a> <a class="btn" href={url("/arrangementer/")}>{T.en.arrangementer} <Pil retning="hoyre" /></a></p>
 </section>}
 {sprak === "nb" && <>
 
 
 <section class="wrap section">
-  <div class="head"><div><p class="eyebrow">Fra klubben</p><h2 class="h2">Siste nytt</h2></div><a class="more" href={url("/nytt/")}>Alle innlegg →</a></div>
+  <div class="head"><div><p class="eyebrow">Fra klubben</p><h2 class="h2">Siste nytt</h2></div><a class="more" href={url("/nytt/")}>Alle innlegg&nbsp;<Pil retning="hoyre" /></a></div>
   <div class="news">
     {innlegg.slice(0, 3).map((p) => {
       const b = bildeFor(p);
@@ -72,7 +72,7 @@ const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", da
 
 <section class="band band--cal" id="aktivitetskalender">
   <div class="wrap section">
-  <div class="head"><div><p class="eyebrow">Det skjer i HPGT</p><h2 class="h2">Aktivitetskalender</h2></div><a class="more" href={url("/arrangementer/")}>Alle arrangementer →</a></div>
+  <div class="head"><div><p class="eyebrow">Det skjer i HPGT</p><h2 class="h2">Aktivitetskalender</h2></div><a class="more" href={url("/arrangementer/")}>Alle arrangementer&nbsp;<Pil retning="hoyre" /></a></div>
   <Aktivitetskalender kommende={kommende} tidligere={tidligere} />
   </div>
 </section>
