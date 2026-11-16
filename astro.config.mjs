@@ -19,7 +19,9 @@ export default defineConfig({
   trailingSlash: "always",
   redirects: { ...omdirigeringer, "/kurs-2026/": "/kurs/", "/events/": "/arrangementer/", "/nytt/kategori/kurs/": "/nytt/kategori/kurs-og-fagdag/", "/galleri/": "/konkurranser/konkurranse-2014/" },
   build: { format: "directory", inlineStylesheets: "never" },
-  markdown: { processor: unified({ rehypePlugins: [[rehypeBase, { base: BASE }]] }) },
+  // Ingen syntaksfarger: Shiki legger fargene i style-attributter, som den strenge CSP-en blokkerer.
+  // Kodeblokker (f.eks. NOTAM-malen) styles i stedet av .prose pre i designet.
+  markdown: { syntaxHighlight: false, processor: unified({ rehypePlugins: [[rehypeBase, { base: BASE }]] }) },
   vite: {
     // Ryddige filnavn: siden [...path] ville ellers gitt CSS-filer som heter «_..xxxx.css»
     build: { rollupOptions: { output: { assetFileNames: (a) => `_astro/${(a.names?.[0] ?? a.name ?? "").split(".")[0].replace(/[^\w-]/g, "").replace(/^_+/, "") || "side"}.[hash][extname]` } } },

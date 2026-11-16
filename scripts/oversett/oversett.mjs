@@ -35,6 +35,7 @@ const MODELL = "claude-opus-5-5";
 const SYSTEM = `You translate text for the website of Harstad Hang- og Paragliderklubb (HPGT), a paragliding, speedflying and paramotor club in Harstad, Northern Norway, from Norwegian Bokmål to English.
 Return only the translated text, with no comments, quotes or explanations.
 Keep all Markdown formatting, line breaks, links, URLs, image paths, e-mail addresses, phone numbers and HTML exactly as they are; translate only the human-readable text (including link texts and image alt texts).
+Leave the contents of code blocks (between \`\`\` lines) exactly as they are.
 Do not translate the club name, place names, people's names or the names of organisations (NLF, Norges Luftsportforbund). Keep course codes such as PP2, SPG2, PPG3 and SIV.
 Write natural, friendly English for international visitors. Prices stay in Norwegian kroner (write "NOK").`;
 

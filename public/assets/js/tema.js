@@ -1,16 +1,11 @@
 // Lyst/mørkt tema. Uten valg følger siden telefonens/PC-ens innstilling. Valget lagres bare i nettleseren (localStorage).
-// Lastes i <head> uten defer, så riktig tema er satt før siden tegnes.
+// Lastes i <head> uten defer, så riktig tema er satt før siden tegnes. Knappen er en bryter (role=switch, aria-checked = mørkt).
 (() => {
   const rot = document.documentElement;
   const lagret = (() => { try { return localStorage.getItem("tema"); } catch { return null; } })();
   if (lagret === "lys" || lagret === "mork") rot.dataset.tema = lagret;
   const morkNaa = () => rot.dataset.tema ? rot.dataset.tema === "mork" : matchMedia("(prefers-color-scheme: dark)").matches;
-  const oppdater = (btn) => {
-    const mork = morkNaa();
-    btn.textContent = mork ? "☀" : "☾";
-    btn.setAttribute("aria-label", mork ? btn.dataset.tilLys : btn.dataset.tilMork);
-    btn.title = btn.getAttribute("aria-label");
-  };
+  const oppdater = (btn) => btn.setAttribute("aria-checked", String(morkNaa()));
   document.addEventListener("DOMContentLoaded", () => {
     const btn = document.querySelector("[data-tema-knapp]");
     if (!btn) return;
