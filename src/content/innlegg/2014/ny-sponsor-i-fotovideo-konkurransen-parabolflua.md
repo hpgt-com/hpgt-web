@@ -2,14 +2,14 @@
 title: "Ny sponsor i Foto/Video konkurransen: Parabolflua"
 date: "2014-06-26T11:40:21"
 kategorier: ["Konkurranser"]
-bilde: "/filer/arkiv/2014/06/Parabolflua.jpg"
+bilde: "/media/archive/2014/06/Parabolflua.jpg"
 permalink: "/ny-sponsor-i-fotovideo-konkurransen-parabolflua/"
 forfatter: "Aage"
 wp_id: 849
 ---
 Vår lokale friluftsliv butikk [Parabolflua](https://www.parabolflua.no) stiller med premier.
 
-[![Parabolflua](/filer/arkiv/2014/06/Parabolflua.jpg)](https://www.parabolflua.no)
+[![Parabolflua](/media/archive/2014/06/Parabolflua.jpg)](https://www.parabolflua.no)
 
 Vi takker Parabolflua for støtten.
 

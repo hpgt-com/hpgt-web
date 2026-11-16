@@ -2,7 +2,7 @@
 title: "Innkalling til årsmøte i Harstad Hang og Paragliderklubb"
 date: "2015-02-24T20:38:40"
 kategorier: ["Møter og referater"]
-bilde: "/filer/arkiv/2015/02/snap.png"
+bilde: "/media/archive/2015/02/snap.png"
 permalink: "/innkalling-til-arsmote-i-harstad-hang-og-paragliderklubb/"
 forfatter: "Aage"
 wp_id: 1235

@@ -12,7 +12,7 @@ Det er 4 veldig enkle måter og støtte klubben økonomisk.
 3. Støtt oss via [kraft til idretten](http://www.krafttilidretten.no/referral/harstad-hang-og-paragliderklubb/6798/0e092d7f-b207-4ab0-941b-2259a9b30487)
 4. Vipps 967338
 
-![](/filer/arkiv/2012/09/grasrot.png)
+![](/media/archive/2012/09/grasrot.png)
 
 **Vil Du gi din støtte til HARSTAD HANG OG PARAGLIDERKLUBB?**
 

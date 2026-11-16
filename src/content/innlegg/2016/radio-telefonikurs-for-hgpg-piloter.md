@@ -2,7 +2,7 @@
 title: "RADIO TELEFONIKURS FOR HG/PG PILOTER"
 date: "2016-09-26T13:05:58"
 kategorier: ["Kurs og fagdag"]
-bilde: "/filer/arkiv/2016/09/7a.jpg"
+bilde: "/media/archive/2016/09/7a.jpg"
 permalink: "/radio-telefonikurs-for-hgpg-piloter/"
 forfatter: "Aage"
 wp_id: 1651

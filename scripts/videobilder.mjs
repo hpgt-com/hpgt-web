@@ -1,12 +1,12 @@
 // Henter miniatyrbilder for YouTube- og Vimeo-videoer som det lenkes til i innholdet, og lagrer dem på egen side
-// (public/videobilder/, ikke i git). Da kontakter ikke besøkende YouTube/Vimeo før de selv trykker på en video.
+// (public/media/generated/video-thumbnails/, ikke i git). Da kontakter ikke besøkende YouTube/Vimeo før de selv trykker på en video.
 // Kjøres før bygget. Feiler en henting (eller nettet mangler), vises videokortet bare uten bilde.
 import sharp from "sharp";
 import { readdir, readFile, mkdir, access } from "node:fs/promises";
 import { join } from "node:path";
 
 const ROT = new URL("../", import.meta.url).pathname;
-const UT = join(ROT, "public/videobilder");
+const UT = join(ROT, "public/media/generated/video-thumbnails");
 
 async function* md(d) {
   for (const e of await readdir(d, { withFileTypes: true })) {

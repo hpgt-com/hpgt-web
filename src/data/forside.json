@@ -1,7 +1,7 @@
 {
   "tittel": "Fly med oss i Harstad",
   "ingress": "Harstad Hang- og Paragliderklubb samler piloter i Sør-Troms og nordre Nordland. Vi holder kurs, flyr tandem og drar på tur så fort været tillater det – bli med!",
-  "bilde": "/filer/arkiv/2026/04/hpgt1.jpg",
+  "bilde": "/media/archive/2026/04/hpgt1.jpg",
   "bildetekst": "Klubbtur over Harstad",
   "knapper": [
     {
@@ -18,28 +18,28 @@
       "tittel": "Lær å fly",
       "tekst": "Nybegynnerkurs til PP2 i juni. 6 plasser – førstemann til mølla.",
       "url": "/kurs/paragliding-pp2/",
-      "bilde": "/filer/arkiv/2019/01/20190803_175328.jpg",
+      "bilde": "/media/archive/2019/01/20190803_175328.jpg",
       "ikon": "kurs"
     },
     {
       "tittel": "Tandemtur",
       "tekst": "Prøv det sammen med en erfaren tandempilot. 1 950 kr.",
       "url": "/tandem/",
-      "bilde": "/filer/arkiv/2026/04/tandem-2.jpg",
+      "bilde": "/media/archive/2026/04/tandem-2.jpg",
       "ikon": "tandem"
     },
     {
       "tittel": "Flysteder",
       "tekst": "Kart over startsteder med vindretning, nivå, vær og luftrom.",
       "url": "https://flysteder.hpgt.com/",
-      "bilde": "/filer/arkiv/2026/09/flysteder.hpgt_.com_.jpg",
+      "bilde": "/media/archive/2026/09/flysteder.hpgt_.com_.jpg",
       "ikon": "kart"
     },
     {
       "tittel": "Bli medlem",
       "tekst": "Meld deg inn via Min idrett, eller støtt oss med Grasrotandelen og Vipps.",
       "url": "/klubben/stotte/",
-      "bilde": "/filer/arkiv/2026/04/hpgt5.jpg",
+      "bilde": "/media/archive/2026/04/hpgt5.jpg",
       "ikon": "medlem"
     }
   ],
@@ -68,7 +68,7 @@
   "stikkord": "Fjell · fjord · flyging",
   "slagord": "Luft under vingene.",
   "slagordIngress": "Vi flyr paraglider, speedglider og paramotor i Harstad og omegn. Bli med på kurs, prøv tandem eller bli kjent med klubbens flymiljø.",
-  "heltebilde": "/filer/arkiv/2026/04/tandem-2.jpg",
+  "heltebilde": "/media/archive/2026/04/tandem-2.jpg",
   "heltebildeKreditt": "Fra klubbens bildesamling",
   "veier": [
     {
@@ -102,11 +102,11 @@
     "etterKurs": "Neste kurs blir annonsert her og i Facebook-gruppa. Ta gjerne kontakt hvis du vil stå på interesselisten."
   },
   "galleri": [
-    "/filer/arkiv/2026/03/image_editor_output_image-873138208-17743579660303691002794240163423.jpeg",
-    "/filer/arkiv/2026/04/received_8414391415615884463651169840206952.jpeg",
-    "/filer/arkiv/2026/04/messenger_creation_88ba6466-589a-4c38-bdb7-88ae30be6a10697484271562761264.jpeg",
-    "/filer/arkiv/2026/03/received_24415437096123797173128654438448749.jpeg",
-    "/filer/arkiv/2026/04/hpgt5.jpg",
-    "/filer/arkiv/2026/03/received_10242533524294022014510373500677286.jpeg"
+    "/media/archive/2026/03/image_editor_output_image-873138208-17743579660303691002794240163423.jpeg",
+    "/media/archive/2026/04/received_8414391415615884463651169840206952.jpeg",
+    "/media/archive/2026/04/messenger_creation_88ba6466-589a-4c38-bdb7-88ae30be6a10697484271562761264.jpeg",
+    "/media/archive/2026/03/received_24415437096123797173128654438448749.jpeg",
+    "/media/archive/2026/04/hpgt5.jpg",
+    "/media/archive/2026/03/received_10242533524294022014510373500677286.jpeg"
   ]
 }

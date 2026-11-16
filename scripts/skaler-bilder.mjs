@@ -1,10 +1,10 @@
-// Etter bygg: skalerer ned store bilder lastet opp via CMS-et (mobilbilder på 5–10 MB) til maks 1600 px.
+// Etter bygg: skalerer ned store bilder i media/ (opplastet via CMS-et eller fra WordPress-arkivet) (mobilbilder på 5–10 MB) til maks 1600 px.
 // Kjøres på kopien i dist/, så repoet beholder originalen og CI trenger ikke skrivetilgang.
 import sharp from "sharp";
 import { readdir, stat, rename } from "node:fs/promises";
 import { join } from "node:path";
 
-const dir = process.argv[2] ?? "dist/filer";
+const dir = process.argv[2] ?? "dist/media";
 const MAX = 1600;
 async function* filer(d) {
   for (const e of await readdir(d, { withFileTypes: true }).catch(() => [])) {

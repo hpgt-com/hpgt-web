@@ -2,7 +2,7 @@
 title: "Premiering og vors før julebordet 18:00 17.11.2017"
 date: "2017-11-09T22:01:34"
 kategorier: ["Konkurranser"]
-bilde: "/filer/arkiv/2014/11/Blog_dinner_party-650x3501.jpg"
+bilde: "/media/archive/2014/11/Blog_dinner_party-650x3501.jpg"
 permalink: "/premiering-og-vors-for-julebordet-1800-17-11-2017/"
 forfatter: "Aage"
 wp_id: 2118

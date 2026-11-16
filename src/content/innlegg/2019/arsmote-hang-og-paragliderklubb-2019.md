@@ -2,7 +2,7 @@
 title: "Årsmøte Hang og Paragliderklubb 2019"
 date: "2019-02-11T10:03:15"
 kategorier: ["Møter og referater"]
-bilde: "/filer/arkiv/2015/07/11807537_10155915607060613_5713019667104345371_o.jpg"
+bilde: "/media/archive/2015/07/11807537_10155915607060613_5713019667104345371_o.jpg"
 permalink: "/arsmote-hang-og-paragliderklubb-2019/"
 forfatter: "Aage"
 wp_id: 2693

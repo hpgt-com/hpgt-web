@@ -1,4 +1,5 @@
-# Bilder og filer fra WordPress ligger nå under /filer/arkiv/. Gamle lenker (Google, Facebook, andre nettsider)
-# videresendes permanent. Leses av Cloudflare (Workers static assets).
-/wp-content/uploads/* /filer/arkiv/:splat 301
-/wp-content/gallery/* /filer/arkiv/galleri/:splat 301
+# Bilder og filer fra WordPress ligger nå i /media/ (se README). Gamle lenker (Google, Facebook, andre nettsider)
+# videresendes permanent. Leses av Cloudflare (Workers static assets). Mest spesifikke regel først.
+/wp-content/gallery/foto-konkurranse/* /media/competitions/2014/:splat 301
+/wp-content/gallery/foto_konk_2017/* /media/competitions/2017/:splat 301
+/wp-content/uploads/* /media/archive/:splat 301

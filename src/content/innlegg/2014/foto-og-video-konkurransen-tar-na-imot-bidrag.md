@@ -2,7 +2,7 @@
 title: "Foto og Video konkurransen tar nå imot bidrag!"
 date: "2014-07-31T20:07:14"
 kategorier: ["Konkurranser"]
-bilde: "/filer/arkiv/2014/07/1080-mal.png"
+bilde: "/media/archive/2014/07/1080-mal.png"
 permalink: "/foto-og-video-konkurransen-tar-na-imot-bidrag/"
 forfatter: "Aage"
 wp_id: 919

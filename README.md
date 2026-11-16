@@ -22,9 +22,29 @@ npm run forhandsvisning      # bygger forhåndsvisningen (utvalg sider, relative
 | `src/design` | Designet «Fjord+»: `style.css` og malene Layout, Home, Article, PostList og EventList |
 | `src/components` | Felles deler: kalender, kort, RadioID-skjema, styret, faktaboks for arrangementer |
 | `worker/index.js` | Den eneste serverkoden: RadioID-skjemaet, som lager en GitHub-issue |
-| `public/filer/arkiv` | Bilder og PDF-er fra WordPress. Gamle `/wp-content/…`-adresser videresendes (`public/_redirects`) |
+| `public/media` | Bilder og dokumenter, se «Mappestruktur for bilder og filer» under |
 | `public/filer` | Nye opplastinger fra CMS-et |
 | `scripts/wp-import` | Engangsskript som konverterte WordPress-eksporten |
+
+## Mappestruktur for bilder og filer
+
+Alt som lastes opp, ligger i `public/media/` (adresse `/media/…`), sortert etter hva det brukes til. Mappenavnene er engelske.
+Pages CMS laster opp til riktig mappe automatisk (`options.path` per felt i `.pages.yml`).
+
+| Mappe | Innhold | Lastes opp fra |
+|---|---|---|
+| `posts/` | Bilder til nyheter og arrangementer | Hovedbilde på innlegg |
+| `pages/` | Toppbilder til faste sider, kurssider og forsiden | Toppbilde, forsidens bilder |
+| `board/` | Portretter av styret | Styret |
+| `defaults/` | Standardbilder per kategori | Standardbilder |
+| `competitions/ÅR/` | Bildebidrag og toppbilder per konkurranse | Konkurranser |
+| `sponsors/` | Sponsorlogoer som brukes flere steder | Legges inn manuelt ved behov |
+| `documents/` | PDF-er: referater, innkallinger, årsberetninger | Vedlegg på innlegg |
+| `archive/ÅR/MÅNED/` | Alt fra WordPress, slik det lå der | – (bare lesing) |
+| `generated/` | Lages ved bygg (videominiatyrer), ikke i git | – |
+
+Gamle `/wp-content/…`-adresser videresendes til `archive/` og `competitions/` (`public/_redirects`).
+Designets egne filer (logo, skript) ligger i `public/assets/`.
 
 ## Engelsk versjon
 

@@ -2,7 +2,7 @@
 title: "Sponsor nr 6: Gin Gliders Norway"
 date: "2014-07-08T18:51:47"
 kategorier: ["Konkurranser"]
-bilde: "/filer/arkiv/2014/07/gingliders1.jpg"
+bilde: "/media/archive/2014/07/gingliders1.jpg"
 permalink: "/sponsor-nr-6-gin-gliders-scandinavia/"
 forfatter: "Aage"
 wp_id: 875

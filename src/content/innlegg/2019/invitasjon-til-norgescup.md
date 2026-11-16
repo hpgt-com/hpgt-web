@@ -2,7 +2,7 @@
 title: "Invitasjon til NorgesCup"
 date: "2019-03-20T14:43:59"
 kategorier: ["Nyhet"]
-bilde: "/filer/arkiv/2019/03/saltdal.png"
+bilde: "/media/archive/2019/03/saltdal.png"
 permalink: "/invitasjon-til-norgescup/"
 forfatter: "Aage"
 wp_id: 2775

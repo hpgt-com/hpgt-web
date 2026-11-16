@@ -21,9 +21,9 @@
     const vert = u.hostname.toLowerCase();
     const YT = ["youtube.com", "www.youtube.com", "m.youtube.com"];
     const yt = YT.includes(vert) ? u.searchParams.get("v") : vert === "youtu.be" ? u.pathname.slice(1) : null;
-    if (yt && /^[\w-]{6,20}$/.test(yt)) return { kilde: "YouTube", id: yt, spiller: `https://www.youtube-nocookie.com/embed/${yt}?autoplay=1&rel=0`, bilde: `/videobilder/yt-${yt}.jpg` };
+    if (yt && /^[\w-]{6,20}$/.test(yt)) return { kilde: "YouTube", id: yt, spiller: `https://www.youtube-nocookie.com/embed/${yt}?autoplay=1&rel=0`, bilde: `/media/generated/video-thumbnails/yt-${yt}.jpg` };
     const vm = (vert === "vimeo.com" || vert === "www.vimeo.com") && u.pathname.match(/^\/(\d+)/)?.[1];
-    if (vm) return { kilde: "Vimeo", id: vm, spiller: `https://player.vimeo.com/video/${vm}?autoplay=1&dnt=1`, bilde: `/videobilder/vimeo-${vm}.jpg` };
+    if (vm) return { kilde: "Vimeo", id: vm, spiller: `https://player.vimeo.com/video/${vm}?autoplay=1&dnt=1`, bilde: `/media/generated/video-thumbnails/vimeo-${vm}.jpg` };
     return null;
   };
   const videoKort = [...prose.querySelectorAll('h2[id^="video"] + ul > li')]

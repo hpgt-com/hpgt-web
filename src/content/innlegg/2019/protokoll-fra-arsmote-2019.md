@@ -2,7 +2,7 @@
 title: "PROTOKOLL FRA ÅRSMØTE 2019"
 date: "2019-03-25T19:34:24"
 kategorier: ["Møter og referater"]
-bilde: "/filer/arkiv/2019/03/waffles.png"
+bilde: "/media/archive/2019/03/waffles.png"
 permalink: "/protokoll-fra-arsmote-2019/"
 forfatter: "Aage"
 wp_id: 2787

@@ -2,7 +2,7 @@
 title: "Klubbtur til Val d’Isère – SPG"
 date: "2018-02-13T09:55:26"
 kategorier: ["Sosialt og turer"]
-bilde: "/filer/arkiv/2018/02/Skjermbilde2.png"
+bilde: "/media/archive/2018/02/Skjermbilde2.png"
 permalink: "/klubbtur-til-val-disere-spg/"
 forfatter: "Aage"
 wp_id: 2211

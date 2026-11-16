@@ -2,7 +2,7 @@
 title: "Årsmøte Hang og Paragliderklubb 2020"
 date: "2020-01-14T20:09:26"
 kategorier: ["Møter og referater"]
-bilde: "/filer/arkiv/2019/10/PA121002.jpg"
+bilde: "/media/archive/2019/10/PA121002.jpg"
 permalink: "/arsmote-hang-og-paragliderklubb-2020/"
 forfatter: "Aage"
 wp_id: 3361

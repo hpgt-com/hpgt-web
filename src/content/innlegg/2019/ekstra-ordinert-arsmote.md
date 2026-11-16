@@ -2,7 +2,7 @@
 title: "Ekstra ordinert Årsmøte"
 date: "2019-05-25T22:07:52"
 kategorier: ["Møter og referater"]
-bilde: "/filer/arkiv/2016/10/Skjermbilde.png"
+bilde: "/media/archive/2016/10/Skjermbilde.png"
 permalink: "/ekstra-ordinert-arsmote/"
 forfatter: "Aage"
 wp_id: 2894

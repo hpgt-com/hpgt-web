@@ -2,7 +2,7 @@
 title: "Tur til Macedonia 26. august til 2. september"
 date: "2017-03-07T20:04:32"
 kategorier: ["Nyhet"]
-bilde: "/filer/arkiv/2017/03/Krushevo-PWC.jpg"
+bilde: "/media/archive/2017/03/Krushevo-PWC.jpg"
 permalink: "/tur-til-macedonia-26-august-til-2-september/"
 forfatter: "Aage"
 wp_id: 1811

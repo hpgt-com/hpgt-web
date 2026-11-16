@@ -2,7 +2,7 @@
 title: "HPGT kaller inn til kickoff 2018!"
 date: "2018-05-07T22:10:03"
 kategorier: ["Sosialt og turer"]
-bilde: "/filer/arkiv/2018/05/20170429_145219.jpg"
+bilde: "/media/archive/2018/05/20170429_145219.jpg"
 permalink: "/hpgt-kaller-inn-til-kickoff-2018/"
 forfatter: "Aage"
 wp_id: 2278

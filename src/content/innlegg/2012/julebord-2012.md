@@ -8,7 +8,7 @@ wp_id: 402
 ---
 Hei alle piloter, x´er, y´er, sofapiloter og enkepiloter!
 
-[![](/filer/arkiv/2012/09/Skjermbilde-2012-09-22-kl.-22.52.57.png)](/filer/arkiv/2012/09/Skjermbilde-2012-09-22-kl.-22.52.57.png)
+[![](/media/archive/2012/09/Skjermbilde-2012-09-22-kl.-22.52.57.png)](/media/archive/2012/09/Skjermbilde-2012-09-22-kl.-22.52.57.png)
 
 Det er tid for å fly inn dørene på årets storslagne julebord ved Røkenes Gård! Aldri tidligere har Harstad Hang og Paragliderklubb arrangert et staselig julebord som dette. Vi ønsker alle våre medlemmer, tidligere medlemmer og pilotenes verre halvdel velkomne på julebordet 17 november 2012.
 

@@ -2,7 +2,7 @@
 title: "Innspill til året som kommer?"
 date: "2015-01-12T20:03:25"
 kategorier: ["Nyhet"]
-bilde: "/filer/arkiv/2015/01/vlcsnap-2014-08-10-18h25m27s146.png"
+bilde: "/media/archive/2015/01/vlcsnap-2014-08-10-18h25m27s146.png"
 permalink: "/innspill-til-aret-som-kommer/"
 forfatter: "Aage"
 wp_id: 1215
@@ -23,7 +23,7 @@ Evt faglig fordypning.  Reise brev osv som folk vil presentere eller vise.
 
 Dersom noen vil ta et tak og arrangere klubbtur med oss, trenger ikke være langt unna, eller vil ha en aktivitet på bordet får vi det til!
 
-[![test](/filer/arkiv/2015/01/test.png)](/filer/arkiv/2015/01/test.png)
+[![test](/media/archive/2015/01/test.png)](/media/archive/2015/01/test.png)
 
 Meld inn via Facebook eller kontaktskjemaet her:[http://hpgt.com/om-klubben](/om-klubben)
 

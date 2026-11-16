@@ -2,7 +2,7 @@
 title: "Ny flystedsoversikt: flysteder.hpgt.com"
 date: "2026-09-24T23:32:46"
 kategorier: ["Nyhet"]
-bilde: "/filer/arkiv/2026/09/flysteder.hpgt_.com_.jpg"
+bilde: "/media/archive/2026/09/flysteder.hpgt_.com_.jpg"
 permalink: "/ny-flystedsoversikt-flysteder-hpgt-com/"
 forfatter: "Kristoffer"
 wp_id: 10839
@@ -18,7 +18,7 @@ Dårlig vær gir tid til ting en har utsatt lenge. Resultatet er en ny versjon a
 - Luftromslag kan slås på i kartet: TMA, CTR, militære områder og fareområder. NOTAM er ikke med, så sjekk alltid IPPC før du flyr.
 - Under «Tårn» finner du telefonnumrene til tårnene.
 
-[![](/filer/arkiv/2026/09/flysteder.hpgt_.com_.jpg)](/filer/arkiv/2026/09/flysteder.hpgt_.com_.jpg)
+[![](/media/archive/2026/09/flysteder.hpgt_.com_.jpg)](/media/archive/2026/09/flysteder.hpgt_.com_.jpg)
 
 **Vind fra varsel**
 Velg nå, om 3 eller 6 timer eller i morgen kl. 12. Da får hver start en farget ring:
@@ -38,7 +38,7 @@ Pilen står på siden vinden kommer fra. Listen sorteres med de beste startene �
 - kart med gangrute og høydeprofil, og veibeskrivelse til parkeringen
 - lenke til Flightlog
 
-- ![](/filer/arkiv/2026/09/sollifjellet_site.jpg)
+- ![](/media/archive/2026/09/sollifjellet_site.jpg)
 
 **Første versjon**
 Sollifjellet er gjennomgått. De andre stedene er hentet fra den gamle oversikten og merket «Ikke gjennomgått ennå». De gjennomgås etter hvert, og vi har begynt med startene rundt Harstad og Kvæfjord.

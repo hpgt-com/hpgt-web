@@ -2,7 +2,7 @@
 title: "Årsmøte 2018"
 date: "2018-01-22T23:10:51"
 kategorier: ["Møter og referater"]
-bilde: "/filer/arkiv/2015/01/vlcsnap-2014-01-19-22h16m08s83.png"
+bilde: "/media/archive/2015/01/vlcsnap-2014-01-19-22h16m08s83.png"
 permalink: "/arsmote-2018/"
 forfatter: "Kristoffer"
 wp_id: 2199
