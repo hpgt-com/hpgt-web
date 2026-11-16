@@ -8,7 +8,7 @@ import "@fontsource/ibm-plex-mono/600.css";
 import "./style.css";
 import { site, meny, url, ekstern } from "../lib/site";
 import { T, sideInfo, engelskeStier, lenkeFor, menyTekst } from "../lib/i18n";
-import { seksjonFor } from "../lib/seksjoner";
+import { seksjonFor, alleSeksjoner, seksjonsHref } from "../lib/seksjoner";
 const { title, description, image } = Astro.props;
 // Språket bestemmes av adressen: /en/… er engelsk
 const { sti, sprak } = sideInfo(Astro.url.pathname);
@@ -22,6 +22,8 @@ const visBryter = engelske.has("/");
 const lenk = (u: string) => lenkeFor(sprak, u, engelske);
 // Sider i en seksjon (For piloter, Klubben, Kurs) markerer seksjonen i toppmenyen, f.eks. referater under Klubben, ikke Nytt
 const seksjon = await seksjonFor(sti, sprak);
+// Toppmenyens punkter med undersider får et nedtrekkspanel (PC) og vises som tre på mobil
+const seksjoner = await alleSeksjoner(sprak);
 const aktiv = (u: string) => !ekstern(u) && (seksjon ? u === seksjon.url : u === "/" ? sti === "/" : sti.startsWith(u));
 ---
 <!doctype html>
@@ -43,7 +45,19 @@ const aktiv = (u: string) => !ekstern(u) && (seksjon ? u === seksjon.url : u ===
       <button class="tema-bryter" type="button" role="switch" aria-checked="false" aria-label={t.morkTema} data-tema-knapp hidden><span class="tema-bryter__knott" aria-hidden="true"></span></button>
       <button class="menu-btn" type="button" data-menu-button aria-expanded="false" aria-controls="nav">{t.meny}</button>
       <nav id="nav" class="nav" aria-label={t.hovedmeny}>
-        {meny.hoved.map((m) => <a href={lenk(m.url)} aria-current={aktiv(m.url) ? "page" : undefined}>{menyTekst(sprak, m.tekst)}{ekstern(m.url) && " ↗"}</a>)}
+        {meny.hoved.map((m, i) => {
+          const s = seksjoner.get(m.url);
+          const topp = <a href={lenk(m.url)} aria-current={aktiv(m.url) ? "page" : undefined}>{menyTekst(sprak, m.tekst)}{ekstern(m.url) && " ↗"}</a>;
+          if (!s) return topp;
+          const id = `undermeny-${i}`;
+          return <div class="nav__gruppe" data-nedtrekk>
+            {topp}
+            <button class="nav__pil" type="button" aria-expanded="false" aria-controls={id} aria-label={`${menyTekst(sprak, m.tekst)}: ${t.visUndersider}`}><span aria-hidden="true">▾</span></button>
+            <ul class="nav__under" id={id}>
+              {[{ tekst: s.forste, url: s.url }, ...s.sider].map((l) => <li><a href={seksjonsHref(s, l.url, sprak, engelske)} aria-current={sti === l.url ? "page" : undefined}>{s.url === "/kurs/" && l.url !== "/kurs/" ? l.tekst : menyTekst(sprak, l.tekst)}{ekstern(l.url) && " ↗"}</a></li>)}
+            </ul>
+          </div>;
+        })}
       </nav>
     </div>
   </header>

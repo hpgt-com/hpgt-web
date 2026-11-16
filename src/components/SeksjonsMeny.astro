@@ -1,15 +1,13 @@
 ---
 // Knapperad øverst på alle sider i en seksjon (Kurs, For piloter, Klubben). Ingen nedtrekksmenyer – se src/lib/seksjoner.ts.
-import { url } from "../lib/site";
-import { sideInfo, menyTekst, engelskeStier, lenkeFor } from "../lib/i18n";
-import { seksjonFor, aktivLenke } from "../lib/seksjoner";
+import { sideInfo, menyTekst, engelskeStier } from "../lib/i18n";
+import { seksjonFor, aktivLenke, seksjonsHref } from "../lib/seksjoner";
 import "./kurs.css";
 const { sti, sprak } = sideInfo(Astro.url.pathname);
 const s = await seksjonFor(sti, sprak);
 const engelske = await engelskeStier();
 const aktiv = s && aktivLenke(s, sti);
-// Kurssidene finnes alltid på begge språk; andre sider lenkes på engelsk bare når de er oversatt
-const lenk = (u: string) => (s?.url === "/kurs/" && sprak === "en" ? url(`/en${u}`) : lenkeFor(sprak, u, engelske));
+const lenk = (u: string) => (s ? seksjonsHref(s, u, sprak, engelske) : u);
 ---
 {s && <nav class="kursmeny" aria-label={menyTekst(sprak, s.tekst)}>
   <a href={lenk(s.url)} aria-current={aktiv === s.url ? "page" : undefined}>{menyTekst(sprak, s.forste)}</a>

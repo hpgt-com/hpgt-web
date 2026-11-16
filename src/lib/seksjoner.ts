@@ -2,7 +2,8 @@
 // Hver seksjon får en knapperad øverst på alle sidene sine (SeksjonsMeny) og kort på oversiktssiden (SeksjonOversikt).
 import { getCollection } from "astro:content";
 import { meny, hentKurs, kursLenke, lenke, ekstern } from "./site";
-import type { Sprak } from "./i18n";
+import { lenkeFor, type Sprak } from "./i18n";
+import { url } from "./site";
 
 export type SeksjonsLenke = { tekst: string; url: string; ekstern?: boolean; ingress?: string; ingress_en?: string; bilde?: string };
 export type Seksjon = { tekst: string; url: string; forste: string; sider: SeksjonsLenke[] };
@@ -25,6 +26,16 @@ export async function seksjonFor(sti: string, sprak: Sprak): Promise<Seksjon | u
   const side = (u: string) => en.find((e) => lenke(e) === u) ?? nb.find((e) => lenke(e) === u);
   return { ...s, sider: s.sider.map((l: SeksjonsLenke) => ({ ...l, ingress: side(l.url)?.data.ingress ?? (sprak === "en" ? l.ingress_en : l.ingress), bilde: side(l.url)?.data.bilde })) };
 }
+
+/** Alle seksjonene, med toppmenyens adresse som nøkkel (for nedtrekksmenyene i toppen). */
+export async function alleSeksjoner(sprak: Sprak) {
+  const liste = await Promise.all(["/kurs/", ...meny.seksjoner.map((s) => s.url)].map((u) => seksjonFor(u, sprak)));
+  return new Map(liste.filter((s): s is Seksjon => !!s).map((s) => [s.url, s]));
+}
+
+/** Lenke til en side i seksjonen på riktig språk. Kurssidene finnes alltid på engelsk; andre bare når de er oversatt. */
+export const seksjonsHref = (s: Seksjon, u: string, sprak: Sprak, engelske: Set<string>) =>
+  s.url === "/kurs/" && sprak === "en" && !ekstern(u) ? url(`/en${u}`) : lenkeFor(sprak, u, engelske);
 
 /** Den mest presise lenken i seksjonen som siden er (eller ligger under). */
 export function aktivLenke(s: Seksjon, sti: string) {

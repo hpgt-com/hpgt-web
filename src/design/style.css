@@ -42,6 +42,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--sky); outline-o
 
 /* Topp */
 .top { background: var(--bg); border-bottom: 1px solid var(--line); }
+.top .wrap { width: min(1200px, 100% - 32px); } /* toppen er bredere enn teksten, så menyen får plass */
 .top__in { display: flex; align-items: center; gap: 20px; min-height: 60px; flex-wrap: wrap; }
 .brand { display: flex; align-items: center; gap: 8px; color: var(--text); text-decoration: none; margin-right: auto; }
 .brand b { display: block; font-weight: 800; font-size: 1.3rem; letter-spacing: -.04em; line-height: 1; }
@@ -49,6 +50,17 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--sky); outline-o
 .nav { display: flex; gap: 20px; }
 .nav a { color: var(--text); text-decoration: none; font-weight: 700; font-size: .92rem; padding: 6px 0; border-bottom: 2px solid transparent; }
 .nav a:hover, .nav a[aria-current] { border-color: var(--sky); }
+/* Nedtrekk: panel ved mus over (PC) eller ▾-knappen (tastatur, berøring). På mobil vises undersidene alltid, innrykket. */
+.nav__gruppe { position: relative; display: flex; align-items: center; gap: 2px; }
+.nav__pil { background: none; border: 0; padding: 4px 2px; color: var(--muted); font-size: .8rem; line-height: 1; cursor: pointer; }
+.nav__pil:hover { color: var(--text); }
+.nav__gruppe[data-open] .nav__pil span { display: inline-block; transform: rotate(180deg); }
+.nav__under { display: none; position: absolute; z-index: 50; top: 100%; left: -14px; min-width: 230px; margin: 0; padding: 8px 0; list-style: none; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 8px 24px rgba(10, 30, 60, .14); }
+.nav__under::before { content: ""; position: absolute; left: 0; right: 0; top: -12px; height: 12px; } /* bro, så panelet ikke lukkes på vei ned */
+.nav__gruppe:hover .nav__under, .nav__gruppe[data-open] .nav__under { display: block; }
+.nav .nav__under a { display: block; padding: 8px 16px; border: 0; font-weight: 600; font-size: .9rem; white-space: nowrap; }
+.nav .nav__under a:hover { background: var(--tint); }
+.nav .nav__under a[aria-current] { color: var(--sky-ink); }
 /* Språkvalg NO | EN: gjeldende språk er markert (ingen flagg – flagg er land, ikke språk) */
 .sprakvalg { order: 2; display: flex; border: 1.5px solid var(--line); border-radius: 999px; overflow: hidden; font: 600 .72rem/1 var(--mono); letter-spacing: .08em; }
 .sprakvalg a { padding: 7px 10px; color: var(--muted); text-decoration: none; }
@@ -66,14 +78,21 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--sky); outline-o
 .tema-bryter[aria-checked="true"] .tema-bryter__knott { background: #e6edf5; }
 .tema-bryter[aria-checked="true"] .tema-bryter__knott::before { content: "☾"; color: #0b2340; }
 @media (prefers-reduced-motion: reduce) { .tema-bryter__knott { transition: none; } }
-@media (max-width: 760px) { .sprakvalg, .tema-bryter { order: 0; } .top__in { gap: 10px; } }
+@media (max-width: 1040px) { .sprakvalg, .tema-bryter { order: 0; } .top__in { gap: 10px; } }
 @media (max-width: 480px) { .brand small { display: none; } }
 .menu-btn { display: none; font: 700 .9rem var(--display); background: none; color: var(--text); border: 1.5px solid var(--text); border-radius: 4px; padding: 6px 12px; }
-@media (max-width: 760px) {
+/* Toppmenyen får plass på én linje fra ca. 1040 px; smalere skjermer (nettbrett, mobil) får «Meny»-knappen */
+@media (max-width: 1040px) {
   .js .menu-btn { display: block; }
   .js .nav { display: none; width: 100%; flex-direction: column; gap: 0; padding-bottom: 10px; }
   .js .nav[data-open] { display: flex; }
   .nav a { padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .nav__gruppe { display: block; }
+  .nav__gruppe > a { display: block; }
+  .nav__pil { display: none; }
+  .nav__under, .nav__gruppe:hover .nav__under { display: block; position: static; min-width: 0; padding: 0 0 0 16px; border: 0; box-shadow: none; background: none; }
+  .nav__under::before { display: none; }
+  .nav .nav__under a { padding: 8px 0; font-weight: 500; border-bottom: 1px solid var(--line); white-space: normal; }
 }
 
 /* Helt */
