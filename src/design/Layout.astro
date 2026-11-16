@@ -68,7 +68,7 @@ const aktiv = (u: string) => !ekstern(u) && (seksjon ? u === seksjon.url : u ===
       <div><p class="foot__logo">HPGT</p><p class="muted">Harstad Hang og Paragliderklubb<br />Org.nr. {site.orgnr} · Vipps {site.vipps}<br /><a href={`mailto:${site.epost.leder}`}>{site.epost.leder}</a></p></div>
       {/* Bunnen viser de samme seksjonene som toppmenyen (meny.json → seksjoner), som et nettstedskart */}
       {meny.seksjoner.map((s) => <nav aria-label={menyTekst(sprak, s.tekst)}><h2>{menyTekst(sprak, s.tekst)}</h2>
-        {[{ tekst: s.forste, url: s.url }, ...s.sider, ...(s.bareIBunnen ?? [])].map((m) => <a href={lenk(m.url)}>{menyTekst(sprak, m.tekst)}{ekstern(m.url) && <> <Pil /></>}</a>)}</nav>)}
+        {[{ tekst: s.forste, url: s.url }, ...s.sider].map((m) => <a href={lenk(m.url)}>{menyTekst(sprak, m.tekst)}{ekstern(m.url) && <> <Pil /></>}</a>)}</nav>)}
       <nav aria-label={t.folg}><h2>{t.folg}</h2><a href={site.facebook}>Facebook&nbsp;<Pil /></a><a href={site.instagram}>Instagram&nbsp;<Pil /></a></nav>
     </div>
     <div class="wrap foot__end"><p class="quote">«{site.sitat.tekst}» <span>– {site.sitat.kilde}</span></p><p class="muted">{t.sporing}</p></div>
