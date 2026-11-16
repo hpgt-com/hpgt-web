@@ -68,6 +68,16 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--sky); outline-o
 .sprakvalg a[aria-current] { background: var(--text); color: var(--bg); }
 /* Knapp for lyst/mørkt tema (vises bare med JavaScript, se public/assets/js/tema.js) */
 .nav { order: 1; }
+/* Standardbilde når innlegg/arrangementer mangler bilde (src/components/Standardbilde.astro) */
+span.standardbilde { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: #fff; background: linear-gradient(135deg, color-mix(in srgb, var(--k, var(--sky)) 85%, #0c2c52), color-mix(in srgb, var(--k, var(--sky)) 45%, #0c2c52)); }
+/* Mørkt tema har lysere kategorifarger – mørkere bakgrunn så hvit tekst fortsatt har god kontrast */
+:root[data-tema="mork"] span.standardbilde { background: linear-gradient(135deg, color-mix(in srgb, var(--k) 55%, #0c2c52), color-mix(in srgb, var(--k) 30%, #0c2c52)); }
+@media (prefers-color-scheme: dark) { :root:not([data-tema="lys"]) span.standardbilde { background: linear-gradient(135deg, color-mix(in srgb, var(--k) 55%, #0c2c52), color-mix(in srgb, var(--k) 30%, #0c2c52)); } }
+.standardbilde--foto { display: block; position: relative; padding: 0; overflow: hidden; background: var(--tint); }
+.standardbilde--foto img { width: 100%; height: 100%; object-fit: cover; display: block; margin: 0; }
+.standardbilde--foto .standardbilde__etikett { position: absolute; left: 10px; bottom: 10px; padding: 4px 8px; border-radius: 3px; background: color-mix(in srgb, var(--k, var(--sky)) 85%, #000); color: #fff; font-size: .8rem; font-weight: 700; }
+.standardbilde svg { width: 34%; max-width: 76px; height: auto; opacity: .95; }
+.standardbilde span { font-weight: 800; font-size: .95rem; letter-spacing: -.01em; text-align: center; padding: 0 12px; opacity: .95; }
 /* Pil for eksterne lenker og «gå videre» (src/components/Pil.astro) */
 .pil { display: inline-block; width: .85em; height: .85em; vertical-align: -.08em; }
 /* Lyst/mørkt: bryter med sol/måne i knotten (role=switch, se tema.js) */

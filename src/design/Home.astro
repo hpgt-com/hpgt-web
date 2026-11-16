@@ -1,5 +1,6 @@
 ---
 import Pil from "../components/Pil.astro";
+import Standardbilde from "../components/Standardbilde.astro";
 import Aktivitetskalender from "../components/Aktivitetskalender.astro";
 import { url, dato, dag, mnd, lenke, slug, utdrag, bildeFor, tidSted } from "../lib/site";
 import { T, sideInfo, forsideFor, engelskeStier, lenkeFor } from "../lib/i18n";
@@ -57,9 +58,9 @@ const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", da
       const b = bildeFor(p);
       return (
         <a class="post" href={url(lenke(p))}>
-          {b ? <img src={url(b)} alt="" loading="lazy" /> : <span class="post__noimg" aria-hidden="true"></span>}
+          {b ? <span class="post__noimg standardbilde--foto" data-kat={slug(p.data.kategorier[0])}><img src={url(b)} alt="" loading="lazy" /><span class="standardbilde__etikett">{p.data.kategorier[0]}</span></span> : <Standardbilde class="post__noimg" kat={slug(p.data.kategorier[0])} tekst={p.data.kategorier[0]} nokkel={lenke(p)} />}
           <span class="post__body">
-            <span class="post__meta"><span class="kat" data-kat={slug(p.data.kategorier[0])}>{p.data.kategorier[0]}</span> · {kort(p.data.date)}</span>
+            <span class="post__meta">{kort(p.data.date)}</span>
             <span class="post__title">{p.data.title}</span>
             <span class="post__text">{utdrag(p.body, 150)}</span>
             {p.data.forfatter && <span class="post__by">Av <b>{p.data.forfatter}</b></span>}
