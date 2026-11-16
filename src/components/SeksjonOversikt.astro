@@ -13,5 +13,5 @@ const lenk = (u: string) => lenkeFor(sprak, u, engelske);
   <h2 id="seksjon-h">{sprak === "en" ? "In this section" : "I denne delen"}</h2>
   <ul>{s.sider.map((l) => <li><a href={lenk(l.url)}>
     {l.bilde && <img src={url(l.bilde)} alt="" loading="lazy" />}
-    <b>{menyTekst(sprak, l.tekst)}{l.ekstern && " ↗"}</b>{l.ingress && <span>{l.ingress}</span>}</a></li>)}</ul>
+    <b>{menyTekst(sprak, l.tekst)}{l.ekstern && " ↗︎"}</b>{l.ingress && <span>{l.ingress}</span>}</a></li>)}</ul>
 </section>}

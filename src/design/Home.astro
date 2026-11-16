@@ -18,7 +18,7 @@ const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", da
     <h1 class="hero__title">{forside.slagord}</h1>
     <p class="hero__lead">{forside.slagordIngress}</p>
     <p class="actions">
-      <a class="btn" href={lenk("/kurs/")}>{t.utforskKurs} <span aria-hidden="true">↗</span></a>
+      <a class="btn" href={lenk("/kurs/")}>{t.utforskKurs} <span aria-hidden="true">↗︎</span></a>
       <a class="btn btn--ghost" href={lenk("/flysteder/")}>{t.flyMedOss} <span aria-hidden="true">→</span></a>
       {sprak === "nb" && <a class="hero__cal" href="#aktivitetskalender">{t.kalender} ↓</a>}
     </p>
@@ -27,14 +27,14 @@ const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", da
 </section>
 
 <section class="wrap section">
-  <div class="head"><div><p class="eyebrow">{t.utILufta}</p><h2 class="h2">{t.finnVei}</h2></div><a class="more" href={lenk("/om-oss/")}>{t.omKlubben} ↗</a></div>
+  <div class="head"><div><p class="eyebrow">{t.utILufta}</p><h2 class="h2">{t.finnVei}</h2></div><a class="more" href={lenk("/om-oss/")}>{t.omKlubben} ↗︎</a></div>
   <div class="paths">
     {forside.veier.map((v, i) => (
       <a class="path" href={lenk(v.url)}>
         <span class="eyebrow">{String(i + 1).padStart(2, "0")} / {v.verb}</span>
         <span class="path__title">{v.tittel}</span>
         <span class="path__text">{v.tekst}</span>
-        <span class="path__arrow" aria-hidden="true">↗</span>
+        <span class="path__arrow" aria-hidden="true">↗︎</span>
       </a>
     ))}
   </div>
