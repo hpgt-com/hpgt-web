@@ -16,9 +16,13 @@
   const bilder = [...prose.querySelectorAll("a[href]")].filter(erBilde);
   const video = (href) => {
     const u = new URL(href, location.href);
-    const yt = u.hostname.endsWith("youtube.com") ? u.searchParams.get("v") : u.hostname === "youtu.be" ? u.pathname.slice(1) : null;
+    if (u.protocol !== "https:" && u.protocol !== "http:") return null;
+    // Nøyaktig vertsnavn (ikke «slutter på»), så f.eks. «evilyoutube.com» ikke godtas
+    const vert = u.hostname.toLowerCase();
+    const YT = ["youtube.com", "www.youtube.com", "m.youtube.com"];
+    const yt = YT.includes(vert) ? u.searchParams.get("v") : vert === "youtu.be" ? u.pathname.slice(1) : null;
     if (yt && /^[\w-]{6,20}$/.test(yt)) return { kilde: "YouTube", id: yt, spiller: `https://www.youtube-nocookie.com/embed/${yt}?autoplay=1&rel=0`, bilde: `/videobilder/yt-${yt}.jpg` };
-    const vm = u.hostname.endsWith("vimeo.com") && u.pathname.match(/^\/(\d+)/)?.[1];
+    const vm = (vert === "vimeo.com" || vert === "www.vimeo.com") && u.pathname.match(/^\/(\d+)/)?.[1];
     if (vm) return { kilde: "Vimeo", id: vm, spiller: `https://player.vimeo.com/video/${vm}?autoplay=1&dnt=1`, bilde: `/videobilder/vimeo-${vm}.jpg` };
     return null;
   };
