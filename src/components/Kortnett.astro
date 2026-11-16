@@ -10,7 +10,7 @@ const { innlegg, arrangementer } = Astro.props;
 let kort: { href: string; bilde?: string; tittel: string; meta: string; kat?: string; katNavn?: string; tom?: string }[] = [];
 if (innlegg) {
   kort = innlegg.map((p) => ({ href: lenke(p), bilde: bildeFor(p), tittel: p.data.title, meta: dato(p.data.date),
-    kat: slug(p.data.kategorier[0]), katNavn: p.data.kategorier[0], tom: p.data.kategorier[0] }));
+    kat: slug(p.data.kategorier[0]), katNavn: undefined, tom: p.data.kategorier[0] }));
 } else if (arrangementer) {
   kort = arrangementer.map((e) => ({ href: lenke(e), bilde: bildeFor(e as any), tittel: e.data.title,
     meta: [dato(e.data.start), sted(e), tid(e)].filter(Boolean).join(" · "), kat: gruppe(e), katNavn: typeTekst(e.data.type), tom: datoKort(e.data.start) }));

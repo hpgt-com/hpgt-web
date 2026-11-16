@@ -30,7 +30,7 @@ content:
         options:
           multiple: { min: 1, max: 1 }
           values: [Nyhet, Møter og referater, Kurs og fagdag, Sosialt og turer, Konkurranser]
-      - { name: bilde, label: Hovedbilde, type: image, description: "Anbefalt. Vises øverst, på forsiden og i bildevisningen på Nytt. Liggende bilder blir finest." }
+      - { name: bilde, label: Hovedbilde, type: image, description: "Legg gjerne alltid inn et bilde fra turen, kurset eller møtet – det gjør innlegget mye mer synlig. Vises øverst i innlegget, på forsiden og i bildevisningen på Nytt. Liggende bilder blir finest. Uten bilde brukes et standardbilde for kategorien." }
       - { name: forfatter, label: "Skrevet av (fornavn)", type: string }
       - { name: ingress, label: Ingress, type: text, description: "1–2 setninger som oppsummerer saken." }
       - name: vedlegg
