@@ -58,6 +58,10 @@ content:
           - { name: arrangor, label: "Arrangør (la stå tom hvis det er HPGT)", type: string, description: "F.eks. «Narvik Paragliderklubb» eller «NLF». Vises som «Arrangeres av …»." }
           - { name: pamelding, label: Lenke til påmelding, type: string, description: "Skjema, Min idrett eller lignende. Knappen skjules når arrangementet er over." }
       - { name: utkast, label: "Utkast (ikke vis på siden ennå)", type: boolean, default: false }
+      # Skjulte felt: Pages CMS fjerner felt som ikke står her når et innlegg lagres. permalink holder på
+      # adressen fra WordPress (gamle lenker), wp_id er sporbarhet tilbake til WordPress.
+      - { name: permalink, label: Adresse, type: string, hidden: true }
+      - { name: wp_id, label: WordPress-ID, type: number, hidden: true }
       - { name: body, label: Tekst, type: rich-text }
 
   - name: sider
@@ -72,6 +76,7 @@ content:
       - { name: sist_endret, label: Sist oppdatert, type: date }
       - { name: permalink, label: Adresse, type: string, hidden: true }
       - { name: mal, label: Mal, type: string, hidden: true }
+      - { name: wp_id, label: WordPress-ID, type: number, hidden: true }
       - { name: body, label: Tekst, type: rich-text }
 
   - name: kurs
