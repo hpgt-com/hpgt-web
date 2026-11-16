@@ -2,7 +2,7 @@
 title: "Klubbtur til Spania i begynnelsen av september?"
 date: "2017-05-15T14:39:56"
 kategorier: ["Sosialt og turer"]
-bilde: "/wp-content/uploads/2017/05/paragliding-holidays-spain-costa-sol.jpg"
+bilde: "/media/archive/2017/05/paragliding-holidays-spain-costa-sol.jpg"
 permalink: "/klubbtur-til-spania-andre-uka-i-september/"
 forfatter: "Aage"
 wp_id: 1959

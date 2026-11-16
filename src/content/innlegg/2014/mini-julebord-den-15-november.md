@@ -2,7 +2,7 @@
 title: "«Mini» julebord den 15 november"
 date: "2014-11-04T23:24:34"
 kategorier: ["Konkurranser"]
-bilde: "/wp-content/uploads/2014/11/Blog_dinner_party-650x3501.jpg"
+bilde: "/media/archive/2014/11/Blog_dinner_party-650x3501.jpg"
 permalink: "/mini-julebord-den-15-november/"
 forfatter: "Aage"
 wp_id: 1154

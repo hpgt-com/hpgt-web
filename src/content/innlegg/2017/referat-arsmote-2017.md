@@ -2,7 +2,7 @@
 title: "Referat årsmøte 2017"
 date: "2017-03-20T20:35:19"
 kategorier: ["Møter og referater"]
-bilde: "/wp-content/uploads/2017/03/IMG_1161.jpg"
+bilde: "/media/archive/2017/03/IMG_1161.jpg"
 permalink: "/referat-arsmote-2017/"
 forfatter: "Aage"
 wp_id: 1840

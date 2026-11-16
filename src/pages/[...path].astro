@@ -10,6 +10,7 @@ import Vedlegg from "../components/Vedlegg.astro";
 import ArrangementBoks from "../components/ArrangementBoks.astro";
 import KommendeKurs from "../components/KommendeKurs.astro";
 import SeksjonOversikt from "../components/SeksjonOversikt.astro";
+import KonkurranseOversikt from "../components/KonkurranseOversikt.astro";
 import KursOversikt from "../components/KursOversikt.astro";
 import { dato, url, lenke, kursLenke, site } from "../lib/site";
 import Pil from "../components/Pil.astro";
@@ -41,6 +42,7 @@ const tilbake = type === "kurs" ? { tekst: "Kurs", url: url("/kurs/") } : erArr 
     {d.mal === "kontakt" && <Styret />}
     {d.mal === "radioid" && <RadioId />}
     {d.mal === "bidra" && <p><a class="btn" href={site.cms}>Logg inn i Pages CMS <Pil /></a></p>}
+    {d.mal === "konkurranser" && <KonkurranseOversikt />}
     <Content />
     {d.mal === "kurs" && <KursOversikt />}
     {d.mal === "seksjon" && <SeksjonOversikt />}

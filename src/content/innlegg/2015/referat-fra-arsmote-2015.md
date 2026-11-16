@@ -2,7 +2,7 @@
 title: "Referat fra Årsmøte 2015"
 date: "2015-03-23T20:15:18"
 kategorier: ["Møter og referater"]
-bilde: "/wp-content/uploads/2015/03/2015-03-23-20.13.04.jpg"
+bilde: "/media/archive/2015/03/2015-03-23-20.13.04.jpg"
 permalink: "/referat-fra-arsmote-2015/"
 forfatter: "Aage"
 wp_id: 1243

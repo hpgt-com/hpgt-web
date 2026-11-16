@@ -12,6 +12,6 @@ wp_id: 778
 
 Nå har han laget en spesialfarkost for å ta med seg broren opp i lufta. (Svein Lian/Anders Mildestveit)
 
-[![lars](/wp-content/uploads/2014/05/lars1.png)](http://www.tv2.no/v/817238/)
+[![lars](/media/archive/2014/05/lars1.png)](http://www.tv2.no/v/817238/)
 
 http://www.tv2.no/v/817238/

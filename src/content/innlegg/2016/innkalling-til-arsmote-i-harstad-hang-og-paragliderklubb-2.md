@@ -2,7 +2,7 @@
 title: "Innkalling til årsmøte i Harstad Hang og Paragliderklubb"
 date: "2016-01-18T17:10:03"
 kategorier: ["Møter og referater"]
-bilde: "/wp-content/uploads/2016/01/vlcsnap-2012-10-21-23h07m24s22.png"
+bilde: "/media/archive/2016/01/vlcsnap-2012-10-21-23h07m24s22.png"
 permalink: "/innkalling-til-arsmote-i-harstad-hang-og-paragliderklubb-2/"
 forfatter: "Aage"
 wp_id: 1453

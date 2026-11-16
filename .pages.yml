@@ -4,9 +4,17 @@
 # det kan bare endres av de med tilgang til GitHub-repoet (minste privilegium).
 
 media:
-  input: public/filer
-  output: /filer
-  categories: [image, document]
+  # Bilder og dokumenter ligger i public/media/ (se README). Hvert bildefelt laster opp til sin egen mappe.
+  - name: bilder
+    label: Bilder
+    input: public/media
+    output: /media
+    categories: [image]
+  - name: dokumenter
+    label: Dokumenter
+    input: public/media/documents
+    output: /media/documents
+    categories: [document]
 
 content:
   - name: innlegg
@@ -30,16 +38,17 @@ content:
         options:
           multiple: { min: 1, max: 1 }
           values: [Nyhet, Møter og referater, Kurs og fagdag, Sosialt og turer, Konkurranser]
-      - { name: bilde, label: Hovedbilde, type: image, description: "Legg gjerne alltid inn et bilde fra turen, kurset eller møtet – det gjør innlegget mye mer synlig. Vises øverst i innlegget, på forsiden og i bildevisningen på Nytt. Liggende bilder blir finest. Uten bilde brukes et standardbilde for kategorien." }
+      - { name: bilde, label: Hovedbilde, type: image, description: "Legg gjerne alltid inn et bilde fra turen, kurset eller møtet – det gjør innlegget mye mer synlig. Vises øverst i innlegget, på forsiden og i bildevisningen på Nytt. Liggende bilder blir finest. Uten bilde brukes et standardbilde for kategorien.", options: { media: bilder, path: public/media/posts } }
       - { name: forfatter, label: "Skrevet av (fornavn)", type: string }
       - { name: ingress, label: Ingress, type: text, description: "1–2 setninger som oppsummerer saken." }
       - name: vedlegg
         label: Vedlegg (PDF, referater, innkallinger)
         type: object
         list: true
+        description: "Bare dokumenter som kan være offentlige (f.eks. signerte referater og årsberetninger) – alt som lastes opp her kan lastes ned av alle. Utkast, regnskap, medlemslister og andre interne dokumenter hører hjemme i klubbens Google Drive."
         fields:
           - { name: tittel, label: Navn på dokumentet, type: string, required: true }
-          - { name: fil, label: Fil, type: file, required: true }
+          - { name: fil, label: Fil, type: file, required: true, options: { media: dokumenter } }
       - name: arrangement
         label: Arrangement (valgfritt)
         type: object
@@ -72,11 +81,15 @@ content:
     fields:
       - { name: title, label: Tittel, type: string, required: true }
       - { name: ingress, label: Ingress, type: text }
-      - { name: bilde, label: Toppbilde, type: image }
+      - { name: bilde, label: Toppbilde, type: image, options: { media: bilder, path: public/media/pages } }
       - { name: sist_endret, label: Sist oppdatert, type: date }
       - { name: permalink, label: Adresse, type: string, hidden: true }
       - { name: mal, label: Mal, type: string, hidden: true }
       - { name: wp_id, label: WordPress-ID, type: number, hidden: true }
+      # Konkurransesidene ligger også her (mappa konkurranser); feltene må stå, ellers fjernes de ved lagring
+      - { name: aar, label: År, type: number, hidden: true }
+      - { name: vinner_foto, label: "1. plass foto", type: string, hidden: true }
+      - { name: vinner_video, label: "1. plass video", type: string, hidden: true }
       - { name: body, label: Tekst, type: rich-text }
 
   - name: kurs
@@ -90,7 +103,7 @@ content:
       - { name: title, label: Tittel, type: string, required: true, description: "F.eks. «Grunnkurs i speedgliding (SPG2)». Adressen lages av tittelen første gang siden lagres." }
       - { name: menynavn, label: Kort navn i kursmenyen, type: string, description: "F.eks. «Speedgliding (SPG2)». Tomt = tittelen." }
       - { name: ingress, label: Ingress, type: text, description: "1–2 setninger. Vises også på kortet på Kurs-siden." }
-      - { name: bilde, label: Toppbilde, type: image }
+      - { name: bilde, label: Toppbilde, type: image, options: { media: bilder, path: public/media/pages } }
       - name: kurstype
         label: Kurstype
         type: select
@@ -98,6 +111,24 @@ content:
         options: { values: ["Kurs / PP2", "Kurs / SPG2", "Kurs / PPG3", "Kurs / SIV", "Kurs / Prøvedag", "Kurs / Annet kurs", "Fagdag / Nødskjerm og vingesjekk", "Fagdag / Sikkerhetsseminar", "Fagdag / Annen fagdag"] }
       - { name: rekkefolge, label: Rekkefølge i menyen, type: number, default: 50, description: "Lavest først." }
       - { name: sist_endret, label: Sist oppdatert, type: date }
+      - { name: body, label: Tekst, type: rich-text }
+
+  - name: konkurranser
+    label: Konkurranser
+    type: collection
+    path: src/content/sider/konkurranser
+    filename: "{year}.md"
+    view: { fields: [title, aar], primary: title, sort: [aar], default: { sort: aar, order: desc } }
+    description: "Én side per foto- og videokonkurranse, f.eks. /klubben/konkurranser/2027/. Dukker automatisk opp i oversikten på Konkurranser-siden. Bruk overskriftene Vinnere, Premier, Sponsorer, Innsendte bilder, Videoer og Regler – listene under Sponsorer, Innsendte bilder og Videoer vises da som logoer, bildegalleri og videokort."
+    fields:
+      - { name: title, label: Tittel, type: string, required: true, description: "F.eks. «Foto- og videokonkurransen 2027»" }
+      - { name: aar, label: År, type: number, required: true }
+      - { name: ingress, label: Ingress, type: text }
+      - { name: bilde, label: Toppbilde, type: image, options: { media: bilder, path: public/media/competitions } }
+      - { name: vinner_foto, label: "1. plass foto", type: string, description: "Vises i oversikten. Tom til vinneren er kåret." }
+      - { name: vinner_video, label: "1. plass video", type: string }
+      - { name: sist_endret, label: Sist oppdatert, type: date }
+      - { name: wp_id, label: WordPress-ID, type: number, hidden: true }
       - { name: body, label: Tekst, type: rich-text }
 
   - name: standardbilder
@@ -108,12 +139,12 @@ content:
     description: "Bilder som brukes på innlegg og arrangementer uten eget bilde. Legg gjerne inn flere per kategori – innleggene fordeles på dem, og hvert innlegg får alltid samme bilde. Tom liste = farge med ikon."
     fields:
       - { name: beskrivelse, type: string, hidden: true }
-      - { name: nyhet, label: Nyhet, type: image, list: true }
-      - { name: moter-og-referater, label: Møter og referater, type: image, list: true }
-      - { name: kurs, label: Kurs, type: image, list: true }
-      - { name: fagdag, label: Fagdag, type: image, list: true }
-      - { name: sosialt-og-turer, label: Sosialt og turer, type: image, list: true }
-      - { name: konkurranser, label: Konkurranser, type: image, list: true }
+      - { name: nyhet, label: Nyhet, type: image, list: true, options: { media: bilder, path: public/media/defaults } }
+      - { name: moter-og-referater, label: Møter og referater, type: image, list: true, options: { media: bilder, path: public/media/defaults } }
+      - { name: kurs, label: Kurs, type: image, list: true, options: { media: bilder, path: public/media/defaults } }
+      - { name: fagdag, label: Fagdag, type: image, list: true, options: { media: bilder, path: public/media/defaults } }
+      - { name: sosialt-og-turer, label: Sosialt og turer, type: image, list: true, options: { media: bilder, path: public/media/defaults } }
+      - { name: konkurranser, label: Konkurranser, type: image, list: true, options: { media: bilder, path: public/media/defaults } }
 
   - name: forside
     label: Forsiden
@@ -124,7 +155,7 @@ content:
       - { name: stikkord, label: "Stikkord over overskriften", type: string }
       - { name: slagord, label: Stor overskrift, type: string }
       - { name: slagordIngress, label: Tekst under overskriften, type: text }
-      - { name: heltebilde, label: Toppbilde, type: image }
+      - { name: heltebilde, label: Toppbilde, type: image, options: { media: bilder, path: public/media/pages } }
       - { name: heltebildeKreditt, label: Bildekreditt, type: string }
       - name: kurs
         label: Kursblokken
@@ -148,11 +179,11 @@ content:
           - { name: tittel, type: string }
           - { name: tekst, type: text }
           - { name: url, label: Lenke, type: string }
-          - { name: bilde, type: image }
-      - { name: galleri, label: Bildegalleri, type: image, list: { max: 6 } }
+          - { name: bilde, type: image, options: { media: bilder, path: public/media/pages } }
+      - { name: galleri, label: Bildegalleri, type: image, list: { max: 6 }, options: { media: bilder, path: public/media/pages } }
       - { name: tittel, label: Overskrift (eldre design), type: string }
       - { name: ingress, label: Ingress, type: text }
-      - { name: bilde, label: Toppbilde, type: image }
+      - { name: bilde, label: Toppbilde, type: image, options: { media: bilder, path: public/media/pages } }
       - { name: bildetekst, label: Bildetekst, type: string }
       - name: knapper
         label: Knapper
@@ -167,7 +198,7 @@ content:
           - { name: tittel, type: string }
           - { name: tekst, type: text }
           - { name: url, label: Lenke, type: string }
-          - { name: bilde, type: image }
+          - { name: bilde, type: image, options: { media: bilder, path: public/media/pages } }
           - { name: ikon, type: string, hidden: true }
       - name: snarveier
         label: Snarveier for piloter
@@ -192,7 +223,7 @@ content:
           - { name: ansvar, label: "Kontakt meg om", type: text, description: "Hva medlemmer bør kontakte denne rollen om." }
           - { name: telefon, type: string }
           - { name: epost, label: E-post, type: string }
-          - { name: bilde, type: image }
+          - { name: bilde, type: image, options: { media: bilder, path: public/media/board } }
 
   - name: radioid
     label: FLARM/FANET RadioID-register

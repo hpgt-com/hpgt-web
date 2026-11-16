@@ -52,7 +52,7 @@ def rewrite(html, theme, rel):
         if not path.startswith(f"/{theme}/"):
             return m.group(0)
         inner = path[len(theme) + 2:]
-        if inner.startswith("wp-content/") or inner.startswith("filer/"):
+        if inner.startswith("wp-content/") or inner.startswith("media/"):
             media.add(inner)
             return f'{attr}="{up}{urllib.parse.quote(inner)}"'
         if inner.startswith(("_astro/", "assets/")) or re.search(r"\.\w{2,5}$", inner):

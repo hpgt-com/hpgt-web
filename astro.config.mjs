@@ -19,7 +19,10 @@ export default defineConfig({
   trailingSlash: "always",
   redirects: { ...omdirigeringer, "/kurs-2026/": "/kurs/", "/events/": "/arrangementer/", "/nytt/kategori/kurs/": "/nytt/kategori/kurs-og-fagdag/", "/galleri/": "/klubben/konkurranser/2014/",
     // «Fly med oss» ble slått sammen med For piloter (samme innhold); RadioID ligger fortsatt under /flysteder/
-    "/flysteder/": "/for-piloter/", "/en/flysteder/": "/en/for-piloter/",
+    "/flysteder/": "/for-piloter/", "/konkurranse-2019/": "/klubben/konkurranser/2019/",
+    // Reglene ligger nå på hver konkurranseside
+    "/foto-og-video-konkurranse/": "/klubben/konkurranser/2014/#regler", "/papekning-av-reglement/": "/klubben/konkurranser/2014/#regler",
+    "/den-store-foto-og-video-konkurransen-2017/": "/klubben/konkurranser/2017/#regler", "/regler-2019/": "/klubben/konkurranser/2019/#regler", "/en/flysteder/": "/en/for-piloter/",
     // Adressene følger menyen (Klubben, For piloter); de gamle fra WordPress videresendes
     "/flysteder/flarm-fanet-radioid/": "/for-piloter/radioid/", "/konkurranser/konkurranse-2014/": "/klubben/konkurranser/2014/", "/konkurranser/konkurranse-2017/": "/klubben/konkurranser/2017/", "/grasrotandelen/": "/klubben/stotte/", "/en/grasrotandelen/": "/en/klubben/stotte/", "/redaktor-demo/": "/klubben/bidra/", "/klubben/redaktor/": "/klubben/bidra/", "/konkurranser/": "/klubben/konkurranser/", "/om-klubben/": "/klubben/styret/", "/en/om-klubben/": "/en/klubben/styret/", "/om-oss/": "/klubben/", "/en/om-oss/": "/en/klubben/", "/lenker/": "/for-piloter/vaer/", "/en/lenker/": "/en/for-piloter/vaer/", "/bidra/": "/klubben/bidra/", "/notam/": "/for-piloter/notam/", "/en/notam/": "/en/for-piloter/notam/" },
   build: { format: "directory", inlineStylesheets: "never" },

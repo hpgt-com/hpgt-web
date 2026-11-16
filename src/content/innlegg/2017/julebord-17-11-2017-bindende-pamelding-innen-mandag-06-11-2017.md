@@ -2,7 +2,7 @@
 title: "Julebord 17.11.2017 – Bindende påmelding innen Mandag 06.11.2017"
 date: "2017-11-04T13:57:37"
 kategorier: ["Sosialt og turer"]
-bilde: "/wp-content/uploads/2017/11/23031596_10155568588715380_5326097892034816717_n.jpg"
+bilde: "/media/archive/2017/11/23031596_10155568588715380_5326097892034816717_n.jpg"
 permalink: "/julebord-17-11-2017-bindende-pamelding-innen-mandag-06-11-2017/"
 forfatter: "Aage"
 wp_id: 2097

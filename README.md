@@ -22,9 +22,36 @@ npm run forhandsvisning      # bygger forhåndsvisningen (utvalg sider, relative
 | `src/design` | Designet «Fjord+»: `style.css` og malene Layout, Home, Article, PostList og EventList |
 | `src/components` | Felles deler: kalender, kort, RadioID-skjema, styret, faktaboks for arrangementer |
 | `worker/index.js` | Den eneste serverkoden: RadioID-skjemaet, som lager en GitHub-issue |
-| `public/wp-content/uploads` | Bilder og PDF-er fra WordPress (samme adresser som før) |
+| `public/media` | Bilder og dokumenter, se «Mappestruktur for bilder og filer» under |
 | `public/filer` | Nye opplastinger fra CMS-et |
 | `scripts/wp-import` | Engangsskript som konverterte WordPress-eksporten |
+
+## Mappestruktur for bilder og filer
+
+Alt som lastes opp, ligger i `public/media/` (adresse `/media/…`), sortert etter hva det brukes til. Mappenavnene er engelske.
+Pages CMS laster opp til riktig mappe automatisk (`options.path` per felt i `.pages.yml`).
+
+| Mappe | Innhold | Lastes opp fra |
+|---|---|---|
+| `posts/` | Bilder til nyheter og arrangementer | Hovedbilde på innlegg |
+| `pages/` | Toppbilder til faste sider, kurssider og forsiden | Toppbilde, forsidens bilder |
+| `board/` | Portretter av styret | Styret |
+| `defaults/` | Standardbilder per kategori | Standardbilder |
+| `competitions/ÅR/` | Alt om én konkurranse: `entries/` (bildebidrag) og `sponsors/` (logoene slik de var det året) | Konkurranser |
+| `sponsors/NAVN/` | Faste klubbsponsorer, én mappe per sponsor. Nye logoversjoner ved siden av de gamle, med år i navnet (`logo-2026.svg`) | Legges inn ved behov |
+| `documents/` | PDF-er: referater, innkallinger, årsberetninger | Vedlegg på innlegg |
+| `archive/ÅR/MÅNED/` | Alt fra WordPress, slik det lå der | – (bare lesing) |
+| `generated/` | Lages ved bygg (videominiatyrer), ikke i git | – |
+
+Sponsorer i en konkurranse ligger hos konkurransen (logoen slik den var det året, også om sponsoren senere bytter logo).
+Faste klubbsponsorer ligger i `sponsors/`. Samme firma kan ligge begge steder.
+
+Gamle `/wp-content/…`-adresser videresendes til `archive/` og `competitions/ÅR/entries/` (`public/_redirects`).
+Designets egne filer (logo, skript) ligger i `public/assets/`.
+
+**Hva hører hjemme hvor:** bilder som brukes på siden og ferdige, offentlige dokumenter (signerte referater, årsberetninger)
+ligger her. Repoet er offentlig – utkast, regnskap, medlemslister og andre interne dokumenter hører hjemme i klubbens
+Google Drive, ikke her, og lenkes helst ikke fra nettsiden (lenker til Drive brytes lett og deling blir fort feil).
 
 ## Engelsk versjon
 

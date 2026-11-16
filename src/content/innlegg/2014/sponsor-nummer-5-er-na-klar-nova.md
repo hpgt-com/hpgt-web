@@ -6,7 +6,7 @@ permalink: "/sponsor-nummer-5-er-na-klar-nova/"
 forfatter: "Aage"
 wp_id: 853
 ---
-[![logo von nova](/wp-content/uploads/2014/06/logo-von-nova.jpg)](/wp-content/uploads/2014/06/logo-von-nova.jpg)
+[![logo von nova](/media/archive/2014/06/logo-von-nova.jpg)](/media/archive/2014/06/logo-von-nova.jpg)
 
 Rett fra Østerrike til Harstad!
 
@@ -17,4 +17,4 @@ Endel i klubben har vinger fra Nova og er godt fornøyd med de.
 
 Blant annet meg selv. Min Mentor 2 (finnes nå i versjon 3) kan jeg ikke klage på =)
 
-[![image_1282657659](/wp-content/uploads/2014/06/image_1282657659.jpg)](http://nova-wings.com/)
+[![image_1282657659](/media/archive/2014/06/image_1282657659.jpg)](http://nova-wings.com/)

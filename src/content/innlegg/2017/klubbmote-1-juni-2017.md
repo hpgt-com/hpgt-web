@@ -2,7 +2,7 @@
 title: "Klubbmøte 1 Juni 2017"
 date: "2017-05-15T14:55:39"
 kategorier: ["Møter og referater"]
-bilde: "/wp-content/uploads/2017/05/18489878_10158737522100613_1876450312469130243_o.jpg"
+bilde: "/media/archive/2017/05/18489878_10158737522100613_1876450312469130243_o.jpg"
 permalink: "/klubbmote-1-juni-2017/"
 forfatter: "Aage"
 wp_id: 1964

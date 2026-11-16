@@ -10,6 +10,6 @@ Det er på sin plass å gratulere Camilla Bjordal med instruktørlisens! Ikke ba
 
 HPNLF jobber mye med å få flere kvinner i luften og klubben ønsker flere kvinner velkommen. Vi har i dag to aktive kvinner i klubben.
 
-[![](/wp-content/uploads/2012/10/image_1349550638535351.jpg)](/wp-content/uploads/2012/10/image_1349550638535351.jpg)
+[![](/media/archive/2012/10/image_1349550638535351.jpg)](/media/archive/2012/10/image_1349550638535351.jpg)
 
 Instruktørkurs 2012

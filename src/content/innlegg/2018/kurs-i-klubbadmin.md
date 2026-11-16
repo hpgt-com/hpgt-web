@@ -2,7 +2,7 @@
 title: "Kurs i klubbadmin"
 date: "2018-04-10T11:17:23"
 kategorier: ["Nyhet"]
-bilde: "/wp-content/uploads/2018/04/KA-kurs-Harstad-april-2018.jpg"
+bilde: "/media/archive/2018/04/KA-kurs-Harstad-april-2018.jpg"
 permalink: "/kurs-i-klubbadmin/"
 forfatter: "Aage"
 wp_id: 2251
@@ -33,4 +33,4 @@ Med vennlig hilsen
 | --- | --- |
 |  | **Magnus Leonhardsen**anlegg- og utdanningskonsulent [magnus.leonhardsen@idrettsforbundet.no](mailto:magnus.leonhardsen@idrettsforbundet.no)  mobil. 47858622  [www.idrett.no/troms](http://www.idrett.no/troms) |
 
-[![](/wp-content/uploads/2018/04/KA-kurs-Harstad-april-2018.jpg)](/wp-content/uploads/2018/04/KA-kurs-Harstad-april-2018.jpg)
+[![](/media/archive/2018/04/KA-kurs-Harstad-april-2018.jpg)](/media/archive/2018/04/KA-kurs-Harstad-april-2018.jpg)

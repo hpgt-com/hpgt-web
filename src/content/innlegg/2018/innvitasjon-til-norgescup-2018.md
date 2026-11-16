@@ -2,14 +2,14 @@
 title: "Innvitasjon til NorgesCup 2018"
 date: "2018-04-13T12:08:45"
 kategorier: ["Konkurranser"]
-bilde: "/wp-content/uploads/2018/04/bilde.png"
+bilde: "/media/archive/2018/04/bilde.png"
 permalink: "/innvitasjon-til-norgescup-2018/"
 forfatter: "Aage"
 wp_id: 2259
 ---
 **Innvitasjon til NorgesCup 2018**
 
-[![](/wp-content/uploads/2018/04/bilde.png)](/wp-content/uploads/2018/04/bilde.png)
+[![](/media/archive/2018/04/bilde.png)](/media/archive/2018/04/bilde.png)
 
 **Paragliding (XC)**
 Ørsta Bondalseide 20-22 April 2018

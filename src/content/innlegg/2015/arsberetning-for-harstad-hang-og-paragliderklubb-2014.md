@@ -2,7 +2,7 @@
 title: "Årsberetning for Harstad hang og paragliderklubb 2014"
 date: "2015-03-23T20:16:38"
 kategorier: ["Møter og referater"]
-bilde: "/wp-content/uploads/2014/05/IMG_0486.jpg"
+bilde: "/media/archive/2014/05/IMG_0486.jpg"
 permalink: "/arsberetning-for-harstad-hang-og-paragliderklubb-2014/"
 forfatter: "Aage"
 wp_id: 1247

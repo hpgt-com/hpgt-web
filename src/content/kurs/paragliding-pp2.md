@@ -2,7 +2,7 @@
 title: "Grunnkurs i paragliding (PP2)"
 menynavn: "Paragliding (PP2)"
 ingress: "Fra første øvelse på bakken til selvstendig flyging fra fjelltopper. Hjelm, pensum og lån av komplett kursutstyr er inkludert."
-bilde: "/wp-content/uploads/2019/01/20190803_175328.jpg"
+bilde: "/media/archive/2019/01/20190803_175328.jpg"
 kurstype: "Kurs / PP2"
 rekkefolge: 10
 sist_endret: "2026-04-19"
@@ -39,7 +39,7 @@ Dette er et kurs som tar deg gradvis fra helt ukjent med sporten, opp til PP2-ni
 - 10 høydeturer – minimum 10 høydeturer med høyde nok til å utføre forskjellige øvelser, som 360 graders sving og firkantinnflyvning
 - Teorieksamen
 
-[Utdanningsprogrammet](https://nlf.no/siteassets/hps/dokumenter/sikkerhetssystem/rev-2.3-utdanningsprogrammet-for-paragliding.pdf)![](/wp-content/uploads/2026/04/hpgt5.jpg)
+[Utdanningsprogrammet](https://nlf.no/siteassets/hps/dokumenter/sikkerhetssystem/rev-2.3-utdanningsprogrammet-for-paragliding.pdf)![](/media/archive/2026/04/hpgt5.jpg)
 
 ### Påmelding
 
