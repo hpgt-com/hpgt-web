@@ -10,7 +10,7 @@ const { innlegg, arrangementer } = Astro.props;
 let kort: { href: string; bilde?: string; tittel: string; meta: string; kat?: string; katNavn?: string; tom?: string }[] = [];
 if (innlegg) {
   kort = innlegg.map((p) => ({ href: lenke(p), bilde: bildeFor(p), tittel: p.data.title, meta: dato(p.data.date),
-    kat: slug(p.data.kategorier[0]), katNavn: p.data.kategorier[0], tom: undefined }));
+    kat: slug(p.data.kategorier[0]), katNavn: p.data.kategorier[0], tom: p.data.kategorier[0] }));
 } else if (arrangementer) {
   kort = arrangementer.map((e) => ({ href: lenke(e), bilde: bildeFor(e as any), tittel: e.data.title,
     meta: [dato(e.data.start), sted(e), tid(e)].filter(Boolean).join(" · "), kat: gruppe(e), katNavn: typeTekst(e.data.type), tom: datoKort(e.data.start) }));
@@ -20,7 +20,7 @@ if (innlegg) {
   {kort.map((k) => (
     <li class="kort" data-gruppe={k.kat}><a href={url(k.href)}>
       {k.bilde
-        ? <span class="kort__bilde"><img src={url(k.bilde)} alt="" loading="lazy" decoding="async" /></span>
+        ? <span class="kort__bilde standardbilde--foto" data-kat={k.kat}><img src={url(k.bilde)} alt="" loading="lazy" decoding="async" />{k.tom && <span class="standardbilde__etikett">{k.tom}</span>}</span>
         : <Standardbilde class="kort__bilde" kat={k.kat} tekst={k.tom} nokkel={k.href} />}
       <span class="kort__tekst">
         {k.katNavn && <span class="kort__kat kat" data-kat={k.kat}>{k.katNavn}</span>}
