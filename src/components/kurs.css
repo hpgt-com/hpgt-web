@@ -1,0 +1,12 @@
+/* Kursmenyen og kurskortene på /kurs/ */
+.kursmeny { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 1.6rem; padding: 0; }
+.kursmeny a { padding: 7px 14px; border: 1.5px solid var(--line); border-radius: 999px; text-decoration: none; color: inherit; font-weight: 700; font-size: .9rem; background: var(--surface); }
+.kursmeny a:hover { border-color: var(--sky); }
+.kursmeny a[aria-current] { background: var(--text); border-color: var(--text); color: var(--bg); }
+.kurskort ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.kurskort a { display: grid; gap: 6px; height: 100%; text-decoration: none; color: inherit; border: 1px solid var(--line); background: var(--surface); padding-bottom: 14px; }
+.kurskort a:hover { border-color: var(--sky); }
+.kurskort a > * { margin: 0 14px; }
+.kurskort img { margin: 0; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.kurskort b { margin-top: 8px; font-size: 1.05rem; }
+.kurskort span { font-size: .92rem; color: var(--muted); }

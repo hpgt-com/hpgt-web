@@ -1,12 +1,20 @@
 ---
 import { url, slug } from "../lib/site";
-const { title, ingress, bilde, meta, kategorier, tilbake } = Astro.props;
+import Innhold from "./Innhold.astro";
+const { title, ingress, bilde, meta, kategorier, tilbake, overskrifter = [] } = Astro.props;
+// Innholdsfortegnelse bare når teksten har minst tre overskrifter
+const toc = overskrifter.filter((h: { depth: number }) => h.depth <= 3).length >= 3;
 ---
-<article class="wrap article">
-  <nav class="crumbs" aria-label="Brødsmuler"><a href={url("/")}>Hjem</a>{tilbake && <><span>/</span><a href={tilbake.url}>{tilbake.tekst}</a></>}</nav>
-  {meta && <p class="post__meta">{kategorier?.map((k) => <><a class="kat" data-kat={slug(k)} href={url(`/nytt/kategori/${slug(k)}/`)}>{k}</a> · </>)}{meta}</p>}
-  <h1 class="h1">{title}</h1>
-  {ingress && <p class="lead">{ingress}</p>}
-  {bilde && <img class="article__img" src={url(bilde)} alt="" />}
-  <div class="prose"><slot /></div>
+<article class:list={["wrap article", { "article--toc": toc }]}>
+  {toc && <Innhold overskrifter={overskrifter} />}
+  <div class="article__main">
+    <nav class="crumbs" aria-label="Brødsmuler"><a href={url("/")}>Hjem</a>{tilbake && <><span>/</span><a href={tilbake.url}>{tilbake.tekst}</a></>}</nav>
+    <slot name="foran" />
+    {meta && <p class="post__meta">{kategorier?.map((k) => <><a class="kat" data-kat={slug(k)} href={url(`/nytt/kategori/${slug(k)}/`)}>{k}</a> · </>)}{meta}</p>}
+    <h1 class="h1">{title}</h1>
+    {ingress && <p class="lead">{ingress}</p>}
+    {bilde && <img class="article__img" src={url(bilde)} alt="" />}
+    {toc && <Innhold overskrifter={overskrifter} mobil />}
+    <div class="prose"><slot /></div>
+  </div>
 </article>
