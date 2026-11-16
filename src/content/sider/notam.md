@@ -1,8 +1,8 @@
 ---
-title: "NOTAM – HPGT"
-permalink: "/notam/"
+title: NOTAM – HPGT
+sist_endret: 2021-06-04
+permalink: /notam/
 wp_id: 3641
-sist_endret: "2021-06-04"
 ---
 > Spørsmål om NOTAM og vinsjing går til [faglig leder](/om-klubben/#faglig-leder).
 
@@ -28,6 +28,7 @@ NOTAM number: A0193/21
 ```
 
 **Bakgrunn- og prosedyre for registrering av NOTAM (Epost fra NLF 20201-06-03)**:
+
 Da kom vi til punktet der en del aktører + Avinor anså at vi legger beslag på for mye luftrom over for lang tid når det utstedes NOTAM for hele sesongen.
 
 NOTAM som så langt er lagt inn for hel sesong er derfor kansellert og vi må legge inn NOTAM kun for periodene det faktisk vinsjes.  Dog har vi fått en liten forenkling ved at vi ikke behøver å lage nye NOTAM manus som skal legges ved hele tiden.
