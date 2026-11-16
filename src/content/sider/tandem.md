@@ -1,8 +1,7 @@
 ---
 title: Tandem
-sist_endret: 2026-04-19
+sist_endret: 2026-11-16
 permalink: /tandem/
-wp_id: 10648
 ---
 Nord-Norge kan tilby mange fine fjell og fantastisk natur, men stabilt vær kan vi desverre ikke skryte av. Likevel har vi i Harstad mange gode flydager, og vi er mer enn glade for å introdusere denne fantastiske sporten til andre! Ta kontakt for å planlegge tur med en av våre flinke piloter.
 
