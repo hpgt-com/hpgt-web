@@ -1,4 +1,14 @@
 // Aktivitetskalender: tegner månedsrutenettet og viser månedens aktiviteter. Leser data-start/data-end fra lista.
+// Pil som i src/components/Pil.astro (skrifttypen mangler piltegnene)
+const pil = (d) => {
+  const ns = "http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(ns, "svg");
+  svg.setAttribute("class", "pil"); svg.setAttribute("viewBox", "0 0 16 16"); svg.setAttribute("aria-hidden", "true");
+  const p = document.createElementNS(ns, "path");
+  for (const [k, v] of Object.entries({ d, fill: "none", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round" })) p.setAttribute(k, v);
+  svg.append(p);
+  return svg;
+};
 (() => {
   const root = document.querySelector("[data-kal]");
   if (!root) return;
@@ -50,7 +60,8 @@
       const mal = fram || bak;
       if (mal) {
         hopp.hidden = false;
-        hopp.textContent = `${fram ? "Neste" : "Forrige"} aktivitet: ${mnd[mal.s.getMonth()]} ${mal.s.getFullYear()} ${fram ? "→" : "←"}`;
+        hopp.textContent = `${fram ? "Neste" : "Forrige"} aktivitet: ${mnd[mal.s.getMonth()]} ${mal.s.getFullYear()} `;
+        hopp.append(pil(fram ? "M2.5 8h11M9 3.5 13.5 8 9 12.5" : "M13.5 8h-11M7 3.5 2.5 8 7 12.5"));
         hopp.onclick = () => { vis = new Date(mal.s.getFullYear(), mal.s.getMonth(), 1); tegn(); };
       }
     }
