@@ -12,6 +12,7 @@ __pycache__/
 .wrangler/
 .forhandsvisning-bygg/
 .oversatt/
+public/videobilder/
 forhandsvisning/
 
 # Lokalt oppsett
