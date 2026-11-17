@@ -22,7 +22,7 @@ const UT = join(ROT, ".oversatt");
 const CACHE = join(UT, "oversettelser.json");
 
 // Hvilke sider som får engelsk versjon. Nyheter og arrangementer forblir på norsk.
-const SIDER = ["kurs", "for-piloter", "tandem", "klubben", "styret", "vaer", "notam", "asegarden", "morkeflyging", "stotte"];
+const SIDER = ["kurs", "for-piloter", "tandem", "klubben", "styret", "vaer", "notam", "flystripa", "morkeflyging", "stotte"];
 const SIDEFELT = ["title", "ingress"];
 const KURSFELT = ["title", "menynavn", "ingress"];
 // Tekstfelt i forside.json og styret.json som oversettes (sti med * for lister)

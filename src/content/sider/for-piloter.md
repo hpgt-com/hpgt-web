@@ -3,7 +3,7 @@ title: "For piloter"
 permalink: "/for-piloter/"
 mal: "seksjon"
 bilde: "/media/archive/2026/03/received_14693510906506755701209126633616533.jpeg"
-ingress: "Alt du trenger som pilot i HPGT: flysteder, vær, NOTAM ved vinsjing, Åsegarden, mørkeflyging og RadioID-registeret."
+ingress: "Alt du trenger som pilot i HPGT: flysteder, vær, NOTAM ved vinsjing, Flystripa på Åsegarden, mørkeflyging og RadioID-registeret."
 sist_endret: "2026-11-17"
 ---
 Er du på besøk i Harstad-området, eller ny pilot i klubben? Vi er en sosial gjeng som møtes så fort været tillater det – ikke vær redd for å ta kontakt i Facebook-gruppa om du vil være med å fly.

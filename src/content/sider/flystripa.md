@@ -1,16 +1,16 @@
 ---
-title: "Åsegarden – vinsj og paramotor"
-permalink: "/for-piloter/asegarden/"
-ingress: "Klubben har avtale med Forsvarsbygg om å bruke flystripa på Åsegarden (Reinmoen øvingsområde) til vinsjing og paramotor. Les reglene før du flyr."
+title: "Flystripa på Åsegarden – vinsj og paramotor"
+permalink: "/for-piloter/flystripa/"
+ingress: "Klubben har avtale med Forsvarsbygg om å bruke Flystripa på Åsegarden (Reinmoen øvingsområde) til vinsjing og paramotor. Les reglene før du flyr."
 sist_endret: "2026-11-17"
 ---
-> Spørsmål om Åsegarden, og varslingsnummeret for paraglideraktivitet, får du hos [faglig leder](/klubben/styret/#faglig-leder).
+> Spørsmål om Flystripa, og varslingsnummeret for paraglideraktivitet, får du hos [faglig leder](/klubben/styret/#faglig-leder).
 
 ## Kort fortalt
 
 - Avtalen gir klubben lov til å trekke opp piloter med elektrisk vinsj på flystripa, og i tillegg å fly paramotor (PPG) derfra.
 - Avtalen gjelder til 31. desember 2031.
-- Skal du fly med motor eller være med på vinsjing på Åsegarden, må du ha lest og satt deg inn i avtalen før du flyr.
+- Skal du fly med motor eller være med på vinsjing på Flystripa, må du ha lest og satt deg inn i avtalen før du flyr.
 - Som landingssted for vanlig paraglider er stripa fortsatt fri å bruke, så lenge du er sikker på at du ikke er til hinder for annen aktivitet i området.
 
 ## Før du flyr
