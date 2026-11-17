@@ -355,7 +355,12 @@ code { font: 600 .9em var(--mono); background: var(--tint); padding: 1px 6px; }
 .ev__tid { color: var(--muted); font-size: .88rem; font-variant-numeric: tabular-nums; text-align: right; }
 @media (max-width: 600px) { .ev__head { display: none; } .ev a { grid-template-columns: 1fr auto; } .ev a time, .ev__t { grid-column: 1 / -1; } .ev__tid { text-align: right; } }
 .ev__head span:last-child { text-align: right; }
-/* Lenkelister: «[Navn](url) – beskrivelse» får domenet etter navnet (src/lib/rehype-base.mjs) */
-.prose li.lenkepunkt { margin-bottom: .55em; color: var(--muted); }
-.prose li.lenkepunkt > a, .prose li.lenkepunkt > p > a { font-weight: 600; }
-.lenke__domene { font: 500 .78rem var(--mono); color: var(--muted); margin-left: .35em; white-space: nowrap; }
+/* Lenkelister: «[Navn](url) – beskrivelse» vises som tabell med navn og domene til venstre (src/lib/rehype-base.mjs) */
+.prose ul.lenkeliste { list-style: none; padding: 0; margin: 0 0 1.6em; border-top: 1px solid var(--line); }
+.prose ul.lenkeliste li.lenkepunkt { display: grid; grid-template-columns: minmax(170px, 15rem) 1fr; gap: 2px 24px; align-items: baseline; margin: 0; padding: 9px 4px; border-bottom: 1px solid var(--line); font-size: .95rem; line-height: 1.45; }
+.prose li.lenkepunkt > p { display: contents; }
+.lenke__navn { display: flex; flex-direction: column; min-width: 0; }
+.lenke__navn > a { font-weight: 600; }
+.lenke__domene { font: 500 .74rem/1.4 var(--mono); color: var(--muted); overflow-wrap: anywhere; }
+.lenke__tekst { color: var(--muted); }
+@media (max-width: 600px) { .prose ul.lenkeliste li.lenkepunkt { grid-template-columns: 1fr; padding: 8px 2px; } .lenke__navn { flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: 0 8px; } }
