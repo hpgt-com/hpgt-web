@@ -45,6 +45,14 @@
           "url": "/for-piloter/notam/"
         },
         {
+          "tekst": "Åsegarden",
+          "url": "/for-piloter/asegarden/"
+        },
+        {
+          "tekst": "Mørkeflyging",
+          "url": "/for-piloter/morkeflyging/"
+        },
+        {
           "tekst": "RadioID",
           "url": "/for-piloter/radioid/"
         },

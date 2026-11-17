@@ -4,6 +4,7 @@
 export const ENGELSKE_ADRESSER = {
   "/kurs/": "/courses/",
   "/for-piloter/vaer/": "/for-pilots/weather/",
+  "/for-piloter/morkeflyging/": "/for-pilots/night-flying/",
   "/for-piloter/": "/for-pilots/",
   "/klubben/styret/": "/club/board/",
   "/klubben/stotte/": "/club/support/",
