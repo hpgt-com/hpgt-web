@@ -25,7 +25,6 @@ Hver lenke har navn, nettsted og en kort forklaring. Mangler det noe, eller virk
 ## Luftrom og regler
 
 - [IPPC luftromskart](https://www.ippc.no/) – Avinors kart over luftrommet i Norge.
-- [NOTAM ved vinsjing](/for-piloter/notam/) – Klubbens mal for å melde NOTAM.
 - [NLF Hang og Paraglider](https://nlf.no/grener/hps/) – Seksjonens sider om sikkerhet, utdanning, forsikring og konkurranser.
 
 ## Flysteder og flylogg

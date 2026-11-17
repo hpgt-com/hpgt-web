@@ -19,10 +19,12 @@ const lenkepunkt = (li) => {
   if (tekst?.type !== "text" || !/^\s*[–—-]\s/.test(tekst.value)) return;
   const d = domene(a.properties.href);
   if (!d) return;
+  // Venstre kolonne: navn og domene. Høyre kolonne: beskrivelsen (og alt som følger etter).
   const i = innhold.children.indexOf(a);
-  innhold.children.splice(i + 1, 0, { type: "text", value: " " }, { type: "element", tagName: "span", properties: { className: ["lenke__domene"] }, children: [{ type: "text", value: d }] });
   tekst.value = tekst.value.replace(/^\s*[–—-]\s*/, "");
-  innhold.children.splice(innhold.children.indexOf(tekst), 0, { type: "element", tagName: "br", properties: {}, children: [] });
+  const resten = innhold.children.slice(innhold.children.indexOf(tekst));
+  const el = (cls, children) => ({ type: "element", tagName: "span", properties: { className: [cls] }, children });
+  innhold.children.splice(i, innhold.children.length - i, el("lenke__navn", [a, el("lenke__domene", [{ type: "text", value: d }])]), el("lenke__tekst", resten));
   li.properties.className = [...(li.properties.className || []), "lenkepunkt"];
 };
 
@@ -38,6 +40,11 @@ export default function rehypeBase({ base = "/" } = {}) {
       if (n.tagName === "li") lenkepunkt(n);
     }
     (n.children || []).forEach(walk);
+    // En liste der alle punktene er lenkepunkter, vises som tabell
+    if (n.tagName === "ul") {
+      const li = n.children.filter((c) => c.type === "element");
+      if (li.length && li.every((c) => c.properties?.className?.includes("lenkepunkt"))) n.properties.className = [...(n.properties.className || []), "lenkeliste"];
+    }
   };
   return (tree) => walk(tree);
 }
