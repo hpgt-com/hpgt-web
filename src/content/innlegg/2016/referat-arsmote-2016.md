@@ -36,7 +36,7 @@ Camilla stilte med skoleboller! Meget godt mottatt.
   - Klubben har sjekket seeiendom.no Vi kan ikke se at gunnar fredriksen er eier. vi ber dermed om at Gunnar frembringer dokumentasjon på at han eier eiendommen før vi tar stilling til henvendelsen.
 - Få opp aktivitet i klubben
   - Tur til Madeira kommer opp som alternativ: [meldt inn i](/media/archive/2016/02/2335e32b-036d-498f-9818-bca170d7acf7.jpg)sakslisten
-    - Inspirasjon: https://vimeo.com/730906
+    - Inspirasjon: [video på Vimeo](https://vimeo.com/730906)
   - Tur til sørafrika?
     - http://adventureescapades.co.za/adventure-paragliding/SkyguideParagliding
     - http://www.paragliding.no/turer-la-deg-friste/reisemal/sor-afrika

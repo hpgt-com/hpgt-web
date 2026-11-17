@@ -102,7 +102,7 @@ Medlemsmøte 27.01.2011
 | --- | --- |
 | Skrevet av Bjørnar Trondsen | |
 | Friday 02. April 2010 | |
-| Bortsett fra i dag med mye høydevind og potensielle bølgeforhold har det til nå vært en strålende påske! I går fløy jeg, Finn-roar, Stephan og Herleiv «swoope-2-meter-over-bakken»-hang i Sollia. 7 varmegrader og en oppstigningskurve som var mer eller mindre vertikal gjorde at løftet bare var å finne lavere enn 10 meter over toppen. Sånt blir det morro av. Håper videoen fra denne dagen er til inspirasjon til å komme seg ut å fly (når vinden har løyet litt).   [(se full HD her)](http://web.archive.org/web/20110208103243/http://vimeo.com/10629007)    [A little bit of playing at the mountain](http://web.archive.org/web/20110208103243/http://vimeo.com/10629007) from [Bjornar Trondsen](http://web.archive.org/web/20110208103243/http://vimeo.com/user1301986) on [Vimeo](http://web.archive.org/web/20110208103243/http://vimeo.com/). | |
+| Bortsett fra i dag med mye høydevind og potensielle bølgeforhold har det til nå vært en strålende påske! I går fløy jeg, Finn-roar, Stephan og Herleiv «swoope-2-meter-over-bakken»-hang i Sollia. 7 varmegrader og en oppstigningskurve som var mer eller mindre vertikal gjorde at løftet bare var å finne lavere enn 10 meter over toppen. Sånt blir det morro av. Håper videoen fra denne dagen er til inspirasjon til å komme seg ut å fly (når vinden har løyet litt).   Video: [A little bit of playing at the mountain](https://vimeo.com/10629007) av Bjørnar Trondsen (Vimeo). | |
 | Sist oppdatert ( Friday 02. April 2010 ) | |
 
 |  |
