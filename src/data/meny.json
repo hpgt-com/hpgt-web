@@ -45,6 +45,14 @@
           "url": "/for-piloter/notam/"
         },
         {
+          "tekst": "Flystripa",
+          "url": "/for-piloter/flystripa/"
+        },
+        {
+          "tekst": "Mørkeflyging",
+          "url": "/for-piloter/morkeflyging/"
+        },
+        {
           "tekst": "RadioID",
           "url": "/for-piloter/radioid/"
         },
