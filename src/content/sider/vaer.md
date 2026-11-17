@@ -13,7 +13,7 @@ Hver lenke har navn, nettsted og en kort forklaring. Mangler det noe, eller virk
 - [Windy](https://www.windy.com/68.80/16.54?68.67,16.54,9) – Vindkart med flere værmodeller, vind i ulike høyder og sounding.
 - [RASP termikkprognose](https://rasp.skyltdirect.se/scandinavia/?conf=nonorth&wind=tw) – Prognose for termikk, skybase og vind for Nord-Skandinavia.
 - [XC Paragliding flyvær](http://xcc.no/xccflymet.html) – Egil Fonns samling av værprognoser og verktøy for paraglidere.
-- [Meteogram fra NOAA](https://www.flyparaglider.com/Meteogram.aspx) – Velg flysted og få meteogram og sounding fra NOAA, med høydebegrensning for luftrommet.
+- [Flyparaglider – vær per flysted](https://www.flyparaglider.com/Meteogram.aspx) – Velg flysted og se vær og meteogram, med lenker til værstasjoner og webkamera for stedet. Flystedene er hentet fra Flightlog.
 
 ## Værstasjoner rundt Harstad
 
