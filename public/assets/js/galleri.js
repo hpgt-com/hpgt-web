@@ -26,10 +26,16 @@
     if (vm) return { kilde: "Vimeo", id: vm, spiller: `https://player.vimeo.com/video/${vm}?autoplay=1&dnt=1`, bilde: `/media/generated/video-thumbnails/vimeo-${vm}.jpg` };
     return null;
   };
-  const videoKort = [...prose.querySelectorAll('h2[id^="video"] + ul > li')]
-    .map((li) => ({ li, a: li.querySelector("a[href]") }))
-    .map((k) => ({ ...k, v: k.a && video(k.a.href) }))
-    .filter((k) => k.v);
+  // Alle lenker til YouTube/Vimeo i teksten, i rekkefølge. Kort: punkter under «Videoer», og avsnitt som bare er
+  // en videolenke (med ev. navn etter). Andre videolenker i løpende tekst åpner bare avspillingen.
+  const videoKort = [...prose.querySelectorAll("a[href]")]
+    .map((a) => ({ a, v: video(a.href) }))
+    .filter((k) => k.v && !k.a.querySelector("img"))
+    .map((k) => {
+      const li = k.a.closest('h2[id^="video"] + ul > li');
+      const p = !li && k.a.parentElement?.tagName === "P" && k.a.parentElement.querySelectorAll("a").length === 1 && k.a.parentElement.firstChild === k.a ? k.a.parentElement : null;
+      return { ...k, kort: li || p };
+    });
   if (!bilder.length && !videoKort.length) return;
 
   // --- Overlay (<dialog>) -------------------------------------------------------
@@ -99,13 +105,16 @@
   bilder.forEach((a, n) => a.addEventListener("click", (e) => { e.preventDefault(); aapne(bildeListe, n); }));
 
   // --- Videoer: miniatyrbilde på kortet, avspilling i overlay ----------------------
-  const videoListe = videoKort.map(({ li, a, v }) => {
-    const navn = [...li.childNodes].filter((n) => n !== a).map((n) => n.textContent).join("").trim();
-    const thumb = document.createElement("img");
-    thumb.className = "video__bilde"; thumb.alt = ""; thumb.loading = "lazy"; thumb.src = v.bilde;
-    thumb.addEventListener("error", () => thumb.remove()); // ingen miniatyr: kortet vises som før
-    li.prepend(thumb);
-    li.classList.add("video");
+  const videoListe = videoKort.map(({ kort, a, v }) => {
+    const navn = kort ? [...kort.childNodes].filter((n) => n !== a).map((n) => n.textContent).join("").trim() : "";
+    if (kort) {
+      const thumb = document.createElement("img");
+      thumb.className = "video__bilde"; thumb.alt = ""; thumb.loading = "lazy"; thumb.src = v.bilde;
+      thumb.addEventListener("error", () => thumb.remove()); // ingen miniatyr: kortet vises uten bilde
+      kort.prepend(thumb);
+      kort.classList.add("video");
+      if (kort.tagName === "P") kort.classList.add("videokort", `videokort--${v.kilde.toLowerCase()}`);
+    }
     return { type: "video", v, href: a.href, tittel: a.textContent, tekst: `${a.textContent}${navn ? " – " + navn : ""}` };
   });
   videoKort.forEach(({ a }, n) => a.addEventListener("click", (e) => { e.preventDefault(); aapne(videoListe, n); }));
