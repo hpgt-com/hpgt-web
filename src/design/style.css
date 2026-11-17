@@ -355,3 +355,7 @@ code { font: 600 .9em var(--mono); background: var(--tint); padding: 1px 6px; }
 .ev__tid { color: var(--muted); font-size: .88rem; font-variant-numeric: tabular-nums; text-align: right; }
 @media (max-width: 600px) { .ev__head { display: none; } .ev a { grid-template-columns: 1fr auto; } .ev a time, .ev__t { grid-column: 1 / -1; } .ev__tid { text-align: right; } }
 .ev__head span:last-child { text-align: right; }
+/* Lenkelister: «[Navn](url) – beskrivelse» får domenet etter navnet (src/lib/rehype-base.mjs) */
+.prose li.lenkepunkt { margin-bottom: .55em; color: var(--muted); }
+.prose li.lenkepunkt > a, .prose li.lenkepunkt > p > a { font-weight: 600; }
+.lenke__domene { font: 500 .78rem var(--mono); color: var(--muted); margin-left: .35em; white-space: nowrap; }

@@ -3,39 +3,43 @@ title: "Lenker / Værstasjoner"
 ingress: "Værvarsler, værstasjoner og andre nyttige lenker for piloter."
 permalink: "/for-piloter/vaer/"
 wp_id: 104
-sist_endret: "2026-05-18"
+sist_endret: "2026-11-17"
 ---
-# **Nyttige lenker for piloter**
+Hver lenke har navn, nettsted og en kort forklaring. Mangler det noe, eller virker en lenke ikke lenger? Si fra til styret.
 
-- [Flightlog](https://flightlog.org/)
-- [Enkel uthenting av metogram](http://www.flyparaglider.com/Meteogram.aspx)
-- [Termikk prognoser](http://rasp.skyltdirect.se/scandinavia/?conf=nonorth&wind=tw)
-- [NLF.no prognoser](http://nlf.no/seilfly/seilflyv-ret)
-- [PG Guru Lars Slettens side om alle flysteder i regionen](http://flysteder.hpgt.com/)
-- [Luftroms kart Norge  fra Avinor IPPC](https://www.ippc.no)
+## Vær og prognoser
 
-## **Værstasjoner i området rundt Harstad:**
+- [Yr](https://www.yr.no/nb/v%C3%A6rvarsel/daglig-tabell/1-294022/Norge/Troms/Harstad/Harstad) – Værvarsel for Harstad fra Meteorologisk institutt og NRK.
+- [Windy](https://www.windy.com/68.80/16.54?68.67,16.54,9) – Vindkart med flere værmodeller, vind i ulike høyder og sounding.
+- [RASP termikkprognose](https://rasp.skyltdirect.se/scandinavia/?conf=nonorth&wind=tw) – Prognose for termikk, skybase og vind for Nord-Skandinavia.
+- [XC Paragliding flyvær](http://xcc.no/xccflymet.html) – Egil Fonns samling av værprognoser og verktøy for paraglidere.
+- [Meteogram fra NOAA](https://www.flyparaglider.com/Meteogram.aspx) – Velg flysted og få meteogram og sounding fra NOAA, med høydebegrensning for luftrommet.
 
-- - [Klubbens værstasjon Heia Harstad](http://holfuy.com/no/data/490)
-  - [http://Vindnå – Samling værstasjoner fra holfuy, metrologiske, vegvesenet og weatherlink](https://xn--vindn-qra.no/)
-  - [Værdata fra Fonn Bygg as (Samling av værstasjoner i Harstad området)](http://fonn-bygg.no/sider/tjenester.html)
-  - [Elgsnes Værstasjon](http://www.elgsnes.no/weather/index.htm)
-  - [Kart med målinger fra værstasjonene i området](http://www.wunderground.com/wundermap/?lat=68.808&lon=16.318&zoom=10)
-  - [Enda en samling av værstasjoner](https://flybart.net/)
+## Værstasjoner rundt Harstad
 
-## **Paragliderutstyr:**
+- [Klubbens værstasjon på Heia](https://holfuy.com/no/data/490) – Vind og temperatur i sanntid fra Holfuy-stasjonen på Heia.
+- [Vindnå](https://xn--vindn-qra.no/) – Værstasjoner fra Holfuy, Meteorologisk institutt, Vegvesenet og WeatherLink samlet i ett kart.
+- [Flybart](https://flybart.net/) – Samling av værstasjoner med vurdering av om det er flybart.
+- [WunderMap](https://www.wunderground.com/wundermap?lat=68.808&lon=16.318&zoom=10) – Kart med private værstasjoner i området.
 
-- [MadsenLuftsport.no](http://www.madsenluftsport.no)  (Lokal forhandler av luftsportsutstyr)
+## Luftrom og regler
 
-## **Andre paraglider klubber:**
+- [IPPC luftromskart](https://www.ippc.no/) – Avinors kart over luftrommet i Norge.
+- [NOTAM ved vinsjing](/for-piloter/notam/) – Klubbens mal for å melde NOTAM.
+- [NLF Hang og Paraglider](https://nlf.no/grener/hps/) – Seksjonens sider om sikkerhet, utdanning, forsikring og konkurranser.
 
-- [Lofoten og Vesterålen Paragliderklubb](http://lovepg.no/)
-- [Tromsø Hang og Paragliderklubb](https://www.thpk.no/)
-- [Bodø Hang og Paragliderklubb](http://www.bhpgk.no/)
-- [Voss Hang og Paragliderklubb](https://vosshpk.no/)
-- [Bergen Hang og Paragliderklubb](http://www.bhpk.no/)
-- [Stjørdal Hang og Paragliderklubb](http://www.shgpgk.org/)
-- [Fjordane luftsportsklubb](https://www.fjordaneluftsportsklubb.com/)
-- [Hallingdal Paragliderklubb](https://www.hallingdalparagliding.no/)
-- [Hvittingfoss luftsportklubb](http://hlsk.no/)
-- [Oslo Paragliderklubb](http://www.opk.no/)
+## Flysteder og flylogg
+
+- [Flysteder i Harstad-regionen](https://flysteder.hpgt.com/) – Klubbens flystedsguide med startsteder, landinger og forhold, basert på Lars Slettens arbeid.
+- [Flightlog](https://flightlog.org/) – Flylogg og flystedsdatabase for hang og paraglider.
+- [XContest](https://www.xcontest.org/) – Internasjonal konkurranse for strekkflyging; se turer fra området.
+
+## Paragliderutstyr
+
+- [Madsen Luftsport](https://madsenluftsport.no/) – Lokal forhandler av luftsportsutstyr.
+
+## Andre klubber
+
+- [Tromsø Hang og Paragliderklubb](https://thpk.no/) – Nærmeste nabo i nord.
+- [Bodø Hang og Paragliderklubb](https://hangogparaglider.no/) – Klubben i Bodø.
+- [Alle hang- og paragliderklubber i Norge](https://nlf.no/klubber/HPSklubber/) – NLFs oversikt over klubbene, alltid oppdatert.
