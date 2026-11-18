@@ -1,22 +1,27 @@
-# Dokumentasjon for hpgt.com
+# Documentation for hpgt.com
 
-Dokumentasjonen ligger i repoet, ved siden av koden den beskriver, og endres i samme pull request som koden.
-Diagrammene er tekst (Mermaid) og vises direkte på GitHub.
+The documentation lives in the repository, next to the code it describes, and is changed in the same pull request as
+the code. The diagrams are text (Mermaid) and render directly on GitHub.
 
-| Dokument | Hva | For hvem |
+| Document | What | For whom |
 |---|---|---|
-| [architecture.md](architecture.md) | Hvordan siden er bygget og henger sammen, med skisser | Alle som skal forstå eller endre løsningen |
-| [operations.md](operations.md) | Kontoer, hemmeligheter, rutiner og feilsøking | Administratorer |
-| [adr/](adr/) | Beslutninger og hvorfor de ble tatt | Alle som vurderer å endre noe vesentlig |
-| [../SECURITY.md](../SECURITY.md) | Sikkerhetstiltak, og hvordan sårbarheter meldes | Alle |
-| [../README.md](../README.md) | Kom i gang, mappestruktur for bilder, engelsk versjon | Utviklere |
+| [architecture.md](architecture.md) | How the site is built and fits together, with diagrams | Anyone who needs to understand or change it |
+| [operations.md](operations.md) | Accounts, secrets, routines and troubleshooting | Administrators |
+| [adr/](adr/README.md) | Decisions and why they were made | Anyone considering a significant change |
+| [../SECURITY.md](../SECURITY.md) | Security measures, and how to report a vulnerability | Everyone |
+| [../README.md](../README.md) | Getting started, folder structure for images, the English version | Developers |
 
-Redaktører trenger ikke noe av dette: de bruker Pages CMS og siden `/klubben/bidra/`.
+Editors need none of this: they use Pages CMS and the page `/klubben/bidra/`.
 
-## Regler for dokumentasjonen
+[hpgt-com/flying-sites](https://github.com/hpgt-com/flying-sites) follows the same rules (see «Documentation» in its README).
 
-- **Én fasit.** Står noe i koden eller i en konfigurasjonsfil, beskriv hvor, ikke kopier verdien.
-- **Samme PR.** Endrer du oppsett, arbeidsflyt eller kontoer, oppdater dokumentasjonen i samme pull request.
-  Endringer gjort i et dashbord (Cloudflare, GitHub-innstillinger) føres inn i [operations.md](operations.md) samme dag.
-- **Beslutninger får en ADR.** Større valg (ny tjeneste, ny tilgang, ny måte å publisere på) beskrives i [adr/](adr/).
-- **Aldri hemmeligheter.** Repoet er offentlig. Skriv hvor en hemmelighet ligger, aldri verdien.
+## Rules for the documentation
+
+- **English.** Documentation and ADRs are in English in all the club's repositories. The website itself
+  and the help for editors are in Norwegian.
+- **One source of truth.** If something is in the code or a configuration file, say where, do not copy the value.
+- **Same PR.** If you change setup, a workflow or an account, update the documentation in the same pull request.
+  Changes made in a dashboard (Cloudflare, GitHub settings) go into [operations.md](operations.md) the same day.
+- **Decisions get an ADR.** Larger choices (a new service, new access, a new way of publishing) are described in
+  [adr/](adr/README.md).
+- **Never secrets.** The repository is public. Write where a secret lives, never its value.

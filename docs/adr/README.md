@@ -1,13 +1,13 @@
-# Beslutninger (ADR)
+# Architecture Decision Records
 
-Viktige valg for hpgt.com, med begrunnelse, så de som kommer etter vet *hvorfor* ting er som de er.
-Ny beslutning: kopier `template.md` til neste nummer, og legg den ved pull requesten som innfører endringen.
-En beslutning endres ikke i ettertid. Den erstattes av en ny, og den gamle får status «Erstattet av NNNN».
+The important choices for hpgt.com, with the reasons, so whoever comes next knows *why* things are as they are.
+New decision: copy `template.md` to the next number and add it to the pull request that makes the change. A decision is
+not edited afterwards; it is superseded by a new one, and the old one gets the status «Superseded by NNNN».
 
-| Nr. | Beslutning | Status |
+| No. | Decision | Status |
 |---|---|---|
-| [0001](0001-static-site-astro.md) | Statisk side med Astro i stedet for WordPress | Vedtatt |
-| [0002](0002-pages-cms.md) | Pages CMS for redaktørene | Vedtatt |
-| [0003](0003-cloudflare-workers.md) | Cloudflare Workers for nettsiden og DNS | Vedtatt |
-| [0004](0004-automatic-translation.md) | Automatisk oversettelse uten lagret nøkkel | Vedtatt |
-| [0005](0005-scoped-tokens-github-app.md) | Ett token per oppgave, eid av klubben | Vedtatt |
+| [0001](0001-static-site-astro.md) | Static site with Astro instead of WordPress | Accepted |
+| [0002](0002-pages-cms.md) | Pages CMS for the editors | Accepted |
+| [0003](0003-cloudflare-workers.md) | Cloudflare Workers for the website and DNS | Accepted |
+| [0004](0004-automatic-translation.md) | Automatic translation to English without a stored key | Accepted |
+| [0005](0005-scoped-tokens-github-app.md) | One token per task, owned by the club | Accepted |
