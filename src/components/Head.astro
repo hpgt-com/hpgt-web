@@ -35,7 +35,8 @@ const canonical = new URL(Astro.url.pathname.replace(import.meta.env.BASE_URL.re
 <meta property="og:description" content={description} />
 <meta property="og:locale" content={sprak === "en" ? "en_GB" : "nb_NO"} />
 {alternativ && nbUrl && <><link rel="alternate" hreflang="nb" href={nbUrl} /><link rel="alternate" hreflang="en" href={enUrl} /><link rel="alternate" hreflang="x-default" href={nbUrl} /></>}
-{image && <meta property="og:image" content={new URL(image, site.url)} />}
+{/* Delingsbilde: sidens eget bilde, ellers klubbens standardbilde (site.json → delingsbilde) */}
+<meta property="og:image" content={new URL(image ?? site.delingsbilde, site.url)} />
 <link rel="icon" href={url("/assets/img/hpgt-logo.png")} />
 <script is:inline src={url("/assets/js/tema.js")}></script>
 <script is:inline src={url("/assets/js/meny.js")} defer></script>

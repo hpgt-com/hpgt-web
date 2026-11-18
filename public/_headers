@@ -7,7 +7,6 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
   Cross-Origin-Opener-Policy: same-origin
-  X-Robots-Tag: noindex
 
 # RadioID-skjemaet: samme regler, men Cloudflare Turnstile får laste skript og vise sin sjekk. Bare denne siden.
 /for-piloter/radioid/
