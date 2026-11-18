@@ -1,5 +1,8 @@
 # Forslag: ny hpgt.com uten webhotell
 
+> **Historisk dokument.** Dette er forslaget fra migreringen høsten 2026. Gjeldende beskrivelse av løsningen står i
+> [docs/](docs/README.md). Noe her (f.eks. personlig token for skjemaet, `ny.hpgt.com` bak Cloudflare Access) ble gjort annerledes.
+
 **Status:** Forhåndsversjon, ikke publisert. Styret har valgt designet «Fjord+» med egen CSS (se kapittel 7).
 
 ## 1. Kort oppsummert

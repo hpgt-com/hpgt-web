@@ -1,7 +1,7 @@
 # hpgt.com
 
 Nettsiden til Harstad Hang- og Paragliderklubb: statisk [Astro](https://astro.build)-side, redigert i [Pages CMS](https://pagescms.org), publisert på Cloudflare.
-Les **[FORSLAG.md](FORSLAG.md)** for arkitektur, sikkerhet og migreringsplan.
+Les **[docs/](docs/README.md)** for arkitektur, drift og beslutninger. [FORSLAG.md](FORSLAG.md) er det opprinnelige forslaget fra migreringen, og beholdes for historikkens skyld.
 
 ## For redaktører
 Logg inn på Pages CMS, eller se `/klubben/bidra/` på siden. Du trenger ikke røre noe her.
@@ -21,9 +21,9 @@ npm run forhandsvisning      # bygger forhåndsvisningen (utvalg sider, relative
 | `src/data/*.json` | Forside, styret, RadioID, meny og nettstedsinnstillinger |
 | `src/design` | Designet «Fjord+»: `style.css` og malene Layout, Home, Article, PostList og EventList |
 | `src/components` | Felles deler: kalender, kort, RadioID-skjema, styret, faktaboks for arrangementer |
-| `worker/index.js` | Den eneste serverkoden: RadioID-skjemaet, som lager en GitHub-issue |
+| `worker/` | Den eneste serverkoden: RadioID-skjemaet, som lager en GitHub-issue via GitHub-appen «HPGT Web Forms» |
+| `docs/` | Arkitektur, drift og beslutninger (ADR) |
 | `public/media` | Bilder og dokumenter, se «Mappestruktur for bilder og filer» under |
-| `public/filer` | Nye opplastinger fra CMS-et |
 | `scripts/wp-import` | Engangsskript som konverterte WordPress-eksporten |
 
 ## Mappestruktur for bilder og filer
