@@ -3,7 +3,7 @@
 //
 // Minste privilegium:
 //  - Sakene lages av klubbens GitHub-app «HPGT Web Forms» (github-app.js). For hver innsending hentes et token som
-//    varer én time, med KUN «Issues: write» på ETT repo (GITHUB_REPO), det private hpgt-com/radioid-requests, så
+//    varer én time, med KUN «Issues: write» på ETT repo (GITHUB_REPO), det private hpgt-com/form-submissions, så
 //    navn, RadioID og kommentarer ikke blir offentlige. Det kan ikke lese kode, endre filer eller
 //    publisere noe, og ingen personlig token må fornyes.
 //  - Hemmelighetene (TURNSTILE_SECRET, GITHUB_APP_PRIVATE_KEY) ligger bare i Cloudflare, ikke i repoet eller i GitHub.
