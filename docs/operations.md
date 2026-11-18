@@ -16,7 +16,7 @@ listed here, so it is not forgotten.
 |---|---|
 | Content, design, code | Secrets in Cloudflare and in GitHub environments |
 | Build and publishing (`.github/workflows/`) | Cloudflare: custom domains, the Turnstile widget, redirect rules, DNS |
-| The Worker's Cloudflare setup (`wrangler.jsonc`) | The GitHub environments and their variables |
+| The Worker's Cloudflare setup (`wrangler.jsonc`), including that the `workers.dev` address and preview URLs are off | The GitHub environments and their variables |
 | Security headers and redirects (`public/_headers`, `_redirects`) | The GitHub Apps and where they are installed |
 | The ruleset for `main` (`settings/ruleset-main.json`, applied with `settings/apply.sh`), including the bypass for the Pages CMS app (ID 866529) | Pages CMS: who is invited |
 | What editors see (`.pages.yml`) | Anthropic: the federation rule and the service account |

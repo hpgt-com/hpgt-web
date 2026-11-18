@@ -32,8 +32,8 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  # Oversettelsene fra forrige publisering. Bytt til https://hpgt.com/en/oversettelser.json hvis workers.dev-adressen skrus av.
-  OVERSETT_FORRIGE: https://hpgt-web.hpgt.workers.dev/en/oversettelser.json
+  # Oversettelsene fra forrige publisering (den publiserte siden).
+  OVERSETT_FORRIGE: https://hpgt.com/en/oversettelser.json
 
 jobs:
   vakt:

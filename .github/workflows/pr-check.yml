@@ -36,7 +36,7 @@ jobs:
       # Engelske sider bygges fra de publiserte oversettelsene (ingen nøkkel her, ingenting oversettes).
       - run: npm run build
         env:
-          OVERSETT_FORRIGE: https://hpgt-web.hpgt.workers.dev/en/oversettelser.json
+          OVERSETT_FORRIGE: https://hpgt.com/en/oversettelser.json
 
       # Workeren for RadioID-skjemaet skal i det minste være gyldig JavaScript.
       - run: node --check worker/index.js
