@@ -15,6 +15,9 @@ purpose.
 - E-mail users can change content and media only, not configuration or code.
 - Saving goes straight to `main`, so the app has a bypass in the ruleset for `main`. Mistakes are caught by the build
   validation, and everything can be undone in Git.
+- Because of the bypass, a hijacked editor account or a breach at Pages CMS could change code. The publish workflow
+  therefore stops if a commit without a pull request changes anything outside the content (job `vakt`, added
+  2026-11-18), and uploads are limited to images and PDFs.
 - Fields not listed in `.pages.yml` are removed when someone saves. Technical fields must be listed there as `hidden`.
 
 ## Alternatives considered
