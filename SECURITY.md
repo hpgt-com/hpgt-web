@@ -25,9 +25,11 @@ can, but this is a volunteer club project.
 - **Who edits:** club members through Pages CMS. The Pages CMS GitHub App is installed on this repository only, and
   email collaborators can edit content and media, not code, workflows or settings (`.pages.yml`).
 - **Keys:**
-  - `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` in the environment `produksjon` (main only). The token has
-    «Workers Scripts: Edit» on the club's account and nothing else. Only the `publiser` job uses it, and that job runs
-    no code from the repository.
+  - `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` in the environment `produksjon` (main only). The token is an
+    account token made from the Worker (Workers & Pages → hpgt-web → Settings → Builds → «API token for external
+    CI/CD») and can only publish the Worker `hpgt-web`: no other Worker, no DNS, domains or other account settings. It
+    belongs to the club's account, not a person, and is renewed yearly. Only the `publiser` job uses it, and that job
+    runs no code from the repository.
   - `TURNSTILE_SECRET` and `GITHUB_APP_PRIVATE_KEY` for the form are Cloudflare secrets, not GitHub secrets. The
     issues are made by the club's GitHub App «HPGT Web Forms» (installed on this repository only, «Issues: Read and
     write» only). For each submission the Worker asks for a one-hour token limited to this repository and Issues: write

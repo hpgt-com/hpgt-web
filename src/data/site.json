@@ -3,7 +3,7 @@
   "kortnavn": "HPGT",
   "url": "https://hpgt.com",
   "beskrivelse": "Paragliding, speedflying og paramotor i Harstad og omegn. Kurs, tandem, flysteder og et sosialt klubbmiljø.",
-  "prototype": true,
+  "prototype": false,
   "epost": {
     "leder": "leder@hpgt.com",
     "fagligLeder": "faglig.leder@hpgt.com"
@@ -19,6 +19,7 @@
     "tekst": "Skjønner ikke hvorfor folk gidder å ruse seg når de bare kan fly paraglider",
     "kilde": "tidligere tandempassasjer"
   },
+  "delingsbilde": "/media/archive/2026/03/received_14693510906506755701209126633616533.jpeg",
   "turnstile": "1x00000000000000000000AA",
   "statistikk": ""
 }
