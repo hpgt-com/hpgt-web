@@ -2,11 +2,14 @@
 // Alt annet er statiske filer (wrangler.jsonc sender bare /api/* hit).
 //
 // Minste privilegium:
-//  - GITHUB_TOKEN er et fine-grained token med KUN «Issues: Read and write» på ETT repo (GITHUB_REPO).
-//    Det kan ikke lese kode, endre filer eller publisere noe.
-//  - Hemmelighetene legges inn én gang med «wrangler secret put» og finnes ikke i repoet eller i GitHub Actions.
+//  - Sakene lages av klubbens GitHub-app «HPGT Web Forms» (github-app.js). For hver innsending hentes et token som
+//    varer én time, med KUN «Issues: write» på ETT repo (GITHUB_REPO). Det kan ikke lese kode, endre filer eller
+//    publisere noe, og ingen personlig token må fornyes.
+//  - Hemmelighetene (TURNSTILE_SECRET, GITHUB_APP_PRIVATE_KEY) ligger bare i Cloudflare, ikke i repoet eller i GitHub.
 //  - Turnstile + opprinnelsessjekk + hastighetsgrense + honningkrukke stopper roboter og misbruk.
 //  - Vi tar bare imot det som uansett vises i den offentlige listen (navn, RadioID, vario).
+
+import { installasjonsToken, HEADERS } from "./github-app.js";
 
 const HANDLINGER = { ny: "Legg til", endre: "Endre", fjern: "Fjern" };
 
@@ -55,14 +58,11 @@ export default {
       "_Oppdater RadioID-registeret i CMS-et og lukk saken._",
     ].join("\n");
 
-    const gh = await fetch(`https://api.github.com/repos/${env.GITHUB_REPO}/issues`, {
+    let token;
+    try { token = await installasjonsToken(env, env.GITHUB_REPO); } catch { return svar(502, "Noe gikk galt hos oss. Prøv igjen senere."); }
+    const gh = await fetch(`${env.GITHUB_API || "https://api.github.com"}/repos/${env.GITHUB_REPO}/issues`, {
       method: "POST",
-      headers: {
-        Authorization: `Bearer ${env.GITHUB_TOKEN}`,
-        Accept: "application/vnd.github+json",
-        "X-GitHub-Api-Version": "2022-11-28",
-        "User-Agent": "hpgt-web-skjema",
-      },
+      headers: { ...HEADERS, Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
       body: JSON.stringify({ title: `RadioID: ${HANDLINGER[handling].toLowerCase()} ${navn} (${id})`, body, labels: ["radioid"] }),
     });
     if (!gh.ok) return svar(502, "Noe gikk galt hos oss. Prøv igjen senere.");
