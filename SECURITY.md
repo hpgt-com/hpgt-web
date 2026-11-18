@@ -34,5 +34,12 @@ can, but this is a volunteer club project.
     (`worker/github-app.js`), so there is no personal or long-lived token.
   - `TURNSTILE_SITEKEY`, `GH_APP_ID` and `GH_APP_INSTALLATION_ID` are not secret. They are variables in `produksjon`,
     checked and inserted by the `publiser` job; other builds use Cloudflare's Turnstile test key.
+- **Editors:** the Pages CMS app may save straight to `main` (bypass in the ruleset). The first job in the publish
+  workflow (`vakt`) stops the publish and opens an issue if a commit that did not come through a merged pull request
+  changes anything other than the content (`src/content/`, `public/media/` and the CMS's JSON files). The build
+  (`scripts/sjekk-media.mjs`) stops if `public/media/` holds anything other than images and PDFs, so an upload cannot
+  put an HTML page or a script on hpgt.com.
+- **Publishing:** Wrangler is pinned to a fixed version in the `publiser` job, since that job holds the Cloudflare
+  token.
 - **Content security:** strict CSP without `unsafe-inline` (`public/_headers`), no third-party scripts except
   Cloudflare Turnstile on the RadioID page, no tracking, no cookies.

@@ -18,7 +18,7 @@ listed here, so it is not forgotten.
 | Build and publishing (`.github/workflows/`) | Cloudflare: custom domains, the Turnstile widget, redirect rules, DNS |
 | The Worker's Cloudflare setup (`wrangler.jsonc`) | The GitHub environments and their variables |
 | Security headers and redirects (`public/_headers`, `_redirects`) | The GitHub Apps and where they are installed |
-| The ruleset for `main` (`settings/ruleset-main.json`, applied with `settings/apply.sh`) | Pages CMS: who is invited |
+| The ruleset for `main` (`settings/ruleset-main.json`, applied with `settings/apply.sh`), including the bypass for the Pages CMS app (ID 866529) | Pages CMS: who is invited |
 | What editors see (`.pages.yml`) | Anthropic: the federation rule and the service account |
 
 ## Accounts
@@ -87,6 +87,12 @@ until the token is replaced.
 Use the Turnstile widget «hpgt.com skjemaer» with a new `action`, add the page to `SKJEMASIDER` in
 `src/components/Head.astro` and to `public/_headers`, and check the `action` in the Worker. No new widget or keys.
 
+### Apply the ruleset for `main`
+`settings/apply.sh` is run by an org owner from `hpgt-com/repo-template`. The template's ruleset does not have the
+bypass for the Pages CMS app, so use this repository's `settings/ruleset-main.json`, or add the bypass again
+afterwards (Settings → Rules → Main protection → Bypass list → the Pages CMS app, «Always»). Without it, saving in
+Pages CMS fails with «Changes must be made through a pull request».
+
 ### Roll back a publish
 - **Fastest:** Cloudflare → Workers & Pages → `hpgt-web` → **Deployments** → choose the previous version →
   **Rollback**.
@@ -99,6 +105,8 @@ Use the Turnstile widget «hpgt.com skjemaer» with a new `action`, add the page
 |---|---|---|
 | `bygg` fails after saving in Pages CMS | An invalid field (date, type, a missing image) | Read the error message, fix the post in the CMS |
 | `publiser` fails with an authentication error | The Cloudflare token has expired or was deleted | Renew the token (see above) |
+| `vakt` fails and an issue «Publisering stoppet: Pages CMS endret filer utenfor innholdet» is opened | A commit saved straight to `main` (from Pages CMS, without a pull request) changed files outside the content | Find out who saved and why. If it was not intended: `git revert` of the commit in a pull request, and check the editor's account. If it was: make the change again in a pull request. Publishing resumes when the files are back as at the last publish |
+| `bygg` stops at `sjekk-media` | A file in `public/media/` that is not an image or a PDF | Remove it, or replace it with an image or PDF |
 | `publiser` stops at «Sett inn skjemaenes ID-er» | A variable in `produksjon` is missing or has the wrong format | Fix the variable and run again |
 | `oversett` warns about the sign-in | The Anthropic federation, the credit or the IDs | The site is still published with the previous translations. Check platform.claude.com |
 | The RadioID form answers «Noe gikk galt hos oss» | The app key, the app's installation or the IDs | Check that the app is installed on `hpgt-web` and that the key in Cloudflare is right |
