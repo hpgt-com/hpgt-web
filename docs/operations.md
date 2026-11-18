@@ -42,7 +42,7 @@ owner access to the GitHub org and to Cloudflare.
 | `CLOUDFLARE_API_TOKEN` | GitHub `hpgt-web` → Environments → `produksjon` | Secret | Publishes the Worker `hpgt-web`, and only that. Made under Cloudflare → Workers & Pages → hpgt-web → Settings → Builds → «API token for external CI/CD» | Yearly |
 | `CLOUDFLARE_ACCOUNT_ID` | Same environment | Secret | Which Cloudflare account | Never |
 | `TURNSTILE_SITEKEY` | Same environment | Variable | The public key of the Turnstile widget «hpgt.com skjemaer». Inserted when publishing | With a new widget |
-| `GH_APP_ID`, `GH_APP_INSTALLATION_ID` | Same environment | Variable | The GitHub App «HPGT Web Forms» and its installation on `hpgt-web` | Never |
+| `GH_APP_ID`, `GH_APP_INSTALLATION_ID` | Same environment | Variable | The GitHub App «HPGT Web Forms» and its installation, which covers only the private repository `hpgt-com/radioid-requests` | Never |
 | `TURNSTILE_SECRET` | Cloudflare → Workers & Pages → hpgt-web → Settings → Variables and Secrets | Secret | The Worker's check of Turnstile answers | If it may have leaked |
 | `GITHUB_APP_PRIVATE_KEY` | Same place | Secret | The app's private key (.pem). The Worker makes one-hour tokens with it | If it may have leaked |
 | `ANTHROPIC_ORGANIZATION_ID`, `ANTHROPIC_FEDERATION_RULE_ID`, `ANTHROPIC_SERVICE_ACCOUNT_ID`, `ANTHROPIC_WORKSPACE_ID` | GitHub `hpgt-web` → Environments → `oversetting` | Variables | Which federation rule and service account the sign-in uses. No key is stored | Never |
@@ -69,7 +69,9 @@ When the token has expired, «Bygg og publiser» goes red on the job `publiser`,
 until the token is replaced.
 
 ### Handle a RadioID submission
-1. An issue arrives with the label `radioid` (watch the repository with **Watch → Custom → Issues** to get e-mail).
+1. An issue arrives in the **private** repository `hpgt-com/radioid-requests` with the label `radioid` (watch it with
+   **Watch → Custom → Issues** to get e-mail). Submissions hold names and comments, so they are never in a public
+   repository; only the finished entry is published, in `radioid.json`.
 2. Update the register in Pages CMS (RadioID) and save.
 3. Close the issue.
 
@@ -106,10 +108,11 @@ Pages CMS fails with «Changes must be made through a pull request».
 | `bygg` fails after saving in Pages CMS | An invalid field (date, type, a missing image) | Read the error message, fix the post in the CMS |
 | `publiser` fails with an authentication error | The Cloudflare token has expired or was deleted | Renew the token (see above) |
 | `vakt` fails and an issue «Publisering stoppet: Pages CMS endret filer utenfor innholdet» is opened | A commit saved straight to `main` (from Pages CMS, without a pull request) changed files outside the content | Find out who saved and why. If it was not intended: `git revert` of the commit in a pull request, and check the editor's account. If it was: make the change again in a pull request. Publishing resumes when the files are back as at the last publish |
+| `vakt` fails with «Kunne ikke slå opp …» or «Uventet svar …» | A GitHub lookup failed, so the change could not be checked in full | Run the workflow again. It never publishes on a partial check |
 | `bygg` stops at `sjekk-media` | A file in `public/media/` that is not an image or a PDF | Remove it, or replace it with an image or PDF |
 | `publiser` stops at «Sett inn skjemaenes ID-er» | A variable in `produksjon` is missing or has the wrong format | Fix the variable and run again |
 | `oversett` warns about the sign-in | The Anthropic federation, the credit or the IDs | The site is still published with the previous translations. Check platform.claude.com |
-| The RadioID form answers «Noe gikk galt hos oss» | The app key, the app's installation or the IDs | Check that the app is installed on `hpgt-web` and that the key in Cloudflare is right |
+| The RadioID form answers «Noe gikk galt hos oss» | The app key, the app's installation or the IDs | Check that the app is installed on `radioid-requests` and that the key in Cloudflare is right |
 
 ## Launch and the domain
 

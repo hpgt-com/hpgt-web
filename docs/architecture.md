@@ -29,8 +29,9 @@ flowchart LR
     CMS[Pages CMS<br/>GitHub App, this repository only]
     REPO[(hpgt-web<br/>content + code)]
     ACT[GitHub Actions<br/>oversett → bygg → publiser]
-    ISS[Issues<br/>label radioid]
   end
+
+  ISS[(Private repository<br/>radioid-requests<br/>issues, label radioid)]
 
   subgraph Cloudflare["Cloudflare (account HPGT)"]
     W[Worker hpgt-web<br/>static files + /api/radioid]
@@ -135,12 +136,14 @@ sequenceDiagram
   Page->>W: POST (with the Turnstile answer)
   W->>W: checks origin, size, rate (3/min/IP), honeypot
   W->>TS: is the answer genuine? (action «radioid», host hpgt.com)
-  W->>GH: JWT signed with the app's key → one-hour token (Issues only, hpgt-web only)
-  W->>GH: creates the issue «RadioID: legg til …» with the label radioid
+  W->>GH: JWT signed with the app's key → one-hour token (Issues only, radioid-requests only)
+  W->>GH: creates the issue «RadioID: legg til …» in the private repository
   W-->>Pilot: «Takk! Innmeldingen er mottatt»
 ```
 
-Whoever maintains the register updates `radioid.json` in Pages CMS and closes the issue. The code is
+The issues are in the private repository `hpgt-com/radioid-requests`, since they hold names, RadioIDs and comments,
+including requests to be removed. Whoever maintains the register updates `radioid.json` in Pages CMS (only the finished
+entry is published) and closes the issue. The code is
 `worker/index.js` and `worker/github-app.js`. New forms later use the same Turnstile widget with their own `action`.
 
 ## Security in brief

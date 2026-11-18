@@ -11,7 +11,8 @@ than needed.
 ## Decision
 - Cloudflare: one account token per Worker, made from the Worker itself («API token for external CI/CD»), which can
   only publish that Worker. Renewed yearly.
-- The RadioID form: the GitHub App «HPGT Web Forms», owned by the org, installed on `hpgt-web` only with
+- The RadioID form: the GitHub App «HPGT Web Forms», owned by the org, installed only on the private repository
+  `hpgt-com/radioid-requests` ([0006](0006-radioid-private-intake.md)) with
   «Issues: Read and write» only. The Worker makes a one-hour token per submission.
 - Turnstile: one widget per website («hpgt.com skjemaer»), with its own `action` per form.
 - Public IDs (site key, App ID, Installation ID) as variables in the environment `produksjon`. Secrets only in
