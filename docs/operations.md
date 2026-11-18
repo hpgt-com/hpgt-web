@@ -1,118 +1,119 @@
-# Drift: kontoer, nøkler og rutiner
+# Operations: accounts, secrets and routines
 
-Driftshåndboken for hpgt.com. Den skal gjøre det mulig for en ny administrator å ta over uten å spørre den forrige.
-Hvordan løsningen henger sammen står i [architecture.md](architecture.md), og hvorfor den er bygget slik i
-[adr/](adr/).
+The operations handbook for hpgt.com. It should let a new administrator take over without asking the previous one.
+How the site fits together is in [architecture.md](architecture.md), and why it is built this way in
+[adr/](adr/README.md).
 
-**Regel:** Endrer du oppsett, kontoer eller nøkler, oppdaterer du denne fila i samme pull request (eller i en egen PR
-samme dag, hvis endringen ble gjort i et dashbord).
+**Rule:** if you change setup, accounts or keys, update this file in the same pull request (or in a separate PR the same
+day, if the change was made in a dashboard).
 
-## Hva er i Git, og hva er ikke
+## What is in Git, and what is not
 
-Git er fasiten for alt som kan ligge der. Resten er satt for hånd i et dashbord og er derfor listet her, så det ikke
-blir glemt.
+Git is the source of truth for everything that can live there. The rest is set by hand in a dashboard and is therefore
+listed here, so it is not forgotten.
 
-| I Git (endres via pull request) | Utenfor Git (satt for hånd, dokumentert under) |
+| In Git (changed through a pull request) | Outside Git (set by hand, documented below) |
 |---|---|
-| Innhold, design, kode | Hemmeligheter i Cloudflare og GitHub-miljøer |
-| Bygg og publisering (`.github/workflows/`) | Cloudflare: custom domains, Turnstile-widget, redirect-regler, DNS |
-| Cloudflare-oppsett for workeren (`wrangler.jsonc`) | GitHub-miljøene og variablene i dem |
-| Sikkerhetshoder og videresendinger (`public/_headers`, `_redirects`) | GitHub-appene og hvor de er installert |
-| Regelsettet for `main` (`settings/ruleset-main.json`, satt med `settings/apply.sh`) | Pages CMS: hvem som er invitert |
-| Hva redaktørene ser (`.pages.yml`) | Anthropic: føderasjonsregel og tjenestekonto |
+| Content, design, code | Secrets in Cloudflare and in GitHub environments |
+| Build and publishing (`.github/workflows/`) | Cloudflare: custom domains, the Turnstile widget, redirect rules, DNS |
+| The Worker's Cloudflare setup (`wrangler.jsonc`) | The GitHub environments and their variables |
+| Security headers and redirects (`public/_headers`, `_redirects`) | The GitHub Apps and where they are installed |
+| The ruleset for `main` (`settings/ruleset-main.json`, applied with `settings/apply.sh`) | Pages CMS: who is invited |
+| What editors see (`.pages.yml`) | Anthropic: the federation rule and the service account |
 
-## Kontoer
+## Accounts
 
-| Konto | Hva | Eier / hvem har tilgang |
+| Account | What | Owner / who has access |
 |---|---|---|
-| GitHub-org `hpgt-com` | Repoene `hpgt-web`, `flying-sites`, `repo-template`, `.github` | Org-eiere (2FA påkrevd) |
-| Cloudflare-konto «HPGT» | Workeren `hpgt-web`, DNS for hpgt.com, Turnstile, Web Analytics | Kontoens medlemmer |
-| Namecheap | Registrar for hpgt.com (navnetjenere peker til Cloudflare) | Den som har registrar-tilgangen |
-| Google Workspace | E-post på @hpgt.com (MX, SPF, DKIM og DMARC ligger i Cloudflare DNS) | Workspace-administrator |
-| platform.claude.com (Anthropic) | Oversettelse til engelsk, betales med forhåndskjøpt kreditt | Organisasjonens administratorer |
-| Pages CMS (app.pagescms.org) | Skriveverktøyet. Logger inn med GitHub (administratorer) eller e-post (redaktører) | Administratorer inviterer redaktører |
+| GitHub org `hpgt-com` | The repositories `hpgt-web`, `flying-sites`, `repo-template`, `.github` | Org owners (2FA required) |
+| Cloudflare account «HPGT» | The Worker `hpgt-web`, DNS for hpgt.com, Turnstile, Web Analytics | The account's members |
+| Namecheap | Registrar for hpgt.com (the name servers point to Cloudflare) | Whoever holds the registrar access |
+| Google Workspace | E-mail on @hpgt.com (MX, SPF, DKIM and DMARC are in Cloudflare DNS) | Workspace administrator |
+| platform.claude.com (Anthropic) | Translation to English, paid with prepaid credit | The organisation's administrators |
+| Pages CMS (app.pagescms.org) | The editor. Administrators sign in with GitHub, editors with e-mail | Administrators invite editors |
 
-Når noen slutter i styret: fjern dem fra hver konto over, og sjekk at minst to personer fortsatt har eiertilgang til
-GitHub-org og Cloudflare.
+When someone leaves the board: remove them from each account above, and check that at least two people still have
+owner access to the GitHub org and to Cloudflare.
 
-## Hemmeligheter og variabler
+## Secrets and variables
 
-| Navn | Hvor | Type | Hva | Fornyes |
+| Name | Where | Type | What | Renewed |
 |---|---|---|---|---|
-| `CLOUDFLARE_API_TOKEN` | GitHub `hpgt-web` → Environments → `produksjon` | Secret | Publiserer workeren `hpgt-web`, og bare den. Laget under Cloudflare → Workers & Pages → hpgt-web → Settings → Builds → «API token for external CI/CD» | Hvert år |
-| `CLOUDFLARE_ACCOUNT_ID` | Samme miljø | Secret | Hvilken Cloudflare-konto | Aldri |
-| `TURNSTILE_SITEKEY` | Samme miljø | Variabel | Offentlig nøkkel til Turnstile-widgeten «hpgt.com skjemaer». Settes inn ved publisering | Ved ny widget |
-| `GH_APP_ID`, `GH_APP_INSTALLATION_ID` | Samme miljø | Variabel | GitHub-appen «HPGT Web Forms» og installasjonen på `hpgt-web` | Aldri |
-| `TURNSTILE_SECRET` | Cloudflare → Workers & Pages → hpgt-web → Settings → Variables and Secrets | Secret | Workerens sjekk av Turnstile-svar | Ved mistanke om lekkasje |
-| `GITHUB_APP_PRIVATE_KEY` | Samme sted | Secret | Appens private nøkkel (.pem). Workeren lager tokens for én time med den | Ved mistanke om lekkasje |
-| `ANTHROPIC_ORGANIZATION_ID`, `ANTHROPIC_FEDERATION_RULE_ID`, `ANTHROPIC_SERVICE_ACCOUNT_ID`, `ANTHROPIC_WORKSPACE_ID` | GitHub `hpgt-web` → Environments → `oversetting` | Variabler | Hvilken føderasjonsregel og tjenestekonto innloggingen gjelder. Ingen nøkkel lagres | Aldri |
-| Cloudflare Web Analytics-token | `src/data/site.json` → `statistikk` | I Git (offentlig) | Anonym besøksstatistikk. Tomt = av | – |
+| `CLOUDFLARE_API_TOKEN` | GitHub `hpgt-web` → Environments → `produksjon` | Secret | Publishes the Worker `hpgt-web`, and only that. Made under Cloudflare → Workers & Pages → hpgt-web → Settings → Builds → «API token for external CI/CD» | Yearly |
+| `CLOUDFLARE_ACCOUNT_ID` | Same environment | Secret | Which Cloudflare account | Never |
+| `TURNSTILE_SITEKEY` | Same environment | Variable | The public key of the Turnstile widget «hpgt.com skjemaer». Inserted when publishing | With a new widget |
+| `GH_APP_ID`, `GH_APP_INSTALLATION_ID` | Same environment | Variable | The GitHub App «HPGT Web Forms» and its installation on `hpgt-web` | Never |
+| `TURNSTILE_SECRET` | Cloudflare → Workers & Pages → hpgt-web → Settings → Variables and Secrets | Secret | The Worker's check of Turnstile answers | If it may have leaked |
+| `GITHUB_APP_PRIVATE_KEY` | Same place | Secret | The app's private key (.pem). The Worker makes one-hour tokens with it | If it may have leaked |
+| `ANTHROPIC_ORGANIZATION_ID`, `ANTHROPIC_FEDERATION_RULE_ID`, `ANTHROPIC_SERVICE_ACCOUNT_ID`, `ANTHROPIC_WORKSPACE_ID` | GitHub `hpgt-web` → Environments → `oversetting` | Variables | Which federation rule and service account the sign-in uses. No key is stored | Never |
+| Cloudflare Web Analytics token | `src/data/site.json` → `statistikk` | In Git (public) | Anonymous visitor statistics. Empty = off | – |
 
-Begge miljøene (`produksjon` og `oversetting`) er begrenset til grenen `main`.
+Both environments (`produksjon` and `oversetting`) are limited to the branch `main`.
 
-## Rutiner
+## Routines
 
-### Invitere en ny redaktør
-1. Logg inn på app.pagescms.org med GitHub, åpne `hpgt-web` → **Collaborators** → **Invite** med e-postadressen.
-2. Redaktøren får en e-post og logger inn med den. De ser bare det `.pages.yml` viser.
-3. Fjern dem samme sted når de ikke skal skrive lenger.
+### Invite a new editor
+1. Sign in to app.pagescms.org with GitHub, open `hpgt-web` → **Collaborators** → **Invite** with the e-mail address.
+2. The editor gets an e-mail and signs in with it. They see only what `.pages.yml` shows.
+3. Remove them in the same place when they should no longer write.
 
-### Fornye Cloudflare-tokenet (hvert år)
-1. Cloudflare → Workers & Pages → `hpgt-web` → Settings → Builds → **Create token**. Navn:
-   `hpgt-web publish (worker hpgt-web)`, levetid 12 måneder.
-2. GitHub → `hpgt-web` → Settings → Environments → `produksjon` → `CLOUDFLARE_API_TOKEN` → lim inn.
-3. Actions → «Bygg og publiser» → **Run workflow**. Når den er grønn: slett det gamle tokenet under Cloudflare →
-   Manage Account → Account API Tokens.
-4. Legg inn ny påminnelse i styrets kalender en måned før neste utløp.
+### Renew the Cloudflare token (yearly)
+1. Cloudflare → Workers & Pages → `hpgt-web` → Settings → Builds → **Create token**. Name:
+   `hpgt-web publish (worker hpgt-web)`, lifetime 12 months.
+2. GitHub → `hpgt-web` → Settings → Environments → `produksjon` → `CLOUDFLARE_API_TOKEN` → paste it.
+3. Actions → «Bygg og publiser» → **Run workflow**. When it is green: delete the old token under Cloudflare → Manage
+   Account → Account API Tokens.
+4. Add a new reminder in the board's calendar a month before the next expiry.
 
-Har tokenet utløpt, blir «Bygg og publiser» rød på jobben `publiser`, og endringer fra Pages CMS kommer ikke ut før
-tokenet er byttet.
+When the token has expired, «Bygg og publiser» goes red on the job `publiser`, and changes from Pages CMS do not go out
+until the token is replaced.
 
-### Behandle en RadioID-innmelding
-1. Det kommer en sak med etiketten `radioid` (følg repoet med **Watch → Custom → Issues** for å få e-post).
-2. Oppdater registeret i Pages CMS (RadioID) og lagre.
-3. Lukk saken.
+### Handle a RadioID submission
+1. An issue arrives with the label `radioid` (watch the repository with **Watch → Custom → Issues** to get e-mail).
+2. Update the register in Pages CMS (RadioID) and save.
+3. Close the issue.
 
-### Bytte nøkkelen til GitHub-appen «HPGT Web Forms»
+### Replace the key of the GitHub App «HPGT Web Forms»
 1. hpgt-com → Settings → Developer settings → GitHub Apps → HPGT Web Forms → **Generate a private key**.
-2. Lim inn .pem-innholdet som `GITHUB_APP_PRIVATE_KEY` i Cloudflare (se tabellen), og slett fila.
-3. Test skjemaet, og slett den gamle nøkkelen på app-siden.
+2. Paste the .pem content as `GITHUB_APP_PRIVATE_KEY` in Cloudflare (see the table), and delete the file.
+3. Test the form, and delete the old key on the app page.
 
-### Legge til en side i den engelske versjonen
-1. Legg sidens filnavn (uten `.md`) i `SIDER` i `scripts/oversett/oversett.mjs`.
-2. Har den en norsk adresse som bør ha en engelsk, legg den inn i `src/lib/engelske-adresser.mjs`.
-3. Pull request. Oversettelsen skjer ved neste publisering.
+### Add a page to the English version
+1. Add the page's file name (without `.md`) to `SIDER` in `scripts/oversett/oversett.mjs`.
+2. If its Norwegian address should have an English one, add it to `src/lib/engelske-adresser.mjs`.
+3. Pull request. The translation happens on the next publish.
 
-### Legge til et nytt skjema
-Bruk Turnstile-widgeten «hpgt.com skjemaer» med en ny `action`, legg siden i `SKJEMASIDER` i
-`src/components/Head.astro` og i `public/_headers`, og sjekk `action` i workeren. Ingen ny widget eller nye nøkler.
+### Add a new form
+Use the Turnstile widget «hpgt.com skjemaer» with a new `action`, add the page to `SKJEMASIDER` in
+`src/components/Head.astro` and to `public/_headers`, and check the `action` in the Worker. No new widget or keys.
 
-### Rulle tilbake en publisering
-- **Raskest:** Cloudflare → Workers & Pages → `hpgt-web` → **Deployments** → velg forrige versjon → **Rollback**.
-- **For godt:** `git revert` av endringen i en pull request. Neste publisering legger da ut riktig versjon, og Git er
-  igjen fasiten. En rollback i Cloudflare alene overskrives ved neste publisering.
+### Roll back a publish
+- **Fastest:** Cloudflare → Workers & Pages → `hpgt-web` → **Deployments** → choose the previous version →
+  **Rollback**.
+- **For good:** `git revert` of the change in a pull request. The next publish then puts out the right version, and Git
+  is the source of truth again. A rollback in Cloudflare alone is overwritten by the next publish.
 
-### Når publiseringen feiler
+### When publishing fails
 
-| Symptom | Sannsynlig årsak | Tiltak |
+| Symptom | Likely cause | Fix |
 |---|---|---|
-| `bygg` feiler etter lagring i Pages CMS | Ugyldig felt (dato, type, bilde som mangler) | Les feilmeldingen, rett innlegget i CMS-et |
-| `publiser` feiler med autentiseringsfeil | Cloudflare-tokenet er utløpt eller slettet | Forny tokenet (se over) |
-| `publiser` stopper på «Sett inn skjemaenes ID-er» | En variabel i `produksjon` mangler eller har feil format | Rett variabelen og kjør på nytt |
-| `oversett` gir advarsel om innlogging | Anthropic-føderasjonen, kreditten eller ID-ene | Siden publiseres likevel med forrige oversettelser. Sjekk platform.claude.com |
-| RadioID-skjemaet svarer «Noe gikk galt hos oss» | Appnøkkelen, appens installasjon eller ID-ene | Sjekk at appen er installert på `hpgt-web` og at nøkkelen i Cloudflare er riktig |
+| `bygg` fails after saving in Pages CMS | An invalid field (date, type, a missing image) | Read the error message, fix the post in the CMS |
+| `publiser` fails with an authentication error | The Cloudflare token has expired or was deleted | Renew the token (see above) |
+| `publiser` stops at «Sett inn skjemaenes ID-er» | A variable in `produksjon` is missing or has the wrong format | Fix the variable and run again |
+| `oversett` warns about the sign-in | The Anthropic federation, the credit or the IDs | The site is still published with the previous translations. Check platform.claude.com |
+| The RadioID form answers «Noe gikk galt hos oss» | The app key, the app's installation or the IDs | Check that the app is installed on `hpgt-web` and that the key in Cloudflare is right |
 
-## Lansering og domenet
+## Launch and the domain
 
-Rekkefølgen ved lansering på hpgt.com står i pull requesten «Lansering» og i [adr/0003](adr/0003-cloudflare-workers.md):
-navnetjenere til Cloudflare, custom domains `hpgt.com` og `www.hpgt.com` på workeren, redirect-regel fra `www`, og
-deretter `prototype: false`.
+The launch order is in the pull request «Lansering» and in [adr/0003](adr/0003-cloudflare-workers.md): name servers
+to Cloudflare, custom domains `hpgt.com` and `www.hpgt.com` on the Worker, a redirect rule from `www`, and then
+`prototype: false`.
 
-E-post ligger hos Google og påvirkes ikke av nettsiden, men DNS-postene (MX, SPF, DKIM `google._domainkey`, DMARC) må
-stå i Cloudflare DNS.
+E-mail is at Google and is not affected by the website, but its DNS records (MX, SPF, DKIM `google._domainkey`, DMARC)
+must be in Cloudflare DNS.
 
-## Sikkerhetskopi
+## Backup
 
-Alt innhold og all kode ligger i Git, med full historikk, og er i tillegg klonet lokalt hos administratorene. Det er
-ingen database. Hemmelighetene ligger ikke i Git: oppbevar dem ikke andre steder enn der tabellen over sier, og lag
-heller nye ved behov.
+All content and all code are in Git, with the full history, and are also cloned locally by the administrators. There
+is no database. The secrets are not in Git: do not keep them anywhere other than where the table above says, and make
+new ones when needed instead.

@@ -1,21 +1,21 @@
-# 0002: Pages CMS for redaktørene
+# 0002: Pages CMS for the editors
 
-- **Status:** Vedtatt
-- **Dato:** 2026-10
+- **Status:** Accepted
+- **Date:** 2026-10
 
-## Bakgrunn
-Medlemmer uten GitHub-konto må kunne skrive nyheter og referater, uten at en administrator må gjøre jobben for dem.
+## Context
+Members without a GitHub account must be able to write news and minutes, without an administrator doing it for them.
 
-## Beslutning
-Pages CMS (app.pagescms.org). Administratorer inviterer redaktører med e-post. Appen er installert bare på `hpgt-web`,
-og `.pages.yml` bestemmer hvilke felt og filer redaktørene ser. Teknisk oppsett (`site.json`, menyer, kode) er med vilje
-utelatt.
+## Decision
+Pages CMS (app.pagescms.org). Administrators invite editors by e-mail. The app is installed on `hpgt-web` only, and
+`.pages.yml` decides which fields and files editors see. Technical setup (`site.json`, menus, code) is left out on
+purpose.
 
-## Konsekvenser
-- E-postbrukere kan bare endre innhold og media, ikke konfigurasjon eller kode.
-- Lagring går rett til `main`. Appen har derfor unntak i regelsettet for `main`. Feil fanges av byggevalideringen, og
-  alt kan angres i Git.
-- Felt som ikke står i `.pages.yml`, slettes når noen lagrer. Tekniske felt må stå der som `hidden`.
+## Consequences
+- E-mail users can change content and media only, not configuration or code.
+- Saving goes straight to `main`, so the app has a bypass in the ruleset for `main`. Mistakes are caught by the build
+  validation, and everything can be undone in Git.
+- Fields not listed in `.pages.yml` are removed when someone saves. Technical fields must be listed there as `hidden`.
 
-## Alternativer vi vurderte
-Sveltia/Decap og Keystatic/TinaCMS krever GitHub-konto eller betalt sky.
+## Alternatives considered
+Sveltia/Decap and Keystatic/TinaCMS need a GitHub account or a paid cloud.
