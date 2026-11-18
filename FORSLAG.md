@@ -68,7 +68,7 @@ Pilotene melder inn, endrer eller fjerner sin RadioID med et skjema nederst på 
 
 - Skjemaet går til `worker/index.js`, den eneste serverkoden på siden. Wrangler sender bare `/api/*` dit, og alt annet er statiske filer.
 - **Cloudflare Turnstile** (usynlig «er du et menneske?»-sjekk, ingen sporing) sjekkes på serveren, sammen med `action` og vertsnavn. I tillegg sjekkes opprinnelse, og det er en grense på 3 innsendinger per minutt per IP og en honningkrukke mot roboter.
-- **GitHub-tokenet** er fine-grained med *kun* «Issues: Read and write» på `hpgt-web`. Det kan ikke lese kode eller endre filer. Det og Turnstile-hemmeligheten legges inn med `wrangler secret put` og finnes verken i repoet eller i GitHub Actions.
+- **Sakene lages av GitHub-appen «HPGT Web Forms»**, med et token som varer én time og *kun* har «Issues: write» på `hpgt-web`. Det kan ikke lese kode eller endre filer. Appens private nøkkel og Turnstile-hemmeligheten ligger bare i Cloudflare.
 - Skjemaet spør bare om det som uansett vises i listen: navn, RadioID og vario. Det spør ikke om e-post eller telefon. Innsendt tekst gjøres ufarlig, så den ikke kan bli lenker eller @-varsler i saken.
 - Bare RadioID-siden får laste Turnstile. Alle andre sider beholder CSP uten tredjepart (`public/_headers` og `Head.astro`).
 - *Mulig senere:* en GitHub Action som lager endringen i `radioid.json` automatisk fra saken, så den bare må godkjennes.
@@ -109,7 +109,7 @@ Hentet automatisk via WordPress-API-et (`scripts/` og konverteringsskriptet):
 
 **Gjenstår før lansering:**
 - [ ] **E-post ligger hos Google**, ikke hos ProISP, så den påvirkes ikke av at webhotellet sies opp. Når DNS flyttes til Cloudflare, må **MX, SPF (TXT), DKIM (`google._domainkey`) og eventuell DMARC** kopieres nøyaktig. Cloudflare importerer de fleste automatisk, men sjekk listen før navnetjenerne byttes.
-- [ ] RadioID-skjemaet: opprett Turnstile-widget for `hpgt.com`, etiketten `radioid` i repoet og et fine-grained token. Legg inn begge hemmelighetene med `wrangler secret put`, og bytt test-nøkkelen i `site.json` (`turnstile`) med den ekte.
+- [x] RadioID-skjemaet: Turnstile-widget «hpgt.com skjemaer», etiketten `radioid` og GitHub-appen «HPGT Web Forms». Hemmelighetene ligger i Cloudflare, ID-ene i miljøet `produksjon`. Skjemaet tas i bruk ved lansering (`prototype: false`).
 - [ ] Flytt domenet fra ProISP til Cloudflare Registrar god tid før februar. Overføring tar 5–7 dager, og domenet må låses opp og ha autorisasjonskode.
 - [ ] Forsiden i WordPress ble ikke hentet; den var utilgjengelig fra skriptet. Innholdet på den nye forsiden er bygd fra menyene, sidene og de siste innleggene, så sammenlign med dagens forside.
 - [ ] Gå gjennom 3–4 eldre innlegg med spesielle oppsett: konkurransesidene for 2014, 2017 og 2019, og et gammelt avstemningsskjema.

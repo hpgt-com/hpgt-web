@@ -1,6 +1,7 @@
 ---
 // Skjema for å melde inn, endre eller fjerne en RadioID. Sendes til /api/radioid (worker/index.js),
-// som sjekker Turnstile og lager en GitHub-issue. I prototypen sendes ingenting; skjemaet viser bare hva saken ville blitt.
+// som sjekker Turnstile og lager en GitHub-issue (via GitHub-appen «HPGT Web Forms»). Turnstile-nøkkelen her er Cloudflares
+// testnøkkel; publiseringen bytter den med den ekte fra miljøet «produksjon» (.github/workflows/deploy.yml). I prototypen sendes ingenting; skjemaet viser bare hva saken ville blitt.
 import { site, url } from "../lib/site";
 import "./skjema.css";
 const demo = site.prototype;

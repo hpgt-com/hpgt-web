@@ -10,7 +10,8 @@ name: Bygg og publiser
 #             oversettelsene fra forrige publisering uendret.
 #   bygg      installerer pakkene og bygger, uten hemmeligheter. Resultatet leveres videre som artifact.
 #   publiser  har Cloudflare-tokenet (bare «Workers Scripts: Edit» på klubbens konto), men kjører ingen npm-kode
-#             fra repoet. Tokenet ligger i miljøet «produksjon», som bare main får bruke.
+#             fra repoet. Tokenet ligger i miljøet «produksjon», som bare main får bruke. Setter også inn skjemaenes
+#             ID-er fra «produksjon» (Turnstile-nøkkelen og GitHub-appen for RadioID-skjemaet).
 # Actions er festet til commit-SHA (Dependabot oppdaterer dem).
 
 on:
@@ -113,8 +114,21 @@ jobs:
           name: side
           path: .
 
+      # Skjemaenes ID-er ligger som variabler i «produksjon» (ikke hemmelige), så bare det publiserte bygget får dem.
+      # PR-bygg og lokale bygg bruker Cloudflares testnøkkel for Turnstile (site.json). Sjekkes før de brukes.
+      - name: Sett inn skjemaenes ID-er
+        env:
+          SITEKEY: ${{ vars.TURNSTILE_SITEKEY }}
+          APP_ID: ${{ vars.GH_APP_ID }}
+          INSTALLASJON: ${{ vars.GH_APP_INSTALLATION_ID }}
+        run: |
+          [[ "$APP_ID" =~ ^[0-9]+$ ]] || { echo "::error::GH_APP_ID mangler eller er ikke et tall"; exit 1; }
+          [[ "$INSTALLASJON" =~ ^[0-9]+$ ]] || { echo "::error::GH_APP_INSTALLATION_ID mangler eller er ikke et tall"; exit 1; }
+          [[ "$SITEKEY" =~ ^0x[0-9A-Za-z_-]{10,}$ ]] || { echo "::error::TURNSTILE_SITEKEY mangler eller har feil format"; exit 1; }
+          grep -rlZ --include='*.html' '1x00000000000000000000AA' dist | xargs -0 -r sed -i "s/1x00000000000000000000AA/$SITEKEY/g"
+
       - uses: cloudflare/wrangler-action@953926a2e2182532811c01a25e53647d93bf07c0 # v4.1.3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: deploy
+          command: deploy --var GH_APP_ID:${{ vars.GH_APP_ID }} --var GH_APP_INSTALLATION_ID:${{ vars.GH_APP_INSTALLATION_ID }}
