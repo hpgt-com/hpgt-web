@@ -29,7 +29,7 @@ can, but this is a volunteer club project.
     «Workers Scripts: Edit» on the club's account and nothing else. Only the `publiser` job uses it, and that job runs
     no code from the repository.
   - `TURNSTILE_SECRET` and `GITHUB_APP_PRIVATE_KEY` for the form are Cloudflare secrets, not GitHub secrets. The
-    issues are made by the club's GitHub App «HPGT Web Forms» in the private repository `hpgt-com/radioid-requests`
+    issues are made by the club's GitHub App «HPGT Web Forms» in the private repository `hpgt-com/form-submissions`
     (the app is installed there only, «Issues: Read and
     write» only). For each submission the Worker asks for a one-hour token limited to this repository and Issues: write
     (`worker/github-app.js`), so there is no personal or long-lived token.

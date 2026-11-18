@@ -1,6 +1,6 @@
 # 0006: RadioID submissions in a private repository
 
-- **Status:** Accepted
+- **Status:** Accepted. The repository was renamed by [0007](0007-one-intake-repository-for-forms.md): `hpgt-com/form-submissions`
 - **Date:** 2026-11-18
 
 ## Context

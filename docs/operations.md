@@ -42,7 +42,7 @@ owner access to the GitHub org and to Cloudflare.
 | `CLOUDFLARE_API_TOKEN` | GitHub `hpgt-web` → Environments → `produksjon` | Secret | Publishes the Worker `hpgt-web`, and only that. Made under Cloudflare → Workers & Pages → hpgt-web → Settings → Builds → «API token for external CI/CD» | Yearly |
 | `CLOUDFLARE_ACCOUNT_ID` | Same environment | Secret | Which Cloudflare account | Never |
 | `TURNSTILE_SITEKEY` | Same environment | Variable | The public key of the Turnstile widget «hpgt.com skjemaer». Inserted when publishing | With a new widget |
-| `GH_APP_ID`, `GH_APP_INSTALLATION_ID` | Same environment | Variable | The GitHub App «HPGT Web Forms» and its installation, which covers only the private repository `hpgt-com/radioid-requests` | Never |
+| `GH_APP_ID`, `GH_APP_INSTALLATION_ID` | Same environment | Variable | The GitHub App «HPGT Web Forms» and its installation, which covers only the private repository `hpgt-com/form-submissions` | Never |
 | `TURNSTILE_SECRET` | Cloudflare → Workers & Pages → hpgt-web → Settings → Variables and Secrets | Secret | The Worker's check of Turnstile answers | If it may have leaked |
 | `GITHUB_APP_PRIVATE_KEY` | Same place | Secret | The app's private key (.pem). The Worker makes one-hour tokens with it | If it may have leaked |
 | `ANTHROPIC_ORGANIZATION_ID`, `ANTHROPIC_FEDERATION_RULE_ID`, `ANTHROPIC_SERVICE_ACCOUNT_ID`, `ANTHROPIC_WORKSPACE_ID` | GitHub `hpgt-web` → Environments → `oversetting` | Variables | Which federation rule and service account the sign-in uses. No key is stored | Never |
@@ -69,7 +69,7 @@ When the token has expired, «Bygg og publiser» goes red on the job `publiser`,
 until the token is replaced.
 
 ### Handle a RadioID submission
-1. An issue arrives in the **private** repository `hpgt-com/radioid-requests` with the label `radioid` (watch it with
+1. An issue arrives in the **private** repository `hpgt-com/form-submissions` with the label `radioid` (watch it with
    **Watch → Custom → Issues** to get e-mail). Submissions hold names and comments, so they are never in a public
    repository; only the finished entry is published, in `radioid.json`.
 2. Update the register in Pages CMS (RadioID) and save.
@@ -86,7 +86,8 @@ until the token is replaced.
 3. Pull request. The translation happens on the next publish.
 
 ### Add a new form
-Use the Turnstile widget «hpgt.com skjemaer» with a new `action`, add the page to `SKJEMASIDER` in
+Use the Turnstile widget «hpgt.com skjemaer» with a new `action`, give its issues their own label in
+`hpgt-com/form-submissions` (or its own private repository if other people should read it, see ADR 0007), add the page to `SKJEMASIDER` in
 `src/components/Head.astro` and to `public/_headers`, and check the `action` in the Worker. No new widget or keys.
 
 ### Apply the ruleset for `main`
@@ -112,7 +113,7 @@ Pages CMS fails with «Changes must be made through a pull request».
 | `bygg` stops at `sjekk-media` | A file in `public/media/` that is not an image or a PDF | Remove it, or replace it with an image or PDF |
 | `publiser` stops at «Sett inn skjemaenes ID-er» | A variable in `produksjon` is missing or has the wrong format | Fix the variable and run again |
 | `oversett` warns about the sign-in | The Anthropic federation, the credit or the IDs | The site is still published with the previous translations. Check platform.claude.com |
-| The RadioID form answers «Noe gikk galt hos oss» | The app key, the app's installation or the IDs | Check that the app is installed on `radioid-requests` and that the key in Cloudflare is right |
+| The RadioID form answers «Noe gikk galt hos oss» | The app key, the app's installation or the IDs | Check that the app is installed on `form-submissions` and that the key in Cloudflare is right |
 
 ## Launch and the domain
 
