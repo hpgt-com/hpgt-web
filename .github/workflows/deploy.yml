@@ -3,7 +3,12 @@ name: Bygg og publiser
 # Bygger siden og publiserer den til Cloudflare (Workers static assets + workeren for RadioID-skjemaet)
 # når main endres, også når en redaktør lagrer i Pages CMS.
 #
-# Tre jobber, så ingen nøkkel er tilgjengelig for mer kode enn nødvendig:
+# Fire jobber, så ingen nøkkel er tilgjengelig for mer kode enn nødvendig:
+#   vakt      Pages CMS har unntak fra PR-kravet og kan lagre rett på main. Endrer en commit som ikke kom gjennom en
+#             merget pull request (altså fra Pages CMS) noe annet enn innholdet (se TILLATT under), stopper publiseringen
+#             her, og det lages en sak. Forfatternavnet brukes ikke, det kan settes fritt. Sjekker alt siden
+#             forrige vellykkede publisering, så endringen ikke slipper gjennom med neste commit. Når filene er tilbake
+#             slik de var ved forrige publisering (git revert), går det igjen.
 #   oversett  oversetter ny eller endret tekst til engelsk (scripts/oversett). Logger inn hos Anthropic uten
 #             lagret nøkkel: GitHubs OIDC-token for miljøet «oversetting» veksles inn (workload identity federation).
 #             Installerer bare Anthropic-SDK-en, ikke nettstedets byggepakker. Uten innlogging brukes
@@ -31,7 +36,67 @@ env:
   OVERSETT_FORRIGE: https://hpgt-web.hpgt.workers.dev/en/oversettelser.json
 
 jobs:
+  vakt:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      actions: read # finne forrige vellykkede publisering
+      pull-requests: read # se om en commit kom gjennom en merget pull request
+      issues: write # si fra når noe stoppes
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Sjekk hva Pages CMS har endret
+        shell: bash # pipefail
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          # Det redaktørene kan endre i Pages CMS (.pages.yml). Alt annet skal gå gjennom en pull request.
+          TILLATT='^(src/content/(innlegg|sider|kurs)/|public/media/|src/data/(forside|styret|radioid|standardbilder)\.json$)'
+          forrige=$(gh api "repos/$GH_REPO/actions/workflows/deploy.yml/runs?branch=main&status=success&per_page=1" --jq '.workflow_runs[0].head_sha // empty')
+          if [ -z "$forrige" ] || ! git cat-file -e "$forrige^{commit}" 2>/dev/null; then
+            echo "Fant ingen tidligere publisering å sammenligne med; sjekker bare siste commit."
+            forrige=$(git rev-parse HEAD~1)
+          fi
+          echo "Sjekker $forrige..HEAD"
+          # Stopper hvis noe av sjekken feiler (et GitHub-oppslag, git): da er ikke hele endringen kontrollert.
+          # Bare «ingen filer utenfor innholdet» etter at alle oppslag har lyktes, slipper gjennom.
+          mapfile -t commits < <(git rev-list --no-merges "$forrige..HEAD")
+          filer=()
+          for c in "${commits[@]}"; do
+            # Commits uten en merget pull request er lagret rett på main, dvs. av Pages CMS.
+            if ! pr=$(gh api "repos/$GH_REPO/commits/$c/pulls" --jq 'map(select(.merged_at != null)) | length'); then
+              echo "::error::Kunne ikke slå opp om $c kom gjennom en pull request. Publiseringen stoppes; kjør på nytt."
+              exit 1
+            fi
+            [[ "$pr" =~ ^[0-9]+$ ]] || { echo "::error::Uventet svar for $c: «$pr»"; exit 1; }
+            if [ "$pr" = "0" ]; then
+              mapfile -t endret < <(git diff-tree --no-commit-id --name-only -r "$c")
+              filer+=("${endret[@]}")
+            fi
+          done
+          echo "${#commits[@]} commits sjekket, ${#filer[@]} filer endret uten pull request."
+          # grep gir 1 når ingen linjer er utenfor (det er i orden), 2 ved feil (da stopper vi).
+          utenfor=$( { [ "${#filer[@]}" -eq 0 ] || printf '%s\n' "${filer[@]}"; } | { grep -Ev "$TILLATT" || [ $? -eq 1 ]; } | sort -u)
+          if [ -z "$utenfor" ]; then echo "OK: Pages CMS har bare endret innhold."; exit 0; fi
+          # Er filene tilbake slik de var ved forrige publisering (f.eks. etter git revert), er det i orden.
+          mapfile -t filer <<< "$utenfor"
+          if git diff --quiet "$forrige" HEAD -- "${filer[@]}"; then echo "Filene utenfor innholdet er tilbakestilt: OK."; exit 0; fi
+          printf 'Commits uten pull request har endret filer utenfor innholdet:\n%s\n' "$utenfor"
+          tittel="Publisering stoppet: Pages CMS endret filer utenfor innholdet"
+          tekst=$(printf 'En commit lagret rett på main (uten pull request, dvs. fra Pages CMS) endret filer som bare skal endres med en pull request, så publiseringen ble stoppet (%s).\n\nFiler:\n```\n%s\n```\n\nSjekk hvem som lagret og hvorfor. Var det ikke meningen: git revert av committen i en pull request. Var det meningen: gjør endringen på nytt i en pull request. Se docs/operations.md.' "$RUN_URL" "$utenfor")
+          n=$(gh issue list --state open --search "in:title \"$tittel\"" --json number,title --jq "map(select(.title == \"$tittel\")) | .[0].number // empty")
+          if [ -n "$n" ]; then gh issue comment "$n" --body "$tekst"; else gh issue create --title "$tittel" --body "$tekst"; fi
+          exit 1
+
   oversett:
+    needs: vakt
     runs-on: ubuntu-latest
     timeout-minutes: 15
     environment: oversetting
@@ -131,4 +196,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # Fast versjon: denne jobben har Cloudflare-tokenet, så den skal ikke hente «siste» Wrangler fra npm.
+          # Oppdateres for hånd (samme versjon som workers/data i hpgt-com/flying-sites).
+          wranglerVersion: "4.156.0"
           command: deploy --var GH_APP_ID:${{ vars.GH_APP_ID }} --var GH_APP_INSTALLATION_ID:${{ vars.GH_APP_INSTALLATION_ID }}

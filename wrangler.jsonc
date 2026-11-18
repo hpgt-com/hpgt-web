@@ -16,7 +16,7 @@
     "run_worker_first": ["/api/*"]
   },
   "vars": {
-    "GITHUB_REPO": "hpgt-com/hpgt-web",
+    "GITHUB_REPO": "hpgt-com/form-submissions",
     "TILLATT_OPPRINNELSE": "https://hpgt.com",
     "TURNSTILE_HOSTNAME": "hpgt.com"
   },
