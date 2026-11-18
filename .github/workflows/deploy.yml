@@ -51,6 +51,7 @@ jobs:
           persist-credentials: false
 
       - name: Sjekk hva Pages CMS har endret
+        shell: bash # pipefail
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
@@ -64,11 +65,25 @@ jobs:
             forrige=$(git rev-parse HEAD~1)
           fi
           echo "Sjekker $forrige..HEAD"
-          # Commits uten en merget pull request er lagret rett på main, dvs. av Pages CMS.
-          utenfor=$(git rev-list --no-merges "$forrige..HEAD" | while read -r c; do
-            pr=$(gh api "repos/$GH_REPO/commits/$c/pulls" --jq 'map(select(.merged_at != null)) | length')
-            if [ "$pr" = "0" ]; then git diff-tree --no-commit-id --name-only -r "$c"; fi
-          done | grep -Ev "$TILLATT" | sort -u || true)
+          # Stopper hvis noe av sjekken feiler (et GitHub-oppslag, git): da er ikke hele endringen kontrollert.
+          # Bare «ingen filer utenfor innholdet» etter at alle oppslag har lyktes, slipper gjennom.
+          mapfile -t commits < <(git rev-list --no-merges "$forrige..HEAD")
+          filer=()
+          for c in "${commits[@]}"; do
+            # Commits uten en merget pull request er lagret rett på main, dvs. av Pages CMS.
+            if ! pr=$(gh api "repos/$GH_REPO/commits/$c/pulls" --jq 'map(select(.merged_at != null)) | length'); then
+              echo "::error::Kunne ikke slå opp om $c kom gjennom en pull request. Publiseringen stoppes; kjør på nytt."
+              exit 1
+            fi
+            [[ "$pr" =~ ^[0-9]+$ ]] || { echo "::error::Uventet svar for $c: «$pr»"; exit 1; }
+            if [ "$pr" = "0" ]; then
+              mapfile -t endret < <(git diff-tree --no-commit-id --name-only -r "$c")
+              filer+=("${endret[@]}")
+            fi
+          done
+          echo "${#commits[@]} commits sjekket, ${#filer[@]} filer endret uten pull request."
+          # grep gir 1 når ingen linjer er utenfor (det er i orden), 2 ved feil (da stopper vi).
+          utenfor=$( { [ "${#filer[@]}" -eq 0 ] || printf '%s\n' "${filer[@]}"; } | { grep -Ev "$TILLATT" || [ $? -eq 1 ]; } | sort -u)
           if [ -z "$utenfor" ]; then echo "OK: Pages CMS har bare endret innhold."; exit 0; fi
           # Er filene tilbake slik de var ved forrige publisering (f.eks. etter git revert), er det i orden.
           mapfile -t filer <<< "$utenfor"
