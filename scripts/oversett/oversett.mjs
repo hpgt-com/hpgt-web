@@ -28,7 +28,7 @@ const IKKE_OVERSETT = ["Møter og referater"];
 const INNLEGGFELT = ["title", "ingress"];
 // Innleggene oversettes noen om gangen, så første publisering (alle innleggene) ikke tar for lang tid
 const SAMTIDIG = 8;
-const SIDER = ["kurs", "for-piloter", "tandem", "klubben", "styret", "vaer", "notam", "flystripa", "morkeflyging", "stotte"];
+const SIDER = ["kurs", "for-piloter", "tandem", "klubben", "styret", "vaer", "notam", "flystripa", "morkeflyging", "stotte", "personvern"];
 const SIDEFELT = ["title", "ingress"];
 const KURSFELT = ["title", "menynavn", "ingress"];
 // Tekstfelt i forside.json og styret.json som oversettes (sti med * for lister)
