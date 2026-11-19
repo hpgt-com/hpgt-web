@@ -1,7 +1,7 @@
 ---
 title: "Personvern"
 ingress: "Hvilke opplysninger hpgt.com samler inn, hvorfor, hvor de lagres og hvordan du får dem slettet."
-sist_endret: 2026-11-19
+sist_endret: 2026-11-20
 permalink: /personvern/
 ---
 Harstad Hang- og Paragliderklubb (org.nr. 996 870 618) er ansvarlig for opplysningene som samles inn på hpgt.com. Spørsmål om personvern sender du til [leder@hpgt.com](mailto:leder@hpgt.com).
@@ -10,7 +10,7 @@ Kort fortalt: siden bruker ingen informasjonskapsler og ingen sporing, og vi sam
 
 ## Når du leser siden
 
-- **Besøksstatistikk.** Vi teller besøk med Cloudflare Web Analytics. Den bruker ingen informasjonskapsler og kjenner ikke igjen deg fra gang til gang. Vi ser bare samlede tall, som hvilke sider som leses og fra hvilket land.
+- **Besøksstatistikk.** Vi teller besøk med Cloudflare Web Analytics og GoatCounter. Ingen av dem bruker informasjonskapsler, og ingen av dem lagrer IP-adressen din. Vi ser bare samlede tall: hvilke sider som leses, fra hvilket land, med hvilken type nettleser og skjerm, og hvilke knapper og lenker ut av siden som brukes (for eksempel «Abonner i kalenderen» eller en lenke til en værstasjon). Det du skriver i et skjema, kommer aldri med i statistikken.
 - **Drift og sikkerhet.** Siden leveres av Cloudflare, som behandler IP-adressen din for å sende deg siden og stoppe angrep. Dette lagrer vi ikke selv.
 - **Videoer** fra YouTube eller Vimeo lastes først når du trykker på dem. Da gjelder personvernreglene til YouTube (Google) eller Vimeo. YouTube-videoene vises uten informasjonskapsler.
 - **Lenker** til Facebook, Instagram og andre sider sender ingenting om deg før du trykker på dem.
@@ -31,9 +31,10 @@ Kort fortalt: siden bruker ingen informasjonskapsler og ingen sporing, og vi sam
 ## Hvem som behandler opplysningene for oss
 
 - **Cloudflare** (drift, statistikk, robotsjekk og logger)
+- **GoatCounter** (statistikk)
 - **GitHub** (arkivet for innsendinger og selve nettsiden)
 
-Begge er amerikanske selskaper. Opplysninger kan derfor bli overført til USA, under EUs rammeverk for overføring av personopplysninger til USA (EU–US Data Privacy Framework).
+Cloudflare og GitHub er amerikanske selskaper. Opplysninger kan derfor bli overført til USA, under EUs rammeverk for overføring av personopplysninger til USA (EU–US Data Privacy Framework).
 
 Flystedsoversikten på [flysteder.hpgt.com](https://flysteder.hpgt.com/) er en egen side med egne skjemaer og egen statistikk.
 

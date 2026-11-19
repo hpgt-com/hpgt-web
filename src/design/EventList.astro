@@ -21,8 +21,8 @@ const aar = arrangementerPaaAar(tidligere);
     {aar.map(([a, liste]) => <a href={`#ar-${a}`}>{a} <small>{liste.length}</small></a>)}
   </nav>
   {/* Kalenderabonnement (src/pages/arrangementer/kalender.ics.ts). webcal: åpner kalenderappen som abonnement. */}
-  <p class="abonner"><a class="btn" href="webcal://hpgt.com/arrangementer/kalender.ics">{en ? "Subscribe in your calendar" : "Abonner i kalenderen din"}</a>
-    <small>{en ? "New events appear in your phone's calendar by themselves (event titles in Norwegian). Or copy the address: " : "Nye arrangementer dukker opp i kalenderen på telefonen av seg selv. Eller kopier adressen: "}<a href={url("/arrangementer/kalender.ics")}>hpgt.com/arrangementer/kalender.ics</a></small></p>
+  <p class="abonner"><a class="btn" href="webcal://hpgt.com/arrangementer/kalender.ics" data-goatcounter-click="calendar/subscribe">{en ? "Subscribe in your calendar" : "Abonner i kalenderen din"}</a>
+    <small>{en ? "New events appear in your phone's calendar by themselves (event titles in Norwegian). Or copy the address: " : "Nye arrangementer dukker opp i kalenderen på telefonen av seg selv. Eller kopier adressen: "}<a href={url("/arrangementer/kalender.ics")} data-goatcounter-click="calendar/download">hpgt.com/arrangementer/kalender.ics</a></small></p>
   <ArrangementFilter alle={[...kommende, ...tidligere]} />
   <VisningsValg />
   <section class="year" id="kommende" data-seksjon><h2 class="year__h">{en ? "Upcoming" : "Kommende"}</h2>
