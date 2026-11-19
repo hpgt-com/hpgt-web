@@ -46,6 +46,4 @@ Sollifjellet er gjennomgått. De andre stedene er hentet fra den gamle oversikte
 **Si fra om feil**
 Har du rettelser, bilder eller forslag til forbedringer? Send dem direkte til Kristoffer (meg) på facebook, eller bruk knappen «Foreslå endring» nederst på hver stedsside. Knappen krever en GitHub-konto.
 
-Den gamle oversikten ligger fortsatt på [flysteder-old.hpgt.com](https://flysteder-old.hpgt.com/).
-
 *Oversikten er en grov guide. Klubben tar ikke ansvar for opplysninger om sikkerhet, luftrom eller grunneierforhold. Hver pilot vurderer selv om stedet og forholdene er OK.*
