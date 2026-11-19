@@ -3,15 +3,16 @@ import Pil from "../components/Pil.astro";
 import Standardbilde from "../components/Standardbilde.astro";
 import Aktivitetskalender from "../components/Aktivitetskalender.astro";
 import { url, dato, dag, mnd, lenke, slug, utdrag, bildeFor, tidSted } from "../lib/site";
-import { T, sideInfo, forsideFor, engelskeStier, lenkeFor } from "../lib/i18n";
+import { T, sideInfo, forsideFor, engelskeStier, lenkeFor, katNavn, sti } from "../lib/i18n";
 const { innlegg, kommende, tidligere } = Astro.props;
-// Engelsk forside: samme oppsett, men nyheter og kalender (som bare finnes på norsk) erstattes av en kort henvisning
+// Engelsk forside: samme oppsett, med de oversatte nyhetene og arrangementene (src/pages/en/index.astro)
 const { sprak } = sideInfo(Astro.url.pathname);
 const t = T[sprak];
 const forside = forsideFor(sprak);
 const engelske = await engelskeStier();
 const lenk = (u: string) => lenkeFor(sprak, u, engelske);
-const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", day: "2-digit", month: "short", year: "numeric" }).format(d).replace(/\./g, "");
+const en = sprak === "en";
+const kort = (d: Date) => new Intl.DateTimeFormat(en ? "en-GB" : "nb-NO", { timeZone: "UTC", day: "2-digit", month: "short", year: "numeric" }).format(d).replace(/\./g, "");
 ---
 <section class="hero">
   <img class="hero__img" src={url(forside.heltebilde)} alt={t.heltebildeAlt} />
@@ -22,7 +23,7 @@ const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", da
     <p class="actions">
       <a class="btn" href={lenk("/kurs/")}>{t.utforskKurs} <Pil /></a>
       <a class="btn btn--ghost" href={lenk("/for-piloter/")}>{t.flyMedOss} <Pil retning="hoyre" /></a>
-      {sprak === "nb" && <a class="hero__cal" href="#aktivitetskalender">{t.kalender}&nbsp;<Pil retning="ned" /></a>}
+      <a class="hero__cal" href="#aktivitetskalender">{t.kalender}&nbsp;<Pil retning="ned" /></a>
     </p>
     <div class="hero__strip"><span>Harstad / Sør-Troms</span><span>{forside.heltebildeKreditt}</span></div>
   </div>
@@ -43,27 +44,20 @@ const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", da
 </section>
 
 <hr class="wrap rule" />
-{sprak === "en" && <section class="wrap section">
-  <div class="head"><div><p class="eyebrow">{T.en.fraKlubben}</p><h2 class="h2">{T.en.norskInnhold}</h2></div></div>
-  <p class="lead">{T.en.norskInnholdTekst}</p>
-  <p class="actions"><a class="btn" href={url("/nytt/")}>{T.en.nyheter} <Pil retning="hoyre" /></a> <a class="btn" href={url("/arrangementer/")}>{T.en.arrangementer} <Pil retning="hoyre" /></a></p>
-</section>}
-{sprak === "nb" && <>
-
 
 <section class="wrap section">
-  <div class="head"><div><p class="eyebrow">Fra klubben</p><h2 class="h2">Siste nytt</h2></div><a class="more" href={url("/nytt/")}>Alle innlegg&nbsp;<Pil retning="hoyre" /></a></div>
+  <div class="head"><div><p class="eyebrow">{en ? "From the club" : "Fra klubben"}</p><h2 class="h2">{en ? "Latest news" : "Siste nytt"}</h2></div><a class="more" href={sti(sprak, "/nytt/")}>{en ? "All posts" : "Alle innlegg"}&nbsp;<Pil retning="hoyre" /></a></div>
   <div class="news">
     {innlegg.slice(0, 3).map((p) => {
       const b = bildeFor(p);
       return (
         <a class="post" href={url(lenke(p))}>
-          {b ? <span class="post__noimg standardbilde--foto" data-kat={slug(p.data.kategorier[0])}><img src={url(b)} alt="" loading="lazy" /><span class="standardbilde__etikett">{p.data.kategorier[0]}</span></span> : <Standardbilde class="post__noimg" kat={slug(p.data.kategorier[0])} tekst={p.data.kategorier[0]} nokkel={lenke(p)} />}
+          {b ? <span class="post__noimg standardbilde--foto" data-kat={slug(p.data.kategorier[0])}><img src={url(b)} alt="" loading="lazy" /><span class="standardbilde__etikett">{katNavn(sprak, p.data.kategorier[0])}</span></span> : <Standardbilde class="post__noimg" kat={slug(p.data.kategorier[0])} tekst={katNavn(sprak, p.data.kategorier[0])} nokkel={lenke(p)} />}
           <span class="post__body">
             <span class="post__meta">{kort(p.data.date)}</span>
             <span class="post__title">{p.data.title}</span>
             <span class="post__text">{utdrag(p.body, 150)}</span>
-            {p.data.forfatter && <span class="post__by">Av <b>{p.data.forfatter}</b></span>}
+            {p.data.forfatter && <span class="post__by">{en ? "By" : "Av"} <b>{p.data.forfatter}</b></span>}
           </span>
         </a>
       );
@@ -73,8 +67,7 @@ const kort = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", da
 
 <section class="band band--cal" id="aktivitetskalender">
   <div class="wrap section">
-  <div class="head"><div><p class="eyebrow">Det skjer i HPGT</p><h2 class="h2">Aktivitetskalender</h2></div><a class="more" href={url("/arrangementer/")}>Alle arrangementer&nbsp;<Pil retning="hoyre" /></a></div>
+  <div class="head"><div><p class="eyebrow">{en ? "What's on in HPGT" : "Det skjer i HPGT"}</p><h2 class="h2">{t.kalender}</h2></div><a class="more" href={sti(sprak, "/arrangementer/")}>{en ? "All events" : "Alle arrangementer"}&nbsp;<Pil retning="hoyre" /></a></div>
   <Aktivitetskalender kommende={kommende} tidligere={tidligere} />
   </div>
 </section>
-</>}

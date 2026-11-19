@@ -2,28 +2,34 @@
 import VisningsValg from "../components/VisningsValg.astro";
 import Kortnett from "../components/Kortnett.astro";
 import ArrangementFilter from "../components/ArrangementFilter.astro";
-import { url, dato, sted, tid, lenke, gruppe, typeTekst, arrangementerPaaAar } from "../lib/site";
+import { url, lenke, gruppe, arrangementerPaaAar } from "../lib/site";
+import { sideInfo, fmtFor, typeTekstFor } from "../lib/i18n";
 const { kommende, tidligere } = Astro.props;
+const { sprak } = sideInfo(Astro.url.pathname);
+const { dato, sted, tid } = fmtFor(sprak);
+const typeTekst = (t: string) => typeTekstFor(sprak, t);
+const en = sprak === "en";
+const kol = en ? ["Date", "Event", "Place", "Time"] : ["Dato", "Arrangement", "Sted", "Tid"];
 const aar = arrangementerPaaAar(tidligere);
 ---
 <div class="wrap section">
-  <p class="eyebrow">Kalender</p>
-  <h1 class="h1">Arrangementer</h1>
-  <p class="lead">Alt med dato: kurs, fagdager, møter, sosiale treff og konkurranser. Klikk deg inn for tid, sted og påmelding.</p>
-  <nav class="filters" aria-label="Hopp til år">
-    <a href="#kommende">Kommende <small>{kommende.length}</small></a>
+  <p class="eyebrow">{en ? "Calendar" : "Kalender"}</p>
+  <h1 class="h1">{en ? "Events" : "Arrangementer"}</h1>
+  <p class="lead">{en ? "Everything with a date: courses, training days, meetings, social events and competitions. Click through for time, place and sign-up." : "Alt med dato: kurs, fagdager, møter, sosiale treff og konkurranser. Klikk deg inn for tid, sted og påmelding."}</p>
+  <nav class="filters" aria-label={en ? "Jump to year" : "Hopp til år"}>
+    <a href="#kommende">{en ? "Upcoming" : "Kommende"} <small>{kommende.length}</small></a>
     {aar.map(([a, liste]) => <a href={`#ar-${a}`}>{a} <small>{liste.length}</small></a>)}
   </nav>
   <ArrangementFilter alle={[...kommende, ...tidligere]} />
   <VisningsValg />
-  <section class="year" id="kommende" data-seksjon><h2 class="year__h">Kommende</h2>
-    {kommende.length === 0 ? <p class="hint">Ingen nye arrangementer er lagt inn ennå. Følg med i Facebook-gruppa.</p> :
-      <ul class="rows ev" data-visning="liste"><li class="ev__head" aria-hidden="true"><span>Dato</span><span>Arrangement</span><span>Sted</span><span>Tid</span></li>{kommende.map((e) => <li data-gruppe={gruppe(e)}><a href={url(lenke(e))}><time>{dato(e.data.start)}</time><span class="ev__t">{e.data.title} <span class="kat ev__type" data-kat={gruppe(e)}>{typeTekst(e.data.type)}</span></span><span class="ev__sted">{sted(e) || "–"}</span><span class="ev__tid">{tid(e)}</span></a></li>)}</ul>}
+  <section class="year" id="kommende" data-seksjon><h2 class="year__h">{en ? "Upcoming" : "Kommende"}</h2>
+    {kommende.length === 0 ? <p class="hint">{en ? "No new events have been added yet. Keep an eye on our Facebook group." : "Ingen nye arrangementer er lagt inn ennå. Følg med i Facebook-gruppa."}</p> :
+      <ul class="rows ev" data-visning="liste"><li class="ev__head" aria-hidden="true">{kol.map((k) => <span>{k}</span>)}</li>{kommende.map((e) => <li data-gruppe={gruppe(e)}><a href={url(lenke(e))}><time>{dato(e.data.start)}</time><span class="ev__t">{e.data.title} <span class="kat ev__type" data-kat={gruppe(e)}>{typeTekst(e.data.type)}</span></span><span class="ev__sted">{sted(e) || "–"}</span><span class="ev__tid">{tid(e)}</span></a></li>)}</ul>}
     {kommende.length > 0 && <Kortnett arrangementer={kommende} />}
   </section>
   {aar.map(([a, liste]) => (
     <section class="year" id={`ar-${a}`} data-seksjon><h2 class="year__h">{a}</h2>
-      <ul class="rows ev" data-visning="liste"><li class="ev__head" aria-hidden="true"><span>Dato</span><span>Arrangement</span><span>Sted</span><span>Tid</span></li>{liste.map((e) => <li data-gruppe={gruppe(e)}><a href={url(lenke(e))}><time>{dato(e.data.start)}</time><span class="ev__t">{e.data.title} <span class="kat ev__type" data-kat={gruppe(e)}>{typeTekst(e.data.type)}</span></span><span class="ev__sted">{sted(e) || "–"}</span><span class="ev__tid">{tid(e)}</span></a></li>)}</ul>
+      <ul class="rows ev" data-visning="liste"><li class="ev__head" aria-hidden="true">{kol.map((k) => <span>{k}</span>)}</li>{liste.map((e) => <li data-gruppe={gruppe(e)}><a href={url(lenke(e))}><time>{dato(e.data.start)}</time><span class="ev__t">{e.data.title} <span class="kat ev__type" data-kat={gruppe(e)}>{typeTekst(e.data.type)}</span></span><span class="ev__sted">{sted(e) || "–"}</span><span class="ev__tid">{tid(e)}</span></a></li>)}</ul>
       <Kortnett arrangementer={liste} />
     </section>
   ))}

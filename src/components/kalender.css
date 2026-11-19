@@ -40,3 +40,5 @@
 .kal-meta { display: flex; flex-wrap: wrap; gap: 2px 14px; }
 .kal-meta span + span::before { content: "Sted: "; color: var(--_muted); }
 .kal-meta span:first-child::before { content: "Tid: "; }
+:lang(en) .kal-meta span + span::before { content: "Place: "; }
+:lang(en) .kal-meta span:first-child::before { content: "Time: "; }

@@ -1,19 +1,22 @@
 ---
 // Bildevisning (kort med bilde) av innlegg eller arrangementer. Skjult til leseren velger «Bilder» (VisningsValg).
 // Uten bilde vises et standardbilde med ikon i kategoriens farge, med kategorien (innlegg) eller datoen (arrangementer).
-import { url, dato, datoKort, lenke, slug, bildeFor, sted, tid, gruppe, typeTekst, type Innlegg, type Arrangement } from "../lib/site";
+import { url, lenke, slug, bildeFor, gruppe, type Innlegg, type Arrangement } from "../lib/site";
+import { sideInfo, fmtFor, katNavn, typeTekstFor } from "../lib/i18n";
 import Standardbilde from "./Standardbilde.astro";
 import "./kort.css";
 import "./typefarger.css";
 interface Props { innlegg?: Innlegg[]; arrangementer?: Arrangement[] }
 const { innlegg, arrangementer } = Astro.props;
+const { sprak } = sideInfo(Astro.url.pathname);
+const { dato, datoKort, sted, tid } = fmtFor(sprak);
 let kort: { href: string; bilde?: string; tittel: string; meta: string; kat?: string; katNavn?: string; tom?: string }[] = [];
 if (innlegg) {
   kort = innlegg.map((p) => ({ href: lenke(p), bilde: bildeFor(p), tittel: p.data.title, meta: dato(p.data.date),
-    kat: slug(p.data.kategorier[0]), katNavn: undefined, tom: p.data.kategorier[0] }));
+    kat: slug(p.data.kategorier[0]), katNavn: undefined, tom: katNavn(sprak, p.data.kategorier[0]) }));
 } else if (arrangementer) {
   kort = arrangementer.map((e) => ({ href: lenke(e), bilde: bildeFor(e as any), tittel: e.data.title,
-    meta: [dato(e.data.start), sted(e), tid(e)].filter(Boolean).join(" · "), kat: gruppe(e), katNavn: typeTekst(e.data.type), tom: datoKort(e.data.start) }));
+    meta: [dato(e.data.start), sted(e), tid(e)].filter(Boolean).join(" · "), kat: gruppe(e), katNavn: typeTekstFor(sprak, e.data.type), tom: datoKort(e.data.start) }));
 }
 ---
 <ul class="kortnett" data-visning="bilder" hidden>

@@ -1,14 +1,16 @@
 ---
 // På kurssiden: kommende kurs og fagdager hentes fra kalenderen, så datoene bare skrives ett sted (i innlegget).
-import { hentArrangementer, dato, sted, tid, lenke, url, gruppeFor, typeTekst } from "../lib/site";
-import { T, sideInfo, datoFor } from "../lib/i18n";
+import { hentArrangementer, lenke, url, gruppeFor } from "../lib/site";
+import { T, sideInfo, datoFor, innleggFor, fmtFor, typeTekstFor, sti } from "../lib/i18n";
 import "./arrangement.css";
 import Pil from "./Pil.astro";
 const { sprak } = sideInfo(Astro.url.pathname);
 const t = T[sprak];
+const { sted, tid } = fmtFor(sprak);
+const typeTekst = (x: string) => typeTekstFor(sprak, x);
 // type: bare dette kurset (på en kursside). Uten type: alle kurs og fagdager (på /kurs/).
 const { type } = Astro.props as { type?: string };
-const { kommende, tidligere } = await hentArrangementer();
+const { kommende, tidligere } = await hentArrangementer(await innleggFor(sprak));
 const erKurs = (e: { data: { type: string } }) => type ? e.data.type === type : ["kurs", "fagdag"].includes(gruppeFor(e.data.type).slug);
 const neste = kommende.filter(erKurs);
 const forrige = tidligere.find(erKurs);
@@ -18,5 +20,5 @@ const forrige = tidligere.find(erKurs);
   {neste.length > 0
     ? <ul>{neste.map((e) => <li><a href={url(lenke(e))}><b>{e.data.title}</b><span>{datoFor(sprak, e.data.start)} · {[sted(e), tid(e)].filter(Boolean).join(" · ")} · {typeTekst(e.data.type)}</span></a></li>)}</ul>
     : <p>{t.ingenKurs}{forrige && <> – {t.forrigeVar} <a href={url(lenke(forrige))}>{forrige.data.title}</a> ({datoFor(sprak, forrige.data.start)})</>}.</p>}
-  <p class="kurs-neste__alle"><a href={url("/arrangementer/")}>{t.heleKalenderen}&nbsp;<Pil retning="hoyre" /></a></p>
+  <p class="kurs-neste__alle"><a href={sti(sprak, "/arrangementer/")}>{t.heleKalenderen}&nbsp;<Pil retning="hoyre" /></a></p>
 </section>

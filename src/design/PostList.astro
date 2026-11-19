@@ -2,22 +2,28 @@
 import VisningsValg from "../components/VisningsValg.astro";
 import Kortnett from "../components/Kortnett.astro";
 import SeksjonsMeny from "../components/SeksjonsMeny.astro";
-import { url, dato, lenke, slug } from "../lib/site";
+import { url, lenke, slug } from "../lib/site";
+import { sideInfo, katNavn, fmtFor, sti } from "../lib/i18n";
 const { title, ingress, grupper, kategorier, aktiv } = Astro.props;
+const { sprak } = sideInfo(Astro.url.pathname);
+const { dato } = fmtFor(sprak);
+const en = sprak === "en";
 ---
 <div class="wrap section">
   <SeksjonsMeny />
-  <p class="eyebrow">Arkiv fra 2012</p>
+  <p class="eyebrow">{en ? "Archive since 2012" : "Arkiv fra 2012"}</p>
   <h1 class="h1">{title}</h1>
   {ingress && <p class="lead">{ingress}</p>}
-  <nav class="filters" aria-label="Kategorier">
-    <a href={url("/nytt/")} aria-current={!aktiv ? "page" : undefined}>Alle</a>
-    {kategorier.map((k) => <a href={url(`/nytt/kategori/${k.slug}/`)} data-kat={k.slug} aria-current={aktiv === k.slug ? "page" : undefined}>{k.navn} <small>{k.poster.length}</small></a>)}
+  <nav class="filters" aria-label={en ? "Categories" : "Kategorier"}>
+    <a href={sti(sprak, "/nytt/")} aria-current={!aktiv ? "page" : undefined}>{en ? "All" : "Alle"}</a>
+    {kategorier.map((k) => <a href={sti(sprak, `/nytt/kategori/${k.slug}/`)} data-kat={k.slug} aria-current={aktiv === k.slug ? "page" : undefined}>{katNavn(sprak, k.navn)} <small>{k.poster.length}</small></a>)}
+    {/* Referatene er bare på norsk */}
+    {en && <a href={url("/nytt/kategori/moter-og-referater/")} data-kat="moter-og-referater" lang="nb" hreflang="nb">Meetings and minutes (in Norwegian)</a>}
   </nav>
   <VisningsValg />
   {grupper.map(([aar, poster]) => (
     <section class="year"><h2 class="year__h">{aar}</h2>
-      <ul class="rows" data-visning="liste">{poster.map((p) => <li><a href={url(lenke(p))}><time>{dato(p.data.date)}</time><span>{p.data.title}</span><span class="kat" data-kat={slug(p.data.kategorier[0])}>{p.data.kategorier[0]}</span></a></li>)}</ul>
+      <ul class="rows" data-visning="liste">{poster.map((p) => <li><a href={url(lenke(p))}><time>{dato(p.data.date)}</time><span>{p.data.title}</span><span class="kat" data-kat={slug(p.data.kategorier[0])}>{katNavn(sprak, p.data.kategorier[0])}</span></a></li>)}</ul>
       <Kortnett innlegg={poster} />
     </section>
   ))}

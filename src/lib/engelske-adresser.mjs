@@ -11,6 +11,9 @@ export const ENGELSKE_ADRESSER = {
   "/klubben/konkurranser/": "/club/competitions/",
   "/klubben/": "/club/",
   "/sok/": "/search/",
+  "/nytt/kategori/": "/news/category/",
+  "/nytt/": "/news/",
+  "/arrangementer/": "/events/",
   "/meld-feil/": "/report-error/",
 };
 

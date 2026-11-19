@@ -2,7 +2,7 @@
 import { url, slug } from "../lib/site";
 import Innhold from "./Innhold.astro";
 import SeksjonsMeny from "../components/SeksjonsMeny.astro";
-import { T, sideInfo } from "../lib/i18n";
+import { T, sideInfo, katNavn, sti } from "../lib/i18n";
 const { sprak } = sideInfo(Astro.url.pathname);
 const t = T[sprak];
 const { title, ingress, bilde, meta, kategorier, tilbake, overskrifter = [] } = Astro.props;
@@ -14,7 +14,7 @@ const toc = overskrifter.filter((h: { depth: number }) => h.depth <= 3).length >
   <div class="article__main">
     <nav class="crumbs" aria-label={t.brodsmuler}><a href={url(sprak === "en" ? "/en/" : "/")}>{t.hjem}</a>{tilbake && <><span>/</span><a href={tilbake.url}>{tilbake.tekst}</a></>}</nav>
     <SeksjonsMeny />
-    {meta && <p class="post__meta">{kategorier?.map((k) => <><a class="kat" data-kat={slug(k)} href={url(`/nytt/kategori/${slug(k)}/`)}>{k}</a> · </>)}{meta}</p>}
+    {meta && <p class="post__meta">{kategorier?.map((k) => <><a class="kat" data-kat={slug(k)} href={sti(sprak, `/nytt/kategori/${slug(k)}/`)}>{katNavn(sprak, k)}</a> · </>)}{meta}</p>}
     <h1 class="h1">{title}</h1>
     {ingress && <p class="lead">{ingress}</p>}
     {bilde && <img class="article__img" src={url(bilde)} alt="" />}

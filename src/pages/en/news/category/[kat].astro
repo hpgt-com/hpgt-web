@@ -1,0 +1,14 @@
+---
+import Layout from "@design/Layout.astro";
+import PostList from "@design/PostList.astro";
+import { hentKategorier, grupperPaaAar } from "../../../../lib/site";
+import { oversatteInnlegg, katNavn } from "../../../../lib/i18n";
+export async function getStaticPaths() {
+  const kategorier = await hentKategorier(await oversatteInnlegg("en"));
+  return kategorier.map((k) => ({ params: { kat: k.slug }, props: { k, kategorier } }));
+}
+const { k, kategorier } = Astro.props;
+---
+<Layout title={katNavn("en", k.navn)}>
+  <PostList title={katNavn("en", k.navn)} grupper={grupperPaaAar(k.poster)} kategorier={kategorier} aktiv={k.slug} />
+</Layout>
