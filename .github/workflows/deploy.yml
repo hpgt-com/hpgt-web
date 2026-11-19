@@ -163,6 +163,8 @@ jobs:
             dist
             worker
             wrangler.jsonc
+          # Med skjulte filer, ellers forsvinner dist/.well-known/ (security.txt) på veien til publiseringen.
+          include-hidden-files: true
           if-no-files-found: error
           retention-days: 3
 
