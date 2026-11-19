@@ -3,7 +3,7 @@ title: "hpgt.com har fått en makeover"
 date: "2026-11-19T08:00:00"
 kategorier: ["Nyhet"]
 bilde: "/media/posts/2026/hpgt-com-makeover.jpg"
-forfatter: "Styret"
+forfatter: "Kristoffer"
 ingress: "Klubbens nettside er bygget på nytt og har flyttet til en ny plattform. Den er raskere, enklere å bruke på mobil og finnes nå også på engelsk."
 ---
 Ser du noe som er feil eller mangler, si gjerne fra til [styret](/klubben/styret/).
