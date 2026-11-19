@@ -77,9 +77,9 @@ Both environments (`produksjon` and `oversetting`) are limited to the branch `ma
    Nytt, in search or in the sitemap, and they have `noindex`. The address is not secret: anyone with the link can read it.
 2. When it is ready, remove the tick and save. The post is then published at its normal address, and the draft address
    disappears.
-3. Published posts have a **Del på Facebook** link at the bottom. It opens Facebook's share window (a plain link, no
-   Facebook scripts), where you choose the club's group. Facebook no longer lets apps post to groups, so this is done
-   by hand.
+3. Published posts have a **Kopier lenke** button at the bottom. It copies the post's address, which you paste into a
+   new post in the club's Facebook group (Facebook fetches the image and title). Facebook no longer lets apps post to
+   groups, and its share window often cannot share to a group, so this is done by hand.
 
 ### Renew the Cloudflare token (yearly)
 1. Cloudflare → Workers & Pages → `hpgt-web` → Settings → Builds → **Create token**. Name:

@@ -33,8 +33,9 @@ let meta: string | undefined;
 if (type === "innlegg") meta = `${d.forfatter ? `Av ${d.forfatter} · ` : ""}${dato(d.date)}`;
 if (type !== "innlegg" && d.sist_endret) meta = `Sist oppdatert ${dato(d.sist_endret)}`;
 const erArr = type === "innlegg" && d.arrangement?.start;
-// «Del på Facebook»: Facebooks delevindu som vanlig lenke, uten skript eller sporing. Velg gruppa i vinduet.
-const delLenke = type === "innlegg" && !utkast ? `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(new URL(lenke(entry), site.url).href)}` : null;
+// «Kopier lenke»: kopierer innleggets adresse, så den kan limes inn i Facebook-gruppa (Facebooks delevindu kan ikke
+// lenger dele i grupper). public/assets/js/kopier.js; uten JavaScript vises adressen som tekst.
+const delLenke = type === "innlegg" && !utkast ? new URL(lenke(entry), site.url).href : null;
 const tilbake = type === "kurs" ? { tekst: "Kurs", url: url("/kurs/") } : erArr ? { tekst: "Alle arrangementer", url: url("/arrangementer/") } : type === "innlegg" ? { tekst: "Alle nyheter", url: url("/nytt/") } : undefined;
 ---
 <Layout title={utkast ? `Utkast: ${d.title}` : d.title} description={d.ingress} image={d.bilde} noindex={utkast}>
@@ -53,6 +54,7 @@ const tilbake = type === "kurs" ? { tekst: "Kurs", url: url("/kurs/") } : erArr 
     {d.mal === "seksjon" && <SeksjonOversikt />}
     {d.mal === "radioid" && <RadioIdSkjema />}
     {d.vedlegg?.length > 0 && <Vedlegg filer={d.vedlegg} />}
-    {delLenke && <p class="del-lenke"><a href={delLenke} target="_blank" rel="noopener noreferrer">Del på Facebook <Pil /></a></p>}
+    {delLenke && <p class="del-lenke"><span data-kopier-tekst>Lenke til innlegget: <code>{delLenke}</code></span><button class="btn" type="button" data-kopier={delLenke} data-ok="Lenken er kopiert" hidden>Kopier lenke</button> <span class="del-lenke__status" role="status" aria-live="polite"></span></p>}
+    {delLenke && <script is:inline src={url("/assets/js/kopier.js")} defer></script>}
   </Article>
 </Layout>
