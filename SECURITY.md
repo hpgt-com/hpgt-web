@@ -2,7 +2,7 @@
 
 ## Reporting a security issue
 
-Do not open a public issue. Use **Report a vulnerability** under this repository's **Security** tab, so only the
+Do not open a public issue. The same contacts are in https://hpgt.com/.well-known/security.txt. Use **Report a vulnerability** under this repository's **Security** tab, so only the
 maintainers see the report. Describe what you found, how to reproduce it and what it affects. We reply as soon as we
 can, but this is a volunteer club project.
 

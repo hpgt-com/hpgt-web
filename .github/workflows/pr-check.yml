@@ -40,3 +40,12 @@ jobs:
 
       # Workeren for RadioID-skjemaet skal i det minste være gyldig JavaScript.
       - run: node --check worker/index.js
+
+      # Alle interne lenker og bilder i den bygde siden peker til noe som finnes.
+      - run: node scripts/sjekk-lenker.mjs
+
+      # Tilgjengelighet (axe-core) på et utvalg sider i lys og mørk modus, som på flysteder.hpgt.com. Bruker Chrome som
+      # allerede er installert på GitHubs runnere, så ingen nettleser lastes ned. Kontrast og etiketter stopper her.
+      - run: node scripts/sjekk-tilgjengelighet.mjs
+        env:
+          CHROMIUM_PATH: /usr/bin/google-chrome

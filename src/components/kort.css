@@ -3,7 +3,7 @@
 .visning { display: flex; justify-content: flex-end; margin: 16px 0 -8px; }
 .visning button { font: inherit; font-weight: 700; font-size: .85rem; padding: 6px 12px; border: 1px solid var(--kal-line, #ccd7e4); background: var(--kal-surface, #fff); color: var(--kal-text, #0e1b2b); cursor: pointer; }
 .visning button + button { border-left: 0; }
-.visning button[aria-pressed="true"] { background: var(--kal-text, #0e1b2b); border-color: var(--kal-text, #0e1b2b); color: #fff; }
+.visning button[aria-pressed="true"] { background: var(--kal-text, #0e1b2b); border-color: var(--kal-text, #0e1b2b); color: var(--on-sel, #fff); }
 .visning button:focus-visible { outline: 3px solid var(--kal-accent, #1f86d1); outline-offset: 2px; }
 
 .kortnett { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); }
@@ -25,7 +25,7 @@
 .typefilter[hidden] { display: none; }
 .typefilter button { font: inherit; font-weight: 700; font-size: .85rem; padding: 5px 11px; border: 1px solid var(--kal-line, #ccd7e4); background: var(--kal-surface, #fff); color: var(--k, var(--kal-text, #0e1b2b)); cursor: pointer; }
 .typefilter button small { color: var(--kal-muted, #56657a); font-weight: 600; }
-.typefilter button[aria-pressed="true"] { background: var(--k, var(--kal-text, #0e1b2b)); border-color: var(--k, var(--kal-text, #0e1b2b)); color: #fff; }
-.typefilter button[aria-pressed="true"] small { color: #fff; }
+.typefilter button[aria-pressed="true"] { background: var(--k, var(--kal-text, #0e1b2b)); border-color: var(--k, var(--kal-text, #0e1b2b)); color: var(--on-sel, #fff); }
+.typefilter button[aria-pressed="true"] small { color: var(--on-sel, #fff); }
 .typefilter button:focus-visible { outline: 3px solid var(--kal-accent, #1f86d1); outline-offset: 2px; }
 .typefilter button:disabled { opacity: .45; cursor: default; }

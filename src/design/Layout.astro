@@ -17,7 +17,8 @@ const t = T[sprak];
 const engelske = await engelskeStier();
 const finnes = engelske.has(sti);
 // Språkbryteren går til samme side på det andre språket, eller til forsiden hvis siden ikke er oversatt
-const tilNorsk = url(sti);
+// «Fant ikke siden» (/404/) har ingen egen adresse å bytte til, så bryteren går til forsiden.
+const tilNorsk = url(sti === "/404/" ? "/" : sti);
 const tilEngelskSide = url(finnes ? `/en${tilEngelsk(sti)}` : "/en/");
 const visBryter = engelske.has("/");
 const lenk = (u: string) => lenkeFor(sprak, u, engelske);
