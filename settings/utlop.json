@@ -1,0 +1,51 @@
+{
+  "_om": "Alt i klubben som utløper: tokens, nøkler, domenet. Bare navn og datoer, aldri verdier. .github/workflows/utlop.yml sjekker hver mandag og lager en sak når noe utløper innen «varsel_dager» (45 hvis ikke satt). Når du har fornyet noe: sett ny dato her i en pull request, så lukkes saken av seg selv. utloper: null = utløper ikke, eller ukjent (står i «merknad»).",
+  "elementer": [
+    {
+      "navn": "Cloudflare-token «hpgt-web publish (worker hpgt-web)»",
+      "brukes_av": "hpgt-web → Environments → produksjon → CLOUDFLARE_API_TOKEN (publiserer hpgt.com)",
+      "fornyes": "hpgt-web docs/operations.md «Renew the Cloudflare token (yearly)»",
+      "utloper": "2027-11-18"
+    },
+    {
+      "navn": "Cloudflare-token «CI/CD token for flysteder»",
+      "brukes_av": "flying-sites → Environments → cloudflare → CLOUDFLARE_SITE_TOKEN (publiserer flysteder.hpgt.com)",
+      "fornyes": "flying-sites docs/operations.md «The site on Cloudflare»",
+      "utloper": "2027-11-19"
+    },
+    {
+      "navn": "Cloudflare-token «flying-sites publish (worker data)»",
+      "brukes_av": "flying-sites → Environments → cloudflare → CLOUDFLARE_API_TOKEN (publiserer data.hpgt.com)",
+      "fornyes": "flying-sites docs/operations.md «Runbook»",
+      "utloper": "2027-11-18"
+    },
+    {
+      "navn": "Cloudflare R2-token «flying-sites backup (read hpgt-data-archive)»",
+      "brukes_av": "flying-sites → Environments → backup → R2_ACCESS_KEY_ID / R2_SECRET_ACCESS_KEY (nattlig backup)",
+      "fornyes": "Cloudflare → R2 → Manage R2 API Tokens; flying-sites docs/operations.md «Accounts and secrets»",
+      "utloper": "2027-11-18"
+    },
+    {
+      "navn": "Backblaze B2-nøkkel med skrivetilgang (backup)",
+      "brukes_av": "flying-sites → Environments → backup → B2_KEY_ID / B2_APPLICATION_KEY",
+      "fornyes": "Backblaze → App Keys; flying-sites docs/operations.md «Accounts and secrets»",
+      "utloper": null,
+      "merknad": "Ukjent: sjekk under Backblaze → App Keys om den har utløpsdato, og fyll inn."
+    },
+    {
+      "navn": "Backblaze B2-nøkkel med lesetilgang (backup-read)",
+      "brukes_av": "flying-sites → Environments → backup-read → B2_KEY_ID / B2_APPLICATION_KEY (gjenopprettingsøvelse, recover)",
+      "fornyes": "Backblaze → App Keys",
+      "utloper": null,
+      "merknad": "Ukjent: sjekk under Backblaze → App Keys om den har utløpsdato, og fyll inn."
+    },
+    {
+      "navn": "Domenet hpgt.com",
+      "brukes_av": "Namecheap (registrar). Navnetjenerne peker til Cloudflare",
+      "fornyes": "Namecheap → Domain List → hpgt.com. Slå gjerne på Auto-Renew",
+      "utloper": null,
+      "varsel_dager": 90,
+      "merknad": "Fyll inn utløpsdatoen fra Namecheap."
+    }
+  ]
+}

@@ -72,6 +72,14 @@ private `form-submissions` would stop applying.
 
 Both environments (`produksjon` and `oversetting`) are limited to the branch `main`.
 
+### Expiry dates (`settings/utlop.json`)
+Everything in the club that expires, in both repositories: the Cloudflare tokens, the Backblaze keys and the domain.
+Only names and dates, never values. The workflow «Utløper snart» (`.github/workflows/utlop.yml`) checks every Monday
+and opens an issue here («Utløper snart: …») when something expires within 45 days (90 for the domain), or has
+expired. Watch this repository (Issues) to get the e-mail. When you renew something, or make a new token or key with
+an expiry date, put the date in the file in a pull request; the issue then closes by itself. The run's summary lists
+everything with the days left.
+
 ## Routines
 
 ### Invite a new editor
@@ -95,7 +103,8 @@ Both environments (`produksjon` and `oversetting`) are limited to the branch `ma
 2. GitHub → `hpgt-web` → Settings → Environments → `produksjon` → `CLOUDFLARE_API_TOKEN` → paste it.
 3. Actions → «Bygg og publiser» → **Run workflow**. When it is green: delete the old token under Cloudflare → Manage
    Account → Account API Tokens.
-4. Add a new reminder in the board's calendar a month before the next expiry.
+4. Set the new expiry date for the token in `settings/utlop.json` (pull request). The workflow «Utløper snart» opens an
+   issue 45 days before the next expiry and closes it when the date has been moved.
 
 When the token has expired, «Bygg og publiser» goes red on the job `publiser`, and changes from Pages CMS do not go out
 until the token is replaced.
