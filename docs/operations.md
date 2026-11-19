@@ -106,6 +106,14 @@ until the token is replaced.
    given by people who want a reply.
 2. Fix it in Pages CMS (or with a pull request), reply if the sender left contact details, and close the issue.
 
+### Watch the forms (logs and alerts)
+- **Logs:** Cloudflare → Workers & Pages → `hpgt-web` → **Observability**. One line per call to the Worker (only the
+  forms, `/api/*`): time, address, status code, duration and errors, with request metadata (IP address, country). Kept
+  for 3 days. The content of the forms is never logged. Turned on in `wrangler.jsonc` (`observability`).
+- What to look for: many `403` (failed Turnstile or wrong origin) or `429` (rate limit) means someone is hammering the
+  forms; `502` means the GitHub App or its key is not working (see «When publishing fails» below).
+- **Alerts:** Cloudflare → Manage Account → **Notifications** (set up by hand, listed here so it is not forgotten).
+
 ### Replace the key of the GitHub App «HPGT Web Forms»
 1. hpgt-com → Settings → Developer settings → GitHub Apps → HPGT Web Forms → **Generate a private key**.
 2. Paste the .pem content as `GITHUB_APP_PRIVATE_KEY` in Cloudflare (see the table), and delete the file.

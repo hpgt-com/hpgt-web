@@ -26,5 +26,8 @@
   },
   // Maks 3 innsendinger per minutt per IP-adresse
   "ratelimits": [{ "name": "BEGRENS", "namespace_id": "1001", "simple": { "limit": 3, "period": 60 } }],
-  "observability": { "enabled": false } // Ingen logging av innsendt innhold
+  // Workers Logs: én logglinje per kall til workeren (bare /api/*, skjemaene): tid, adresse, statuskode, varighet og
+  // feil, med metadata om forespørselen (bl.a. IP og land). Lagres i 3 dager hos Cloudflare. Innholdet i skjemaene
+  // logges ikke (workeren skriver ingenting med console.log). Ses under Workers & Pages → hpgt-web → Observability.
+  "observability": { "enabled": true, "head_sampling_rate": 1, "logs": { "invocation_logs": true } }
 }
