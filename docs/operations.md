@@ -39,7 +39,7 @@ listed here, so it is not forgotten.
 
 | Account | What | Owner / who has access |
 |---|---|---|
-| GitHub org `hpgt-com` | The repositories `hpgt-web`, `flying-sites`, `repo-template`, `.github` | Org owners (2FA required) |
+| GitHub org `hpgt-com` | The repositories `hpgt-web`, `flying-sites`, `form-submissions` (private), `repo-template`, `.github`. Plan: GitHub Team, free through GitHub for Nonprofits (approved November 2026, GitHub Support ticket 4796969) | Org owners (2FA required) |
 | Cloudflare account «HPGT» | The Worker `hpgt-web`, DNS for hpgt.com, Turnstile, Web Analytics | The account's members |
 | Namecheap | Registrar for hpgt.com (the name servers point to Cloudflare) | Whoever holds the registrar access |
 | Google Workspace | E-mail on @hpgt.com (MX, SPF, DKIM and DMARC are in Cloudflare DNS) | Workspace administrator |
@@ -48,6 +48,12 @@ listed here, so it is not forgotten.
 
 When someone leaves the board: remove them from each account above, and check that at least two people still have
 owner access to the GitHub org and to Cloudflare.
+
+**GitHub Team (nonprofit):** every member of the org uses a licence. The discount (100 %) should cover each one; after
+adding a member, check Settings → Billing and licensing in `hpgt-com` shows $0. If it does not, or if GitHub asks for the
+nonprofit status to be renewed, reply to the support ticket above or apply again at github.com/solutions/industry/nonprofits.
+Without the plan, the public repositories keep working as before; only rulesets and environment reviewers on the
+private `form-submissions` would stop applying.
 
 ## Secrets and variables
 
