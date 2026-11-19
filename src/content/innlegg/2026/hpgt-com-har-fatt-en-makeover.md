@@ -14,7 +14,7 @@ Den nye siden er laget for å gjøre det lettere å finne fram, enten du er ny o
 - **[Arrangementer](/arrangementer/)** samler kurs, fagdager, møter og turer i én kalender.
 - **[For piloter](/for-piloter/)** har samlet [vær og lenker](/for-piloter/vaer/), NOTAM, [Flystripa](/for-piloter/flystripa/), [mørkeflyging](/for-piloter/morkeflyging/) og [RadioID-registeret](/for-piloter/radioid/). Der kan du nå melde deg inn selv.
 - **Søk** finner du med forstørrelsesglasset øverst på siden.
-- **Engelsk versjon:** hele siden finnes også på engelsk, så besøkende piloter finner fram. Det gjelder også nyheter og arrangementer, men ikke referatene.
+- **Engelsk versjon:** hele siden finnes også på engelsk, så besøkende piloter finner fram. Det gjelder også nyheter og arrangementer, men ikke referatene. Den engelske teksten oversettes automatisk, så [meld gjerne fra](/meld-feil/) hvis noe høres rart ut.
 - **[Flysteder](https://flysteder.hpgt.com/)** ligger som før på egen side, med kart og informasjon om startstedene.
 - Siden bruker **ingen informasjonskapsler og ingen sporing**.
 
