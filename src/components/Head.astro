@@ -2,6 +2,10 @@
 // Felles <head> for alle design: streng CSP (kun egne filer, ingen sporing), noindex mens dette er en prototype.
 import { site, url } from "../lib/site";
 import { tilEngelsk } from "../lib/engelske-adresser.mjs";
+// Skriftene lastes før første tegning, så teksten ikke hopper når de kommer (Lighthouse: layout shift). Bare latin;
+// samme filer som @fontsource-importene i Layout.astro, så nettleseren henter dem bare én gang.
+import interTight from "@fontsource-variable/inter-tight/files/inter-tight-latin-wght-normal.woff2?url";
+import plexMono600 from "@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-600-normal.woff2?url";
 interface Props { title: string; description?: string; image?: string; sprak?: "nb" | "en"; sti?: string; alternativ?: boolean; noindex?: boolean }
 const { title, description = site.beskrivelse, image, sprak = "nb", sti: normalSti, alternativ = false, noindex = false } = Astro.props;
 // Begge språkversjonene peker på hverandre (hreflang), så søkemotorer viser riktig språk
@@ -23,6 +27,8 @@ const csp = `default-src 'self'; script-src 'self'${turnstile ? " " + cf : ""}${
 const canonical = new URL(Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ""), ""), site.url);
 ---
 <meta charset="utf-8" />
+<link rel="preload" href={interTight} as="font" type="font/woff2" crossorigin />
+<link rel="preload" href={plexMono600} as="font" type="font/woff2" crossorigin />
 <meta http-equiv="Content-Security-Policy" content={csp} />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
