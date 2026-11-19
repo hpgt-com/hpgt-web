@@ -118,7 +118,26 @@ until the token is replaced.
   for 3 days. The content of the forms is never logged. Turned on in `wrangler.jsonc` (`observability`).
 - What to look for: many `403` (failed Turnstile or wrong origin) or `429` (rate limit) means someone is hammering the
   forms; `502` means the GitHub App or its key is not working (see «When publishing fails» below).
-- **Alerts:** Cloudflare → Manage Account → **Notifications** (set up by hand, listed here so it is not forgotten).
+- **Alerts:** Cloudflare → Manage Account → **Notifications**, by e-mail. Set up by hand (November 2026), listed here so
+  they are not forgotten. They cover traffic through Cloudflare in the zone hpgt.com (hpgt.com and www), not
+  flysteder.hpgt.com, which goes straight to GitHub Pages.
+
+  | Notification | What it means | What to do |
+  |---|---|---|
+  | `hpgt.com zone – HTTP DDoS Attack Alert` | Cloudflare has stopped an attack | Usually nothing. Look under Security → Events if the site was slow |
+  | `hpgt.com zone – Cloudflare abuse report alert` | Someone reported the domain to Cloudflare | Read the report, answer if needed |
+  | `hpgt.com zone – Alerts for New Blocks` | Cloudflare Trust & Safety has blocked content; the site may be unreachable | Check the dashboard, ask for a review if it is wrong |
+  | `hpgt.com zone – Universal SSL Alert` | The certificate could not be validated or renewed | Check SSL/TLS → Edge Certificates and the DNS records |
+  | `hpgt.com zone – Web Analytics Metrics Update` | Regular visitor numbers | Nothing, it is information |
+  | `Default budget alert (auto-created)` | Spending on a paid product | Nothing as long as the account is on the free plan |
+
+  There is no Cloudflare notification for the Cloudflare API token expiring: keep the calendar reminder (see «Renew
+  the Cloudflare token»).
+- **Health check:** `.github/workflows/helse.yml` checks hpgt.com from outside every hour: pages, security headers, the
+  real Turnstile key, the Worker (`/api/` answers 405 to GET), the `www` redirect and that the certificate has at least
+  14 days left. When something is wrong it opens an issue labelled `bug` (watch the repository to get e-mail) and closes
+  it when all is well again. GitHub turns the schedule off after 60 days without a commit; it says so by e-mail, and it
+  is turned on again under Actions → «Helsesjekk».
 
 ### Replace the key of the GitHub App «HPGT Web Forms»
 1. hpgt-com → Settings → Developer settings → GitHub Apps → HPGT Web Forms → **Generate a private key**.
