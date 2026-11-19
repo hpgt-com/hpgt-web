@@ -72,6 +72,10 @@ private `form-submissions` would stop applying.
 
 Both environments (`produksjon` and `oversetting`) are limited to the branch `main`.
 
+**Expiry dates** for every token and key in the club (and the domain) are kept in the private repository
+[hpgt-com/operations](https://github.com/hpgt-com/operations) (`utlop.json`), not here: a weekly check there opens an
+issue before something expires. Update the date there whenever you renew or replace a token or key.
+
 ## Routines
 
 ### Invite a new editor
@@ -95,7 +99,8 @@ Both environments (`produksjon` and `oversetting`) are limited to the branch `ma
 2. GitHub → `hpgt-web` → Settings → Environments → `produksjon` → `CLOUDFLARE_API_TOKEN` → paste it.
 3. Actions → «Bygg og publiser» → **Run workflow**. When it is green: delete the old token under Cloudflare → Manage
    Account → Account API Tokens.
-4. Add a new reminder in the board's calendar a month before the next expiry.
+4. Set the new expiry date in `utlop.json` in the private repository `hpgt-com/operations` (pull request). Its
+   weekly check «Utløper snart» opens an issue there 45 days before the next expiry.
 
 When the token has expired, «Bygg og publiser» goes red on the job `publiser`, and changes from Pages CMS do not go out
 until the token is replaced.
