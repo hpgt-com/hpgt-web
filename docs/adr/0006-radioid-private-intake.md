@@ -9,7 +9,7 @@ and an optional comment, and a request to be removed would itself publish a new 
 Closing an issue does not hide it. Found in the security review of 18.11.2026.
 
 ## Decision
-The Worker creates the issues in the private repository `hpgt-com/radioid-requests`. The GitHub App «HPGT Web Forms» is
+The Worker creates the issues in the private repository `hpgt-com/radioid-requests` (today `hpgt-com/form-submissions`, see [0007](0007-one-intake-repository-for-forms.md); the rest of this ADR uses the old name as it was decided). The GitHub App «HPGT Web Forms» is
 installed there only. Only the finished entry (name, RadioID, vario) is published, in `src/data/radioid.json`. The
 form says who reads the submission and the comment, and that it is not public.
 

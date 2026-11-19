@@ -49,9 +49,15 @@ jobs:
           if echo "$side" | grep -q '1x00000000000000000000AA'; then feil "/meld-feil/ har Turnstile-testnøkkelen (publiseringen satte ikke inn den ekte)"; fi
           echo "$side" | grep -q 'data-sitekey="0x' || feil "/meld-feil/ mangler Turnstile-nøkkelen"
 
-          # Workeren: GET på et skjemaendepunkt skal gi 405 (bare POST), med sikkerhetshoder
+          # Workeren: GET på et skjemaendepunkt skal gi 405 (bare POST)
           k=$(kode https://hpgt.com/api/radioid)
           [ "$k" = "405" ] || feil "https://hpgt.com/api/radioid svarte $k (ventet 405 fra workeren)"
+          # Feilsvarene fra workeren skal også ha sikkerhetshodene (_headers gjelder bare de statiske filene)
+          api=$(curl -sS -D - -o /dev/null --max-time 20 --retry 2 -X POST -H "Origin: https://example.invalid" https://hpgt.com/api/meld-feil || true)
+          echo "$api" | grep -q "^HTTP/[0-9.]* 403" || feil "POST til /api/meld-feil fra et annet nettsted ga ikke 403"
+          for h in strict-transport-security content-security-policy; do
+            echo "$api" | grep -qi "^$h:" || feil "Feilsvaret fra /api/meld-feil mangler hodet $h"
+          done
 
           # www videresender til hpgt.com
           k=$(curl -sS -o /dev/null -w "%{http_code} %{redirect_url}" --max-time 20 https://www.hpgt.com/ || echo "000")
