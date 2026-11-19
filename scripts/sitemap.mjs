@@ -20,7 +20,7 @@ for await (const f of html(DIST)) {
   const s = await readFile(f, "utf-8");
   if (/<meta[^>]+http-equiv=["']?refresh/i.test(s)) continue;
   const dir = relative(DIST, f).split(sep).slice(0, -1).join("/");
-  if (dir === "404") continue;
+  if (dir === "404" || dir.startsWith("utkast/")) continue;
   adresser.push(new URL(dir ? `/${dir}/` : "/", site.url).href);
 }
 adresser.sort();

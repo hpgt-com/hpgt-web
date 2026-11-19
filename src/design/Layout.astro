@@ -10,7 +10,7 @@ import "./style.css";
 import { site, meny, url, ekstern } from "../lib/site";
 import { T, sideInfo, engelskeStier, lenkeFor, menyTekst, tilEngelsk } from "../lib/i18n";
 import { seksjonFor, alleSeksjoner, seksjonsHref } from "../lib/seksjoner";
-const { title, description, image } = Astro.props;
+const { title, description, image, noindex = false } = Astro.props;
 // Språket bestemmes av adressen: /en/… er engelsk
 const { sti, sprak } = sideInfo(Astro.url.pathname);
 const t = T[sprak];
@@ -30,7 +30,7 @@ const aktiv = (u: string) => !ekstern(u) && (seksjon ? u === seksjon.url : u ===
 ---
 <!doctype html>
 <html lang={sprak}>
-<head><Head title={title} description={description} image={image} sprak={sprak} sti={sti} alternativ={finnes} /></head>
+<head><Head title={title} description={description} image={image} sprak={sprak} sti={sti} alternativ={finnes} noindex={noindex} /></head>
 <body>
   <a class="skip" href="#innhold">{t.hopp}</a>
   <ProtoBanner />
