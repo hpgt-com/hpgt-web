@@ -8,6 +8,4 @@ ingress: "Klubbens nettside er bygget på nytt og har flyttet til en ny plattfor
 ---
 Ser du noe som er feil eller mangler? [Meld fra her](/meld-feil/), eller bruk lenken «Meld feil på denne siden» nederst på hver side.
 
-Slik så forsiden ut på PC og mobil da den nye siden ble lansert i november 2026:
-
 ![Forsiden på hpgt.com på PC og mobil, november 2026](/media/posts/2026/hpgt-com-makeover.jpg)
