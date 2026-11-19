@@ -59,15 +59,28 @@ jobs:
         run: |
           # Det redaktørene kan endre i Pages CMS (.pages.yml). Alt annet skal gå gjennom en pull request.
           TILLATT='^(src/content/(innlegg|sider|kurs)/|public/media/|src/data/(forside|styret|radioid|standardbilder)\.json$)'
-          forrige=$(gh api "repos/$GH_REPO/actions/workflows/deploy.yml/runs?branch=main&status=success&per_page=1" --jq '.workflow_runs[0].head_sha // empty')
+          if ! forrige=$(gh api "repos/$GH_REPO/actions/workflows/deploy.yml/runs?branch=main&status=success&per_page=1" --jq '.workflow_runs[0].head_sha // empty'); then
+            echo "::error::Kunne ikke slå opp forrige publisering. Publiseringen stoppes; kjør på nytt."
+            exit 1
+          fi
+          # Uten kjent sammenligningsgrunnlag (forrige publiserte commit mangler, f.eks. etter omskrevet historikk) kan
+          # ikke hele endringen kontrolleres. Da stoppes en automatisk publisering. En administrator kan publisere ved å
+          # kjøre «Bygg og publiser» for hånd; da kontrolleres bare siste commit, og det står i loggen hvem som gjorde det.
           if [ -z "$forrige" ] || ! git cat-file -e "$forrige^{commit}" 2>/dev/null; then
-            echo "Fant ingen tidligere publisering å sammenligne med; sjekker bare siste commit."
-            forrige=$(git rev-parse HEAD~1)
+            if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+              echo "::warning::Fant ikke forrige publisering (${forrige:-ingen}). Kjørt for hånd av $GITHUB_ACTOR: sjekker bare siste commit."
+              forrige=$(git rev-parse HEAD~1) || { echo "::error::git rev-parse feilet"; exit 1; }
+            else
+              echo "::error::Fant ikke forrige publisering (${forrige:-ingen}) å sammenligne med, så endringen kan ikke kontrolleres. Se over endringene og kjør «Bygg og publiser» for hånd (docs/operations.md)."
+              exit 1
+            fi
           fi
           echo "Sjekker $forrige..HEAD"
           # Stopper hvis noe av sjekken feiler (et GitHub-oppslag, git): da er ikke hele endringen kontrollert.
           # Bare «ingen filer utenfor innholdet» etter at alle oppslag har lyktes, slipper gjennom.
-          mapfile -t commits < <(git rev-list --no-merges "$forrige..HEAD")
+          # Git-kommandoene kjøres for seg, så en feil stopper sjekken i stedet for å gi en tom liste
+          liste=$(git rev-list --no-merges "$forrige..HEAD") || { echo "::error::git rev-list feilet"; exit 1; }
+          commits=(); [ -z "$liste" ] || mapfile -t commits <<< "$liste"
           filer=()
           for c in "${commits[@]}"; do
             # Commits uten en merget pull request er lagret rett på main, dvs. av Pages CMS.
@@ -77,8 +90,8 @@ jobs:
             fi
             [[ "$pr" =~ ^[0-9]+$ ]] || { echo "::error::Uventet svar for $c: «$pr»"; exit 1; }
             if [ "$pr" = "0" ]; then
-              mapfile -t endret < <(git diff-tree --no-commit-id --name-only -r "$c")
-              filer+=("${endret[@]}")
+              liste=$(git diff-tree --no-commit-id --name-only -r "$c") || { echo "::error::git diff-tree feilet for $c"; exit 1; }
+              [ -z "$liste" ] || { mapfile -t endret <<< "$liste"; filer+=("${endret[@]}"); }
             fi
           done
           echo "${#commits[@]} commits sjekket, ${#filer[@]} filer endret uten pull request."
