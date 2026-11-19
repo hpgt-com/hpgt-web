@@ -6,7 +6,7 @@ bilde: "/media/posts/2026/hpgt-com-makeover.jpg"
 forfatter: "Kristoffer"
 ingress: "Klubbens nettside er bygget på nytt og har flyttet til en ny plattform. Den er raskere, enklere å bruke på mobil og finnes nå også på engelsk."
 ---
-Ser du noe som er feil eller mangler, si gjerne fra til [styret](/klubben/styret/).
+Ser du noe som er feil eller mangler, si gjerne fra til meg.
 
 Slik så forsiden ut på PC og mobil da den nye siden ble lansert i november 2026:
 
