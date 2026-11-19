@@ -38,7 +38,11 @@
       const r = await fetch(form.action, { method: "POST", body: data });
       const svar = await r.json();
       vis(svar.melding, svar.ok);
-      if (svar.ok) { form.reset(); if (sideFelt && side) sideFelt.value = side; }
+      if (svar.ok) {
+        form.reset(); if (sideFelt && side) sideFelt.value = side;
+        // Til klikkstatistikken (statistikk.js): bare hvilket skjema, aldri innholdet
+        document.dispatchEvent(new CustomEvent("hpgt:skjema-sendt", { detail: sideFelt ? "meld-feil" : "radioid" }));
+      }
     } catch {
       vis(form.dataset.nett || "Fikk ikke kontakt. Sjekk nettet og prøv igjen.", false);
     } finally {

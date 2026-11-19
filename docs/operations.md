@@ -12,7 +12,7 @@ day, if the change was made in a dashboard).
 | Setting | Where |
 |---|---|
 | Address, e-mail addresses, org. no., Vipps, Facebook and Instagram, the link to flysteder | `src/data/site.json` |
-| Preview mode (`prototype`), the default share image (`delingsbilde`), the Web Analytics token (`statistikk`) | `src/data/site.json` |
+| Preview mode (`prototype`), the default share image (`delingsbilde`), the Web Analytics token (`statistikk`), the GoatCounter address (`goatcounter`) | `src/data/site.json` |
 | Menus and sections | `src/data/meny.json` |
 | Content, the board, the RadioID register, default images | Pages CMS |
 | The Turnstile site key, the GitHub App IDs | GitHub → `hpgt-web` → Settings → Environments → `produksjon` (variables) |
@@ -44,6 +44,7 @@ listed here, so it is not forgotten.
 | Namecheap | Registrar for hpgt.com (the name servers point to Cloudflare) | Whoever holds the registrar access |
 | Google Workspace | E-mail on @hpgt.com (MX, SPF, DKIM and DMARC are in Cloudflare DNS) | Workspace administrator |
 | platform.claude.com (Anthropic) | Translation to English, paid with prepaid credit | The organisation's administrators |
+| GoatCounter | Visitor statistics and click events for hpgt.com (`hpgt-web`) and flysteder (`hpgt-flysteder`), one account with two sites | The account's users (Settings → Users) |
 | Pages CMS (app.pagescms.org) | The editor. Administrators sign in with GitHub, editors with e-mail | Administrators invite editors |
 
 When someone leaves the board: remove them from each account above, and check that at least two people still have
@@ -67,6 +68,7 @@ private `form-submissions` would stop applying.
 | `GITHUB_APP_PRIVATE_KEY` | Same place | Secret | The app's private key (.pem). The Worker makes one-hour tokens with it | If it may have leaked |
 | `ANTHROPIC_ORGANIZATION_ID`, `ANTHROPIC_FEDERATION_RULE_ID`, `ANTHROPIC_SERVICE_ACCOUNT_ID`, `ANTHROPIC_WORKSPACE_ID` | GitHub `hpgt-web` → Environments → `oversetting` | Variables | Which federation rule and service account the sign-in uses. No key is stored | Never |
 | Cloudflare Web Analytics token | `src/data/site.json` → `statistikk` | In Git (public) | Anonymous visitor statistics. Empty = off | – |
+| GoatCounter address | `src/data/site.json` → `goatcounter` | In Git (public) | Anonymous visitor statistics and click events (`hpgt-web.goatcounter.com`, the same GoatCounter account as flysteder). Empty = off | – |
 
 Both environments (`produksjon` and `oversetting`) are limited to the branch `main`.
 

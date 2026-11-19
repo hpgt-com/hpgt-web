@@ -56,7 +56,7 @@ const tilbake = type === "kurs" ? { tekst: "Kurs", url: url("/kurs/") } : erArr 
     {d.mal === "seksjon" && <SeksjonOversikt />}
     {d.mal === "radioid" && <RadioIdSkjema />}
     {d.vedlegg?.length > 0 && <Vedlegg filer={d.vedlegg} />}
-    {delLenke && <p class="del-lenke"><span data-kopier-tekst>Lenke til innlegget: <code>{delLenke}</code></span><button class="btn" type="button" data-kopier={delLenke} data-ok="Lenken er kopiert" hidden>Kopier lenke</button> <span class="del-lenke__status" role="status" aria-live="polite"></span></p>}
+    {delLenke && <p class="del-lenke"><span data-kopier-tekst>Lenke til innlegget: <code>{delLenke}</code></span><button class="btn" type="button" data-goatcounter-click="share/copy-link" data-kopier={delLenke} data-ok="Lenken er kopiert" hidden>Kopier lenke</button> <span class="del-lenke__status" role="status" aria-live="polite"></span></p>}
     {delLenke && <script is:inline src={url("/assets/js/kopier.js")} defer></script>}
   </Article>
 </Layout>

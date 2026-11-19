@@ -22,8 +22,13 @@ const VIDEO = "https://www.youtube-nocookie.com https://player.vimeo.com";
 // Anonym besøksstatistikk (Cloudflare Web Analytics): ingen informasjonskapsler, ingen sporing mellom nettsteder.
 // Slås på med tokenet i site.json → statistikk. Uten token lastes ingenting. Må stemme med public/_headers.
 const statistikk = site.statistikk;
+// GoatCounter (site.json → goatcounter): også anonym og uten informasjonskapsler, i tillegg teller den klikk som
+// hendelser (public/assets/js/statistikk.js). Skriptet ligger på siden selv (public/assets/js/goatcounter.js), så bare
+// tellepunktet trenger å stå i CSP-en. Tomt = av. Må stemme med public/_headers.
+const goat = (site as { goatcounter?: string }).goatcounter;
+const GOAT = goat ? new URL(goat).origin : "";
 const CFA_SKRIPT = "https://static.cloudflareinsights.com", CFA_DATA = "https://cloudflareinsights.com";
-const csp = `default-src 'self'; script-src 'self'${turnstile ? " " + cf : ""}${statistikk ? " " + CFA_SKRIPT : ""}; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'${statistikk ? " " + CFA_DATA : ""}; frame-src ${turnstile ? cf + " " : ""}${VIDEO}; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests`;
+const csp = `default-src 'self'; script-src 'self'${turnstile ? " " + cf : ""}${statistikk ? " " + CFA_SKRIPT : ""}; style-src 'self'; img-src 'self' data:${goat ? " " + GOAT : ""}; font-src 'self'; connect-src 'self'${statistikk ? " " + CFA_DATA : ""}${goat ? " " + GOAT : ""}; frame-src ${turnstile ? cf + " " : ""}${VIDEO}; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests`;
 const canonical = new URL(Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ""), ""), site.url);
 ---
 <meta charset="utf-8" />
@@ -52,3 +57,5 @@ const canonical = new URL(Astro.url.pathname.replace(import.meta.env.BASE_URL.re
 <script is:inline src={url("/assets/js/kopier.js")} defer></script>
 <script is:inline src={url("/assets/js/galleri.js")} defer></script>
 {statistikk && <script is:inline defer src={`${CFA_SKRIPT}/beacon.min.js`} data-cf-beacon={JSON.stringify({ token: statistikk })}></script>}
+{goat && <script is:inline async data-goatcounter={goat} src={url("/assets/js/goatcounter.js")}></script>}
+{goat && <script is:inline defer src={url("/assets/js/statistikk.js")}></script>}

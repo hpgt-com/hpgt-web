@@ -76,7 +76,7 @@ const aktiv = (u: string) => !ekstern(u) && (seksjon ? u === seksjon.url : u ===
     <div class="wrap foot__end"><p class="quote">«{site.sitat.tekst}» <span>– {site.sitat.kilde}</span></p><p class="muted">{site.statistikk ? t.sporingStatistikk : t.sporing} <a class="foot__meld" href={lenk("/personvern/")}>{t.personvern}</a></p>
       {/* «Meld feil»: tar med adressen til siden man er på (MeldFeilSkjema.astro) */}
       {/* Engelske sider: si at teksten er maskinoversatt, og be om å få høre om feil */}
-      <p class="muted">{sprak === "en" && <>The English version is translated automatically from Norwegian. </>}<a class="foot__meld" href={`${url(sprak === "en" ? "/en/report-error/" : "/meld-feil/")}?side=${encodeURIComponent(Astro.url.pathname)}`}>{t.meldFeil}</a></p></div>
+      <p class="muted">{sprak === "en" && <>The English version is translated automatically from Norwegian. </>}<a class="foot__meld" data-goatcounter-click="report-error" href={`${url(sprak === "en" ? "/en/report-error/" : "/meld-feil/")}?side=${encodeURIComponent(Astro.url.pathname)}`}>{t.meldFeil}</a></p></div>
   </footer>
 </body>
 </html>
