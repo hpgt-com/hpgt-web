@@ -1,0 +1,46 @@
+---
+// «Meld feil»: sendes til /api/meld-feil (worker/index.js), som sjekker Turnstile og lager en sak med etiketten
+// «feedback» i det private repoet hpgt-com/form-submissions (via GitHub-appen «HPGT Web Forms»). Siden fylles ut fra
+// ?side= (lenken i bunnen av hver side). Turnstile-nøkkelen byttes ved publisering, som for RadioID-skjemaet.
+import { site, url } from "../lib/site";
+import "./skjema.css";
+interface Props { sprak?: "nb" | "en" }
+const { sprak = "nb" } = Astro.props;
+const demo = site.prototype;
+const T = {
+  nb: {
+    info: "Meldingen blir en sak i et lukket arkiv som bare de som vedlikeholder nettsiden kan lese. Navn eller e-post trenger du bare å oppgi hvis du vil ha svar.",
+    side: "Hvilken side gjelder det?", sideHjelp: "Fylles ut av seg selv når du kommer fra lenken nederst på en side. La stå tom hvis det gjelder hele nettsiden.",
+    melding: "Hva er feil eller mangler?", kontakt: "Navn eller e-post, hvis du vil ha svar", valgfri: "(valgfritt)",
+    send: "Send", sender: "Sender …", nett: "Fikk ikke kontakt. Sjekk nettet og prøv igjen.",
+    demo: "Her kommer Cloudflare Turnstile – en usynlig «er du et menneske?»-sjekk uten bildegåter eller sporing.",
+  },
+  en: {
+    info: "Your message becomes an issue in a closed archive that only the people who maintain the website can read. You only need to give your name or e-mail if you would like a reply.",
+    side: "Which page is it about?", sideHjelp: "Filled in for you when you come from the link at the bottom of a page. Leave it empty if it is about the whole website.",
+    melding: "What is wrong or missing?", kontakt: "Name or e-mail, if you would like a reply", valgfri: "(optional)",
+    send: "Send", sender: "Sending …", nett: "Could not connect. Check your connection and try again.",
+    demo: "Cloudflare Turnstile goes here – an invisible “are you human?” check without image puzzles or tracking.",
+  },
+}[sprak];
+---
+<section class="skjema" aria-label={sprak === "en" ? "Report an error" : "Meld feil"}>
+  <p class="skjema__info">{T.info}</p>
+  <form class="skjema__form" method="post" action={sprak === "en" ? "/api/meld-feil?sprak=en" : "/api/meld-feil"} data-sender={T.sender} data-nett={T.nett} data-demo={demo ? "" : undefined}>
+    <div><label for="mf-side">{T.side} <span class="skjema__valgfri">{T.valgfri}</span></label>
+      <input id="mf-side" name="side" maxlength="200" pattern="\/[A-Za-z0-9\/._~%\-]*" spellcheck="false" placeholder="/kurs/" aria-describedby="mf-side-hjelp" data-fra-adresse />
+      <small id="mf-side-hjelp">{T.sideHjelp}</small></div>
+    <div><label for="mf-melding">{T.melding}</label>
+      <textarea id="mf-melding" name="melding" required minlength="5" maxlength="2000" rows="6"></textarea></div>
+    <div><label for="mf-kontakt">{T.kontakt} <span class="skjema__valgfri">{T.valgfri}</span></label>
+      <input id="mf-kontakt" name="kontakt" maxlength="100" autocomplete="email" /></div>
+    <div class="skjema__hp" aria-hidden="true"><label>Nettside <input name="nettside" tabindex="-1" autocomplete="off" /></label></div>
+    {demo
+      ? <p class="skjema__turnstile">{T.demo}</p>
+      : <div class="cf-turnstile" data-sitekey={site.turnstile} data-action="meldfeil" data-language={sprak === "en" ? "en" : "nb"}></div>}
+    <div class="skjema__send"><button type="submit">{T.send}</button><p class="skjema__status" role="status" aria-live="polite"></p></div>
+    <pre class="skjema__demo" hidden></pre>
+  </form>
+</section>
+{!demo && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
+<script is:inline src={url("/assets/js/skjema.js")} defer></script>

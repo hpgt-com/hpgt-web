@@ -372,3 +372,6 @@ code { font: 600 .9em var(--mono); background: var(--tint); padding: 1px 6px; }
 .del-lenke { margin-top: 28px; font-weight: 700; }
 /* Kategorilenken i metalinja under tittelen: understreket, så den skiller seg fra teksten uten bare farge */
 .post__meta a.kat { text-decoration: underline; text-underline-offset: 3px; }
+.foot__end p { margin: 0; }
+.foot__meld { color: var(--muted); }
+.foot__meld:hover { color: var(--text); }

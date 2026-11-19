@@ -99,6 +99,13 @@ until the token is replaced.
 2. Update the register in Pages CMS (RadioID) and save.
 3. Close the issue.
 
+### Handle an error report («Meld feil»)
+1. Every page has the link «Meld feil på denne siden» at the bottom (English: «Report an error on this page»). It opens
+   `/meld-feil/` (`/en/report-error/`) with the page's address filled in. The report becomes an issue in the
+   **private** repository `hpgt-com/form-submissions` with the label `feedback`. Name or e-mail is optional, and is only
+   given by people who want a reply.
+2. Fix it in Pages CMS (or with a pull request), reply if the sender left contact details, and close the issue.
+
 ### Replace the key of the GitHub App «HPGT Web Forms»
 1. hpgt-com → Settings → Developer settings → GitHub Apps → HPGT Web Forms → **Generate a private key**.
 2. Paste the .pem content as `GITHUB_APP_PRIVATE_KEY` in Cloudflare (see the table), and delete the file.
@@ -137,7 +144,7 @@ Pages CMS fails with «Changes must be made through a pull request».
 | `bygg` stops at `sjekk-media` | A file in `public/media/` that is not an image or a PDF | Remove it, or replace it with an image or PDF |
 | `publiser` stops at «Sett inn skjemaenes ID-er» | A variable in `produksjon` is missing or has the wrong format | Fix the variable and run again |
 | `oversett` warns about the sign-in | The Anthropic federation, the credit or the IDs | The site is still published with the previous translations. Check platform.claude.com |
-| The RadioID form answers «Noe gikk galt hos oss» | The app key, the app's installation or the IDs | Check that the app is installed on `form-submissions` and that the key in Cloudflare is right |
+| A form (RadioID or «Meld feil») answers «Noe gikk galt hos oss» | The app key, the app's installation or the IDs | Check that the app is installed on `form-submissions` and that the key in Cloudflare is right |
 
 ## Launch and the domain
 

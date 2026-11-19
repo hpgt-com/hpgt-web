@@ -21,7 +21,7 @@ can, but this is a volunteer club project.
 ## This repository
 
 - **What is published:** hpgt.com, a static Astro site, on Cloudflare Workers (static assets). The only server code is
-  `worker/index.js`, which turns the RadioID form into a GitHub issue.
+  `worker/index.js`, which turns the forms (RadioID and «Meld feil») into GitHub issues in a private repository.
 - **Who edits:** club members through Pages CMS. The Pages CMS GitHub App is installed on this repository only, and
   email collaborators can edit content and media, not code, workflows or settings (`.pages.yml`).
 - **Keys:**

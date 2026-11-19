@@ -11,6 +11,7 @@ export const ENGELSKE_ADRESSER = {
   "/klubben/konkurranser/": "/club/competitions/",
   "/klubben/": "/club/",
   "/sok/": "/search/",
+  "/meld-feil/": "/report-error/",
 };
 
 const bytt = (sti, tabell) => {

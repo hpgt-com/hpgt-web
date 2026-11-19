@@ -12,7 +12,7 @@ accounts and routines are in [operations.md](operations.md). The security measur
   not need a GitHub account.
 - **GitHub Actions builds and publishes** every time `main` changes: it translates new text to English, builds the site
   and uploads it to Cloudflare.
-- **Cloudflare serves the site** (Workers static assets). The only server code is the RadioID form.
+- **Cloudflare serves the site** (Workers static assets). The only server code is the two forms (RadioID and «Meld feil»).
 - **No tracking, no cookies, no third-party scripts** (except Turnstile on the RadioID page).
 
 ## Overview
@@ -48,7 +48,7 @@ flowchart LR
   ACT -- OIDC, no stored key --> AN
   ACT -- token: this Worker only --> W
   B -- hpgt.com --> DNS --> W
-  B -- RadioID form --> W
+  B -- forms: RadioID, Meld feil --> W
   W --> TS
   W -- one-hour token --> APP --> ISS
 ```
@@ -122,7 +122,7 @@ new or changed paragraphs are sent to Anthropic. English addresses (`/klubben/st
 
 If the sign-in at Anthropic fails, the site is still published, with the previous translations.
 
-## The RadioID form
+## The forms (RadioID and «Meld feil»)
 
 ```mermaid
 sequenceDiagram
@@ -144,13 +144,17 @@ sequenceDiagram
 The issues are in the private repository `hpgt-com/form-submissions`, since they hold names, RadioIDs and comments,
 including requests to be removed. Whoever maintains the register updates `radioid.json` in Pages CMS (only the finished
 entry is published) and closes the issue. The code is
-`worker/index.js` and `worker/github-app.js`. New forms later use the same Turnstile widget with their own `action`.
+`worker/index.js` and `worker/github-app.js`.
+
+The second form, **«Meld feil»** (report an error, `/meld-feil/` and `/en/report-error/`, linked from the bottom of every
+page), works the same way: `/api/meld-feil`, Turnstile action `meldfeil`, and an issue with the label `feedback` in the
+same private repository. New forms use the same Turnstile widget with their own `action`.
 
 ## Security in brief
 
 - **Least privilege everywhere.** Each token can do only the one thing it is for: publish one Worker, create issues in
   one repository, read one R2 archive. No personal tokens.
-- **No stored keys where it can be avoided.** Translation signs in with GitHub's OIDC token. The RadioID form gets a
+- **No stored keys where it can be avoided.** Translation signs in with GitHub's OIDC token. The forms get a
   new token for each submission.
 - **Secrets only in environments that `main` alone may use** (GitHub) or in Cloudflare, never in the code.
 - **Everything goes through a pull request** with required checks (build, dependencies, workflow security, CodeQL).

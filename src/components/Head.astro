@@ -9,7 +9,7 @@ const nbUrl = normalSti && new URL(normalSti, site.url);
 const enUrl = normalSti && new URL(`/en${tilEngelsk(normalSti)}`, site.url);
 const fullTitle = title === site.navn ? site.navn : `${title} – ${site.kortnavn}`;
 // Sider med skjema får laste Cloudflare Turnstile – ingen andre. Må stemme med public/_headers.
-const SKJEMASIDER = ["/for-piloter/radioid/"];
+const SKJEMASIDER = ["/for-piloter/radioid/", "/meld-feil/", "/en/report-error/"];
 const sti = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ""), "");
 const turnstile = !site.prototype && SKJEMASIDER.includes(sti);
 const cf = "https://challenges.cloudflare.com";
