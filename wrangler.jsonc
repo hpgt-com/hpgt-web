@@ -1,4 +1,4 @@
-// Cloudflare Workers: statiske filer fra ./dist. Bare /api/* kjører serverkode (worker/index.js – RadioID-skjemaet).
+// Cloudflare Workers: statiske filer fra ./dist. Bare /api/* kjører serverkode (worker/index.js – skjemaene RadioID og «Meld feil»).
 // Hemmeligheter (legges inn én gang i Cloudflare: Workers & Pages → hpgt-web → Settings → Variables and Secrets, aldri i repoet):
 //   TURNSTILE_SECRET         – fra Turnstile-widgeten «hpgt.com skjemaer»
 //   GITHUB_APP_PRIVATE_KEY   – .pem-fila til GitHub-appen «HPGT Web Forms» (bare «Issues: Read and write», bare dette repoet)

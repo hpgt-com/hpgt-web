@@ -25,7 +25,7 @@ npm run ikoner               # makes favicon.ico and apple-touch-icon.png from t
 | `src/data/*.json` | Home page, board, RadioID, menu and site settings |
 | `src/design` | The «Fjord+» design: `style.css` and the templates Layout, Home, Article, PostList and EventList |
 | `src/components` | Shared parts: calendar, cards, RadioID form, board, event fact box |
-| `worker/` | The only server code: the RadioID form, which creates a GitHub issue through the GitHub App «HPGT Web Forms» |
+| `worker/` | The only server code: the forms (RadioID and «Meld feil»), which create GitHub issues through the GitHub App «HPGT Web Forms» |
 | `docs/` | Architecture, operations and decisions (ADR) |
 | `public/media` | Images and documents, see «Folder structure for images and files» below |
 | `scripts/wp-import` | One-off scripts that converted the WordPress export |
