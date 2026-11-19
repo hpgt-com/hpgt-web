@@ -7,6 +7,20 @@ How the site fits together is in [architecture.md](architecture.md), and why it 
 **Rule:** if you change setup, accounts or keys, update this file in the same pull request (or in a separate PR the same
 day, if the change was made in a dashboard).
 
+## Where do I change what?
+
+| Setting | Where |
+|---|---|
+| Address, e-mail addresses, org. no., Vipps, Facebook and Instagram, the link to flysteder | `src/data/site.json` |
+| Preview mode (`prototype`), the default share image (`delingsbilde`), the Web Analytics token (`statistikk`) | `src/data/site.json` |
+| Menus and sections | `src/data/meny.json` |
+| Content, the board, the RadioID register, default images | Pages CMS |
+| The Turnstile site key, the GitHub App IDs | GitHub → `hpgt-web` → Settings → Environments → `produksjon` (variables) |
+| Secrets (Turnstile secret, the app key, the Cloudflare token) | Cloudflare and `produksjon`, never in files (see [Secrets and variables](#secrets-and-variables)) |
+
+A value lives outside the repository only when it is secret or only the publish job may use it. Everything else is in
+`site.json`, changed with one pull request.
+
 ## What is in Git, and what is not
 
 Git is the source of truth for everything that can live there. The rest is set by hand in a dashboard and is therefore
