@@ -194,7 +194,13 @@ to Cloudflare, custom domains `hpgt.com` and `www.hpgt.com` on the Worker, a red
 `prototype: false`.
 
 E-mail is at Google and is not affected by the website, but its DNS records (MX, SPF, DKIM `google._domainkey`, DMARC)
-must be in Cloudflare DNS.
+must be in Cloudflare DNS. DMARC reports go to Cloudflare (Email → DMARC Management).
+
+**DNSSEC** is on (November 2026): Cloudflare signs the zone, and the DS record (the link from `.com` to Cloudflare's
+key) is at the registrar, Namecheap → Domain List → hpgt.com → Advanced DNS → DNSSEC. Nothing to do day to day.
+**Before the name servers are ever moved away from Cloudflare:** remove the DS record at Namecheap first, wait a day,
+then turn DNSSEC off in Cloudflare (DNS → Settings) and move. In the other order hpgt.com, including e-mail, stops
+resolving for everyone whose resolver checks the signatures, until it is put right.
 
 ## Backup
 
