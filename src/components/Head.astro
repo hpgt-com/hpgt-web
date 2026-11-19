@@ -2,8 +2,8 @@
 // Felles <head> for alle design: streng CSP (kun egne filer, ingen sporing), noindex mens dette er en prototype.
 import { site, url } from "../lib/site";
 import { tilEngelsk } from "../lib/engelske-adresser.mjs";
-interface Props { title: string; description?: string; image?: string; sprak?: "nb" | "en"; sti?: string; alternativ?: boolean }
-const { title, description = site.beskrivelse, image, sprak = "nb", sti: normalSti, alternativ = false } = Astro.props;
+interface Props { title: string; description?: string; image?: string; sprak?: "nb" | "en"; sti?: string; alternativ?: boolean; noindex?: boolean }
+const { title, description = site.beskrivelse, image, sprak = "nb", sti: normalSti, alternativ = false, noindex = false } = Astro.props;
 // Begge språkversjonene peker på hverandre (hreflang), så søkemotorer viser riktig språk
 const nbUrl = normalSti && new URL(normalSti, site.url);
 const enUrl = normalSti && new URL(`/en${tilEngelsk(normalSti)}`, site.url);
@@ -26,7 +26,7 @@ const canonical = new URL(Astro.url.pathname.replace(import.meta.env.BASE_URL.re
 <meta http-equiv="Content-Security-Policy" content={csp} />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-{site.prototype && <meta name="robots" content="noindex, nofollow" />}
+{(site.prototype || noindex) && <meta name="robots" content="noindex, nofollow" />}
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />

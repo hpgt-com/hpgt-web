@@ -71,6 +71,16 @@ Both environments (`produksjon` and `oversetting`) are limited to the branch `ma
 2. The editor gets an e-mail and signs in with it. They see only what `.pages.yml` shows.
 3. Remove them in the same place when they should no longer write.
 
+### Preview a post before it is published, and share it
+1. In Pages CMS, tick **Utkast (forhåndsvisning)** on the post and save. After 2–3 minutes it can be read at
+   `hpgt.com/utkast/<address>/` (for example `hpgt.com/utkast/mitt-innlegg/`). Drafts are not on the home page, under
+   Nytt, in search or in the sitemap, and they have `noindex`. The address is not secret: anyone with the link can read it.
+2. When it is ready, remove the tick and save. The post is then published at its normal address, and the draft address
+   disappears.
+3. Published posts have a **Del på Facebook** link at the bottom. It opens Facebook's share window (a plain link, no
+   Facebook scripts), where you choose the club's group. Facebook no longer lets apps post to groups, so this is done
+   by hand.
+
 ### Renew the Cloudflare token (yearly)
 1. Cloudflare → Workers & Pages → `hpgt-web` → Settings → Builds → **Create token**. Name:
    `hpgt-web publish (worker hpgt-web)`, lifetime 12 months.
