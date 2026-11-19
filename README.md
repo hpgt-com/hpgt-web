@@ -14,6 +14,8 @@ npm install
 npm run dev                  # development server
 npm run build                # builds to dist/ and validates all content
 npm run forhandsvisning      # builds the preview (a selection of pages, relative links) to forhandsvisning/
+npm run sjekk                # after a build: internal links, and accessibility (axe) in light and dark mode
+npm run ikoner               # makes favicon.ico and apple-touch-icon.png from the logo (when the logo changes)
 ```
 
 | Folder | Contents |

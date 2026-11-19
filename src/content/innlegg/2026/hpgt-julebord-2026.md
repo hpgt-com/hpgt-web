@@ -3,7 +3,7 @@ title: "HPGT Julebord 2026 🎄"
 date: "2026-09-22T10:22:19"
 kategorier: ["Sosialt og turer"]
 bilde: "/media/archive/2026/09/HPGT_Julebord_2026.png"
-permalink: "/hpgt-julebord-2026-🎄/"
+permalink: "/hpgt-julebord-2026/"
 forfatter: "Kristoffer"
 wp_id: 10828
 arrangement:

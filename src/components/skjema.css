@@ -17,7 +17,7 @@
 .skjema__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .skjema__turnstile { margin: 0; padding: 10px 12px; border: 1px dashed var(--_line); color: var(--_muted); font-size: .85rem; }
 .skjema__send { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
-.skjema__send button { font: inherit; font-weight: 700; padding: 9px 20px; border: 0; border-radius: 4px; background: var(--_accent-ink); color: #fff; cursor: pointer; }
+.skjema__send button { font: inherit; font-weight: 700; padding: 9px 20px; border: 0; border-radius: 4px; background: var(--_accent-ink); color: var(--on-sel, #fff); cursor: pointer; }
 .skjema__send button:hover { background: var(--_accent); }
 .skjema__send button[disabled] { opacity: .6; cursor: wait; }
 .skjema__status { margin: 0; font-weight: 600; }
