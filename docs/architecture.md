@@ -89,7 +89,7 @@ build, publish):
 |---|---|---|
 | `oversett` | A short-lived sign-in at Anthropic (environment `oversetting`) | Only the translation script, not the site's packages |
 | `bygg` | No secrets | Yes (npm packages and the build) |
-| `publiser` | The Cloudflare token (environment `produksjon`) | No, only Wrangler |
+| `publiser` | The Cloudflare token (environment `produksjon`) | No, only Wrangler, installed from `deploy/package-lock.json` without install scripts |
 
 Pull requests (also from administrators) are built and checked by `pr-check.yml` and `security.yml` before they can be
 merged, but are not published.

@@ -1,0 +1,8 @@
+{
+  "name": "hpgt-web-deploy",
+  "private": true,
+  "description": "Bare Wrangler, låst med package-lock.json. Brukes av jobben «publiser» (.github/workflows/deploy.yml), som har Cloudflare-tokenet.",
+  "dependencies": {
+    "wrangler": "4.156.0"
+  }
+}
