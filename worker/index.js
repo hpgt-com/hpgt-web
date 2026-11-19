@@ -132,5 +132,8 @@ const md = (s) => s.replace(/[\\`*_{}\[\]<>()#+!|@~]/g, "\\$&").replace(/(https?
 const svar = (status, melding) =>
   new Response(JSON.stringify({ ok: status < 300, melding }), {
     status,
-    headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" },
+    // _headers gjelder bare de statiske filene, så workerens svar får sikkerhetshodene her (funnet av OWASP ZAP)
+    headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff",
+      "Strict-Transport-Security": "max-age=31536000; includeSubDomains", "Content-Security-Policy": "default-src 'none'; frame-ancestors 'none'",
+      "Referrer-Policy": "no-referrer", "Cross-Origin-Resource-Policy": "same-origin" },
   });
