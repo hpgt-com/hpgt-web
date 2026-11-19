@@ -1,0 +1,27 @@
+name: OWASP ZAP
+
+# Passiv sikkerhetsskanning av den publiserte siden med OWASP ZAP (baseline): går gjennom sidene i ett minutt og bare
+# leser dem, og melder fra om manglende sikkerhetshoder, informasjonskapsler, lekkasjer o.l. Den angriper ikke.
+# Hver måned og for hånd, og på en pull request som endrer denne fila, så en endring av skanningen viser resultatet.
+# Rapporten er et artefakt på kjøringen (zap-hpgt). Ingen issues, ingen token.
+
+on:
+  schedule:
+    - cron: "23 4 3 * *" # den 3. hver måned, 04:23 UTC
+  workflow_dispatch:
+  pull_request:
+    paths: [.github/workflows/zap.yml]
+
+permissions: {}
+
+jobs:
+  zap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: zaproxy/action-baseline@de8ad967d3548d44ef623df22cf95c3b0baf8b25 # v0.15.0
+        with:
+          target: https://hpgt.com/
+          allow_issue_writing: false
+          fail_action: false
+          artifact_name: zap-hpgt
