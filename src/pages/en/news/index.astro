@@ -1,0 +1,12 @@
+---
+// Engelsk Nytt: bare de oversatte innleggene (referatene er på norsk, se lenken i filteret)
+import Layout from "@design/Layout.astro";
+import PostList from "@design/PostList.astro";
+import { hentKategorier, grupperPaaAar } from "../../../lib/site";
+import { oversatteInnlegg } from "../../../lib/i18n";
+const innlegg = await oversatteInnlegg("en");
+const kategorier = await hentKategorier(innlegg);
+---
+<Layout title="News from the club" description="News, courses, trips and competitions from Harstad Hang- og Paragliderklubb.">
+  <PostList title="News from the club" ingress="News, courses, trips and competitions, translated automatically from Norwegian." grupper={grupperPaaAar(innlegg)} kategorier={kategorier} />
+</Layout>

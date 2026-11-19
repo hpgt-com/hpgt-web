@@ -3,12 +3,15 @@ import Pil from "./Pil.astro";
 // Aktivitetskalender: månedsrutenett + liste over månedens aktiviteter. Rutenettet tegnes av /assets/js/kalender.js;
 // uten JavaScript vises en vanlig liste med de siste aktivitetene. Farger og skrift styres av --kal-*-variabler i hvert design.
 import "./kalender.css";
-import { url, lenke, sted, tid, site, type Arrangement } from "../lib/site";
+import { url, lenke, site, type Arrangement } from "../lib/site";
+import { sideInfo, fmtFor } from "../lib/i18n";
 interface Props { kommende: Arrangement[]; tidligere: Arrangement[]; }
 const { kommende, tidligere } = Astro.props;
+const { sprak } = sideInfo(Astro.url.pathname);
+const en = sprak === "en";
+const { dato: fmt, sted, tid } = fmtFor(sprak);
 const alle = [...tidligere].reverse().concat(kommende);
 const iso = (d: Date) => d.toISOString().slice(0, 10);
-const fmt = (d: Date) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", day: "numeric", month: "long", year: "numeric" }).format(d);
 const synligUtenJs = new Set((kommende.length ? kommende.slice(0, 5) : tidligere.slice(0, 5)).map((e) => e.id));
 const neste = kommende[0];
 ---
@@ -17,23 +20,23 @@ const neste = kommende[0];
     <div class="kal-controls">
       <p class="kal-label" data-kal-label aria-live="polite"></p>
       <div class="kal-btns">
-        <button type="button" data-kal-step="-1" aria-label="Forrige måned">‹</button>
-        <button type="button" data-kal-today>I dag</button>
-        <button type="button" data-kal-step="1" aria-label="Neste måned">›</button>
+        <button type="button" data-kal-step="-1" aria-label={en ? "Previous month" : "Forrige måned"}>‹</button>
+        <button type="button" data-kal-today>{en ? "Today" : "I dag"}</button>
+        <button type="button" data-kal-step="1" aria-label={en ? "Next month" : "Neste måned"}>›</button>
       </div>
     </div>
     <table class="kal-days" aria-labelledby="kal-tittel">
-      <thead><tr><th scope="col" abbr="Mandag">Ma</th><th scope="col" abbr="Tirsdag">Ti</th><th scope="col" abbr="Onsdag">On</th><th scope="col" abbr="Torsdag">To</th><th scope="col" abbr="Fredag">Fr</th><th scope="col" abbr="Lørdag">Lø</th><th scope="col" abbr="Søndag">Sø</th></tr></thead>
+      <thead><tr>{(en ? [["Monday", "Mo"], ["Tuesday", "Tu"], ["Wednesday", "We"], ["Thursday", "Th"], ["Friday", "Fr"], ["Saturday", "Sa"], ["Sunday", "Su"]] : [["Mandag", "Ma"], ["Tirsdag", "Ti"], ["Onsdag", "On"], ["Torsdag", "To"], ["Fredag", "Fr"], ["Lørdag", "Lø"], ["Søndag", "Sø"]]).map(([l, k]) => <th scope="col" abbr={l}>{k}</th>)}</tr></thead>
       <tbody data-kal-days></tbody>
     </table>
-    <p class="kal-legend"><span aria-hidden="true"></span> Dag med aktivitet</p>
+    <p class="kal-legend"><span aria-hidden="true"></span> {en ? "Day with an activity" : "Dag med aktivitet"}</p>
   </div>
   <div class="kal-agenda">
     <div class="kal-summary">
-      <span class="kal-eyebrow">Neste aktivitet</span>
-      <p>{neste ? <><a href={url(lenke(neste))}>{neste.data.title}</a> – {fmt(neste.data.start)}</> : "Ingen nye aktiviteter er lagt inn ennå."}</p>
+      <span class="kal-eyebrow">{en ? "Next activity" : "Neste aktivitet"}</span>
+      <p>{neste ? <><a href={url(lenke(neste))}>{neste.data.title}</a> – {fmt(neste.data.start)}</> : en ? "No new activities have been added yet." : "Ingen nye aktiviteter er lagt inn ennå."}</p>
     </div>
-    <h3 class="kal-title" id="kal-tittel" data-kal-title>{kommende.length ? "Kommende aktiviteter" : "Siste aktiviteter"}</h3>
+    <h3 class="kal-title" id="kal-tittel" data-kal-title>{kommende.length ? (en ? "Upcoming activities" : "Kommende aktiviteter") : (en ? "Recent activities" : "Siste aktiviteter")}</h3>
     <ul class="kal-list">
       {alle.map((e) => {
         const ferdig = !kommende.includes(e);
@@ -42,14 +45,14 @@ const neste = kommende[0];
             <span class="kal-date">{fmt(e.data.start)}</span>
             <a href={url(lenke(e))}>{e.data.title} <Pil /></a>
             <small class="kal-meta"><span>{tid(e)}</span>{sted(e) && <span>{sted(e)}</span>}</small>
-            <span class="kal-past" data-kal-past hidden={!ferdig}>Avholdt</span>
+            <span class="kal-past" data-kal-past hidden={!ferdig}>{en ? "Held" : "Avholdt"}</span>
           </li>
         );
       })}
     </ul>
-    <p class="kal-empty" data-kal-empty hidden>Ingen aktiviteter denne måneden.</p>
+    <p class="kal-empty" data-kal-empty hidden>{en ? "No activities this month." : "Ingen aktiviteter denne måneden."}</p>
     <button type="button" class="kal-jump" data-kal-jump hidden></button>
-    <a class="kal-fb" href={site.facebook}>Klubbens Facebook-gruppe&nbsp;<Pil /></a>
+    <a class="kal-fb" href={site.facebook}>{en ? "The club's Facebook group" : "Klubbens Facebook-gruppe"}&nbsp;<Pil /></a>
   </div>
 </div>
 <script is:inline src={url("/assets/js/kalender.js")} defer></script>

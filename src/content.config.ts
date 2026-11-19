@@ -28,22 +28,20 @@ const arrangement = z.object({
   arrangor: z.preprocess(tom, z.string().optional()),
 }).optional();
 
-const innlegg = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/innlegg" }),
-  schema: z.object({
-    title: z.string(),
-    date: z.coerce.date(),
-    kategorier: z.array(z.string()).default(["Nyhet"]),
-    bilde: z.string().optional(),
-    forfatter: z.string().optional(),
-    ingress: z.string().optional(),
-    vedlegg: z.array(z.object({ tittel: z.string(), fil: z.string() })).default([]),
-    permalink,
-    utkast: z.boolean().default(false),
-    wp_id: z.number().optional(),
+const innleggSkjema = z.object({
+  title: z.string(),
+  date: z.coerce.date(),
+  kategorier: z.array(z.string()).default(["Nyhet"]),
+  bilde: z.string().optional(),
+  forfatter: z.string().optional(),
+  ingress: z.string().optional(),
+  vedlegg: z.array(z.object({ tittel: z.string(), fil: z.string() })).default([]),
+  permalink,
+  utkast: z.boolean().default(false),
+  wp_id: z.number().optional(),
     arrangement,
-  }),
 });
+const innlegg = defineCollection({ loader: glob({ pattern: "**/*.md", base: "./src/content/innlegg" }), schema: innleggSkjema });
 
 const sideSkjema = z.object({
   title: z.string(),
@@ -76,10 +74,12 @@ const kurs = defineCollection({ loader: glob({ pattern: "*.md", base: "./src/con
 // Engelske versjoner, laget automatisk av scripts/oversett/oversett.mjs før bygget (mappa .oversatt er ikke i git)
 const sider_en = defineCollection({ loader: glob({ pattern: "*.md", base: "./.oversatt/sider" }), schema: sideSkjema });
 const kurs_en = defineCollection({ loader: glob({ pattern: "*.md", base: "./.oversatt/kurs" }), schema: kursSkjema });
+// Innleggene på engelsk har samme id som de norske, og permalink er den engelske adressen (/en/…)
+const innlegg_en = defineCollection({ loader: glob({ pattern: "**/*.md", base: "./.oversatt/innlegg" }), schema: innleggSkjema });
 
 const styret = defineCollection({
   loader: file("./src/data/styret.json", { parser: (t) => JSON.parse(t).medlemmer }),
   schema: z.object({ rolle: z.string(), navn: z.string(), telefon: z.string().optional(), epost: z.string().optional(), bilde: z.string().optional() }),
 });
 
-export const collections = { innlegg, sider, kurs, sider_en, kurs_en, styret };
+export const collections = { innlegg, sider, kurs, sider_en, kurs_en, innlegg_en, styret };

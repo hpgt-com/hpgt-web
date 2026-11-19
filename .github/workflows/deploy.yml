@@ -98,7 +98,8 @@ jobs:
   oversett:
     needs: vakt
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # Første gang oversettes alle innleggene (noen minutter); senere bare nye eller endrede tekster
+    timeout-minutes: 30
     environment: oversetting
     permissions:
       contents: read

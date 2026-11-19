@@ -47,8 +47,9 @@ export const bildeFor = (p: Innlegg) => p.data.bilde ?? p.body?.match(/!\[[^\]]*
 export async function hentInnlegg() {
   return (await getCollection("innlegg", (p) => !p.data.utkast)).sort((a, b) => +b.data.date - +a.data.date);
 }
-export async function hentArrangementer() {
-  const alle = (await hentInnlegg())
+/** Arrangementene (kommende og tidligere). innlegg: en annen liste enn de norske, f.eks. de engelske (innleggFor i i18n.ts). */
+export async function hentArrangementer(innlegg?: Innlegg[]) {
+  const alle = (innlegg ?? (await hentInnlegg()))
     .filter((p) => p.data.arrangement?.start)
     .map((p) => ({ ...p, data: { ...p.data, ...p.data.arrangement } }) as Arrangement)
     .sort((a, b) => +a.data.start - +b.data.start);
@@ -61,9 +62,9 @@ export const kursLenke = (k: { id: string }) => `/kurs/${k.id}/`;
 export async function hentKurs(sprak: "nb" | "en" = "nb") {
   return (await getCollection(sprak === "en" ? "kurs_en" : "kurs")).sort((a, b) => a.data.rekkefolge - b.data.rekkefolge || a.data.title.localeCompare(b.data.title, "nb"));
 }
-export async function hentKategorier() {
+export async function hentKategorier(innlegg?: Innlegg[]) {
   const map = new Map<string, Innlegg[]>();
-  for (const p of await hentInnlegg()) for (const k of p.data.kategorier) map.set(k, [...(map.get(k) ?? []), p]);
+  for (const p of innlegg ?? (await hentInnlegg())) for (const k of p.data.kategorier) map.set(k, [...(map.get(k) ?? []), p]);
   return [...map].map(([navn, poster]) => ({ navn, slug: slug(navn), poster })).sort((a, b) => b.poster.length - a.poster.length);
 }
 export const grupperPaaAar = (poster: Innlegg[]) => {

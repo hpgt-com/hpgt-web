@@ -63,10 +63,12 @@ wrong).
 
 ## English version
 
-Courses, tandem, flying sites, the club pages and the home page also exist in English under `/en/`. Nobody writes the
+Courses, tandem, flying sites, the club pages, the home page, and news and events also exist in English under `/en/`. Nobody writes the
 text twice: on every publish, `scripts/oversett/oversett.mjs` translates new or changed Norwegian text with Claude
 (Anthropic API). The translations from the previous publish are fetched from `/en/oversettelser.json`, so unchanged
-text is not translated again. News and events are in Norwegian only. Fixed texts (menus, buttons) are in
+text is not translated again. All published posts are translated except meeting minutes («Møter og referater»,
+`IKKE_OVERSETT` in the script), which stay in Norwegian; English lists link to them with «(in Norwegian)». Fixed texts
+(menus, buttons) are in
 `src/lib/i18n.ts`.
 
 - No stored key: the job signs in with GitHub's OIDC token (workload identity federation, set up in

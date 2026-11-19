@@ -16,7 +16,14 @@ const pil = (d) => {
   const items = [...root.querySelectorAll("[data-kal-item]")].map((li) => ({
     li, s: new Date(li.dataset.start + "T00:00:00"), e: new Date(li.dataset.end + "T23:59:59"),
   }));
-  const mnd = ["januar", "februar", "mars", "april", "mai", "juni", "juli", "august", "september", "oktober", "november", "desember"];
+  // Språket følger siden (<html lang>): engelsk på /en/
+  const en = document.documentElement.lang === "en";
+  const mnd = en
+    ? ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    : ["januar", "februar", "mars", "april", "mai", "juni", "juli", "august", "september", "oktober", "november", "desember"];
+  const T = en
+    ? { i: "Activities in", dag: "Activity on this day", neste: "Next", forrige: "Previous", akt: "activity" }
+    : { i: "Aktiviteter i", dag: "Aktivitet denne dagen", neste: "Neste", forrige: "Forrige", akt: "aktivitet" };
   const iDag = new Date(); iDag.setHours(0, 0, 0, 0);
   let vis = new Date(iDag.getFullYear(), iDag.getMonth(), 1);
   const overlapper = (it, a, b) => it.s <= b && it.e >= a;
@@ -26,7 +33,7 @@ const pil = (d) => {
     const y = vis.getFullYear(), m = vis.getMonth();
     const forste = new Date(y, m, 1), siste = new Date(y, m + 1, 0, 23, 59, 59);
     q("[data-kal-label]").textContent = `${mnd[m]} ${y}`;
-    q("[data-kal-title]").textContent = `Aktiviteter i ${mnd[m]} ${y}`;
+    q("[data-kal-title]").textContent = `${T.i} ${mnd[m]} ${y}`;
     const tom = (forste.getDay() + 6) % 7;
     const tbody = q("[data-kal-days]");
     tbody.replaceChildren();
@@ -38,7 +45,7 @@ const pil = (d) => {
       const td = document.createElement("td"), span = document.createElement("span");
       span.className = "kal-day";
       span.textContent = d;
-      if (items.some((it) => overlapper(it, dag, slutt))) { span.classList.add("kal-day--on"); span.title = "Aktivitet denne dagen"; }
+      if (items.some((it) => overlapper(it, dag, slutt))) { span.classList.add("kal-day--on"); span.title = T.dag; }
       if (+dag === +iDag) { span.classList.add("kal-day--today"); span.setAttribute("aria-current", "date"); }
       td.append(span); rad.append(td);
     }
@@ -60,7 +67,7 @@ const pil = (d) => {
       const mal = fram || bak;
       if (mal) {
         hopp.hidden = false;
-        hopp.textContent = `${fram ? "Neste" : "Forrige"} aktivitet: ${mnd[mal.s.getMonth()]} ${mal.s.getFullYear()} `;
+        hopp.textContent = `${fram ? T.neste : T.forrige} ${T.akt}: ${mnd[mal.s.getMonth()]} ${mal.s.getFullYear()} `;
         hopp.append(pil(fram ? "M2.5 8h11M9 3.5 13.5 8 9 12.5" : "M13.5 8h-11M7 3.5 2.5 8 7 12.5"));
         hopp.onclick = () => { vis = new Date(mal.s.getFullYear(), mal.s.getMonth(), 1); tegn(); };
       }

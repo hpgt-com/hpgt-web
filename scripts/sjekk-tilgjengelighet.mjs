@@ -13,7 +13,7 @@ import { join, extname } from "node:path";
 import { chromium } from "playwright";
 
 const SIDER = ["/", "/en/", "/kurs/", "/kurs/paragliding-pp2/", "/tandem/", "/nytt/", "/arrangementer/", "/for-piloter/",
-  "/for-piloter/vaer/", "/for-piloter/radioid/", "/klubben/styret/", "/klubben/konkurranser/2019/", "/sok/", "/404/", "/hpgt-com-har-fatt-en-makeover/", "/meld-feil/"];
+  "/for-piloter/vaer/", "/for-piloter/radioid/", "/klubben/styret/", "/klubben/konkurranser/2019/", "/sok/", "/404/", "/hpgt-com-har-fatt-en-makeover/", "/meld-feil/", "/en/news/", "/en/events/", "/en/hpgt-com-har-fatt-en-makeover/"];
 const STOPP = new Set(["serious", "critical"]);
 const DIST = new URL("../dist/", import.meta.url).pathname;
 const TYPER = { ".html": "text/html; charset=utf-8", ".css": "text/css", ".js": "text/javascript", ".json": "application/json",

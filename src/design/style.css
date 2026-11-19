@@ -375,3 +375,5 @@ code { font: 600 .9em var(--mono); background: var(--tint); padding: 1px 6px; }
 .foot__end p { margin: 0; }
 .foot__meld { color: var(--muted); }
 .foot__meld:hover { color: var(--text); }
+/* Engelske innlegg: oversatt automatisk, med lenke til originalen */
+.oversatt-merke { margin: 0 0 20px; color: var(--muted); font-size: .9rem; }

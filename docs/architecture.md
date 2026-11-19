@@ -118,7 +118,12 @@ someone saves, which is why some fields have `hidden: true`.
 The pages in `SIDER` in `scripts/oversett/oversett.mjs` (courses, for pilots, the club pages and so on) are translated
 automatically on every publish. Unchanged text is reused from the previous publish (`/en/oversettelser.json`), so only
 new or changed paragraphs are sent to Anthropic. English addresses (`/klubben/styret/` → `/en/club/board/`) are in
-`src/lib/engelske-adresser.mjs`, and fixed texts (menus, buttons) in `src/lib/i18n.ts`. News is in Norwegian only.
+`src/lib/engelske-adresser.mjs`, and fixed texts (menus, buttons) in `src/lib/i18n.ts`.
+
+News and events are translated too (`/en/news/`, `/en/events/`, and each post at `/en/<address>/`), except meeting
+minutes, which are formal documents for members and stay in Norwegian. Each English post says it was translated
+automatically and links to the Norwegian original. A post without a translation (minutes, or one that failed) is listed
+on the English pages with its Norwegian title and «(in Norwegian)».
 
 If the sign-in at Anthropic fails, the site is still published, with the previous translations.
 

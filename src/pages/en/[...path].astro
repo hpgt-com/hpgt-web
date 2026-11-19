@@ -1,5 +1,6 @@
 ---
 // Engelske sider: /en/<engelsk adresse> (src/lib/engelske-adresser.mjs). Innholdet er oversatt automatisk (scripts/oversett).
+// Innleggene (nyheter og arrangementer) har den engelske adressen i permalink, og lenker til det norske originalinnlegget.
 import { getCollection, render } from "astro:content";
 import Layout from "@design/Layout.astro";
 import Article from "@design/Article.astro";
@@ -7,32 +8,43 @@ import Styret from "../../components/Styret.astro";
 import KommendeKurs from "../../components/KommendeKurs.astro";
 import SeksjonOversikt from "../../components/SeksjonOversikt.astro";
 import KursOversikt from "../../components/KursOversikt.astro";
-import { url, lenke, kursLenke } from "../../lib/site";
+import ArrangementBoks from "../../components/ArrangementBoks.astro";
+import Vedlegg from "../../components/Vedlegg.astro";
+import { url, lenke, kursLenke, hentInnlegg } from "../../lib/site";
 import { T, datoFor, tilEngelsk } from "../../lib/i18n";
 
 export async function getStaticPaths() {
   const trim = (s: string) => s.replace(/^\/|\/$/g, "");
-  const [sider, kurs] = await Promise.all([getCollection("sider_en"), getCollection("kurs_en")]);
+  const [sider, kurs, innlegg, norske] = await Promise.all([getCollection("sider_en"), getCollection("kurs_en"), getCollection("innlegg_en"), hentInnlegg()]);
+  const original = new Map(norske.map((p) => [p.id, p]));
   return [
+    // Bare innlegg som fortsatt er publisert på norsk (ikke utkast eller slettet)
+    ...innlegg.filter((e) => original.has(e.id)).map((entry) => ({ params: { path: trim(lenke(entry).replace(/^\/en/, "")) }, props: { type: "innlegg", entry, norsk: lenke(original.get(entry.id)!) } })),
     ...sider.map((entry) => ({ params: { path: trim(tilEngelsk(lenke(entry))) }, props: { type: "side", entry } })),
     ...kurs.map((entry) => ({ params: { path: trim(tilEngelsk(kursLenke(entry))) }, props: { type: "kurs", entry } })),
   ];
 }
-const { type, entry } = Astro.props as any;
+const { type, entry, norsk } = Astro.props as any;
 const { Content, headings } = await render(entry);
 const d = entry.data;
 const t = T.en;
-const meta = d.sist_endret ? `${t.sistOppdatert} ${datoFor("en", d.sist_endret)}` : undefined;
-const tilbake = type === "kurs" ? { tekst: t.kurs, url: url("/en/courses/") } : undefined;
+const erInnlegg = type === "innlegg";
+const erArr = erInnlegg && d.arrangement?.start;
+const meta = erInnlegg ? `${d.forfatter ? `By ${d.forfatter} · ` : ""}${datoFor("en", d.date)}` : d.sist_endret ? `${t.sistOppdatert} ${datoFor("en", d.sist_endret)}` : undefined;
+const tilbake = type === "kurs" ? { tekst: t.kurs, url: url("/en/courses/") }
+  : erArr ? { tekst: "All events", url: url("/en/events/") } : erInnlegg ? { tekst: "All news", url: url("/en/news/") } : undefined;
 const kursSide = type === "kurs" || d.mal === "kurs";
 ---
 <Layout title={d.title} description={d.ingress} image={d.bilde}>
-  <Article title={d.title} ingress={d.ingress} bilde={d.bilde} meta={meta} tilbake={tilbake} type={type} overskrifter={headings}>
+  <Article title={d.title} ingress={d.ingress} bilde={erInnlegg ? undefined : d.bilde} meta={meta} kategorier={erInnlegg ? d.kategorier : undefined} tilbake={tilbake} type={type} overskrifter={headings}>
+    {erInnlegg && <p class="oversatt-merke" role="note">Translated automatically from Norwegian. <a href={url(norsk)} lang="nb" hreflang="nb">Read the original</a>.</p>}
+    {erArr && <ArrangementBoks a={d.arrangement} />}
     {type === "kurs" && d.kurstype && <KommendeKurs type={d.kurstype} />}
     {d.mal === "kurs" && <KommendeKurs />}
     {d.mal === "kontakt" && <Styret />}
     <Content />
     {d.mal === "kurs" && <KursOversikt />}
     {d.mal === "seksjon" && <SeksjonOversikt />}
+    {d.vedlegg?.length > 0 && <Vedlegg filer={d.vedlegg} />}
   </Article>
 </Layout>

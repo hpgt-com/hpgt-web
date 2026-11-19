@@ -2,7 +2,7 @@
 //
 // Kjøres før hvert bygg (npm run build) og skriver til .oversatt/ (ikke i git):
 //   .oversatt/oversettelser.json   alle oversettelser, nøkkel = fil#felt, med hash av den norske teksten
-//   .oversatt/sider/*.md, .oversatt/kurs/*.md, .oversatt/forside.json, .oversatt/styret.json
+//   .oversatt/sider/*.md, .oversatt/kurs/*.md, .oversatt/innlegg/ÅR/*.md, .oversatt/forside.json, .oversatt/styret.json
 //
 // Oversettelsene fra forrige publisering hentes fra den publiserte siden (OVERSETT_FORRIGE, /en/oversettelser.json),
 // så bare ny eller endret norsk tekst sendes til oversettelse. Uten ANTHROPIC_API_KEY (lokalt og i PR-sjekken)
@@ -14,14 +14,20 @@
 // Ingen avhengigheter utenom Anthropic-SDK-en, som bare lastes når nøkkelen finnes (egen package.json i denne mappa).
 import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, readdirSync, writeFileSync, existsSync } from "node:fs";
-import { join, basename } from "node:path";
+import { join, basename, dirname, relative } from "node:path";
+import { tilEngelsk } from "../../src/lib/engelske-adresser.mjs";
 import { tmpdir } from "node:os";
 
 const ROT = new URL("../../", import.meta.url).pathname;
 const UT = join(ROT, ".oversatt");
 const CACHE = join(UT, "oversettelser.json");
 
-// Hvilke sider som får engelsk versjon. Nyheter og arrangementer forblir på norsk.
+// Hvilke sider som får engelsk versjon. Alle publiserte innlegg (nyheter og arrangementer) oversettes også, unntatt
+// kategoriene i IKKE_OVERSETT: referater er formelle dokumenter for medlemmene og vises bare på norsk.
+const IKKE_OVERSETT = ["Møter og referater"];
+const INNLEGGFELT = ["title", "ingress"];
+// Innleggene oversettes noen om gangen, så første publisering (alle innleggene) ikke tar for lang tid
+const SAMTIDIG = 8;
 const SIDER = ["kurs", "for-piloter", "tandem", "klubben", "styret", "vaer", "notam", "flystripa", "morkeflyging", "stotte"];
 const SIDEFELT = ["title", "ingress"];
 const KURSFELT = ["title", "menynavn", "ingress"];
@@ -145,8 +151,7 @@ const lesFelt = (fm, felt) => {
 };
 const settFelt = (fm, felt, verdi) => fm.replace(new RegExp(`^${felt}:.*$`, "m"), `${felt}: ${JSON.stringify(verdi)}`);
 
-async function markdown(mappe, fil, felt) {
-  const navn = basename(fil, ".md");
+async function markdown(mappe, fil, felt, { navn = basename(fil, ".md"), justerFm = (fm) => fm } = {}) {
   let { fm, body } = delOpp(readFileSync(fil, "utf-8"));
   for (const f of felt) {
     const v = lesFelt(fm, f);
@@ -157,8 +162,9 @@ async function markdown(mappe, fil, felt) {
   }
   const enBody = await oversett(`${mappe}/${navn}#body`, body, false);
   if (enBody === undefined) return;
-  mkdirSync(join(UT, mappe), { recursive: true });
-  writeFileSync(join(UT, mappe, `${navn}.md`), `---\n${fm}\n---\n${enBody}\n`);
+  const ut = join(UT, mappe, `${navn}.md`);
+  mkdirSync(dirname(ut), { recursive: true });
+  writeFileSync(ut, `---\n${justerFm(fm)}\n---\n${enBody}\n`);
 }
 
 // Oversetter feltene i et JSON-objekt; mangler en oversettelse, står den norske teksten.
@@ -188,6 +194,32 @@ for (const s of SIDER) await markdown("sider", join(ROT, "src/content/sider", `$
 const kursmappe = join(ROT, "src/content/kurs");
 for (const k of readdirSync(kursmappe).filter((f) => f.endsWith(".md"))) await markdown("kurs", join(kursmappe, k), KURSFELT);
 await json("src/data/forside.json", FORSIDEFELT);
+
+// Innleggene: .oversatt/innlegg/ÅR/navn.md, med samme id som det norske innlegget. Adressen (permalink) settes til den
+// engelske (/en/…), så lenkene i listene går rett dit. Samme regel for adressen som lenke() i src/lib/site.ts.
+const innleggmappe = join(ROT, "src/content/innlegg");
+const alleInnlegg = [];
+const finnMd = (d) => { for (const e of readdirSync(d, { withFileTypes: true })) { const p = join(d, e.name); if (e.isDirectory()) finnMd(p); else if (e.name.endsWith(".md")) alleInnlegg.push(p); } };
+finnMd(innleggmappe);
+const skalOversettes = alleInnlegg.filter((fil) => {
+  const { fm } = delOpp(readFileSync(fil, "utf-8"));
+  if (/^utkast:\s*true\s*$/m.test(fm)) return false;
+  const kat = fm.match(/^kategorier:\s*(\[.*\])\s*$/m);
+  const kategorier = kat ? JSON.parse(kat[1]) : ["Nyhet"];
+  return !kategorier.some((k) => IKKE_OVERSETT.includes(k));
+});
+const koe = [...skalOversettes];
+await Promise.all(Array.from({ length: SAMTIDIG }, async () => {
+  for (let fil; (fil = koe.shift()); ) {
+    const navn = relative(innleggmappe, fil).replace(/\.md$/, "");
+    const norsk = lesFelt(delOpp(readFileSync(fil, "utf-8")).fm, "permalink") ?? `/${basename(navn).replace(/^\d{4}-\d{2}-\d{2}-/, "")}/`;
+    const permalink = `/en${tilEngelsk(norsk)}`;
+    await markdown("innlegg", fil, INNLEGGFELT, {
+      navn,
+      justerFm: (fm) => (/^permalink:/m.test(fm) ? settFelt(fm, "permalink", permalink) : `${fm}\npermalink: ${JSON.stringify(permalink)}`),
+    });
+  }
+}));
 await json("src/data/styret.json", STYRETFELT);
 
 // Bare oversettelser som fortsatt er i bruk tas med videre
