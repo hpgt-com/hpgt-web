@@ -26,18 +26,18 @@
       "utloper": "2027-11-18"
     },
     {
-      "navn": "Backblaze B2-nøkkel med skrivetilgang (backup)",
+      "navn": "Backblaze B2-nøkkel «github-backup» (skrivetilgang)",
       "brukes_av": "flying-sites → Environments → backup → B2_KEY_ID / B2_APPLICATION_KEY",
       "fornyes": "Backblaze → App Keys; flying-sites docs/operations.md «Accounts and secrets»",
       "utloper": null,
-      "merknad": "Ukjent: sjekk under Backblaze → App Keys om den har utløpsdato, og fyll inn."
+      "merknad": "Utløper ikke (ingen utløpsdato i Backblaze). Gjelder bare bøtta hpgt-flysteder-backup."
     },
     {
-      "navn": "Backblaze B2-nøkkel med lesetilgang (backup-read)",
+      "navn": "Backblaze B2-nøkkel «flying-sites-backup-read» (lesetilgang)",
       "brukes_av": "flying-sites → Environments → backup-read → B2_KEY_ID / B2_APPLICATION_KEY (gjenopprettingsøvelse, recover)",
       "fornyes": "Backblaze → App Keys",
       "utloper": null,
-      "merknad": "Ukjent: sjekk under Backblaze → App Keys om den har utløpsdato, og fyll inn."
+      "merknad": "Utløper ikke (ingen utløpsdato i Backblaze). Gjelder bare bøtta hpgt-flysteder-backup."
     },
     {
       "navn": "Domenet hpgt.com",
