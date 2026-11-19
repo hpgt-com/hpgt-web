@@ -43,9 +43,9 @@
       "navn": "Domenet hpgt.com",
       "brukes_av": "Namecheap (registrar). Navnetjenerne peker til Cloudflare",
       "fornyes": "Namecheap → Domain List → hpgt.com. Slå gjerne på Auto-Renew",
-      "utloper": null,
+      "utloper": "2035-06-10",
       "varsel_dager": 90,
-      "merknad": "Fyll inn utløpsdatoen fra Namecheap."
+      "merknad": "Registrert 05.08.2011 hos Namecheap, betalt til 10.06.2035."
     }
   ]
 }
