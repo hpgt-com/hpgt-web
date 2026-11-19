@@ -1,0 +1,93 @@
+name: Helsesjekk
+
+# Sjekker hpgt.com utenfra hver time: at sidene svarer, at sikkerhetshodene er der, at skjemaene har den ekte
+# Turnstile-nøkkelen (ikke testnøkkelen, som betyr at publiseringen har gått galt), at workeren svarer på /api/, at
+# www videresender og at sertifikatet ikke er nær utløp. Åpner en sak (etikett «bug») når noe er galt, kommenterer når
+# feilene endrer seg, og lukker saken når alt er i orden igjen. Kjøringen feiler så lenge noe er galt.
+# GitHub kan kjøre den litt sent, og slår av tidsplanen etter 60 dager uten commits i repoet (da sendes e-post; slå den
+# på igjen under Actions). Kjører ingen kode fra repoet og trenger ingen hemmeligheter.
+
+on:
+  schedule:
+    - cron: "17 * * * *" # hver time, kl. xx:17
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  sjekk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      issues: write
+    steps:
+      - name: Sjekk hpgt.com
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          title="Helsesjekk: hpgt.com svarer ikke som forventet"
+          problemer=""
+          feil() { problemer+="- $1"$'\n'; }
+          kode() { curl -sS -o /dev/null -w "%{http_code}" --max-time 20 --retry 2 "$@" || echo "000"; }
+
+          # Sidene (norsk og engelsk, lister, skjema, maskinlesbare filer)
+          for sti in / /en/ /nytt/ /arrangementer/ /kurs/ /for-piloter/radioid/ /meld-feil/ /en/news/ /sitemap.xml /.well-known/security.txt; do
+            k=$(kode "https://hpgt.com$sti")
+            [ "$k" = "200" ] || feil "https://hpgt.com$sti svarte $k (ventet 200)"
+          done
+
+          # Sikkerhetshodene på forsiden
+          hoder=$(curl -sSI --max-time 20 --retry 2 https://hpgt.com/ || true)
+          for h in strict-transport-security content-security-policy x-content-type-options; do
+            echo "$hoder" | grep -qi "^$h:" || feil "Forsiden mangler hodet $h"
+          done
+
+          # Skjemaene: den ekte Turnstile-nøkkelen, ikke testnøkkelen
+          side=$(curl -sS --max-time 20 --retry 2 https://hpgt.com/meld-feil/ || true)
+          if echo "$side" | grep -q '1x00000000000000000000AA'; then feil "/meld-feil/ har Turnstile-testnøkkelen (publiseringen satte ikke inn den ekte)"; fi
+          echo "$side" | grep -q 'data-sitekey="0x' || feil "/meld-feil/ mangler Turnstile-nøkkelen"
+
+          # Workeren: GET på et skjemaendepunkt skal gi 405 (bare POST), med sikkerhetshoder
+          k=$(kode https://hpgt.com/api/radioid)
+          [ "$k" = "405" ] || feil "https://hpgt.com/api/radioid svarte $k (ventet 405 fra workeren)"
+
+          # www videresender til hpgt.com
+          k=$(curl -sS -o /dev/null -w "%{http_code} %{redirect_url}" --max-time 20 https://www.hpgt.com/ || echo "000")
+          [[ "$k" =~ ^30[18]\ https://hpgt\.com/ ]] || feil "https://www.hpgt.com/ videresender ikke til https://hpgt.com/ ($k)"
+
+          # Sertifikatet: minst 14 dager igjen
+          slutt=$(echo | timeout 20 openssl s_client -servername hpgt.com -connect hpgt.com:443 2>/dev/null | openssl x509 -noout -enddate 2>/dev/null | cut -d= -f2)
+          if [ -z "$slutt" ]; then feil "Fikk ikke lest sertifikatet til hpgt.com"
+          else
+            dager=$(( ($(date -d "$slutt" +%s) - $(date +%s)) / 86400 ))
+            [ "$dager" -ge 14 ] || feil "Sertifikatet til hpgt.com utløper om $dager dager ($slutt)"
+          fi
+
+          problemer=${problemer%$'\n'}
+          n=$(gh issue list --state open --label bug --search "in:title \"$title\"" --json number,title --jq "map(select(.title == \"$title\")) | .[0].number // empty")
+          if [ -z "$problemer" ]; then
+            echo "Alt i orden."
+            if [ -n "$n" ]; then gh issue close "$n" --comment "I orden igjen: $RUN_URL"; fi
+            exit 0
+          fi
+          echo "$problemer"
+          if [ -n "$n" ]; then
+            # Bare en ny kommentar når listen har endret seg, så saken ikke fylles med én kommentar i timen
+            forrige=$(gh issue view "$n" --json body,comments --jq '[.body] + (.comments | map(.body)) | last' | grep '^- ' || true)
+            if [ "$forrige" = "$problemer" ]; then
+              echo "Uendret siden forrige melding på #$n."
+            else
+              gh issue comment "$n" --body "Fortsatt ($RUN_URL):
+
+          $problemer"
+            fi
+          else
+            gh issue create --title "$title" --label bug --body "Den timevise helsesjekken fant dette ($RUN_URL):
+
+          $problemer
+
+          Se docs/operations.md («When publishing fails» og «Watch the forms») og loggene i Cloudflare (Workers & Pages → hpgt-web → Observability). Saken lukkes av seg selv når alt er i orden igjen."
+          fi
+          exit 1
