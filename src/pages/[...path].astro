@@ -14,6 +14,7 @@ import KonkurranseOversikt from "../components/KonkurranseOversikt.astro";
 import KursOversikt from "../components/KursOversikt.astro";
 import { dato, url, lenke, kursLenke, site } from "../lib/site";
 import Pil from "../components/Pil.astro";
+import { arrangementLd, ldJson } from "../lib/strukturert";
 
 export async function getStaticPaths() {
   const trim = (e: any) => lenke(e).replace(/^\/|\/$/g, "");
@@ -43,6 +44,7 @@ const tilbake = type === "kurs" ? { tekst: "Kurs", url: url("/kurs/") } : erArr 
     kategorier={type === "innlegg" ? d.kategorier : undefined} tilbake={tilbake} type={type} overskrifter={headings}>
     {utkast && <aside class="utkast-merke" role="note"><strong>Utkast, bare forhåndsvisning.</strong> Denne adressen står ikke på forsiden, under Nytt eller i søket. Når innlegget er klart, fjerner du haken «Utkast» i Pages CMS. Da publiseres det på <code>{lenke(entry)}</code>.</aside>}
     {type === "kurs" && d.kurstype && <KommendeKurs type={d.kurstype} />}
+    {erArr && !utkast && <script type="application/ld+json" set:html={ldJson(arrangementLd(entry, lenke(entry)))} />}
     {erArr && <ArrangementBoks a={d.arrangement} />}
     {d.mal === "kurs" && <KommendeKurs />}
     {d.mal === "kontakt" && <Styret />}

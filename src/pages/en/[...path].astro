@@ -10,6 +10,7 @@ import SeksjonOversikt from "../../components/SeksjonOversikt.astro";
 import KursOversikt from "../../components/KursOversikt.astro";
 import ArrangementBoks from "../../components/ArrangementBoks.astro";
 import Vedlegg from "../../components/Vedlegg.astro";
+import { arrangementLd, ldJson } from "../../lib/strukturert";
 import { url, lenke, kursLenke, hentInnlegg } from "../../lib/site";
 import { T, datoFor, tilEngelsk } from "../../lib/i18n";
 
@@ -38,6 +39,7 @@ const kursSide = type === "kurs" || d.mal === "kurs";
 <Layout title={d.title} description={d.ingress} image={d.bilde}>
   <Article title={d.title} ingress={d.ingress} bilde={erInnlegg ? undefined : d.bilde} meta={meta} kategorier={erInnlegg ? d.kategorier : undefined} tilbake={tilbake} type={type} overskrifter={headings}>
     {erInnlegg && <p class="oversatt-merke" role="note">Translated automatically from Norwegian. <a href={url(norsk)} lang="nb" hreflang="nb">Read the original</a>.</p>}
+    {erArr && <script type="application/ld+json" set:html={ldJson(arrangementLd(entry, lenke(entry)))} />}
     {erArr && <ArrangementBoks a={d.arrangement} />}
     {type === "kurs" && d.kurstype && <KommendeKurs type={d.kurstype} />}
     {d.mal === "kurs" && <KommendeKurs />}

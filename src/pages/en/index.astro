@@ -3,6 +3,7 @@
 import Layout from "@design/Layout.astro";
 import Home from "@design/Home.astro";
 import { site, hentArrangementer } from "../../lib/site";
+import { klubbLd, ldJson } from "../../lib/strukturert";
 import { engelskeStier, innleggFor, oversatteInnlegg } from "../../lib/i18n";
 export async function getStaticPaths() {
   return (await engelskeStier()).has("/") ? [{ params: {} }] : [];
@@ -11,5 +12,6 @@ const innlegg = await oversatteInnlegg("en");
 const { kommende, tidligere } = await hentArrangementer(await innleggFor("en"));
 ---
 <Layout title={site.navn} description="Paragliding, speedflying and paramotor in Harstad, Northern Norway. Courses, tandem flights, flying sites and a friendly club.">
+  <script type="application/ld+json" set:html={ldJson(klubbLd())} />
   <Home innlegg={innlegg} kommende={kommende} tidligere={tidligere} />
 </Layout>

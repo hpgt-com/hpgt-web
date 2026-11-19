@@ -15,6 +15,7 @@ export const ENGELSKE_ADRESSER = {
   "/nytt/": "/news/",
   "/arrangementer/": "/events/",
   "/meld-feil/": "/report-error/",
+  "/personvern/": "/privacy/",
 };
 
 const bytt = (sti, tabell) => {
