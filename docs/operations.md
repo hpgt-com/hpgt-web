@@ -122,7 +122,9 @@ until the token is replaced.
 ### Watch the forms (logs and alerts)
 - **Logs:** Cloudflare → Workers & Pages → `hpgt-web` → **Observability**. One line per call to the Worker (only the
   forms, `/api/*`): time, address, status code, duration and errors, with request metadata (IP address, country). Kept
-  for 3 days. The content of the forms is never logged. Turned on in `wrangler.jsonc` (`observability`).
+  for up to 7 days (Observability Free; from 1.12.2026 seven days, before that three). The content of the forms is never
+  logged. The account has no Workers Paid plan, so logging is never charged: at the free daily limit (0.5 GB) it pauses
+  until the next day. Turned on in `wrangler.jsonc` (`observability`).
 - What to look for: many `403` (failed Turnstile or wrong origin) or `429` (rate limit) means someone is hammering the
   forms; `502` means the GitHub App or its key is not working (see «When publishing fails» below).
 - **Alerts:** Cloudflare → Manage Account → **Notifications**, by e-mail. Set up by hand (November 2026), listed here so
