@@ -24,7 +24,7 @@ Kort fortalt: siden bruker ingen informasjonskapsler og ingen sporing, og vi sam
 
 - **Hvor det lagres.** Innsendingene blir saker i et lukket arkiv hos GitHub, som bare de som vedlikeholder nettsiden har tilgang til.
 - **Hvor lenge.** Vi sletter dem når de ikke lenger trengs, og senest når du ber om det.
-- **Logger.** Når du sender et skjema, lagrer Cloudflare tidspunkt, IP-adresse, land og om innsendingen gikk gjennom, i 3 dager. Innholdet i skjemaet kommer ikke med i loggen. Vi bruker loggene bare til å oppdage feil og misbruk.
+- **Logger.** Når du sender et skjema, lagrer Cloudflare tidspunkt, IP-adresse, land og om innsendingen gikk gjennom, i inntil 7 dager. Innholdet i skjemaet kommer ikke med i loggen. Vi bruker loggene bare til å oppdage feil og misbruk.
 - **Robotsjekk.** Skjemaene bruker Cloudflare Turnstile for å stoppe roboter. Den ser på tekniske opplysninger fra nettleseren din, men bruker ingen informasjonskapsler til sporing og viser ingen bildegåter.
 - **Grunnlag.** Opplysningene behandles fordi du selv sender dem inn (samtykke), og for å drive og sikre nettsiden (berettiget interesse).
 
