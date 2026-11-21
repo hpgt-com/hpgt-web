@@ -11,7 +11,7 @@ day, if the change was made in a dashboard).
 
 | Setting | Where |
 |---|---|
-| Address, e-mail addresses, org. no., Vipps, Facebook and Instagram, the link to flysteder | `src/data/site.json` |
+| Address, e-mail addresses, org. no., Vipps, Facebook and Instagram, the link to flysteder, the status page (`driftsstatus`) | `src/data/site.json` |
 | Preview mode (`prototype`), the default share image (`delingsbilde`), the Web Analytics token (`statistikk`), the GoatCounter address (`goatcounter`) | `src/data/site.json` |
 | Menus and sections | `src/data/meny.json` |
 | Content, the board, the RadioID register, default images | Pages CMS |
