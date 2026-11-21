@@ -22,5 +22,5 @@ også veldig god mat.
 Link: https://www.nordnescamp.no/ Tlf: 756 93 855
 Ellers finnes det hotell både på Rognan og på Fauske.
 
-Kontaktperson for konkurransen er Ole Jonny Rønneberg, tlf 90567336, mail ojr@signalbox.no
+Kontaktperson for konkurransen er Ole Jonny Rønneberg.
 VELKOMMEN!

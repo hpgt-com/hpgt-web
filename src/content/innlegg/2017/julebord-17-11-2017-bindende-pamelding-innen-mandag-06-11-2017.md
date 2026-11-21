@@ -15,7 +15,7 @@ Det blir kåring av foto og video konkuransen.
 
 Obs: Maten må bestiles i god tid.
 Bindene påmelding ved vips 600kr per pers før 6 novmber.
-Vips til 99 25 35 25
+Betaling med Vipps
 
 Facebook gruppe event: https://www.facebook.com/events/307479146403454/
 

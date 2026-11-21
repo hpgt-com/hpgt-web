@@ -11,7 +11,7 @@ Siden det ble for få som meldte sin interesse for å delta på julebord i år s
 **Peppes** ~~eller Milano, evt et lokale~~ **Lørdag den 15 November. Klokkeslett 1900.**
 
 Det vi trenger er påmelding slik at vi vet hvor mange som kommer med tanke på bestilling av bord.
-Påmelding gjøres per epost via kontakt skjemaet her [http://hpgt.com/om-klubben](/om-klubben "http://hpgt.com/om-klubben") eller sms (988 60 319)
+Påmelding gjøres per epost via kontakt skjemaet her [http://hpgt.com/om-klubben](/om-klubben "http://hpgt.com/om-klubben")
 Viktig at dette gjøres senest Onsdag 12 November.
 
 Det blir Quiz, premiering og annonsering av vinnere i foto/video konkurransen.

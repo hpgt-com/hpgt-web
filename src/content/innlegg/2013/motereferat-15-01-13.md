@@ -22,7 +22,7 @@ Saker:
 
 3. Det blir årsmøte på Peppes Pizza 20 februar 2013 kl 19:00 (saksliste kommer). Klubben spanderer pizza i henhold til tradisjonen. Du må være medlem av klubben for å kunne stemme på årsmøtet.
 
-4. Speedriderkurs med 4-5 deltakere arrangeres av Erlend i vinter. De som er påmeldt får mer info. Ta kontakt dersom du ønsker å være med (Tlf: 97578061).
+4. Speedriderkurs med 4-5 deltakere arrangeres av Erlend i vinter. De som er påmeldt får mer info. Ta kontakt dersom du ønsker å være med.
 
 5. Det er startet en ren PPG klubb i Oslo. De som møtte opp i dag ser for seg at HPGT kan dekke behovene for friflygere og motorflygere.
 

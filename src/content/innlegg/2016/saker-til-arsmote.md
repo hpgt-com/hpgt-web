@@ -33,7 +33,7 @@ Under følger saklisten for årsmøtet.
 
 Fra Finn Roar Kuntze
 
-- Har snakket med Gunnar Fredriksen (90067995) som er ny grunneier der lavvoen står om at han vil overta den.
+- Har snakket med Gunnar Fredriksen som er ny grunneier der lavvoen står om at han vil overta den.
   Kommentar fra Aage Hofstad: Ser ikke at han eier tomten klubben har lavvoen på–> [www.seeiendom.no](http://www.seeiendom.no)
 
 Fra Kristoffer Hofstad

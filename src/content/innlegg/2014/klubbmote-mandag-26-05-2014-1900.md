@@ -26,4 +26,4 @@ Denne gangen kommer Daniel til å kjøre litt Termikk teori. Høyaktuelt i disse
 – Sosialt
 – Åpent for innspill
 
-Dersom noen har saker de vil ha tatt opp utenom dette bes de om å sende meg informasjon per sms på 988 60 319 på forhånd.
+Dersom noen har saker de vil ha tatt opp utenom dette bes de om å sende meg informasjon på forhånd.

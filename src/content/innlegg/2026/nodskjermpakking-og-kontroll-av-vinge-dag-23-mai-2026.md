@@ -36,7 +36,7 @@ Firkant/ «Square round» (715kr)
 Beamer (715kr)
 Base (1320kr)
 
-Eventuelle spørsmål til Markus kan sendes til: [sucramkrogstad@gmail.com](mailto:sucramkrogstad@gmail.com) / 99699753
+Eventuelle spørsmål kan rettes til Markus.
 
 Med vennlig hilsen,
 Styret HPGT
