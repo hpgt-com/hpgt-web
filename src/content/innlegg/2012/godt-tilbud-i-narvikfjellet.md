@@ -26,5 +26,4 @@ Husk å ta med kvittering for innbetalt beløp!
 **DE ANNONSERTE PRISENE GJELDER KUN FRAM TIL 1. DESEMBER. DET GIS INGEN RABATTER ETTER DENNE DATO.**
 Prisen forutsetter at du har Keycard. Hvis du ikke har Keycard kommer det et tillegg på Kr. 100,-.
 
-Har du noen spørsmål vedr. kjøp av sesongkort kan du ringe:
-482 87 728 / 905 44 289
+Har du noen spørsmål vedr. kjøp av sesongkort, kan du kontakte Narvikfjellet.

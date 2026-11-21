@@ -8,7 +8,7 @@ wp_id: 621
 ---
 HPGT høsttur 27-28.09.13!
 
-Finværet innbyr til spontan høsttur! Værprognosen for helga ser lovende ut. Vi satser i år som i fjor på gode flyforhold på Andøy, nærmere bestemt Bjørnskinnsfjellet. Egner seg godt for nybegynnere. Overnatting finner sted på nydelige Bleik, enten på hyttene der eller på eget initiativ. Turen sparkes i gang fra lørdag til søndag førstkommende. Legg bort alle «to do» ting og utnytt denne muligheten. Som kjent byr høsten på en del «skjitvær»hilsen Erlend, Camilla, Egil, Finn Roar m.fl. 97578061
+Finværet innbyr til spontan høsttur! Værprognosen for helga ser lovende ut. Vi satser i år som i fjor på gode flyforhold på Andøy, nærmere bestemt Bjørnskinnsfjellet. Egner seg godt for nybegynnere. Overnatting finner sted på nydelige Bleik, enten på hyttene der eller på eget initiativ. Turen sparkes i gang fra lørdag til søndag førstkommende. Legg bort alle «to do» ting og utnytt denne muligheten. Som kjent byr høsten på en del «skjitvær»hilsen Erlend, Camilla, Egil, Finn Roar m.fl.
 
 Vi har laget en «event» på facebook : <https://www.facebook.com/events/1417127465169000/>
 

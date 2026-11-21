@@ -16,7 +16,7 @@ Vi skal planlegge åpen flyplass på Evenes den 24. august og stand på torget f
 
 Det blir ikke et flyshow og vi trenger derfor ikke displaylisens for å kunne delta. Dette åpner opp for at flere kan flyge denne dagen!
 
-Dersom du har andre saker til klubben så kan det sendes inn til Erlend på tlf: 97578061
+Dersom du har andre saker til klubben så kan det sendes inn til Erlend
 
 Tom Brien fra NLF kommer opp med NLF stand som skal brukes fredag og lørdag. Vi trenger din hjelp både på bakken og i lufta.
 

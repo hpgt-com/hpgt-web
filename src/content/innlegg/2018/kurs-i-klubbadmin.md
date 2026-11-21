@@ -21,7 +21,7 @@ Vi minner om at fristen for samordna rapportering er i utgangen av april 2018.
 
 **Hvordan deltar klubben din?**
 
-Påmelding kan gjøres via mail til [magnus.leonhardsen@idrettsforbundet.no](mailto:magnus.leonhardsen@idrettsforbundet.no) innen fredag 20. april.
+Påmelding kan gjøres til Magnus Leonhardsen i Troms idrettskrets innen fredag 20. april.
 
 Vi anbefaler samtlige klubber til å stille med 2 medlemmer, men dette er ikke påkrevd. For å få maksimalt ut av kurset anbefaler vi også å medbringe en bærbar PC.
 
@@ -31,6 +31,6 @@ Med vennlig hilsen
 
 |  |  |
 | --- | --- |
-|  | **Magnus Leonhardsen**anlegg- og utdanningskonsulent [magnus.leonhardsen@idrettsforbundet.no](mailto:magnus.leonhardsen@idrettsforbundet.no)  mobil. 47858622  [www.idrett.no/troms](http://www.idrett.no/troms) |
+|  | **Magnus Leonhardsen**anlegg- og utdanningskonsulent [www.idrett.no/troms](http://www.idrett.no/troms) |
 
 [![](/media/archive/2018/04/KA-kurs-Harstad-april-2018.jpg)](/media/archive/2018/04/KA-kurs-Harstad-april-2018.jpg)

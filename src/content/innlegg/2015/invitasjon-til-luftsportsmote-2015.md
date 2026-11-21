@@ -23,7 +23,7 @@ Møteagenda;
 \* Luftsportshelg, våren 2015
 \*Idemyldring og det dere ellers måtte ha på hjertet :)
 
-Påmeldingen rettes til Anne-Cathrine Sandtrøen på e post ; annecathrine81@gmail.com eller [988 91 669](tel:988%2091%20669) innen 19.januar 2015. Gi beskjed om du skal ha mat eller ikke i påmelding,det vil være 135 kr pr.person for maten.
+Påmeldingen rettes til Anne-Cathrine Sandtrøen innen 19. januar 2015. Gi beskjed om du skal ha mat eller ikke i påmelding,det vil være 135 kr pr.person for maten.
 
 Vi håper så mange som mulig vil og kan komme til ett trivelig, interessent og sosialt møte !
 

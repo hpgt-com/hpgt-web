@@ -22,7 +22,7 @@ Vi kommer til og arrangere konkuranser både for PP2 og PP3 piloter gjennom helg
 **Mat servering**
 Du får mulighet og kjøpe frokost og middag hver dag.
 **Kontakt for spørsmål**
-Kåre Georg Myklebust 40 09 72 46
+Kåre Georg Myklebust
 Mail: leiar@himmelseglarane.no
 Info blir lagt ut på facebook arrangement:
 <https://www.facebook.com/events/199921550612274/>
@@ -31,7 +31,7 @@ Info blir lagt ut på facebook arrangement:
 TMA satt til 7000 fot
 Ikkje flyg inn i TIZ Hovden flyplass
 **Telefon nr**
-Stevneleder Kåre Georg – 40097246
+Stevneleder Kåre Georg
 Hentetjeneste – Blir opplyst på start
 Politi – 02800 / 112
 **Plassering av oppslagstavle**
