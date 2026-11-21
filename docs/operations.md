@@ -119,6 +119,27 @@ until the token is replaced.
    given by people who want a reply.
 2. Fix it in Pages CMS (or with a pull request), reply if the sender left contact details, and close the issue.
 
+### What watches what
+
+Four independent checks. Watch the repositories named below (Watch → Custom → Issues) to get the e-mails.
+
+| Check | Runs where, how often | Checks | Alerts by |
+|---|---|---|---|
+| **Upptime** ([status.hpgt.com](https://status.hpgt.com), `hpgt-com/status`) | GitHub Actions, every 5 minutes. Independent of Cloudflare | hpgt.com, the forms (`/api/radioid` answers 405), flysteder.hpgt.com, the data service (`status.json` says `"ok":true`) | An issue in `hpgt-com/status`, closed when it is up again. The public status page shows uptime and incidents |
+| **Helsesjekk** (`.github/workflows/helse.yml`) | GitHub Actions, every hour | Pages answer, security headers (also on Worker errors), the real Turnstile key, `www` redirect, certificate ≥ 14 days | An issue labelled `bug` here, closed when all is well |
+| **Cloudflare notifications** | Cloudflare | DDoS attacks, abuse reports, blocks, the certificate (Universal SSL), weekly Web Analytics | E-mail (see «Watch the forms» below) |
+| **Expiry dates** («Utløper snart» in the private `hpgt-com/operations`) | GitHub Actions, Mondays | Tokens, keys and the domain, 45 days ahead (90 for the domain) | An issue in `hpgt-com/operations` |
+
+flying-sites has its own checks too (hourly data service health, nightly backup, UptimeRobot); see its `docs/operations.md`.
+Scheduled workflows stop after 60 days without a commit in that repository (GitHub e-mails first; turn them on again
+under Actions). Upptime commits every few minutes, so its own schedule never stops.
+
+**Upptime setup:** the checks are in `.upptimerc.yml` in `hpgt-com/status` (change them with a pull request). It runs
+with the GitHub App «HPGT Status» (only installed on that repository, Contents and Issues; its key in the environment
+`status`), not a personal token, and the app is on the bypass list of that repository's ruleset because it commits the
+results to `main`. The page is GitHub Pages from the branch `gh-pages`, at `status.hpgt.com` (Cloudflare DNS: `status`
+CNAME `hpgt-com.github.io`, DNS only). The link «Driftsstatus» in the footer is `site.json` → `driftsstatus`.
+
 ### Watch the forms (logs and alerts)
 - **Logs:** Cloudflare → Workers & Pages → `hpgt-web` → **Observability**. One line per call to the Worker (only the
   forms, `/api/*`): time, address, status code, duration and errors, with request metadata (IP address, country). Kept
