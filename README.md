@@ -14,6 +14,9 @@ npm run dev                  # development server
 npm run build                # builds to dist/ and validates all content
 npm run preview:build        # builds the preview (a selection of pages, relative links) to preview/
 npm run check:site           # after a build: internal links, and accessibility (axe) in light and dark mode
+npm run check:budget         # after a build: performance budget per page
+npm run test:e2e             # after a build: end-to-end tests in Chromium with the production headers
+node scripts/serve-dist.mjs  # after a build: serves dist/ locally like Cloudflare (headers, redirects, 404, /api/*)
 npm run icons                # makes favicon.ico and apple-touch-icon.png from the logo (when the logo changes)
 ```
 

@@ -8,6 +8,7 @@
     "preview": "astro preview",
     "check": "astro check",
     "test": "node --test \"test/*.test.js\"",
+    "test:e2e": "node --test \"test/e2e/*.test.mjs\"",
     "preview:build": "./scripts/build-preview.sh",
     "check:site": "node scripts/check-links.mjs && node scripts/check-accessibility.mjs",
     "check:budget": "node scripts/check-budget.mjs",
