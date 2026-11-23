@@ -18,17 +18,18 @@ import { fileURLToPath } from "node:url";
 import { chromium, devices } from "playwright";
 
 const PAGES = ["/", "/en/", "/kurs/", "/nytt/", "/arrangementer/", "/for-piloter/radioid/", "/hpgt-com-har-fatt-en-makeover/"];
-// Per side: bytes per type (KB, ukomprimert), forespørsler, DOM-noder og CLS, omtrent 20–25 % over det sidene bruker.
+// Per side: bytes per type (KB, ukomprimert), forespørsler, DOM-noder og CLS, omtrent 20 % over det sidene bruker
+// i PR-sjekken. Bildene inkluderer favicon.ico og apple-touch-icon.png.
 // Forsiden og kurssidene har store toppbilder, og /nytt/ lister alle innlegg. En type som mangler, sjekkes ikke.
 const COMMON = { css: 50, js: 35, font: 75, data: 10, cls: 0.05 };
 const BUDGET = {
-  "/": { ...COMMON, html: 35, image: 950, requests: 24, nodes: 650 },
-  "/en/": { ...COMMON, html: 35, image: 950, requests: 24, nodes: 650 },
-  "/kurs/": { ...COMMON, html: 16, image: 1050, requests: 26, nodes: 250 },
-  "/nytt/": { ...COMMON, html: 130, image: 110, requests: 22, nodes: 2500 },
-  "/arrangementer/": { ...COMMON, html: 35, image: 110, requests: 22, nodes: 650 },
-  "/for-piloter/radioid/": { ...COMMON, html: 20, image: 110, requests: 22, nodes: 400 },
-  "/hpgt-com-har-fatt-en-makeover/": { ...COMMON, html: 16, image: 260, requests: 22, nodes: 260 },
+  "/": { ...COMMON, html: 35, image: 1000, requests: 24, nodes: 650 },
+  "/en/": { ...COMMON, html: 35, image: 1000, requests: 24, nodes: 650 },
+  "/kurs/": { ...COMMON, html: 16, image: 1150, requests: 26, nodes: 250 },
+  "/nytt/": { ...COMMON, html: 130, image: 200, requests: 22, nodes: 2500 },
+  "/arrangementer/": { ...COMMON, html: 35, image: 200, requests: 22, nodes: 650 },
+  "/for-piloter/radioid/": { ...COMMON, html: 20, image: 200, requests: 22, nodes: 400 },
+  "/hpgt-com-har-fatt-en-makeover/": { ...COMMON, html: 16, image: 340, requests: 22, nodes: 260 },
 };
 const KINDS = { document: "html", stylesheet: "css", script: "js", font: "font", image: "image", fetch: "data", xhr: "data", manifest: "data", other: "data" };
 const TYPES = { ".html": "text/html; charset=utf-8", ".css": "text/css", ".js": "text/javascript", ".json": "application/json",
