@@ -189,7 +189,7 @@ wrangler.jsonc       Cloudflare setup
 
 ## Why these choices
 
-Each is described as an ADR in [adr/](adr/README.md). In short:
+Each is described as an ADR in [decisions/](decisions/README.md). In short:
 
 - **A static site**: nothing to update or attack on a server, nearly free, and fast.
 - **Astro**: validates the content, the templates are plain HTML and JavaScript, and it builds in seconds.

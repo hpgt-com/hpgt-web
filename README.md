@@ -2,8 +2,7 @@
 
 The website of Harstad Hang- og Paragliderklubb: a static [Astro](https://astro.build) site, edited in
 [Pages CMS](https://pagescms.org), published on Cloudflare.
-See **[docs/](docs/README.md)** for architecture, operations and decisions. [FORSLAG.md](FORSLAG.md) is the original
-proposal from the migration (in Norwegian), kept for the record.
+See **[docs/](docs/README.md)** for architecture, operations and decisions.
 
 ## For editors
 Sign in to Pages CMS, or see `/klubben/bidra/` on the site. You do not need to touch anything here.

@@ -2,7 +2,7 @@
 
 The operations handbook for hpgt.com. It should let a new administrator take over without asking the previous one.
 How the site fits together is in [architecture.md](architecture.md), and why it is built this way in
-[adr/](adr/README.md).
+[decisions/](decisions/README.md).
 
 **Rule:** if you change setup, accounts or keys, update this file in the same pull request (or in a separate PR the same
 day, if the change was made in a dashboard).
@@ -212,7 +212,7 @@ Pages CMS fails with «Changes must be made through a pull request».
 
 ## Launch and the domain
 
-The launch order is in the pull request «Lansering» and in [adr/0003](adr/0003-cloudflare-workers.md): name servers
+The launch order is in the pull request «Lansering» and in [decisions/0003](decisions/0003-cloudflare-workers.md): name servers
 to Cloudflare, custom domains `hpgt.com` and `www.hpgt.com` on the Worker, a redirect rule from `www`, and then
 `prototype: false`.
 
