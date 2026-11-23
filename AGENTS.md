@@ -18,6 +18,7 @@ filer. Den eneste serverkoden er skjemaendepunktet i `worker/`. Arkitektur, drif
 | `npm run check` | Etter endringer i koden (`astro check`) |
 | `npm test` | Etter endringer i `worker/`: enhetstestene i `test/` |
 | `npm run sjekk` | Etter bygget: interne lenker og tilgjengelighet (axe) i lys og mørk visning |
+| `npm run check:budget` | Etter bygget: ytelsesbudsjettet per side (`scripts/check-budget.mjs`) |
 
 ## Regler
 
