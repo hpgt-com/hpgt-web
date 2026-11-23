@@ -41,11 +41,24 @@
   // --- Overlay (<dialog>) -------------------------------------------------------
   const d = document.createElement("dialog");
   d.className = "galleri";
-  d.innerHTML = `<div class="galleri__topp"><span class="galleri__teller"></span><button type="button" class="galleri__lukk" aria-label="${T.lukk}">✕&#xFE0E;</button></div>
-    <div class="galleri__flate"></div>
-    <button type="button" class="galleri__pil galleri__pil--forrige" aria-label="${T.forrige}">‹</button>
-    <button type="button" class="galleri__pil galleri__pil--neste" aria-label="${T.neste}">›</button>
-    <p class="galleri__tekst"></p>`;
+  // Bygges med DOM-metoder, så ingen tekst tolkes som HTML
+  const node = (tag, className, attrs = {}, text = "") => {
+    const e = document.createElement(tag);
+    e.className = className;
+    for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+    if (text) e.textContent = text;
+    return e;
+  };
+  const knapp = (className, label, text) => node("button", className, { type: "button", "aria-label": label }, text);
+  const topp = node("div", "galleri__topp");
+  topp.append(node("span", "galleri__teller"), knapp("galleri__lukk", T.lukk, "✕︎"));
+  d.append(
+    topp,
+    node("div", "galleri__flate"),
+    knapp("galleri__pil galleri__pil--forrige", T.forrige, "‹"),
+    knapp("galleri__pil galleri__pil--neste", T.neste, "›"),
+    node("p", "galleri__tekst"),
+  );
   document.body.append(d);
   const flate = d.querySelector(".galleri__flate");
   const tekst = d.querySelector(".galleri__tekst");
