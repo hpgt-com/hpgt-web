@@ -2,7 +2,7 @@
 // Hemmeligheter (legges inn én gang i Cloudflare: Workers & Pages → hpgt-web → Settings → Variables and Secrets, aldri i repoet):
 //   TURNSTILE_SECRET         – fra Turnstile-widgeten «hpgt.com skjemaer»
 //   GITHUB_APP_PRIVATE_KEY   – .pem-fila til GitHub-appen «HPGT Web Forms» (bare «Issues: Read and write», bare dette repoet)
-// GH_APP_ID og GH_APP_INSTALLATION_ID er ikke hemmelige. De ligger som variabler i GitHub-miljøet «produksjon»
+// GH_APP_ID og GH_APP_INSTALLATION_ID er ikke hemmelige. De ligger som variabler i GitHub-miljøet «production»
 // og sendes med ved publisering (.github/workflows/deploy.yml), sammen med Turnstile-nøkkelen til skjemaet.
 {
   "name": "hpgt-web",

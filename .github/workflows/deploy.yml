@@ -10,13 +10,13 @@ name: Bygg og publiser
 #             forrige vellykkede publisering, så endringen ikke slipper gjennom med neste commit. Når filene er tilbake
 #             slik de var ved forrige publisering (git revert), går det igjen.
 #   translate oversetter ny eller endret tekst til engelsk (scripts/translate). Logger inn hos Anthropic uten
-#             lagret nøkkel: GitHubs OIDC-token for miljøet «oversetting» veksles inn (workload identity federation).
+#             lagret nøkkel: GitHubs OIDC-token for miljøet «translation» veksles inn (workload identity federation).
 #             Installerer bare Anthropic-SDK-en, ikke nettstedets byggepakker. Uten innlogging brukes
 #             oversettelsene fra forrige publisering uendret.
 #   build     installerer pakkene og bygger, uten hemmeligheter. Resultatet leveres videre som artifact.
 #   publish   har Cloudflare-tokenet (bare «Workers Scripts: Edit» på klubbens konto), men kjører ingen npm-kode
-#             fra repoet. Tokenet ligger i miljøet «produksjon», som bare main får bruke. Setter også inn skjemaenes
-#             ID-er fra «produksjon» (Turnstile-nøkkelen og GitHub-appen for RadioID-skjemaet).
+#             fra repoet. Tokenet ligger i miljøet «production», som bare main får bruke. Setter også inn skjemaenes
+#             ID-er fra «production» (Turnstile-nøkkelen og GitHub-appen for RadioID-skjemaet).
 # Actions er festet til commit-SHA (Dependabot oppdaterer dem).
 
 on:
@@ -113,7 +113,7 @@ jobs:
     runs-on: ubuntu-latest
     # Første gang oversettes alle innleggene (noen minutter); senere bare nye eller endrede tekster
     timeout-minutes: 30
-    environment: oversetting
+    environment: translation
     permissions:
       contents: read
       id-token: write # kortlivet OIDC-token som Anthropic veksler inn; ingen lagret nøkkel
@@ -131,7 +131,7 @@ jobs:
 
       - run: node scripts/translate/translate.mjs
         env:
-          # Ikke hemmelige: sier bare hvilken føderasjonsregel og tjenestekonto innloggingen gjelder (miljøvariabler i «oversetting»)
+          # Ikke hemmelige: sier bare hvilken føderasjonsregel og tjenestekonto innloggingen gjelder (miljøvariabler i «translation»)
           ANTHROPIC_ORGANIZATION_ID: ${{ vars.ANTHROPIC_ORGANIZATION_ID }}
           ANTHROPIC_FEDERATION_RULE_ID: ${{ vars.ANTHROPIC_FEDERATION_RULE_ID }}
           ANTHROPIC_SERVICE_ACCOUNT_ID: ${{ vars.ANTHROPIC_SERVICE_ACCOUNT_ID }}
@@ -186,7 +186,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    environment: produksjon
+    environment: production
     permissions:
       contents: read
     steps:
@@ -214,7 +214,7 @@ jobs:
           name: side
           path: .
 
-      # Skjemaenes ID-er ligger som variabler i «produksjon» (ikke hemmelige), så bare det publiserte bygget får dem.
+      # Skjemaenes ID-er ligger som variabler i «production» (ikke hemmelige), så bare det publiserte bygget får dem.
       # PR-bygg og lokale bygg bruker Cloudflares testnøkkel for Turnstile (site.json). Sjekkes før de brukes.
       - name: Sett inn skjemaenes ID-er
         env:

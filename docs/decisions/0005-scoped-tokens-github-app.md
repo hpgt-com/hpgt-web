@@ -15,7 +15,7 @@ tilgang enn nødvendig.
   `hpgt-com/form-submissions` ([0006](0006-radioid-private-intake.md), [0007](0007-one-intake-repository-for-forms.md))
   med bare «Issues: Read and write». Workeren lager et token for én time per innsending.
 - Turnstile: én widget per nettsted («hpgt.com skjemaer»), med egen `action` per skjema.
-- Offentlige ID-er (nettstedsnøkkel, App ID, Installation ID) som variabler i miljøet `produksjon`. Hemmeligheter bare
+- Offentlige ID-er (nettstedsnøkkel, App ID, Installation ID) som variabler i miljøet `production`. Hemmeligheter bare
   i Cloudflare.
 
 ## Konsekvenser

@@ -27,7 +27,7 @@ can, but this is a volunteer club project.
 - **Who edits:** club members through Pages CMS. The Pages CMS GitHub App is installed on this repository only, and
   email collaborators can edit content and media, not code, workflows or settings (`.pages.yml`).
 - **Keys:**
-  - `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` in the environment `produksjon` (main only). The token is an
+  - `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` in the environment `production` (main only). The token is an
     account token made from the Worker (Workers & Pages → hpgt-web → Settings → Builds → «API token for external
     CI/CD») and can only publish the Worker `hpgt-web`: no other Worker, no DNS, domains or other account settings. It
     belongs to the club's account, not a person, and is renewed yearly. Only the `publish` job uses it, and that job
@@ -37,7 +37,7 @@ can, but this is a volunteer club project.
     (the app is installed there only, «Issues: Read and
     write» only). For each submission the Worker asks for a one-hour token limited to this repository and Issues: write
     (`worker/github-app.js`), so there is no personal or long-lived token.
-  - `TURNSTILE_SITEKEY`, `GH_APP_ID` and `GH_APP_INSTALLATION_ID` are not secret. They are variables in `produksjon`,
+  - `TURNSTILE_SITEKEY`, `GH_APP_ID` and `GH_APP_INSTALLATION_ID` are not secret. They are variables in `production`,
     checked and inserted by the `publish` job; other builds use Cloudflare's Turnstile test key.
 - **Editors:** the Pages CMS app may save straight to `main` (bypass in the ruleset). The first job in the publish
   workflow (`guard`) stops the publish and opens an issue if a commit that did not come through a merged pull request

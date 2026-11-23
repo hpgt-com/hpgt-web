@@ -8,7 +8,7 @@ Nettstedet skal finnes på engelsk for besøkende piloter, men ingen skal skrive
 
 ## Beslutning
 Jobben `translate` i «Bygg og publiser» oversetter ny eller endret tekst med Claude (Anthropic API). Den logger inn med
-GitHubs OIDC-token (workload identity federation) i miljøet `oversetting`, så ingen API-nøkkel er lagret. Uendret
+GitHubs OIDC-token (workload identity federation) i miljøet `translation`, så ingen API-nøkkel er lagret. Uendret
 tekst gjenbrukes fra forrige publisering.
 
 ## Konsekvenser
