@@ -9,7 +9,7 @@ name: Bygg og publiser
 #             her, og det lages en sak. Forfatternavnet brukes ikke, det kan settes fritt. Sjekker alt siden
 #             forrige vellykkede publisering, så endringen ikke slipper gjennom med neste commit. Når filene er tilbake
 #             slik de var ved forrige publisering (git revert), går det igjen.
-#   oversett  oversetter ny eller endret tekst til engelsk (scripts/oversett). Logger inn hos Anthropic uten
+#   oversett  oversetter ny eller endret tekst til engelsk (scripts/translate). Logger inn hos Anthropic uten
 #             lagret nøkkel: GitHubs OIDC-token for miljøet «oversetting» veksles inn (workload identity federation).
 #             Installerer bare Anthropic-SDK-en, ikke nettstedets byggepakker. Uten innlogging brukes
 #             oversettelsene fra forrige publisering uendret.
@@ -127,9 +127,9 @@ jobs:
           node-version-file: .nvmrc
 
       - run: npm ci --ignore-scripts
-        working-directory: scripts/oversett
+        working-directory: scripts/translate
 
-      - run: node scripts/oversett/oversett.mjs
+      - run: node scripts/translate/translate.mjs
         env:
           # Ikke hemmelige: sier bare hvilken føderasjonsregel og tjenestekonto innloggingen gjelder (miljøvariabler i «oversetting»)
           ANTHROPIC_ORGANIZATION_ID: ${{ vars.ANTHROPIC_ORGANIZATION_ID }}
@@ -139,8 +139,8 @@ jobs:
 
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: oversatt
-          path: .oversatt
+          name: translated
+          path: .translated
           include-hidden-files: true
           if-no-files-found: error
           retention-days: 3
@@ -165,8 +165,8 @@ jobs:
 
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
-          name: oversatt
-          path: .oversatt
+          name: translated
+          path: .translated
 
       - run: npm run build
 

@@ -1,5 +1,5 @@
 {
-  "name": "hpgt-oversett",
+  "name": "hpgt-translate",
   "private": true,
   "type": "module",
   "description": "Oversetter utvalgte sider til engelsk ved publisering. Egen pakke så nøkkelen aldri er tilgjengelig for nettstedets byggepakker.",

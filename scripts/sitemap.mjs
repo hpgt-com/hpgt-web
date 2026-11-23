@@ -2,10 +2,11 @@
 // Hopper over 404-siden og videresendingssidene (de med <meta http-equiv="refresh">), som ikke er egne sider.
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import { join, relative, sep } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const ROT = new URL("../", import.meta.url).pathname;
-const DIST = join(ROT, "dist");
-const site = JSON.parse(await readFile(join(ROT, "src/data/site.json"), "utf-8"));
+const ROOT = fileURLToPath(new URL("../", import.meta.url));
+const DIST = join(ROOT, "dist");
+const site = JSON.parse(await readFile(join(ROOT, "src/data/site.json"), "utf-8"));
 
 async function* html(d) {
   for (const e of await readdir(d, { withFileTypes: true })) {
@@ -15,21 +16,21 @@ async function* html(d) {
   }
 }
 
-const adresser = [];
+const urls = [];
 for await (const f of html(DIST)) {
   const s = await readFile(f, "utf-8");
   if (/<meta[^>]+http-equiv=["']?refresh/i.test(s)) continue;
   const dir = relative(DIST, f).split(sep).slice(0, -1).join("/");
   if (dir === "404" || dir.startsWith("utkast/")) continue;
-  adresser.push(new URL(dir ? `/${dir}/` : "/", site.url).href);
+  urls.push(new URL(dir ? `/${dir}/` : "/", site.url).href);
 }
-adresser.sort();
+urls.sort();
 
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${adresser.map((u) => `  <url><loc>${esc(u)}</loc></url>`).join("\n")}
+${urls.map((u) => `  <url><loc>${esc(u)}</loc></url>`).join("\n")}
 </urlset>
 `;
 await writeFile(join(DIST, "sitemap.xml"), xml);
-console.log(`sitemap: ${adresser.length} sider i dist/sitemap.xml`);
+console.log(`sitemap: ${urls.length} sider i dist/sitemap.xml`);

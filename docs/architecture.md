@@ -125,7 +125,7 @@ lagrer, og derfor har noen felt `hidden: true`.
 
 ## Engelsk versjon
 
-Sidene i `SIDER` i `scripts/oversett/oversett.mjs` (kurs, for piloter, klubbsidene og så videre) oversettes automatisk
+Sidene i `PAGES` i `scripts/translate/translate.mjs` (kurs, for piloter, klubbsidene og så videre) oversettes automatisk
 ved hver publisering. Uendret tekst gjenbrukes fra forrige publisering (`/en/oversettelser.json`), så bare nye eller
 endrede avsnitt sendes til Anthropic. Engelske adresser (`/klubben/styret/` → `/en/club/board/`) står i
 `src/lib/engelske-adresser.mjs`, og faste tekster (menyer, knapper) i `src/lib/i18n.ts`.

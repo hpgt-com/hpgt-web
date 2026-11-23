@@ -6,14 +6,14 @@ import { join } from "node:path";
 
 const dir = process.argv[2] ?? "dist/media";
 const MAX = 1600;
-async function* filer(d) {
+async function* images(d) {
   for (const e of await readdir(d, { withFileTypes: true }).catch(() => [])) {
     const p = join(d, e.name);
-    if (e.isDirectory()) yield* filer(p); else if (/\.(jpe?g|png|webp)$/i.test(e.name)) yield p;
+    if (e.isDirectory()) yield* images(p); else if (/\.(jpe?g|png|webp)$/i.test(e.name)) yield p;
   }
 }
 let n = 0;
-for await (const f of filer(dir)) {
+for await (const f of images(dir)) {
   const img = sharp(f, { failOn: "none" }).rotate();
   const { width = 0 } = await img.metadata();
   const { size } = await stat(f);
@@ -22,4 +22,4 @@ for await (const f of filer(dir)) {
   await rename(f + ".tmp", f);
   n++;
 }
-console.log(`skaler-bilder: ${n} bilder skalert ned i ${dir}`);
+console.log(`resize-images: ${n} bilder skalert ned i ${dir}`);

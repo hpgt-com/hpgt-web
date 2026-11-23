@@ -1,7 +1,7 @@
 """Lager en kompakt forhåndsvisning av siden: et utvalg sider, bildene de bruker og relative lenker,
-slik at den kan publiseres som en privat artifact på claude.ai. Kjøres av scripts/bygg-forhandsvisning.sh.
+slik at den kan publiseres som en privat artifact på claude.ai. Kjøres av scripts/build-preview.sh.
 
-Bruk: python3 -I scripts/lag-forhandsvisning.py .forhandsvisning-bygg forhandsvisning
+Bruk: python3 -I scripts/make-preview.py .preview-build preview
 """
 import os, re, shutil, sys, urllib.parse
 
@@ -15,12 +15,12 @@ def keep(rel):  # rel: sidens mappe relativt til temaroten, f.eks. "kurs-2026" e
     html = open(os.path.join(REF, rel, "index.html"), encoding="utf-8").read()
     if 'property="og:title"' in html and re.search(r"/event/", "/" + rel + "/"):
         return bool(re.search(r"20(2[0-9])", html[:3000]) and any(y in html for y in ("2026", "2021", "2020")))
-    return rel in SIDER or rel in NYESTE
+    return rel in FIXED_PAGES or rel in LATEST_POSTS
 
 # Faste sider og de nyeste innleggene
-SIDER = {"redaktor-demo", "kurs", "kurs-2026", "tandem", "om-oss", "om-klubben", "flysteder", "flysteder/flarm-fanet-radioid", "lenker", "notam",
+FIXED_PAGES = {"redaktor-demo", "kurs", "kurs-2026", "tandem", "om-oss", "om-klubben", "flysteder", "flysteder/flarm-fanet-radioid", "lenker", "notam",
          "grasrotandelen", "konkurranser", "konkurranser/konkurranse-2014", "konkurranser/konkurranse-2017"}
-NYESTE = {"ny-flystedsoversikt-flysteder-hpgt-com", "hpgt-julebord-2026-🎄", "nodskjermpakking-og-kontroll-av-vinge-dag-23-mai-2026",
+LATEST_POSTS = {"ny-flystedsoversikt-flysteder-hpgt-com", "hpgt-julebord-2026-🎄", "nodskjermpakking-og-kontroll-av-vinge-dag-23-mai-2026",
           "arsmote-2026", "hpgt-var-kickoff-2021", "protokoll-arsmote-2021", "ars-beretning-2020", "arsmote-2021",
           "sikkerhetsseminar", "protokoll-fra-arsmote-2020", "arsmote-hang-og-paragliderklubb-2020",
           "arsberetning-for-harstad-hang-og-paragliderklubb-2020"}
@@ -35,7 +35,7 @@ for root, _, files in os.walk(REF):
 pages = sorted(set(p for p in pages if not p.startswith("event/") or p.split("/")[1] in
                ("sikkerhetsdag-nodskjerm", "nybegynnerkurs", "hpgt-var-kickoff-2021", "sikkerhetsseminar", "arsmote-2020", "hpgt-julebord-2026")))
 page_set = set(pages)
-sider_for = lambda theme: page_set
+pages_for = lambda theme: page_set
 
 shutil.rmtree(OUT, ignore_errors=True)
 os.makedirs(OUT)
@@ -58,23 +58,23 @@ def rewrite(html, theme, rel):
         if inner.startswith(("_astro/", "assets/")) or re.search(r"\.\w{2,5}$", inner):
             return f'{attr}="{up}{theme}/{urllib.parse.quote(inner)}"'
         target = inner.strip("/")
-        if target not in sider_for(theme):
-            return f'{attr}="{up}utenfor.html"'
+        if target not in pages_for(theme):
+            return f'{attr}="{up}outside.html"'
         dest = f"{theme}/{target}/index.html" if target else f"{theme}/index.html"
         return f'{attr}="{up}{urllib.parse.quote(dest)}{"#" + frag if frag else ""}"'
     html = ATTR.sub(fix, html)
     html = html.replace('href="/"', f'href="{up}"')  # «Bytt prototype» peker til oversikten
     # Astro sine omdirigeringssider bruker meta refresh med absolutt sti
     def refresh(m):
-        mal = urllib.parse.unquote(m.group(2)).strip("/")
-        dest = f"{theme}/{mal}/index.html" if mal in sider_for(theme) else "utenfor.html"
+        target = urllib.parse.unquote(m.group(2)).strip("/")
+        dest = f"{theme}/{target}/index.html" if target in pages_for(theme) else "outside.html"
         return f'content="{m.group(1)};url={up}{urllib.parse.quote(dest)}"'
     html = re.sub(r'content="(\d+);url=(/[^"]*)"', refresh, html)
     return html
 
 for theme in THEMES:
     tdir = os.path.join(SRC, theme)
-    for rel in sorted(sider_for(theme)):
+    for rel in sorted(pages_for(theme)):
         src = os.path.join(tdir, rel, "index.html")
         if not os.path.exists(src):
             continue
@@ -100,13 +100,13 @@ for m in sorted(media):
 print("sider:", len(pages), "| media:", len(media))
 
 # «Ikke med i forhåndsvisningen»-siden
-STATISK = os.path.join(os.path.dirname(__file__), "forhandsvisning-statisk")
-shutil.copy(os.path.join(STATISK, "utenfor.html"), os.path.join(OUT, "utenfor.html"))
+STATIC = os.path.join(os.path.dirname(__file__), "preview-static")
+shutil.copy(os.path.join(STATIC, "outside.html"), os.path.join(OUT, "outside.html"))
 # Emoji i mappenavn tåles dårlig av enkelte verter
 for theme in THEMES:
-    emo = os.path.join(OUT, theme, "hpgt-julebord-2026-🎄")
-    if os.path.isdir(emo):
-        os.rename(emo, os.path.join(OUT, theme, "hpgt-julebord-2026"))
+    emoji_dir = os.path.join(OUT, theme, "hpgt-julebord-2026-🎄")
+    if os.path.isdir(emoji_dir):
+        os.rename(emoji_dir, os.path.join(OUT, theme, "hpgt-julebord-2026"))
 for root, _, files in os.walk(OUT):
     for f in files:
         if f.endswith(".html"):
@@ -123,5 +123,5 @@ for root, _, files in os.walk(OUT):
             os.remove(os.path.join(root, f))
 
 # Forsiden legges også på roten (index.html), som er siden artifacten åpner.
-forside = open(os.path.join(OUT, THEMES[0], "index.html"), encoding="utf-8").read()
-open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(re.sub(r'(href|src)="\.\./', r'\1="', forside))
+front_page = open(os.path.join(OUT, THEMES[0], "index.html"), encoding="utf-8").read()
+open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(re.sub(r'(href|src)="\.\./', r'\1="', front_page))

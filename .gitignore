@@ -10,10 +10,10 @@ __pycache__/
 # Astro, Wrangler og forhåndsvisningen
 .astro/
 .wrangler/
-.forhandsvisning-bygg/
-.oversatt/
+.preview-build/
+.translated/
 public/media/generated/
-forhandsvisning/
+preview/
 
 # Lokalt oppsett
 .claude/

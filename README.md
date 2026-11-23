@@ -12,9 +12,9 @@ Logg inn i Pages CMS, eller se `/klubben/bidra/` på nettstedet. Ingenting her t
 npm install
 npm run dev                  # development server
 npm run build                # builds to dist/ and validates all content
-npm run forhandsvisning      # builds the preview (a selection of pages, relative links) to forhandsvisning/
-npm run sjekk                # after a build: internal links, and accessibility (axe) in light and dark mode
-npm run ikoner               # makes favicon.ico and apple-touch-icon.png from the logo (when the logo changes)
+npm run preview:build        # builds the preview (a selection of pages, relative links) to preview/
+npm run check:site           # after a build: internal links, and accessibility (axe) in light and dark mode
+npm run icons                # makes favicon.ico and apple-touch-icon.png from the logo (when the logo changes)
 ```
 
 | Mappe | Innhold |
@@ -63,20 +63,20 @@ delingen går fort galt).
 ## Engelsk versjon
 
 Kurs, tandem, flysteder, klubbsidene, forsiden og nyheter og arrangementer finnes også på engelsk under `/en/`. Ingen
-skriver teksten to ganger: ved hver publisering oversetter `scripts/oversett/oversett.mjs` ny eller endret norsk tekst
+skriver teksten to ganger: ved hver publisering oversetter `scripts/translate/translate.mjs` ny eller endret norsk tekst
 med Claude (Anthropic API). Oversettelsene fra forrige publisering hentes fra `/en/oversettelser.json`, så uendret
 tekst oversettes ikke på nytt. Alle publiserte innlegg oversettes unntatt møtereferater («Møter og referater»,
-`IKKE_OVERSETT` i skriptet), som blir stående på norsk. Engelske lister lenker til dem med «(in Norwegian)». Faste
+`SKIP_CATEGORIES` i skriptet), som blir stående på norsk. Engelske lister lenker til dem med «(in Norwegian)». Faste
 tekster (menyer, knapper) ligger i `src/lib/i18n.ts`.
 
 - Ingen lagret nøkkel: jobben logger inn med GitHubs OIDC-token (workload identity federation, satt opp i
   platform.claude.com). ID-ene er variabler (ikke hemmeligheter) i miljøet **oversetting**, som er begrenset til
   `main`: `ANTHROPIC_ORGANIZATION_ID`, `ANTHROPIC_FEDERATION_RULE_ID`, `ANTHROPIC_SERVICE_ACCOUNT_ID` og eventuelt
   `ANTHROPIC_WORKSPACE_ID`. Uten innlogging publiseres nettstedet likevel, med de forrige oversettelsene.
-- Hvilke sider som oversettes: `SIDER` øverst i `scripts/oversett/oversett.mjs`.
+- Hvilke sider som oversettes: `PAGES` øverst i `scripts/translate/translate.mjs`.
 - Engelske adresser (`/klubben/styret/` → `/en/club/board/`): `src/lib/engelske-adresser.mjs`. Gamle `/en/…`-adresser
   sendes videre.
-- Test lokalt uten nøkkel: `OVERSETT_TEST=1 npm run build` gir «[EN] …»-tekster.
+- Test lokalt uten nøkkel: `TRANSLATE_TEST=1 npm run build` gir «[EN] …»-tekster.
 
 ## Sikkerhet
 
