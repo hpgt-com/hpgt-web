@@ -1,19 +1,19 @@
 ---
-// Standardbilde for innlegg og arrangementer uten eget bilde. Et klubbilde fra src/data/standardbilder.json
+// Standardbilde for innlegg og arrangementer uten eget bilde. Et klubbilde fra src/data/default-images.json
 // (redigeres i Pages CMS under «Standardbilder»), valgt fra kategoriens liste. Samme innlegg får alltid samme bilde,
 // og innleggene fordeles på bildene, så lister ikke viser ett og samme bilde om og om igjen.
 // Har kategorien ingen bilder, vises kategoriens farge med et ikon. label: kategorien (innlegg) eller datoen (arrangementer).
 import { url } from "../lib/site";
-import defaultImages from "../data/standardbilder.json";
+import defaultImages from "../data/default-images.json";
 interface Props { cat?: string; label?: string; class?: string; seed?: string }
 const { cat = "nyhet", label, class: className, seed = "" } = Astro.props;
-// Arrangementsgruppene og kategoriene deler bildelister (nøklene er listene i standardbilder.json)
+// Arrangementsgruppene og kategoriene (slug, som også er data-cat) deler bildelister (nøklene i default-images.json)
 const LIST: Record<string, keyof typeof defaultImages> = {
-  nyhet: "nyhet", "moter-og-referater": "moter-og-referater", mote: "moter-og-referater",
-  "kurs-og-fagdag": "kurs", kurs: "kurs", fagdag: "fagdag",
-  "sosialt-og-turer": "sosialt-og-turer", sosialt: "sosialt-og-turer", konkurranser: "konkurranser", konkurranse: "konkurranser",
+  nyhet: "news", "moter-og-referater": "meetings", mote: "meetings",
+  "kurs-og-fagdag": "courses", kurs: "courses", fagdag: "trainingDays",
+  "sosialt-og-turer": "social", sosialt: "social", konkurranser: "competitions", konkurranse: "competitions",
 };
-const images = (defaultImages[LIST[cat] ?? "nyhet"] ?? []) as string[];
+const images = (defaultImages[LIST[cat] ?? "news"] ?? []) as string[];
 let h = 0;
 for (const c of seed) h = (h * 31 + c.charCodeAt(0)) >>> 0;
 const photo = Array.isArray(images) && images.length ? images[h % images.length] : undefined;

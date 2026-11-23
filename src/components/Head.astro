@@ -7,11 +7,11 @@ import { toEnglish } from "../lib/english-paths.mjs";
 import interTight from "@fontsource-variable/inter-tight/files/inter-tight-latin-wght-normal.woff2?url";
 import plexMono600 from "@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-600-normal.woff2?url";
 interface Props { title: string; description?: string; image?: string; lang?: "nb" | "en"; path?: string; alternate?: boolean; noindex?: boolean }
-const { title, description = site.beskrivelse, image, lang = "nb", path: nbPath, alternate = false, noindex = false } = Astro.props;
+const { title, description = site.description, image, lang = "nb", path: nbPath, alternate = false, noindex = false } = Astro.props;
 // Begge språkversjonene peker på hverandre (hreflang), så søkemotorer viser riktig språk
 const nbUrl = nbPath && new URL(nbPath, site.url);
 const enUrl = nbPath && new URL(`/en${toEnglish(nbPath)}`, site.url);
-const fullTitle = title === site.navn ? site.navn : `${title} – ${site.kortnavn}`;
+const fullTitle = title === site.name ? site.name : `${title} – ${site.shortName}`;
 // Sider med skjema får laste Cloudflare Turnstile – ingen andre. Må stemme med public/_headers.
 const FORM_PAGES = ["/for-piloter/radioid/", "/meld-feil/", "/en/report-error/"];
 const path = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ""), "");
@@ -20,8 +20,8 @@ const cf = "https://challenges.cloudflare.com";
 // Videoer spilles av i overlay (public/assets/js/gallery.js) først når noen trykker – bare fra disse to. Må stemme med public/_headers.
 const VIDEO = "https://www.youtube-nocookie.com https://player.vimeo.com";
 // Anonym besøksstatistikk (Cloudflare Web Analytics): ingen informasjonskapsler, ingen sporing mellom nettsteder.
-// Slås på med tokenet i site.json → statistikk. Uten token lastes ingenting. Må stemme med public/_headers.
-const analytics = site.statistikk;
+// Slås på med tokenet i site.json → webAnalytics. Uten token lastes ingenting. Må stemme med public/_headers.
+const analytics = site.webAnalytics;
 // GoatCounter (site.json → goatcounter): også anonym og uten informasjonskapsler, i tillegg teller den klikk som
 // hendelser (public/assets/js/stats.js). Skriptet ligger på siden selv (public/assets/js/goatcounter.js), så bare
 // tellepunktet trenger å stå i CSP-en. Tomt = av. Må stemme med public/_headers.
@@ -41,13 +41,13 @@ const canonical = new URL(Astro.url.pathname.replace(import.meta.env.BASE_URL.re
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
-<meta property="og:site_name" content={site.navn} />
+<meta property="og:site_name" content={site.name} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:locale" content={lang === "en" ? "en_GB" : "nb_NO"} />
 {alternate && nbUrl && <><link rel="alternate" hreflang="nb" href={nbUrl} /><link rel="alternate" hreflang="en" href={enUrl} /><link rel="alternate" hreflang="x-default" href={nbUrl} /></>}
-{/* Delingsbilde: sidens eget bilde, ellers klubbens standardbilde (site.json → delingsbilde) */}
-<meta property="og:image" content={new URL(image ?? site.delingsbilde, site.url)} />
+{/* Delingsbilde: sidens eget bilde, ellers klubbens standardbilde (site.json → shareImage) */}
+<meta property="og:image" content={new URL(image ?? site.shareImage, site.url)} />
 <link rel="icon" href={url("/favicon.ico")} sizes="any" />
 <link rel="icon" href={url("/assets/img/hpgt-logo.png")} type="image/png" />
 <link rel="apple-touch-icon" href={url("/apple-touch-icon.png")} />

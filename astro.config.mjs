@@ -9,7 +9,7 @@ import { readFileSync } from "node:fs";
 import { toEnglish, OLD_ENGLISH_PATHS } from "./src/lib/english-paths.mjs";
 
 // /event/<navn>/ for arrangementer som ble slått sammen med et innlegg (scripts/wp-import/merge-events.py)
-const redirects = JSON.parse(readFileSync(new URL("./src/data/omdirigeringer.json", import.meta.url), "utf-8"));
+const redirects = JSON.parse(readFileSync(new URL("./src/data/redirects.json", import.meta.url), "utf-8"));
 
 const BASE = process.env.BASE || "/";
 

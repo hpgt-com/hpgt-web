@@ -2,7 +2,7 @@
 //
 // Kjøres før hvert bygg (npm run build) og skriver til .translated/ (ikke i git):
 //   .translated/translations.json   alle oversettelser, nøkkel = fil#felt, med hash av den norske teksten
-//   .translated/sider/*.md, .translated/kurs/*.md, .translated/innlegg/ÅR/*.md, .translated/forside.json, .translated/styret.json
+//   .translated/pages/*.md, .translated/courses/*.md, .translated/posts/ÅR/*.md, .translated/front-page.json, .translated/board.json
 //
 // Oversettelsene fra forrige publisering hentes fra den publiserte siden (OVERSETT_FORRIGE, /en/oversettelser.json),
 // så bare ny eller endret norsk tekst sendes til oversettelse. Uten ANTHROPIC_API_KEY (lokalt og i PR-sjekken)
@@ -15,6 +15,10 @@
 //
 // Formatet i translations.json (og /en/oversettelser.json) er { "<nøkkel>": { "kilde": <hash>, "en": <tekst> } }.
 // Feltnavnet «kilde» beholdes, så oversettelsene som allerede er publisert, kan brukes videre.
+//
+// Nøklene bruker fortsatt de norske navnene fra før innholdsmodellen fikk engelske navn (sider/…#ingress,
+// forside#veier.0.tittel, styret#medlemmer.0.rolle osv.), se LEGACY under. Da kjenner skriptet igjen oversettelsene
+// som allerede er publisert, og ingenting oversettes på nytt bare fordi en mappe eller et felt har fått nytt navn.
 import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, readdirSync, writeFileSync, existsSync } from "node:fs";
 import { join, basename, dirname, relative, sep } from "node:path";
@@ -29,15 +33,27 @@ const CACHE = join(OUT, "translations.json");
 // Hvilke sider som får engelsk versjon. Alle publiserte innlegg (nyheter og arrangementer) oversettes også, unntatt
 // kategoriene i SKIP_CATEGORIES: referater er formelle dokumenter for medlemmene og vises bare på norsk.
 const SKIP_CATEGORIES = ["Møter og referater"];
-const POST_FIELDS = ["title", "ingress"];
+const POST_FIELDS = ["title", "lead"];
 // Innleggene oversettes noen om gangen, så første publisering (alle innleggene) ikke tar for lang tid
 const CONCURRENCY = 8;
 const PAGES = ["kurs", "for-piloter", "tandem", "klubben", "styret", "vaer", "notam", "flystripa", "morkeflyging", "stotte", "personvern"];
-const PAGE_FIELDS = ["title", "ingress"];
-const COURSE_FIELDS = ["title", "menynavn", "ingress"];
-// Tekstfelt i forside.json og styret.json som oversettes (sti med * for lister)
-const FRONT_PAGE_FIELDS = ["stikkord", "slagord", "slagordIngress", "veier.*.verb", "veier.*.tittel", "veier.*.tekst", "kurs.tittel", "kurs.tekst", "kurs.etterKurs", "kurs.pris"];
-const BOARD_FIELDS = ["medlemmer.*.rolle", "medlemmer.*.ansvar"];
+const PAGE_FIELDS = ["title", "lead"];
+const COURSE_FIELDS = ["title", "menuTitle", "lead"];
+// Tekstfelt i front-page.json og board.json som oversettes (sti med * for lister)
+const FRONT_PAGE_FIELDS = ["kicker", "headline", "headlineLead", "paths.*.verb", "paths.*.title", "paths.*.text", "course.title", "course.text", "course.afterCourse", "course.price"];
+const BOARD_FIELDS = ["members.*.role", "members.*.responsibility"];
+
+// Navnene i nøklene i translations.json (og /en/oversettelser.json) fra før de engelske navnene. Ukjente navn brukes som de er.
+const LEGACY = {
+  folder: { pages: "sider", courses: "kurs", posts: "innlegg" },
+  field: { lead: "ingress", menuTitle: "menynavn" },
+  file: { "front-page": "forside", board: "styret" },
+  json: {
+    kicker: "stikkord", headline: "slagord", headlineLead: "slagordIngress", paths: "veier", title: "tittel", text: "tekst",
+    course: "kurs", afterCourse: "etterKurs", price: "pris", members: "medlemmer", role: "rolle", responsibility: "ansvar",
+  },
+};
+const legacy = (table, name) => LEGACY[table][name] ?? name;
 
 // Endres instruksjonen, oversettes alt på nytt (versjonen inngår i hashen)
 const VERSION = "1";
@@ -160,11 +176,11 @@ async function markdown(folder, file, fields, { name = basename(file, ".md"), ad
   for (const f of fields) {
     const v = readField(fm, f);
     if (v === undefined || v === "") continue;
-    const en = await translate(`${folder}/${name}#${f}`, v, true);
+    const en = await translate(`${legacy("folder", folder)}/${name}#${legacy("field", f)}`, v, true);
     if (en === undefined) return; // uten oversatt tittel/ingress lages ingen engelsk side
     fm = setField(fm, f, en);
   }
-  const enBody = await translate(`${folder}/${name}#body`, body, false);
+  const enBody = await translate(`${legacy("folder", folder)}/${name}#body`, body, false);
   if (enBody === undefined) return;
   const out = join(OUT, folder, `${name}.md`);
   mkdirSync(dirname(out), { recursive: true });
@@ -175,6 +191,7 @@ async function markdown(folder, file, fields, { name = basename(file, ".md"), ad
 async function json(file, fields) {
   const data = JSON.parse(readFileSync(join(ROOT, file), "utf-8"));
   const name = basename(file, ".json");
+  const key = (path) => `${legacy("file", name)}#${path.split(".").filter(Boolean).map((p) => legacy("json", p)).join(".")}`;
   for (const path of fields) {
     const parts = path.split(".");
     const walk = async (obj, i, prefix) => {
@@ -182,7 +199,7 @@ async function json(file, fields) {
       const p = parts[i];
       if (p === "*") { for (let j = 0; j < obj.length; j++) await walk(obj[j], i + 1, `${prefix}.${j}`); return; }
       if (i === parts.length - 1) {
-        if (typeof obj[p] === "string") obj[p] = (await translate(`${name}#${prefix}.${p}`.replace("#.", "#"), obj[p], true)) ?? obj[p];
+        if (typeof obj[p] === "string") obj[p] = (await translate(key(`${prefix}.${p}`), obj[p], true)) ?? obj[p];
         return;
       }
       await walk(obj[p], i + 1, `${prefix}.${p}`);
@@ -192,23 +209,23 @@ async function json(file, fields) {
   writeFileSync(join(OUT, `${name}.json`), JSON.stringify(data, null, 2) + "\n");
 }
 
-mkdirSync(join(OUT, "sider"), { recursive: true });
-mkdirSync(join(OUT, "kurs"), { recursive: true });
-for (const s of PAGES) await markdown("sider", join(ROOT, "src/content/sider", `${s}.md`), PAGE_FIELDS);
-const courseDir = join(ROOT, "src/content/kurs");
-for (const k of readdirSync(courseDir).filter((f) => f.endsWith(".md"))) await markdown("kurs", join(courseDir, k), COURSE_FIELDS);
-await json("src/data/forside.json", FRONT_PAGE_FIELDS);
+mkdirSync(join(OUT, "pages"), { recursive: true });
+mkdirSync(join(OUT, "courses"), { recursive: true });
+for (const s of PAGES) await markdown("pages", join(ROOT, "src/content/pages", `${s}.md`), PAGE_FIELDS);
+const courseDir = join(ROOT, "src/content/courses");
+for (const k of readdirSync(courseDir).filter((f) => f.endsWith(".md"))) await markdown("courses", join(courseDir, k), COURSE_FIELDS);
+await json("src/data/front-page.json", FRONT_PAGE_FIELDS);
 
-// Innleggene: .translated/innlegg/ÅR/navn.md, med samme id som det norske innlegget. Adressen (permalink) settes til den
+// Innleggene: .translated/posts/ÅR/navn.md, med samme id som det norske innlegget. Adressen (permalink) settes til den
 // engelske (/en/…), så lenkene i listene går rett dit. Samme regel for adressen som link() i src/lib/site.ts.
-const postDir = join(ROOT, "src/content/innlegg");
+const postDir = join(ROOT, "src/content/posts");
 const allPosts = [];
 const findMarkdown = (d) => { for (const e of readdirSync(d, { withFileTypes: true })) { const p = join(d, e.name); if (e.isDirectory()) findMarkdown(p); else if (e.name.endsWith(".md")) allPosts.push(p); } };
 findMarkdown(postDir);
 const toTranslate = allPosts.filter((file) => {
   const { fm } = splitFrontmatter(readFileSync(file, "utf-8"));
-  if (/^utkast:\s*true\s*$/m.test(fm)) return false;
-  const cat = fm.match(/^kategorier:\s*(\[.*\])\s*$/m);
+  if (/^draft:\s*true\s*$/m.test(fm)) return false;
+  const cat = fm.match(/^categories:\s*(\[.*\])\s*$/m);
   const categories = cat ? JSON.parse(cat[1]) : ["Nyhet"];
   return !categories.some((k) => SKIP_CATEGORIES.includes(k));
 });
@@ -218,13 +235,13 @@ await Promise.all(Array.from({ length: CONCURRENCY }, async () => {
     const name = relative(postDir, file).split(sep).join("/").replace(/\.md$/, "");
     const norwegian = readField(splitFrontmatter(readFileSync(file, "utf-8")).fm, "permalink") ?? `/${basename(name).replace(/^\d{4}-\d{2}-\d{2}-/, "")}/`;
     const permalink = `/en${toEnglish(norwegian)}`;
-    await markdown("innlegg", file, POST_FIELDS, {
+    await markdown("posts", file, POST_FIELDS, {
       name,
       adjustFm: (fm) => (/^permalink:/m.test(fm) ? setField(fm, "permalink", permalink) : `${fm}\npermalink: ${JSON.stringify(permalink)}`),
     });
   }
 }));
-await json("src/data/styret.json", BOARD_FIELDS);
+await json("src/data/board.json", BOARD_FIELDS);
 
 // Bare oversettelser som fortsatt er i bruk tas med videre
 writeFileSync(CACHE, JSON.stringify(Object.fromEntries(Object.entries(current).sort()), null, 1) + "\n");

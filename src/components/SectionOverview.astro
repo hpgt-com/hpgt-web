@@ -12,7 +12,7 @@ const href = (u: string) => linkFor(lang, u, english);
 ---
 {s && s.url !== "/kurs/" && <section class="course-cards" aria-labelledby="section-h">
   <h2 id="section-h">{lang === "en" ? "In this section" : "I denne delen"}</h2>
-  <ul>{s.sider.map((l) => <li><a href={href(l.url)}>
-    {l.bilde && <img src={url(l.bilde)} alt="" loading="lazy" />}
-    <b>{menuLabel(lang, l.tekst)}{l.ekstern && <> <Arrow /></>}</b>{l.ingress && <span>{l.ingress}</span>}</a></li>)}</ul>
+  <ul>{s.pages.map((l) => <li><a href={href(l.url)}>
+    {l.image && <img src={url(l.image)} alt="" loading="lazy" />}
+    <b>{menuLabel(lang, l.text)}{l.external && <> <Arrow /></>}</b>{l.lead && <span>{l.lead}</span>}</a></li>)}</ul>
 </section>}

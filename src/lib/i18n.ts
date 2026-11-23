@@ -1,10 +1,10 @@
 // Norsk og engelsk. Faste tekster (menyer, knapper, overskrifter) står her; sideinnholdet oversettes
-// automatisk ved publisering (scripts/translate/translate.mjs) og ligger i samlingene sider_en og kurs_en.
+// automatisk ved publisering (scripts/translate/translate.mjs) og ligger i samlingene pages_en og courses_en.
 import { getCollection } from "astro:content";
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { frontPage as frontPageNb, url, link, isExternal, getPosts, slug, formatClock, type Post, type EventPost } from "./site";
-import boardNb from "../data/styret.json";
+import boardNb from "../data/board.json";
 import { toEnglish, toNorwegian } from "./english-paths.mjs";
 export { toEnglish, toNorwegian };
 
@@ -33,7 +33,7 @@ export const T = {
   },
 } as const;
 
-// Menyene i meny.json oversatt etter norsk tekst. Mangler en, vises den norske.
+// Menyene i menu.json oversatt etter norsk tekst. Mangler en, vises den norske.
 const MENU_EN: Record<string, string> = {
   "Kurs": "Courses", "Tandem": "Tandem", "Flysteder": "Flying sites", "Arrangementer": "Events", "Nytt": "News", "Klubben": "Club",
   "Lenker og værstasjoner": "Links and weather stations", "NOTAM ved vinsjing": "NOTAM for winch towing",
@@ -49,23 +49,23 @@ const readTranslated = (file: string) => {
   return existsSync(path) ? JSON.parse(readFileSync(path, "utf-8")) : undefined;
 };
 /** Forsidetekstene på riktig språk (norsk hvis oversettelsen mangler). */
-export const frontPageFor = (lang: Lang): typeof frontPageNb => (lang === "en" ? readTranslated("forside.json") ?? frontPageNb : frontPageNb);
-export const boardFor = (lang: Lang): typeof boardNb => (lang === "en" ? readTranslated("styret.json") ?? boardNb : boardNb);
+export const frontPageFor = (lang: Lang): typeof frontPageNb => (lang === "en" ? readTranslated("front-page.json") ?? frontPageNb : frontPageNb);
+export const boardFor = (lang: Lang): typeof boardNb => (lang === "en" ? readTranslated("board.json") ?? boardNb : boardNb);
 
 /** Norske stier (uten base) som har en engelsk versjon. */
 let paths: Promise<Set<string>> | undefined;
 export function englishPaths() {
   paths ??= (async () => {
-    const [pages, courses] = await Promise.all([getCollection("sider_en"), getCollection("kurs_en")]);
+    const [pages, courses] = await Promise.all([getCollection("pages_en"), getCollection("courses_en")]);
     const s = new Set<string>([...pages.map((e) => link(e)), ...courses.map((k) => `/kurs/${k.id}/`)]);
-    if (readTranslated("forside.json")) s.add("/");
+    if (readTranslated("front-page.json")) s.add("/");
     // Oversatte innlegg (norsk adresse), og Nytt, kategoriene og Arrangementer, som finnes på engelsk når innleggene gjør det
     const en = await englishPostMap();
     if (en.size) {
       const nb = await getPosts();
       for (const p of nb) if (en.has(p.id)) s.add(link(p));
       s.add("/nytt/"); s.add("/arrangementer/");
-      for (const k of new Set(nb.filter((p) => en.has(p.id)).flatMap((p) => p.data.kategorier))) s.add(`/nytt/kategori/${slug(k)}/`);
+      for (const k of new Set(nb.filter((p) => en.has(p.id)).flatMap((p) => p.data.categories))) s.add(`/nytt/kategori/${slug(k)}/`);
     }
     s.add("/meld-feil/"); // egen engelsk side (src/pages/en/report-error.astro)
     return s;
@@ -92,7 +92,7 @@ export const dateFor = (lang: Lang, d: Date) =>
 // Innleggene oversettes automatisk (scripts/translate), unntatt referater. Et innlegg uten oversettelse vises på engelske
 // sider med norsk tittel og «(in Norwegian)», og lenker til den norske siden.
 let enPosts: Promise<Map<string, Post>> | undefined;
-const englishPostMap = () => (enPosts ??= getCollection("innlegg_en").then((l) => new Map(l.map((e) => [e.id, e as unknown as Post]))));
+const englishPostMap = () => (enPosts ??= getCollection("posts_en").then((l) => new Map(l.map((e) => [e.id, e as unknown as Post]))));
 
 /** Publiserte innlegg på språket, nyeste først. Engelsk: oversettelsen der den finnes, ellers det norske innlegget (merket). */
 export async function postsFor(lang: Lang): Promise<(Post & { untranslated?: boolean })[]> {
@@ -136,8 +136,8 @@ export const formatsFor = (lang: Lang) => {
     date: (d: Date) => f(d, { day: "numeric", month: "long", year: "numeric" }),
     dateShort: (d: Date) => f(d, { day: "numeric", month: "short" }),
     clock: (d: Date) => (lang === "en" ? f(d, { hour: "2-digit", minute: "2-digit", hour12: false }) : formatClock(d)),
-    time: (e: EventPost) => (e.data.heldag ? (lang === "en" ? "All day" : "Hele dagen") : `${lang === "en" ? "" : "kl. "}${f(e.data.start, { hour: "2-digit", minute: "2-digit", hour12: false })}`),
-    place: (e: EventPost) => e.data.sted ?? (e.data.digital ? (lang === "en" ? "Online" : "Digitalt") : ""),
+    time: (e: EventPost) => (e.data.allDay ? (lang === "en" ? "All day" : "Hele dagen") : `${lang === "en" ? "" : "kl. "}${f(e.data.start, { hour: "2-digit", minute: "2-digit", hour12: false })}`),
+    place: (e: EventPost) => e.data.location ?? (e.data.online ? (lang === "en" ? "Online" : "Digitalt") : ""),
   };
 };
 /** Intern adresse på språket: /nytt/ → /en/news/ på engelsk. */

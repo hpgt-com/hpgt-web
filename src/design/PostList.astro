@@ -23,7 +23,7 @@ const en = lang === "en";
   <ViewToggle />
   {years.map(([year, posts]) => (
     <section class="year"><h2 class="year__h">{year}</h2>
-      <ul class="rows" data-view="list">{posts.map((p) => <li><a href={url(link(p))}><time>{date(p.data.date)}</time><span>{p.data.title}</span><span class="cat" data-cat={slug(p.data.kategorier[0])}>{categoryName(lang, p.data.kategorier[0])}</span></a></li>)}</ul>
+      <ul class="rows" data-view="list">{posts.map((p) => <li><a href={url(link(p))}><time>{date(p.data.date)}</time><span>{p.data.title}</span><span class="cat" data-cat={slug(p.data.categories[0])}>{categoryName(lang, p.data.categories[0])}</span></a></li>)}</ul>
       <CardGrid posts={posts} />
     </section>
   ))}
