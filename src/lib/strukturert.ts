@@ -12,12 +12,14 @@ export function osloTid(d: Date) {
 
 const klubben = () => ({ "@type": "SportsOrganization", name: site.navn, alternateName: site.kortnavn, url: site.url });
 
-/** Event for et innlegg som er et arrangement. url: adressen siden har (norsk eller engelsk). */
+/** Event for et innlegg som er et arrangement. url: adressen siden har (norsk eller engelsk). null når arrangementet
+ * verken har sted eller nettmøte: Google krever «location», så da sendes ingenting i stedet for data som avvises. */
 export function arrangementLd(e: { id: string; data: any; body?: string }, url: string) {
   const a = e.data.arrangement;
   const dato = (d: Date) => (a.heldag ? d.toISOString().slice(0, 10) : osloTid(d));
   const fysisk = a.sted ? { "@type": "Place", name: a.sted, address: { "@type": "PostalAddress", addressLocality: a.sted, addressCountry: "NO" } } : undefined;
   const nett = a.digital ? { "@type": "VirtualLocation", url: a.digital } : undefined;
+  if (!fysisk && !nett) return null;
   return {
     "@context": "https://schema.org",
     "@type": "Event",
