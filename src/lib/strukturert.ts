@@ -1,6 +1,6 @@
 // Strukturerte data (schema.org, JSON-LD), så søkemotorer kan vise arrangementer med dato og sted, og klubben som
 // organisasjon. Lest av Google o.l.; vises ikke på siden. JSON-LD er data, ikke skript, så CSP-en trenger ingen endring.
-import { site } from "./site";
+import { site, utdrag, bildeFor } from "./site";
 
 /** Lokal norsk tid lagret som UTC (se site.ts) → ISO-tid med riktig offset (+01:00 eller +02:00). */
 export function osloTid(d: Date) {
@@ -22,13 +22,16 @@ export function arrangementLd(e: { id: string; data: any; body?: string }, url: 
     "@context": "https://schema.org",
     "@type": "Event",
     name: e.data.title,
-    ...(e.data.ingress && { description: e.data.ingress }),
+    // Alltid beskrivelse og bilde (Google: «description» og «image»): ingressen eller starten av teksten, og innleggets
+    // bilde, det første bildet i teksten eller klubbens delingsbilde. «offers» (pris) og «performer» står ikke i
+    // innleggene, så de utelates heller enn å gjettes.
+    description: e.data.ingress || utdrag(e.body, 200) || e.data.title,
     startDate: dato(a.start),
     ...(a.slutt && { endDate: dato(a.slutt) }),
     eventStatus: "https://schema.org/EventScheduled",
     eventAttendanceMode: `https://schema.org/${fysisk && nett ? "Mixed" : nett ? "Online" : "Offline"}EventAttendanceMode`,
     ...((fysisk || nett) && { location: [fysisk, nett].filter(Boolean) }),
-    ...(e.data.bilde && { image: [new URL(e.data.bilde, site.url).href] }),
+    image: [new URL(bildeFor(e as any) ?? site.delingsbilde, site.url).href],
     organizer: a.arrangor ? { "@type": "Organization", name: a.arrangor } : klubben(),
     url: new URL(url, site.url).href,
   };
