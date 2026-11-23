@@ -48,5 +48,7 @@ can, but this is a volunteer club project.
   token.
 - **Content security:** strict CSP with `default-src 'none'` and without `unsafe-inline` (`public/_headers`, and the same
   policy as a meta tag in `src/components/Head.astro`), `Cross-Origin-Opener-Policy: same-origin` and
-  `Cross-Origin-Resource-Policy: same-site`, no third-party scripts except
-  Cloudflare Turnstile on the RadioID page, no tracking, no cookies.
+  `Cross-Origin-Resource-Policy: same-site`. Violations, and Trusted Types in report-only mode, are reported to
+  `/api/csp-report`, which logs only the directive, the blocked host and the path, never the IP address or user agent.
+  No third-party scripts except Cloudflare Turnstile on the form pages and Cloudflare Web Analytics; no tracking, no
+  cookies.

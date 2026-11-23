@@ -145,11 +145,15 @@ til `main`. Siden er GitHub Pages fra grenen `gh-pages`, på `status.hpgt.com` (
 `hpgt-com.github.io`, DNS only). Lenken «Driftsstatus» i bunnteksten er `site.json` → `statusPage`.
 
 ### Overvåke skjemaene (logger og varsler)
-- **Logger:** Cloudflare → Workers & Pages → `hpgt-web` → **Observability**. Én linje per kall til Workeren (bare
-  skjemaene, `/api/*`): tid, adresse, statuskode, varighet og feil, med metadata om forespørselen (IP-adresse, land).
-  Lagres i inntil 7 dager (Observability Free). Innholdet i skjemaene logges aldri. Kontoen har ikke Workers Paid, så
-  loggingen koster aldri noe: ved den daglige gratisgrensen (0,5 GB) stopper den til neste dag. Slått på i
-  `wrangler.jsonc` (`observability`).
+- **Logger:** Cloudflare → Workers & Pages → `hpgt-web` → **Observability**. Workeren skriver bare egne linjer, uten
+  IP-adresse, nettleser eller innhold: `form path=/api/radioid status=201` for hvert skjemakall, `form-error stage=…` når
+  GitHub-appen eller GitHub feiler, og `csp-report directive=… disposition=… blocked=… path=…` for hver CSP-rapport.
+  Cloudflares egen logg per kall er slått av (`invocation_logs: false` i `wrangler.jsonc`), fordi den tar med
+  IP-adressen. Linjene lagres i inntil 7 dager (Observability Free). Kontoen har ikke Workers Paid, så loggingen koster
+  aldri noe: ved den daglige gratisgrensen (0,5 GB) stopper den til neste dag.
+- **CSP-rapporter:** nettleserne sender brudd på CSP-en og på Trusted Types (rapportmodus) til `/api/csp-report`
+  (`worker/csp-report.js`). Søk etter `csp-report` i loggen. Trusted Types kan håndheves når rapportene over noen uker
+  ikke viser brudd fra sidens egne skript.
 - Hva det skal ses etter: mange `403` (Turnstile feilet eller feil opprinnelse) eller `429` (takstbegrensning) betyr at
   noen hamrer på skjemaene; `502` betyr at GitHub-appen eller nøkkelen dens ikke virker (se «Når publiseringen feiler»
   under).

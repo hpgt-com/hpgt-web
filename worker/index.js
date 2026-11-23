@@ -1,4 +1,5 @@
-// Den eneste serverkoden på hpgt.com: tar imot skjemaene (RadioID og «Meld feil») og lager en GitHub-issue.
+// Den eneste serverkoden på hpgt.com: tar imot skjemaene (RadioID og «Meld feil») og lager en GitHub-issue, og tar imot
+// CSP-rapporter (/api/csp-report, csp-report.js).
 // Alt annet er statiske filer (wrangler.jsonc sender bare /api/* hit).
 //
 // Minste privilegium:
@@ -16,6 +17,7 @@
 
 import { installationToken, HEADERS } from "./github-app.js";
 import { readLimitedBody } from "./body.js";
+import { handleCspReport } from "./csp-report.js";
 
 const MAX_BODY_BYTES = 12000;
 
@@ -27,8 +29,22 @@ export default {
     const { pathname } = new URL(req.url);
     // Alt utenom skjemaet går til de statiske filene, så ukjente adresser får 404-siden (not_found_handling).
     if (!pathname.startsWith("/api/")) return env.ASSETS.fetch(req);
+    // CSP-rapporter fra nettleserne (csp-report.js). Sendes uten CORS, og svaret leses ikke.
+    if (pathname === "/api/csp-report") {
+      const headers = { allow: "POST", "cache-control": "no-store", "x-content-type-options": "nosniff" };
+      if (req.method !== "POST") return new Response(null, { status: 405, headers });
+      return new Response(null, { status: await handleCspReport(req, env), headers });
+    }
     const handler = FORMS[pathname];
     if (!handler) return respond(404, "Finnes ikke.");
+    // Én linje i loggen per kall til et skjema: bare sti og statuskode, aldri IP, nettleser eller innhold
+    const res = await formResponse(req, env, handler);
+    console.log(`form path=${pathname} status=${res.status}`);
+    return res;
+  },
+};
+
+async function formResponse(req, env, handler) {
     // Svarene vises til den som sender, på sidens språk (?sprak=en fra den engelske siden)
     const m = MESSAGES[new URL(req.url).searchParams.get("sprak") === "en" ? "en" : "nb"];
     if (req.method !== "POST") return respond(405, m.postOnly);
@@ -50,8 +66,7 @@ export default {
     } catch { return respond(400, m.unreadable); }
     if (text(f.get("nettside"), 200)) return respond(200, m.thanks); // honningkrukke: late som alt gikk bra
     return handler(f, env, ip, m);
-  },
-};
+}
 
 // Turnstile: bare skjemaene våre på hpgt.com godtas, og hvert skjema har sin egen «action»
 async function isHuman(f, env, ip, action) {
@@ -65,12 +80,13 @@ async function isHuman(f, env, ip, action) {
 // Lager saken i det private repoet med appens kortlivede token. Gir false hvis noe feilet.
 async function createIssue(env, title, body, label) {
   let token;
-  try { token = await installationToken(env, env.GITHUB_REPO); } catch { return false; }
+  try { token = await installationToken(env, env.GITHUB_REPO); } catch { console.error("form-error stage=token"); return false; }
   const gh = await fetch(`${env.GITHUB_API || "https://api.github.com"}/repos/${env.GITHUB_REPO}/issues`, {
     method: "POST",
     headers: { ...HEADERS, Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
     body: JSON.stringify({ title, body, labels: [label] }),
   });
+  if (!gh.ok) console.error(`form-error stage=github status=${gh.status}`);
   return gh.ok;
 }
 
