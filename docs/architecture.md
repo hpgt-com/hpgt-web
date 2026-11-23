@@ -1,133 +1,143 @@
-# Architecture
+# Arkitektur
 
-How hpgt.com is put together, so that more than one person can understand, run and develop it. Day-to-day operations,
-accounts and routines are in [operations.md](operations.md). The security measures are in
-[SECURITY.md](../SECURITY.md).
+Hvordan hpgt.com er satt sammen, så flere enn én person kan forstå, drifte og videreutvikle det. Daglig drift, kontoer
+og rutiner står i [operations.md](operations.md). Sikkerhetstiltakene står i [SECURITY.md](../SECURITY.md).
 
-## In short
+## Kort fortalt
 
-- **No server, no database.** The site is finished HTML files built from text files (Markdown and JSON) in this
-  repository. All content and all history are in Git.
-- **Members write in Pages CMS** (app.pagescms.org), a web-based editor that saves straight to the repository. They do
-  not need a GitHub account.
-- **GitHub Actions builds and publishes** every time `main` changes: it translates new text to English, builds the site
-  and uploads it to Cloudflare.
-- **Cloudflare serves the site** (Workers static assets). The only server code is the two forms (RadioID and «Meld feil»).
-- **No tracking, no cookies, no third-party scripts** (except Turnstile on the RadioID page).
+- **Ingen server, ingen database.** Nettstedet er ferdige HTML-filer bygd fra tekstfiler (Markdown og JSON) i dette
+  repoet. Alt innhold og all historikk ligger i Git.
+- **Medlemmene skriver i Pages CMS** (app.pagescms.org), en nettbasert editor som lagrer rett til repoet. De trenger
+  ikke GitHub-konto.
+- **GitHub Actions bygger og publiserer** hver gang `main` endres: oversetter ny tekst til engelsk, bygger nettstedet og
+  laster det opp til Cloudflare.
+- **Cloudflare leverer nettstedet** (Workers static assets). Den eneste serverkoden er de to skjemaene (RadioID og
+  «Meld feil»).
+- **Ingen sporing, ingen informasjonskapsler, ingen tredjepartsskript** (unntatt Turnstile på skjemasidene).
 
-## Overview
+## Oversikt
 
 ```mermaid
 flowchart LR
-  subgraph People
-    R[Editor<br/>e-mail sign-in]
-    A[Administrator<br/>GitHub account with 2FA]
-    B[Visitor]
+  subgraph People["Personer"]
+    R[Redaktør<br/>innlogging med e-post]
+    A[Administrator<br/>GitHub-konto med 2FA]
+    B[Besøkende]
   end
 
   subgraph GitHub["GitHub (org hpgt-com)"]
-    CMS[Pages CMS<br/>GitHub App, this repository only]
-    REPO[(hpgt-web<br/>content + code)]
+    CMS[Pages CMS<br/>GitHub-app, bare dette repoet]
+    REPO[(hpgt-web<br/>innhold + kode)]
     ACT[GitHub Actions<br/>oversett → bygg → publiser]
   end
 
-  ISS[(Private repository<br/>form-submissions<br/>issues, label radioid)]
+  ISS[(Privat repo<br/>form-submissions<br/>saker, etikett radioid og feedback)]
 
-  subgraph Cloudflare["Cloudflare (account HPGT)"]
-    W[Worker hpgt-web<br/>static files + /api/radioid]
-    TS[Turnstile<br/>bot check]
+  subgraph Cloudflare["Cloudflare (kontoen HPGT)"]
+    W[Worker hpgt-web<br/>statiske filer + /api/*]
+    TS[Turnstile<br/>robotsjekk]
     DNS[DNS for hpgt.com]
   end
 
-  AN[Anthropic API<br/>translation to English]
-  APP[GitHub App<br/>HPGT Web Forms]
+  AN[Anthropic API<br/>oversettelse til engelsk]
+  APP[GitHub-app<br/>HPGT Web Forms]
 
   R --> CMS --> REPO
   A -- pull request --> REPO
-  REPO -- push to main --> ACT
-  ACT -- OIDC, no stored key --> AN
-  ACT -- token: this Worker only --> W
+  REPO -- push til main --> ACT
+  ACT -- OIDC, ingen lagret nøkkel --> AN
+  ACT -- token: bare denne Workeren --> W
   B -- hpgt.com --> DNS --> W
-  B -- forms: RadioID, Meld feil --> W
+  B -- skjemaer: RadioID, Meld feil --> W
   W --> TS
-  W -- one-hour token --> APP --> ISS
+  W -- token for én time --> APP --> ISS
 ```
 
-The flying site guide **flysteder.hpgt.com** is a separate site in the repository
-[hpgt-com/flying-sites](https://github.com/hpgt-com/flying-sites), with its own documentation (`docs/architecture.md`
-and `docs/operations.md` there). The club site links to it, but they share no code.
+Redaktører lagrer i Pages CMS, som committer til repoet. Administratorer endrer med pull request. Hver push til `main`
+starter GitHub Actions, som oversetter med Anthropic (OIDC, ingen lagret nøkkel) og publiserer til Workeren `hpgt-web`
+med et token som bare gjelder den. Besøkende når Workeren gjennom DNS hos Cloudflare. Skjemaene sjekkes med Turnstile
+og blir saker i det private repoet `form-submissions` gjennom GitHub-appen «HPGT Web Forms».
 
-## From «Save» to a published page
+Flystedsguiden **flysteder.hpgt.com** er et eget nettsted i repoet
+[hpgt-com/flying-sites](https://github.com/hpgt-com/flying-sites), med egen dokumentasjon (`docs/architecture.md` og
+`docs/operations.md` der). Klubbsiden lenker dit, men de deler ingen kode.
+
+## Fra «Lagre» til publisert side
 
 ```mermaid
 sequenceDiagram
-  actor Ed as Editor
+  actor Ed as Redaktør
   participant CMS as Pages CMS
   participant Repo as GitHub (main)
-  participant O as Job «oversett»
-  participant Bg as Job «bygg»
-  participant P as Job «publiser»
+  participant O as Jobben «oversett»
+  participant Bg as Jobben «bygg»
+  participant P as Jobben «publiser»
   participant CF as Cloudflare
 
-  Ed->>CMS: Save
-  CMS->>Repo: commit (as pages-cms[bot])
-  Repo->>O: «Bygg og publiser» starts
-  O->>O: fetches the previous translations from /en/oversettelser.json
-  O->>O: translates only new or changed text (Anthropic)
-  O->>Bg: translated text (artifact)
-  Bg->>Bg: npm ci + astro build (validates all content)
-  Bg->>P: finished site (artifact)
-  P->>P: inserts the forms' IDs from the environment «produksjon»
+  Ed->>CMS: Lagre
+  CMS->>Repo: commit (som pages-cms[bot])
+  Repo->>O: «Bygg og publiser» starter
+  O->>O: henter de forrige oversettelsene fra /en/oversettelser.json
+  O->>O: oversetter bare ny eller endret tekst (Anthropic)
+  O->>Bg: oversatt tekst (artefakt)
+  Bg->>Bg: npm ci + astro build (kontrollerer alt innhold)
+  Bg->>P: ferdig nettsted (artefakt)
+  P->>P: setter inn skjemaenes ID-er fra miljøet «produksjon»
   P->>CF: wrangler deploy
-  Note over Ed,CF: Takes 2–3 minutes. If a step fails, the previous version stays up.
+  Note over Ed,CF: Tar 2–3 minutter. Feiler et steg, blir forrige versjon stående.
 ```
 
-The three jobs are separated on purpose (`.github/workflows/deploy.yml`; the job names are Norwegian: translate,
-build, publish):
+Når en redaktør lagrer, committer Pages CMS til `main`, og «Bygg og publiser» starter. `oversett` henter de forrige
+oversettelsene og oversetter bare ny eller endret tekst. `bygg` bygger og kontrollerer nettstedet. `publiser` setter inn
+skjemaenes ID-er og publiserer med Wrangler. Det tar 2–3 minutter, og feiler et steg, blir forrige versjon stående.
 
-| Job | Has access to | Runs code from the repository? |
+De tre jobbene er skilt fra hverandre med vilje (`.github/workflows/deploy.yml`). Før dem kjører jobben `vakt`, som
+stopper publiseringen hvis en commit uten pull request har endret noe annet enn innholdet (se
+[operations.md](operations.md#når-publiseringen-feiler)).
+
+| Jobb | Har tilgang til | Kjører kode fra repoet? |
 |---|---|---|
-| `oversett` | A short-lived sign-in at Anthropic (environment `oversetting`) | Only the translation script, not the site's packages |
-| `bygg` | No secrets | Yes (npm packages and the build) |
-| `publiser` | The Cloudflare token (environment `produksjon`) | No, only Wrangler, installed from `deploy/package-lock.json` without install scripts |
+| `oversett` | En kortvarig innlogging hos Anthropic (miljøet `oversetting`) | Bare oversettelsesskriptet, ikke pakkene til nettstedet |
+| `bygg` | Ingen hemmeligheter | Ja (npm-pakker og bygget) |
+| `publiser` | Cloudflare-tokenet (miljøet `produksjon`) | Nei, bare Wrangler, installert fra `deploy/package-lock.json` uten installasjonsskript |
 
-Pull requests (also from administrators) are built and checked by `pr-check.yml` and `security.yml` before they can be
-merged, but are not published.
+Pull requests (også fra administratorer) bygges og kontrolleres av `pr-check.yml`, `security.yml` og
+`code-scanning.yml` før de kan merges, men publiseres ikke.
 
-## Content: what lives where
+## Innhold: hva som ligger hvor
 
-| Content | File or folder | Edited in |
+| Innhold | Fil eller mappe | Redigeres i |
 |---|---|---|
-| News, minutes, events | `src/content/innlegg/YEAR/*.md` | Pages CMS |
-| Fixed pages (For piloter, Klubben …) | `src/content/sider/*.md` | Pages CMS |
-| Competitions | `src/content/sider/konkurranser/YEAR.md` | Pages CMS |
-| Course pages | `src/content/kurs/*.md` | Pages CMS |
-| Home page, board, RadioID register | `src/data/forside.json`, `styret.json`, `radioid.json` | Pages CMS |
-| Default images per category | `src/data/standardbilder.json` | Pages CMS |
-| Images and PDFs | `public/media/…` (see the README) | Pages CMS (upload) |
-| Menus, site settings | `src/data/meny.json`, `site.json` | Pull request only |
-| Design | `src/design/` (`style.css`, templates), `src/components/` | Pull request only |
-| Redirects from old addresses | `astro.config.mjs`, `public/_redirects` | Pull request only |
+| Nyheter, referater, arrangementer | `src/content/innlegg/YEAR/*.md` | Pages CMS |
+| Faste sider (For piloter, Klubben …) | `src/content/sider/*.md` | Pages CMS |
+| Konkurranser | `src/content/sider/konkurranser/YEAR.md` | Pages CMS |
+| Kurssider | `src/content/kurs/*.md` | Pages CMS |
+| Forsiden, styret, RadioID-registeret | `src/data/forside.json`, `styret.json`, `radioid.json` | Pages CMS |
+| Standardbilder per kategori | `src/data/standardbilder.json` | Pages CMS |
+| Bilder og PDF-er | `public/media/…` (se README-en) | Pages CMS (opplasting) |
+| Menyer, innstillinger for nettstedet | `src/data/meny.json`, `site.json` | Bare pull request |
+| Design | `src/design/` (`style.css`, maler), `src/components/` | Bare pull request |
+| Videresending fra gamle adresser | `astro.config.mjs`, `public/_redirects` | Bare pull request |
 
-Every field is validated by `src/content.config.ts`. An invalid value from the CMS stops the build instead of
-publishing a broken page. Which fields editors see is set by `.pages.yml`. Fields not listed there are removed when
-someone saves, which is why some fields have `hidden: true`.
+Hvert felt kontrolleres av `src/content.config.ts`. En ugyldig verdi fra CMS-et stopper bygget i stedet for å publisere
+en ødelagt side. Hvilke felt redaktørene ser, bestemmes av `.pages.yml`. Felt som ikke står der, fjernes når noen
+lagrer, og derfor har noen felt `hidden: true`.
 
-## English version
+## Engelsk versjon
 
-The pages in `SIDER` in `scripts/oversett/oversett.mjs` (courses, for pilots, the club pages and so on) are translated
-automatically on every publish. Unchanged text is reused from the previous publish (`/en/oversettelser.json`), so only
-new or changed paragraphs are sent to Anthropic. English addresses (`/klubben/styret/` → `/en/club/board/`) are in
-`src/lib/engelske-adresser.mjs`, and fixed texts (menus, buttons) in `src/lib/i18n.ts`.
+Sidene i `SIDER` i `scripts/oversett/oversett.mjs` (kurs, for piloter, klubbsidene og så videre) oversettes automatisk
+ved hver publisering. Uendret tekst gjenbrukes fra forrige publisering (`/en/oversettelser.json`), så bare nye eller
+endrede avsnitt sendes til Anthropic. Engelske adresser (`/klubben/styret/` → `/en/club/board/`) står i
+`src/lib/engelske-adresser.mjs`, og faste tekster (menyer, knapper) i `src/lib/i18n.ts`.
 
-News and events are translated too (`/en/news/`, `/en/events/`, and each post at `/en/<address>/`), except meeting
-minutes, which are formal documents for members and stay in Norwegian. Each English post says it was translated
-automatically and links to the Norwegian original. A post without a translation (minutes, or one that failed) is listed
-on the English pages with its Norwegian title and «(in Norwegian)».
+Nyheter og arrangementer oversettes også (`/en/news/`, `/en/events/`, og hvert innlegg på `/en/<address>/`), unntatt
+møtereferater, som er formelle dokumenter for medlemmene og blir stående på norsk. Hvert engelske innlegg sier at det er
+oversatt automatisk, og lenker til den norske originalen. Et innlegg uten oversettelse (referater, eller et der
+oversettelsen feilet) står i de engelske listene med norsk tittel og «(in Norwegian)».
 
-If the sign-in at Anthropic fails, the site is still published, with the previous translations.
+Feiler innloggingen hos Anthropic, publiseres nettstedet likevel, med de forrige oversettelsene.
 
-## The forms (RadioID and «Meld feil»)
+## Skjemaene (RadioID og «Meld feil»)
 
 ```mermaid
 sequenceDiagram
@@ -137,63 +147,68 @@ sequenceDiagram
   participant TS as Cloudflare Turnstile
   participant GH as GitHub
 
-  Pilot->>Page: fills in the form
-  Page->>W: POST (with the Turnstile answer)
-  W->>W: checks origin, size (12 000 bytes read), rate (3/min/IP), honeypot
-  W->>TS: is the answer genuine? (action «radioid», host hpgt.com)
-  W->>GH: JWT signed with the app's key → one-hour token (Issues only, form-submissions only)
-  W->>GH: creates the issue «RadioID: legg til …» in the private repository
+  Pilot->>Page: fyller ut skjemaet
+  Page->>W: POST (med svaret fra Turnstile)
+  W->>W: sjekker opprinnelse, størrelse (12 000 byte leses), takt (3/min/IP), honningkrukke
+  W->>TS: er svaret ekte? (action «radioid», vert hpgt.com)
+  W->>GH: JWT signert med appens nøkkel → token for én time (bare Issues, bare form-submissions)
+  W->>GH: lager saken «RadioID: legg til …» i det private repoet
   W-->>Pilot: «Takk! Innmeldingen er mottatt»
 ```
 
-The issues are in the private repository `hpgt-com/form-submissions`, since they hold names, RadioIDs and comments,
-including requests to be removed. Whoever maintains the register updates `radioid.json` in Pages CMS (only the finished
-entry is published) and closes the issue. The code is
-`worker/index.js` and `worker/github-app.js`.
+Piloten sender skjemaet med svaret fra Turnstile. Workeren sjekker opprinnelse, størrelse, takt og honningkrukke, og
+får svaret bekreftet av Turnstile. Deretter bytter den en JWT signert med appens nøkkel mot et token for én time, lager
+saken i det private repoet og svarer piloten.
 
-The second form, **«Meld feil»** (report an error, `/meld-feil/` and `/en/report-error/`, linked from the bottom of every
-page), works the same way: `/api/meld-feil`, Turnstile action `meldfeil`, and an issue with the label `feedback` in the
-same private repository. New forms use the same Turnstile widget with their own `action`.
+Sakene ligger i det private repoet `hpgt-com/form-submissions`, fordi de inneholder navn, RadioID-er og kommentarer,
+også ønsker om å bli fjernet. Den som vedlikeholder registeret, oppdaterer `radioid.json` i Pages CMS (bare den ferdige
+oppføringen publiseres) og lukker saken. Koden er `worker/index.js` og `worker/github-app.js`.
 
-## Security in brief
+Det andre skjemaet, **«Meld feil»** (`/meld-feil/` og `/en/report-error/`, lenket fra bunnen av hver side), virker på
+samme måte: `/api/meld-feil`, Turnstile-action `meldfeil`, og en sak med etiketten `feedback` i det samme private
+repoet. Nye skjemaer bruker den samme Turnstile-widgeten med sin egen `action`.
 
-- **Least privilege everywhere.** Each token can do only the one thing it is for: publish one Worker, create issues in
-  one repository, read one R2 archive. No personal tokens.
-- **No stored keys where it can be avoided.** Translation signs in with GitHub's OIDC token. The forms get a
-  new token for each submission.
-- **Secrets only in environments that `main` alone may use** (GitHub) or in Cloudflare, never in the code.
-- **Everything goes through a pull request** with required checks (build, dependencies, workflow security, CodeQL).
-- **Strict CSP** without `unsafe-inline`, and no third-party scripts.
+## Sikkerhet i korte trekk
 
-Details: [SECURITY.md](../SECURITY.md).
+- **Minste tilgang overalt.** Hvert token kan bare gjøre det ene det er til: publisere én Worker, lage saker i ett
+  repo, lese ett R2-arkiv. Ingen personlige tokens.
+- **Ingen lagrede nøkler der det kan unngås.** Oversettelsen logger inn med GitHubs OIDC-token. Skjemaene får et nytt
+  token for hver innsending.
+- **Hemmeligheter bare i miljøer som bare `main` kan bruke** (GitHub) eller i Cloudflare, aldri i koden.
+- **Alt går gjennom pull request** med påkrevde sjekker (bygg, avhengigheter, sikkerhet i arbeidsflytene, CodeQL).
+- **Streng CSP** uten `unsafe-inline`, og ingen tredjepartsskript.
 
-## Repository layout
+Detaljer: [SECURITY.md](../SECURITY.md).
 
-```
-.github/workflows/   build, publishing, PR checks, security scanning
-.pages.yml           what editors see in Pages CMS
-astro.config.mjs     Astro setup and redirects
-docs/                this documentation
-public/              files published as they are: images, scripts, _headers, _redirects, robots.txt
-scripts/             translation, video thumbnails, image scaling, sitemap, WordPress import (one-off)
-settings/            org and repository settings that cannot live in the repository (applied by an org owner)
-src/content/         the content (Markdown)
-src/data/            content and settings (JSON)
-src/design/          the «Fjord+» design
-src/components/      reusable parts
-src/lib/             helpers (links, language, sections)
-src/pages/           the addresses (Astro routes)
-worker/              the server code for the form
-wrangler.jsonc       Cloudflare setup
-```
+## Oppbygning av repoet
 
-## Why these choices
+| Mappe eller fil | Innhold |
+|---|---|
+| `.github/workflows/` | Bygg, publisering, PR-sjekker, sikkerhetsskanning |
+| `.pages.yml` | Hva redaktørene ser i Pages CMS |
+| `astro.config.mjs` | Astro-oppsett og videresendinger |
+| `deploy/` | Den låste Wrangler-versjonen for publiseringsjobben |
+| `docs/` | Denne dokumentasjonen |
+| `public/` | Filer som publiseres som de er: bilder, skript, `_headers`, `_redirects`, `robots.txt` |
+| `scripts/` | Oversettelse, miniatyrbilder for video, skalering av bilder, nettstedskart, WordPress-import (engangs) |
+| `settings/` | Innstillinger for organisasjonen og repoet som ikke kan ligge i repoet (settes av en eier av organisasjonen) |
+| `src/content/` | Innholdet (Markdown) |
+| `src/data/` | Innhold og innstillinger (JSON) |
+| `src/design/` | Designet «Fjord+» |
+| `src/components/` | Gjenbrukbare deler |
+| `src/lib/` | Hjelpefunksjoner (lenker, språk, seksjoner) |
+| `src/pages/` | Adressene (Astro-ruter) |
+| `test/` | Enhetstester for `worker/` |
+| `worker/` | Serverkoden for skjemaene |
+| `wrangler.jsonc` | Cloudflare-oppsett |
 
-Each is described as an ADR in [decisions/](decisions/README.md). In short:
+## Hvorfor disse valgene
 
-- **A static site**: nothing to update or attack on a server, nearly free, and fast.
-- **Astro**: validates the content, the templates are plain HTML and JavaScript, and it builds in seconds.
-- **Pages CMS**: the only CMS where members can sign in with e-mail without a GitHub account, and where e-mail users can
-  change content only.
-- **Cloudflare**: free for our use, DNS and the website in one place, and Turnstile without tracking.
-- **GitHub**: history, review and automation in one place, free for public repositories.
+Hvert valg er beskrevet som en ADR i [decisions/](decisions/README.md). Kort fortalt:
+
+- **Et statisk nettsted**: ingenting å oppdatere eller angripe på en server, nesten gratis og raskt.
+- **Astro**: kontrollerer innholdet, malene er vanlig HTML og JavaScript, og bygget tar sekunder.
+- **Pages CMS**: det eneste CMS-et der medlemmer kan logge inn med e-post uten GitHub-konto, og der e-postbrukere bare
+  kan endre innhold.
+- **Cloudflare**: gratis for vår bruk, DNS og nettstedet på ett sted, og Turnstile uten sporing.
+- **GitHub**: historikk, gjennomgang og automatisering på ett sted, gratis for offentlige repoer.

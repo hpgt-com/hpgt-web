@@ -1,15 +1,15 @@
-# Architecture Decision Records
+# Beslutningsnotater (ADR)
 
-The important choices for hpgt.com, with the reasons, so whoever comes next knows *why* things are as they are.
-New decision: copy `template.md` to the next number and add it to the pull request that makes the change. A decision is
-not edited afterwards; it is superseded by a new one, and the old one gets the status «Superseded by NNNN».
+De viktige valgene for hpgt.com, med begrunnelsen, så den som kommer etter vet *hvorfor* ting er som de er.
+Ny beslutning: kopier `template.md` til neste nummer og legg den i pull requesten som gjør endringen. En beslutning
+redigeres ikke i ettertid. Den erstattes av en ny, og den gamle får statusen «Erstattet av NNNN».
 
-| No. | Decision | Status |
+| Nr. | Beslutning | Status |
 |---|---|---|
-| [0001](0001-static-site-astro.md) | Static site with Astro instead of WordPress | Accepted |
-| [0002](0002-pages-cms.md) | Pages CMS for the editors | Accepted |
-| [0003](0003-cloudflare-workers.md) | Cloudflare Workers for the website and DNS | Accepted |
-| [0004](0004-automatic-translation.md) | Automatic translation to English without a stored key | Accepted |
-| [0005](0005-scoped-tokens-github-app.md) | One token per task, owned by the club | Accepted |
-| [0006](0006-radioid-private-intake.md) | RadioID submissions in a private repository | Accepted (repository renamed by 0007) |
-| [0007](0007-one-intake-repository-for-forms.md) | One private intake repository for all forms | Accepted |
+| [0001](0001-static-site-astro.md) | Statisk nettsted med Astro i stedet for WordPress | Vedtatt |
+| [0002](0002-pages-cms.md) | Pages CMS for redaktørene | Vedtatt |
+| [0003](0003-cloudflare-workers.md) | Cloudflare Workers for nettstedet og DNS | Vedtatt |
+| [0004](0004-automatic-translation.md) | Automatisk oversettelse til engelsk uten lagret nøkkel | Vedtatt |
+| [0005](0005-scoped-tokens-github-app.md) | Ett token per oppgave, eid av klubben | Vedtatt |
+| [0006](0006-radioid-private-intake.md) | RadioID-innmeldinger i et privat repo | Vedtatt (repoet omdøpt i 0007) |
+| [0007](0007-one-intake-repository-for-forms.md) | Ett privat mottaksrepo for alle skjemaer | Vedtatt |

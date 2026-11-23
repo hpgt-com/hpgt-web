@@ -1,23 +1,24 @@
-# 0007: One private intake repository for all forms
+# 0007: Ett privat mottaksrepo for alle skjemaer
 
-- **Status:** Accepted
-- **Date:** 2026-11-18
+- **Status:** Vedtatt
+- **Dato:** 2026-11-18
 
-## Context
-[0006](0006-radioid-private-intake.md) put the RadioID submissions in a private repository named for RadioID. More forms
-are likely (course sign-up, contact, asking for access to Pages CMS), and they all go through the same Worker and the
-same GitHub App «HPGT Web Forms».
+## Bakgrunn
+[0006](0006-radioid-private-intake.md) la RadioID-innmeldingene i et privat repo med navn etter RadioID. Flere skjemaer
+er sannsynlige (kurspåmelding, kontakt, å be om tilgang til Pages CMS), og alle går gjennom den samme Workeren og den
+samme GitHub-appen «HPGT Web Forms».
 
-## Decision
-One private repository, `hpgt-com/form-submissions`, takes the issues from every form on hpgt.com, with one label per
-form (`radioid`, and later for example `pamelding`, `tilgang`). The app is installed there only. It has no code, no
-Actions and no pull requests.
+## Beslutning
+Ett privat repo, `hpgt-com/form-submissions`, tar imot sakene fra alle skjemaene på hpgt.com, med én etikett per skjema
+(`radioid`, og senere for eksempel `pamelding`, `tilgang`). Appen er bare installert der. Repoet har ingen kode, ingen
+Actions og ingen pull requests.
 
-## Consequences
-- One place to receive and watch submissions, and the app's reach stays one repository.
-- Access in GitHub is per repository, not per label: everyone with access sees every form. A form that is read by other
-  people, or holds more sensitive data (for example contact details or dates of birth), gets a repository of its own.
+## Konsekvenser
+- Ett sted å ta imot og følge innmeldinger, og appen når fortsatt bare ett repo.
+- Tilgang i GitHub gis per repo, ikke per etikett: alle med tilgang ser alle skjemaene. Et skjema som leses av andre,
+  eller som inneholder mer følsomme opplysninger (for eksempel kontaktinformasjon eller fødselsdatoer), får et eget
+  repo.
 
-## Alternatives considered
-One repository per form (more installations and places to watch), and keeping the RadioID-only name (a rename later
-means moving issues).
+## Alternativer som ble vurdert
+Ett repo per skjema (flere installasjoner og steder å følge med), og å beholde navnet som bare gjaldt RadioID (en
+senere omdøping betyr å flytte saker).
