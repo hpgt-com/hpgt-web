@@ -70,7 +70,9 @@ try {
     const pending = [];
     page.on("requestfinished", (req) => {
       requests++;
-      pending.push(req.response().then((res) => res?.body()).then((body) => { bytes[KINDS[req.resourceType()] ?? "data"] += body?.length ?? 0; }).catch(() => {}));
+      // Chrome kaller favicon-forespørselen «other», så den sorteres etter filendelsen
+      const kind = req.resourceType() === "other" && /\.(ico|png|svg)$/i.test(new URL(req.url()).pathname) ? "image" : KINDS[req.resourceType()] ?? "data";
+      pending.push(req.response().then((res) => res?.body()).then((body) => { bytes[kind] += body?.length ?? 0; }).catch(() => {}));
     });
     await page.goto(origin + url, { waitUntil: "networkidle" });
     await page.waitForTimeout(1500);
