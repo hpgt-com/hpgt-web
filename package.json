@@ -7,7 +7,7 @@
     "build": "node scripts/sjekk-media.mjs && node scripts/oversett/oversett.mjs && node scripts/videobilder.mjs && astro build && node scripts/skaler-bilder.mjs && node scripts/sitemap.mjs",
     "preview": "astro preview",
     "check": "astro check",
-    "test": "node --test test/",
+    "test": "node --test \"test/*.test.js\"",
     "forhandsvisning": "./scripts/bygg-forhandsvisning.sh",
     "sjekk": "node scripts/sjekk-lenker.mjs && node scripts/sjekk-tilgjengelighet.mjs",
     "ikoner": "node scripts/lag-ikoner.mjs"
