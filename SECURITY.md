@@ -11,7 +11,7 @@ can, but this is a volunteer club project.
 - All changes to `main` go through a pull request (branch ruleset «Main protection»). Force push and deletion of `main`
   are blocked.
 - Required checks: `dependency-review` (no dependencies with known vulnerabilities), `workflow-security` (zizmor) and
-  `bygg` (the whole site builds and every content file is valid), plus CodeQL code scanning (high or higher blocks the merge).
+  `build` (the whole site builds and every content file is valid), plus CodeQL code scanning (high or higher blocks the merge).
 - Actions are pinned to commit SHAs and updated monthly by Dependabot, with a cooldown of 7 days (30 for major
   versions). Patch and minor updates of Actions are merged automatically when all required checks pass
   (`dependabot-automerge.yml`). Other updates are merged by hand.
@@ -30,7 +30,7 @@ can, but this is a volunteer club project.
   - `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` in the environment `produksjon` (main only). The token is an
     account token made from the Worker (Workers & Pages → hpgt-web → Settings → Builds → «API token for external
     CI/CD») and can only publish the Worker `hpgt-web`: no other Worker, no DNS, domains or other account settings. It
-    belongs to the club's account, not a person, and is renewed yearly. Only the `publiser` job uses it, and that job
+    belongs to the club's account, not a person, and is renewed yearly. Only the `publish` job uses it, and that job
     runs no code from the repository.
   - `TURNSTILE_SECRET` and `GITHUB_APP_PRIVATE_KEY` for the form are Cloudflare secrets, not GitHub secrets. The
     issues are made by the club's GitHub App «HPGT Web Forms» in the private repository `hpgt-com/form-submissions`
@@ -38,13 +38,13 @@ can, but this is a volunteer club project.
     write» only). For each submission the Worker asks for a one-hour token limited to this repository and Issues: write
     (`worker/github-app.js`), so there is no personal or long-lived token.
   - `TURNSTILE_SITEKEY`, `GH_APP_ID` and `GH_APP_INSTALLATION_ID` are not secret. They are variables in `produksjon`,
-    checked and inserted by the `publiser` job; other builds use Cloudflare's Turnstile test key.
+    checked and inserted by the `publish` job; other builds use Cloudflare's Turnstile test key.
 - **Editors:** the Pages CMS app may save straight to `main` (bypass in the ruleset). The first job in the publish
-  workflow (`vakt`) stops the publish and opens an issue if a commit that did not come through a merged pull request
+  workflow (`guard`) stops the publish and opens an issue if a commit that did not come through a merged pull request
   changes anything other than the content (`src/content/`, `public/media/` and the CMS's JSON files). The build
   (`scripts/check-media.mjs`) stops if `public/media/` holds anything other than images and PDFs, so an upload cannot
   put an HTML page or a script on hpgt.com.
-- **Publishing:** Wrangler is pinned to a fixed version in the `publiser` job, since that job holds the Cloudflare
+- **Publishing:** Wrangler is pinned to a fixed version in the `publish` job, since that job holds the Cloudflare
   token.
 - **Content security:** strict CSP with `default-src 'none'` and without `unsafe-inline` (`public/_headers`, and the same
   policy as a meta tag in `src/components/Head.astro`), `Cross-Origin-Opener-Policy: same-origin` and

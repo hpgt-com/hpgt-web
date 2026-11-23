@@ -4,17 +4,17 @@ name: Bygg og publiser
 # når main endres, også når en redaktør lagrer i Pages CMS.
 #
 # Fire jobber, så ingen nøkkel er tilgjengelig for mer kode enn nødvendig:
-#   vakt      Pages CMS har unntak fra PR-kravet og kan lagre rett på main. Endrer en commit som ikke kom gjennom en
+#   guard     Pages CMS har unntak fra PR-kravet og kan lagre rett på main. Endrer en commit som ikke kom gjennom en
 #             merget pull request (altså fra Pages CMS) noe annet enn innholdet (se TILLATT under), stopper publiseringen
 #             her, og det lages en sak. Forfatternavnet brukes ikke, det kan settes fritt. Sjekker alt siden
 #             forrige vellykkede publisering, så endringen ikke slipper gjennom med neste commit. Når filene er tilbake
 #             slik de var ved forrige publisering (git revert), går det igjen.
-#   oversett  oversetter ny eller endret tekst til engelsk (scripts/translate). Logger inn hos Anthropic uten
+#   translate oversetter ny eller endret tekst til engelsk (scripts/translate). Logger inn hos Anthropic uten
 #             lagret nøkkel: GitHubs OIDC-token for miljøet «oversetting» veksles inn (workload identity federation).
 #             Installerer bare Anthropic-SDK-en, ikke nettstedets byggepakker. Uten innlogging brukes
 #             oversettelsene fra forrige publisering uendret.
-#   bygg      installerer pakkene og bygger, uten hemmeligheter. Resultatet leveres videre som artifact.
-#   publiser  har Cloudflare-tokenet (bare «Workers Scripts: Edit» på klubbens konto), men kjører ingen npm-kode
+#   build     installerer pakkene og bygger, uten hemmeligheter. Resultatet leveres videre som artifact.
+#   publish   har Cloudflare-tokenet (bare «Workers Scripts: Edit» på klubbens konto), men kjører ingen npm-kode
 #             fra repoet. Tokenet ligger i miljøet «produksjon», som bare main får bruke. Setter også inn skjemaenes
 #             ID-er fra «produksjon» (Turnstile-nøkkelen og GitHub-appen for RadioID-skjemaet).
 # Actions er festet til commit-SHA (Dependabot oppdaterer dem).
@@ -28,7 +28,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: publiser
+  group: publish
   cancel-in-progress: false
 
 env:
@@ -36,7 +36,7 @@ env:
   OVERSETT_FORRIGE: https://hpgt.com/en/oversettelser.json
 
 jobs:
-  vakt:
+  guard:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
@@ -108,8 +108,8 @@ jobs:
           if [ -n "$n" ]; then gh issue comment "$n" --body "$tekst"; else gh issue create --title "$tittel" --body "$tekst"; fi
           exit 1
 
-  oversett:
-    needs: vakt
+  translate:
+    needs: guard
     runs-on: ubuntu-latest
     # Første gang oversettes alle innleggene (noen minutter); senere bare nye eller endrede tekster
     timeout-minutes: 30
@@ -145,8 +145,8 @@ jobs:
           if-no-files-found: error
           retention-days: 3
 
-  bygg:
-    needs: oversett
+  build:
+    needs: translate
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -182,8 +182,8 @@ jobs:
           if-no-files-found: error
           retention-days: 3
 
-  publiser:
-    needs: bygg
+  publish:
+    needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 10
     environment: produksjon

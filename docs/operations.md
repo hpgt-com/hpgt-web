@@ -75,7 +75,7 @@ godkjennerne i miljøene i de private repoene (`form-submissions` og `operations
 Begge miljøene (`produksjon` og `oversetting`) er begrenset til grenen `main`.
 
 **Utløpsdatoene** for alle tokens og nøkler i klubben (og domenet) ligger i det private repoet
-[hpgt-com/operations](https://github.com/hpgt-com/operations) (`utlop.json`), ikke her: en ukentlig sjekk der oppretter
+[hpgt-com/operations](https://github.com/hpgt-com/operations) (`expiry.json`), ikke her: en ukentlig sjekk der oppretter
 en sak før noe utløper. Oppdater datoen der hver gang et token eller en nøkkel fornyes eller byttes.
 
 ## Rutiner
@@ -101,10 +101,10 @@ en sak før noe utløper. Oppdater datoen der hver gang et token eller en nøkke
 2. GitHub → `hpgt-web` → Settings → Environments → `produksjon` → `CLOUDFLARE_API_TOKEN` → lim inn.
 3. Actions → «Bygg og publiser» → **Run workflow**. Når den er grønn: slett det gamle tokenet under Cloudflare → Manage
    Account → Account API Tokens.
-4. Sett den nye utløpsdatoen i `utlop.json` i det private repoet `hpgt-com/operations` (pull request). Den ukentlige
+4. Sett den nye utløpsdatoen i `expiry.json` i det private repoet `hpgt-com/operations` (pull request). Den ukentlige
    sjekken «Utløper snart» der oppretter en sak 45 dager før neste utløp.
 
-Når tokenet har gått ut, blir «Bygg og publiser» rød på jobben `publiser`, og endringer fra Pages CMS går ikke ut før
+Når tokenet har gått ut, blir «Bygg og publiser» rød på jobben `publish`, og endringer fra Pages CMS går ikke ut før
 tokenet er byttet.
 
 ### Behandle en RadioID-innmelding
@@ -129,7 +129,7 @@ Fire uavhengige sjekker. Følg repoene som er nevnt under (Watch → Custom → 
 | Sjekk | Kjører hvor, hvor ofte | Sjekker | Varsler med |
 |---|---|---|---|
 | **Upptime** ([status.hpgt.com](https://status.hpgt.com), `hpgt-com/status`) | GitHub Actions, hvert 5. minutt. Uavhengig av Cloudflare | hpgt.com, skjemaene (`/api/radioid` svarer 405), flysteder.hpgt.com, datatjenesten (`status.json` sier `"ok":true`) | En sak i `hpgt-com/status`, som lukkes når alt virker igjen. Den offentlige statussiden viser oppetid og hendelser |
-| **Helsesjekk** (`.github/workflows/helse.yml`) | GitHub Actions, hver time | Sidene svarer, sikkerhetshodene (også ved feil i Workeren), den ekte Turnstile-nøkkelen, videresendingen fra `www`, sertifikatet ≥ 14 dager | En sak med etiketten `bug` her, som lukkes når alt er i orden |
+| **Helsesjekk** (`.github/workflows/health.yml`) | GitHub Actions, hver time | Sidene svarer, sikkerhetshodene (også ved feil i Workeren), den ekte Turnstile-nøkkelen, videresendingen fra `www`, sertifikatet ≥ 14 dager | En sak med etiketten `bug` her, som lukkes når alt er i orden |
 | **Varsler fra Cloudflare** | Cloudflare | DDoS-angrep, misbruksrapporter, blokkeringer, sertifikatet (Universal SSL), ukentlig Web Analytics | E-post (se «Overvåke skjemaene» under) |
 | **Utløpsdatoer** («Utløper snart» i det private `hpgt-com/operations`) | GitHub Actions, mandager | Tokens, nøkler og domenet, 45 dager i forveien (90 for domenet) | En sak i `hpgt-com/operations` |
 
@@ -167,7 +167,7 @@ til `main`. Siden er GitHub Pages fra grenen `gh-pages`, på `status.hpgt.com` (
 
   Cloudflare varsler ikke når Cloudflare-API-tokenet går ut. Det gjør «Utløper snart» i hpgt-com/operations (se
   [Fornye Cloudflare-tokenet](#fornye-cloudflare-tokenet-årlig)).
-- **Helsesjekk:** `.github/workflows/helse.yml` sjekker hpgt.com utenfra hver time: sidene, sikkerhetshodene, den ekte
+- **Helsesjekk:** `.github/workflows/health.yml` sjekker hpgt.com utenfra hver time: sidene, sikkerhetshodene, den ekte
   Turnstile-nøkkelen, Workeren (`/api/` svarer 405 på GET), videresendingen fra `www` og at sertifikatet har minst
   14 dager igjen. Når noe er galt, oppretter den en sak med etiketten `bug` (følg repoet for å få e-post) og lukker den
   når alt er i orden igjen. GitHub slår av planen etter 60 dager uten commit; det kommer en e-post om det, og den slås
@@ -203,14 +203,14 @@ Pages CMS med «Changes must be made through a pull request».
 
 | Symptom | Sannsynlig årsak | Løsning |
 |---|---|---|
-| `bygg` feiler etter lagring i Pages CMS | Et ugyldig felt (dato, type, et bilde som mangler) | Les feilmeldingen, rett innlegget i CMS-et |
-| `publiser` feiler med en autentiseringsfeil | Cloudflare-tokenet har gått ut eller er slettet | Forny tokenet (se over) |
-| `vakt` feiler, og saken «Publisering stoppet: Pages CMS endret filer utenfor innholdet» opprettes | En commit lagret rett på `main` (fra Pages CMS, uten pull request) endret filer utenfor innholdet | Finn ut hvem som lagret og hvorfor. Var det ikke meningen: `git revert` av committen i en pull request, og sjekk kontoen til redaktøren. Var det meningen: gjør endringen på nytt i en pull request. Publiseringen fortsetter når filene er som ved siste publisering |
-| `vakt` feiler med «Kunne ikke slå opp …», «Uventet svar …» eller «git … feilet» | Et oppslag i GitHub eller en Git-kommando feilet, så endringen kunne ikke kontrolleres helt | Kjør arbeidsflyten på nytt. Den publiserer aldri etter en ufullstendig kontroll |
-| `vakt` feiler med «Fant ikke forrige publisering …» | Den sist publiserte committen finnes ikke (historikken er skrevet om), eller ingen publisering har lyktes, så det er ingenting å sammenligne med | Se gjennom committene på `main` siden siste publisering, og kjør så «Bygg og publiser» for hånd (Actions → Run workflow). En manuell kjøring kontrollerer bare siste commit, og loggen viser hvem som kjørte den |
-| `bygg` stopper på `check-media` | En fil i `public/media/` som ikke er et bilde eller en PDF | Fjern den, eller erstatt den med et bilde eller en PDF |
-| `publiser` stopper på «Sett inn skjemaenes ID-er» | En variabel i `produksjon` mangler eller har feil format | Rett variabelen og kjør på nytt |
-| `oversett` advarer om innloggingen | Anthropic-federation, kreditten eller ID-ene | Nettstedet publiseres likevel, med de forrige oversettelsene. Sjekk platform.claude.com |
+| `build` feiler etter lagring i Pages CMS | Et ugyldig felt (dato, type, et bilde som mangler) | Les feilmeldingen, rett innlegget i CMS-et |
+| `publish` feiler med en autentiseringsfeil | Cloudflare-tokenet har gått ut eller er slettet | Forny tokenet (se over) |
+| `guard` feiler, og saken «Publisering stoppet: Pages CMS endret filer utenfor innholdet» opprettes | En commit lagret rett på `main` (fra Pages CMS, uten pull request) endret filer utenfor innholdet | Finn ut hvem som lagret og hvorfor. Var det ikke meningen: `git revert` av committen i en pull request, og sjekk kontoen til redaktøren. Var det meningen: gjør endringen på nytt i en pull request. Publiseringen fortsetter når filene er som ved siste publisering |
+| `guard` feiler med «Kunne ikke slå opp …», «Uventet svar …» eller «git … feilet» | Et oppslag i GitHub eller en Git-kommando feilet, så endringen kunne ikke kontrolleres helt | Kjør arbeidsflyten på nytt. Den publiserer aldri etter en ufullstendig kontroll |
+| `guard` feiler med «Fant ikke forrige publisering …» | Den sist publiserte committen finnes ikke (historikken er skrevet om), eller ingen publisering har lyktes, så det er ingenting å sammenligne med | Se gjennom committene på `main` siden siste publisering, og kjør så «Bygg og publiser» for hånd (Actions → Run workflow). En manuell kjøring kontrollerer bare siste commit, og loggen viser hvem som kjørte den |
+| `build` stopper på `check-media` | En fil i `public/media/` som ikke er et bilde eller en PDF | Fjern den, eller erstatt den med et bilde eller en PDF |
+| `publish` stopper på «Sett inn skjemaenes ID-er» | En variabel i `produksjon` mangler eller har feil format | Rett variabelen og kjør på nytt |
+| `translate` advarer om innloggingen | Anthropic-federation, kreditten eller ID-ene | Nettstedet publiseres likevel, med de forrige oversettelsene. Sjekk platform.claude.com |
 | Et skjema (RadioID eller «Meld feil») svarer «Noe gikk galt hos oss» | Appnøkkelen, installasjonen av appen eller ID-ene | Sjekk at appen er installert på `form-submissions` og at nøkkelen i Cloudflare er riktig |
 
 ## Domenet
