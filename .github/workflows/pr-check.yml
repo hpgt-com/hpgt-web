@@ -52,3 +52,8 @@ jobs:
       - run: node scripts/sjekk-tilgjengelighet.mjs
         env:
           CHROMIUM_PATH: /usr/bin/google-chrome
+
+      # Ytelsesbudsjett per side (bytes per type, forespørsler, DOM-noder, layoutskift) i Chrome, med andre verter blokkert.
+      - run: npm run check:budget
+        env:
+          CHROMIUM_PATH: /usr/bin/google-chrome

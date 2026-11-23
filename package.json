@@ -10,6 +10,7 @@
     "test": "node --test \"test/*.test.js\"",
     "forhandsvisning": "./scripts/bygg-forhandsvisning.sh",
     "sjekk": "node scripts/sjekk-lenker.mjs && node scripts/sjekk-tilgjengelighet.mjs",
+    "check:budget": "node scripts/check-budget.mjs",
     "ikoner": "node scripts/lag-ikoner.mjs"
   },
   "dependencies": {
