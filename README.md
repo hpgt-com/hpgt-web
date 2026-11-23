@@ -87,8 +87,4 @@ tekster (menyer, knapper) ligger i `src/lib/i18n.ts`.
 ## Sikkerhet
 
 Se [SECURITY.md](SECURITY.md). Repoet bygger på `hpgt-com/repo-template`. Regelsettet for `main` og
-sikkerhetsinnstillingene settes av en eier av organisasjonen:
-
-```bash
-./settings/apply.sh repo hpgt-com/hpgt-web --checks bygg   # run from hpgt-com/repo-template
-```
+sikkerhetsinnstillingene står i `github.json` i `hpgt-com/operations` og settes med `scripts/apply-settings.mjs` der.
