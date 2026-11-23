@@ -128,7 +128,7 @@ lagrer, og derfor har noen felt `hidden: true`.
 Sidene i `PAGES` i `scripts/translate/translate.mjs` (kurs, for piloter, klubbsidene og så videre) oversettes automatisk
 ved hver publisering. Uendret tekst gjenbrukes fra forrige publisering (`/en/oversettelser.json`), så bare nye eller
 endrede avsnitt sendes til Anthropic. Engelske adresser (`/klubben/styret/` → `/en/club/board/`) står i
-`src/lib/engelske-adresser.mjs`, og faste tekster (menyer, knapper) i `src/lib/i18n.ts`.
+`src/lib/english-paths.mjs`, og faste tekster (menyer, knapper) i `src/lib/i18n.ts`.
 
 Nyheter og arrangementer oversettes også (`/en/news/`, `/en/events/`, og hvert innlegg på `/en/<address>/`), unntatt
 møtereferater, som er formelle dokumenter for medlemmene og blir stående på norsk. Hvert engelske innlegg sier at det er

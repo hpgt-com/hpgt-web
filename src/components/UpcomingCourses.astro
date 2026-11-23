@@ -1,0 +1,24 @@
+---
+// På kurssiden: kommende kurs og fagdager hentes fra kalenderen, så datoene bare skrives ett sted (i innlegget).
+import { getEvents, link, url, groupFor } from "../lib/site";
+import { T, pageInfo, dateFor, postsFor, formatsFor, typeLabelFor, localPath } from "../lib/i18n";
+import "./event.css";
+import Arrow from "./Arrow.astro";
+const { lang } = pageInfo(Astro.url.pathname);
+const t = T[lang];
+const { place, time } = formatsFor(lang);
+const typeLabel = (x: string) => typeLabelFor(lang, x);
+// type: bare dette kurset (på en kursside). Uten type: alle kurs og fagdager (på /kurs/).
+const { type } = Astro.props as { type?: string };
+const { upcoming, past } = await getEvents(await postsFor(lang));
+const isCourse = (e: { data: { type: string } }) => type ? e.data.type === type : ["kurs", "fagdag"].includes(groupFor(e.data.type).slug);
+const next = upcoming.filter(isCourse);
+const previous = past.find(isCourse);
+---
+<section class="upcoming-courses" aria-labelledby="upcoming-courses-h">
+  <h2 id="upcoming-courses-h">{type ? t.nextCourse : t.upcoming}</h2>
+  {next.length > 0
+    ? <ul>{next.map((e) => <li><a href={url(link(e))}><b>{e.data.title}</b><span>{dateFor(lang, e.data.start)} · {[place(e), time(e)].filter(Boolean).join(" · ")} · {typeLabel(e.data.type)}</span></a></li>)}</ul>
+    : <p>{t.noCourses}{previous && <> – {t.previousWas} <a href={url(link(previous))}>{previous.data.title}</a> ({dateFor(lang, previous.data.start)})</>}.</p>}
+  <p class="upcoming-courses__all"><a href={localPath(lang, "/arrangementer/")}>{t.fullCalendar}&nbsp;<Arrow direction="right" /></a></p>
+</section>

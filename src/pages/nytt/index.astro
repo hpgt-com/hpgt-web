@@ -1,10 +1,10 @@
 ---
 import Layout from "@design/Layout.astro";
 import PostList from "@design/PostList.astro";
-import { hentInnlegg, hentKategorier, grupperPaaAar } from "../../lib/site";
-const kategorier = await hentKategorier();
-const grupper = grupperPaaAar(await hentInnlegg());
+import { getPosts, getCategories, groupByYear } from "../../lib/site";
+const categories = await getCategories();
+const years = groupByYear(await getPosts());
 ---
 <Layout title="Nytt fra klubben">
-  <PostList title="Nytt fra klubben" ingress="Nyheter, referater, kurs og turer – helt tilbake til 2012." grupper={grupper} kategorier={kategorier} />
+  <PostList title="Nytt fra klubben" lead="Nyheter, referater, kurs og turer – helt tilbake til 2012." years={years} categories={categories} />
 </Layout>

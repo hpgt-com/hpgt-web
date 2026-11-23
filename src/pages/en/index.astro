@@ -1,17 +1,17 @@
 ---
-// Engelsk forside. Bygges bare når forsidetekstene er oversatt (.oversatt/forside.json).
+// Engelsk forside. Bygges bare når forsidetekstene er oversatt (.translated/forside.json).
 import Layout from "@design/Layout.astro";
 import Home from "@design/Home.astro";
-import { site, hentArrangementer } from "../../lib/site";
-import { klubbLd, ldJson } from "../../lib/strukturert";
-import { engelskeStier, innleggFor, oversatteInnlegg } from "../../lib/i18n";
+import { site, getEvents } from "../../lib/site";
+import { clubLd, ldJson } from "../../lib/structured-data";
+import { englishPaths, postsFor, translatedPosts } from "../../lib/i18n";
 export async function getStaticPaths() {
-  return (await engelskeStier()).has("/") ? [{ params: {} }] : [];
+  return (await englishPaths()).has("/") ? [{ params: {} }] : [];
 }
-const innlegg = await oversatteInnlegg("en");
-const { kommende, tidligere } = await hentArrangementer(await innleggFor("en"));
+const posts = await translatedPosts("en");
+const { upcoming, past } = await getEvents(await postsFor("en"));
 ---
 <Layout title={site.navn} description="Paragliding, speedflying and paramotor in Harstad, Northern Norway. Courses, tandem flights, flying sites and a friendly club.">
-  <script type="application/ld+json" set:html={ldJson(klubbLd())} />
-  <Home innlegg={innlegg} kommende={kommende} tidligere={tidligere} />
+  <script type="application/ld+json" set:html={ldJson(clubLd())} />
+  <Home posts={posts} upcoming={upcoming} past={past} />
 </Layout>

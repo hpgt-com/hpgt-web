@@ -1,34 +1,34 @@
 ---
 // Felles <head> for alle design: streng CSP (kun egne filer, ingen sporing), noindex mens dette er en prototype.
 import { site, url } from "../lib/site";
-import { tilEngelsk } from "../lib/engelske-adresser.mjs";
+import { toEnglish } from "../lib/english-paths.mjs";
 // Skriftene lastes før første tegning, så teksten ikke hopper når de kommer (Lighthouse: layout shift). Bare latin;
 // samme filer som @fontsource-importene i Layout.astro, så nettleseren henter dem bare én gang.
 import interTight from "@fontsource-variable/inter-tight/files/inter-tight-latin-wght-normal.woff2?url";
 import plexMono600 from "@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-600-normal.woff2?url";
-interface Props { title: string; description?: string; image?: string; sprak?: "nb" | "en"; sti?: string; alternativ?: boolean; noindex?: boolean }
-const { title, description = site.beskrivelse, image, sprak = "nb", sti: normalSti, alternativ = false, noindex = false } = Astro.props;
+interface Props { title: string; description?: string; image?: string; lang?: "nb" | "en"; path?: string; alternate?: boolean; noindex?: boolean }
+const { title, description = site.beskrivelse, image, lang = "nb", path: nbPath, alternate = false, noindex = false } = Astro.props;
 // Begge språkversjonene peker på hverandre (hreflang), så søkemotorer viser riktig språk
-const nbUrl = normalSti && new URL(normalSti, site.url);
-const enUrl = normalSti && new URL(`/en${tilEngelsk(normalSti)}`, site.url);
+const nbUrl = nbPath && new URL(nbPath, site.url);
+const enUrl = nbPath && new URL(`/en${toEnglish(nbPath)}`, site.url);
 const fullTitle = title === site.navn ? site.navn : `${title} – ${site.kortnavn}`;
 // Sider med skjema får laste Cloudflare Turnstile – ingen andre. Må stemme med public/_headers.
-const SKJEMASIDER = ["/for-piloter/radioid/", "/meld-feil/", "/en/report-error/"];
-const sti = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ""), "");
-const turnstile = !site.prototype && SKJEMASIDER.includes(sti);
+const FORM_PAGES = ["/for-piloter/radioid/", "/meld-feil/", "/en/report-error/"];
+const path = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ""), "");
+const turnstile = !site.prototype && FORM_PAGES.includes(path);
 const cf = "https://challenges.cloudflare.com";
-// Videoer spilles av i overlay (public/assets/js/galleri.js) først når noen trykker – bare fra disse to. Må stemme med public/_headers.
+// Videoer spilles av i overlay (public/assets/js/gallery.js) først når noen trykker – bare fra disse to. Må stemme med public/_headers.
 const VIDEO = "https://www.youtube-nocookie.com https://player.vimeo.com";
 // Anonym besøksstatistikk (Cloudflare Web Analytics): ingen informasjonskapsler, ingen sporing mellom nettsteder.
 // Slås på med tokenet i site.json → statistikk. Uten token lastes ingenting. Må stemme med public/_headers.
-const statistikk = site.statistikk;
+const analytics = site.statistikk;
 // GoatCounter (site.json → goatcounter): også anonym og uten informasjonskapsler, i tillegg teller den klikk som
-// hendelser (public/assets/js/statistikk.js). Skriptet ligger på siden selv (public/assets/js/goatcounter.js), så bare
+// hendelser (public/assets/js/stats.js). Skriptet ligger på siden selv (public/assets/js/goatcounter.js), så bare
 // tellepunktet trenger å stå i CSP-en. Tomt = av. Må stemme med public/_headers.
 const goat = (site as { goatcounter?: string }).goatcounter;
 const GOAT = goat ? new URL(goat).origin : "";
-const CFA_SKRIPT = "https://static.cloudflareinsights.com", CFA_DATA = "https://cloudflareinsights.com";
-const csp = `default-src 'self'; script-src 'self'${turnstile ? " " + cf : ""}${statistikk ? " " + CFA_SKRIPT : ""}; style-src 'self'; img-src 'self' data:${goat ? " " + GOAT : ""}; font-src 'self'; connect-src 'self'${statistikk ? " " + CFA_DATA : ""}${goat ? " " + GOAT : ""}; frame-src ${turnstile ? cf + " " : ""}${VIDEO}; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests`;
+const CFA_SCRIPT = "https://static.cloudflareinsights.com", CFA_DATA = "https://cloudflareinsights.com";
+const csp = `default-src 'self'; script-src 'self'${turnstile ? " " + cf : ""}${analytics ? " " + CFA_SCRIPT : ""}; style-src 'self'; img-src 'self' data:${goat ? " " + GOAT : ""}; font-src 'self'; connect-src 'self'${analytics ? " " + CFA_DATA : ""}${goat ? " " + GOAT : ""}; frame-src ${turnstile ? cf + " " : ""}${VIDEO}; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests`;
 const canonical = new URL(Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ""), ""), site.url);
 ---
 <meta charset="utf-8" />
@@ -44,18 +44,18 @@ const canonical = new URL(Astro.url.pathname.replace(import.meta.env.BASE_URL.re
 <meta property="og:site_name" content={site.navn} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:locale" content={sprak === "en" ? "en_GB" : "nb_NO"} />
-{alternativ && nbUrl && <><link rel="alternate" hreflang="nb" href={nbUrl} /><link rel="alternate" hreflang="en" href={enUrl} /><link rel="alternate" hreflang="x-default" href={nbUrl} /></>}
+<meta property="og:locale" content={lang === "en" ? "en_GB" : "nb_NO"} />
+{alternate && nbUrl && <><link rel="alternate" hreflang="nb" href={nbUrl} /><link rel="alternate" hreflang="en" href={enUrl} /><link rel="alternate" hreflang="x-default" href={nbUrl} /></>}
 {/* Delingsbilde: sidens eget bilde, ellers klubbens standardbilde (site.json → delingsbilde) */}
 <meta property="og:image" content={new URL(image ?? site.delingsbilde, site.url)} />
 <link rel="icon" href={url("/favicon.ico")} sizes="any" />
 <link rel="icon" href={url("/assets/img/hpgt-logo.png")} type="image/png" />
 <link rel="apple-touch-icon" href={url("/apple-touch-icon.png")} />
-<script is:inline src={url("/assets/js/tema.js")}></script>
-<script is:inline src={url("/assets/js/meny.js")} defer></script>
-<script is:inline src={url("/assets/js/innhold.js")} defer></script>
-<script is:inline src={url("/assets/js/kopier.js")} defer></script>
-<script is:inline src={url("/assets/js/galleri.js")} defer></script>
-{statistikk && <script is:inline defer src={`${CFA_SKRIPT}/beacon.min.js`} data-cf-beacon={JSON.stringify({ token: statistikk })}></script>}
+<script is:inline src={url("/assets/js/theme.js")}></script>
+<script is:inline src={url("/assets/js/menu.js")} defer></script>
+<script is:inline src={url("/assets/js/toc.js")} defer></script>
+<script is:inline src={url("/assets/js/copy-link.js")} defer></script>
+<script is:inline src={url("/assets/js/gallery.js")} defer></script>
+{analytics && <script is:inline defer src={`${CFA_SCRIPT}/beacon.min.js`} data-cf-beacon={JSON.stringify({ token: analytics })}></script>}
 {goat && <script is:inline async data-goatcounter={goat} src={url("/assets/js/goatcounter.js")}></script>}
-{goat && <script is:inline defer src={url("/assets/js/statistikk.js")}></script>}
+{goat && <script is:inline defer src={url("/assets/js/stats.js")}></script>}

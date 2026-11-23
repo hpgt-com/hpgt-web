@@ -74,7 +74,7 @@ tekster (menyer, knapper) ligger i `src/lib/i18n.ts`.
   `main`: `ANTHROPIC_ORGANIZATION_ID`, `ANTHROPIC_FEDERATION_RULE_ID`, `ANTHROPIC_SERVICE_ACCOUNT_ID` og eventuelt
   `ANTHROPIC_WORKSPACE_ID`. Uten innlogging publiseres nettstedet likevel, med de forrige oversettelsene.
 - Hvilke sider som oversettes: `PAGES` øverst i `scripts/translate/translate.mjs`.
-- Engelske adresser (`/klubben/styret/` → `/en/club/board/`): `src/lib/engelske-adresser.mjs`. Gamle `/en/…`-adresser
+- Engelske adresser (`/klubben/styret/` → `/en/club/board/`): `src/lib/english-paths.mjs`. Gamle `/en/…`-adresser
   sendes videre.
 - Test lokalt uten nøkkel: `TRANSLATE_TEST=1 npm run build` gir «[EN] …»-tekster.
 

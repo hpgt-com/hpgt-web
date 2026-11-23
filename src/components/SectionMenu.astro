@@ -1,0 +1,16 @@
+---
+import Arrow from "./Arrow.astro";
+// Knapperad øverst på alle sider i en seksjon (Kurs, For piloter, Klubben). Ingen nedtrekksmenyer – se src/lib/sections.ts.
+import { pageInfo, menuLabel, englishPaths } from "../lib/i18n";
+import { sectionFor, activeLink, sectionHref } from "../lib/sections";
+import "./courses.css";
+const { path, lang } = pageInfo(Astro.url.pathname);
+const s = await sectionFor(path, lang);
+const english = await englishPaths();
+const active = s && activeLink(s, path);
+const href = (u: string) => (s ? sectionHref(s, u, lang, english) : u);
+---
+{s && <nav class="section-menu" aria-label={menuLabel(lang, s.tekst)}>
+  <a href={href(s.url)} aria-current={active === s.url ? "page" : undefined}>{menuLabel(lang, s.forste)}</a>
+  {s.sider.map((l) => <a href={href(l.url)} aria-current={active === l.url ? "page" : undefined}>{s.url === "/kurs/" ? l.tekst : menuLabel(lang, l.tekst)}{l.ekstern && <> <Arrow /></>}</a>)}
+</nav>}

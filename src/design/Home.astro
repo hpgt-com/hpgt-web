@@ -1,43 +1,44 @@
 ---
-import Pil from "../components/Pil.astro";
-import Standardbilde from "../components/Standardbilde.astro";
-import Aktivitetskalender from "../components/Aktivitetskalender.astro";
-import { url, dato, dag, mnd, lenke, slug, utdrag, bildeFor, tidSted } from "../lib/site";
-import { T, sideInfo, forsideFor, engelskeStier, lenkeFor, katNavn, sti } from "../lib/i18n";
-const { innlegg, kommende, tidligere } = Astro.props;
+import Arrow from "../components/Arrow.astro";
+import DefaultImage from "../components/DefaultImage.astro";
+import ActivityCalendar from "../components/ActivityCalendar.astro";
+import { url, link, slug, excerpt, imageFor } from "../lib/site";
+import { T, pageInfo, frontPageFor, englishPaths, linkFor, categoryName, localPath } from "../lib/i18n";
+const { posts, upcoming, past } = Astro.props;
 // Engelsk forside: samme oppsett, med de oversatte nyhetene og arrangementene (src/pages/en/index.astro)
-const { sprak } = sideInfo(Astro.url.pathname);
-const t = T[sprak];
-const forside = forsideFor(sprak);
-const engelske = await engelskeStier();
-const lenk = (u: string) => lenkeFor(sprak, u, engelske);
-const en = sprak === "en";
-const kort = (d: Date) => new Intl.DateTimeFormat(en ? "en-GB" : "nb-NO", { timeZone: "UTC", day: "2-digit", month: "short", year: "numeric" }).format(d).replace(/\./g, "");
+const { lang } = pageInfo(Astro.url.pathname);
+const t = T[lang];
+// Feltnavnene (heltebilde, stikkord, slagord, veier …) er de samme som i forside.json, som redigeres i Pages CMS
+const frontPage = frontPageFor(lang);
+const english = await englishPaths();
+const href = (u: string) => linkFor(lang, u, english);
+const en = lang === "en";
+const shortDate = (d: Date) => new Intl.DateTimeFormat(en ? "en-GB" : "nb-NO", { timeZone: "UTC", day: "2-digit", month: "short", year: "numeric" }).format(d).replace(/\./g, "");
 ---
 <section class="hero">
-  <img class="hero__img" src={url(forside.heltebilde)} alt={t.heltebildeAlt} />
+  <img class="hero__img" src={url(frontPage.heltebilde)} alt={t.heroAlt} />
   <div class="wrap hero__in">
-    <p class="eyebrow eyebrow--light"><span class="dot" aria-hidden="true"></span>{forside.stikkord}</p>
-    <h1 class="hero__title">{forside.slagord}</h1>
-    <p class="hero__lead">{forside.slagordIngress}</p>
+    <p class="eyebrow eyebrow--light"><span class="dot" aria-hidden="true"></span>{frontPage.stikkord}</p>
+    <h1 class="hero__title">{frontPage.slagord}</h1>
+    <p class="hero__lead">{frontPage.slagordIngress}</p>
     <p class="actions">
-      <a class="btn" href={lenk("/kurs/")}>{t.utforskKurs} <Pil /></a>
-      <a class="btn btn--ghost" href={lenk("/for-piloter/")}>{t.flyMedOss} <Pil retning="hoyre" /></a>
-      <a class="hero__cal" href="#aktivitetskalender">{t.kalender}&nbsp;<Pil retning="ned" /></a>
+      <a class="btn" href={href("/kurs/")}>{t.exploreCourses} <Arrow /></a>
+      <a class="btn btn--ghost" href={href("/for-piloter/")}>{t.flyWithUs} <Arrow direction="right" /></a>
+      <a class="hero__cal" href="#aktivitetskalender">{t.calendar}&nbsp;<Arrow direction="down" /></a>
     </p>
-    <div class="hero__strip"><span>Harstad / Sør-Troms</span><span>{forside.heltebildeKreditt}</span></div>
+    <div class="hero__strip"><span>Harstad / Sør-Troms</span><span>{frontPage.heltebildeKreditt}</span></div>
   </div>
 </section>
 
 <section class="wrap section">
-  <div class="head"><div><p class="eyebrow">{t.utILufta}</p><h2 class="h2">{t.finnVei}</h2></div><a class="more" href={lenk("/klubben/")}>{t.omKlubben}&nbsp;<Pil /></a></div>
+  <div class="head"><div><p class="eyebrow">{t.intoTheAir}</p><h2 class="h2">{t.findYourWay}</h2></div><a class="more" href={href("/klubben/")}>{t.aboutClub}&nbsp;<Arrow /></a></div>
   <div class="paths">
-    {forside.veier.map((v, i) => (
-      <a class="path" href={lenk(v.url)}>
+    {frontPage.veier.map((v, i) => (
+      <a class="path" href={href(v.url)}>
         <span class="eyebrow">{String(i + 1).padStart(2, "0")} / {v.verb}</span>
         <span class="path__title">{v.tittel}</span>
         <span class="path__text">{v.tekst}</span>
-        <span class="path__arrow" aria-hidden="true"><Pil /></span>
+        <span class="path__arrow" aria-hidden="true"><Arrow /></span>
       </a>
     ))}
   </div>
@@ -46,17 +47,17 @@ const kort = (d: Date) => new Intl.DateTimeFormat(en ? "en-GB" : "nb-NO", { time
 <hr class="wrap rule" />
 
 <section class="wrap section">
-  <div class="head"><div><p class="eyebrow">{en ? "From the club" : "Fra klubben"}</p><h2 class="h2">{en ? "Latest news" : "Siste nytt"}</h2></div><a class="more" href={sti(sprak, "/nytt/")}>{en ? "All posts" : "Alle innlegg"}&nbsp;<Pil retning="hoyre" /></a></div>
+  <div class="head"><div><p class="eyebrow">{en ? "From the club" : "Fra klubben"}</p><h2 class="h2">{en ? "Latest news" : "Siste nytt"}</h2></div><a class="more" href={localPath(lang, "/nytt/")}>{en ? "All posts" : "Alle innlegg"}&nbsp;<Arrow direction="right" /></a></div>
   <div class="news">
-    {innlegg.slice(0, 3).map((p) => {
-      const b = bildeFor(p);
+    {posts.slice(0, 3).map((p) => {
+      const b = imageFor(p);
       return (
-        <a class="post" href={url(lenke(p))}>
-          {b ? <span class="post__noimg standardbilde--foto" data-kat={slug(p.data.kategorier[0])}><img src={url(b)} alt="" loading="lazy" /><span class="standardbilde__etikett">{katNavn(sprak, p.data.kategorier[0])}</span></span> : <Standardbilde class="post__noimg" kat={slug(p.data.kategorier[0])} tekst={katNavn(sprak, p.data.kategorier[0])} nokkel={lenke(p)} />}
+        <a class="post" href={url(link(p))}>
+          {b ? <span class="post__noimg default-image--photo" data-cat={slug(p.data.kategorier[0])}><img src={url(b)} alt="" loading="lazy" /><span class="default-image__label">{categoryName(lang, p.data.kategorier[0])}</span></span> : <DefaultImage class="post__noimg" cat={slug(p.data.kategorier[0])} label={categoryName(lang, p.data.kategorier[0])} seed={link(p)} />}
           <span class="post__body">
-            <span class="post__meta">{kort(p.data.date)}</span>
+            <span class="post__meta">{shortDate(p.data.date)}</span>
             <span class="post__title">{p.data.title}</span>
-            <span class="post__text">{utdrag(p.body, 150)}</span>
+            <span class="post__text">{excerpt(p.body, 150)}</span>
             {p.data.forfatter && <span class="post__by">{en ? "By" : "Av"} <b>{p.data.forfatter}</b></span>}
           </span>
         </a>
@@ -65,9 +66,10 @@ const kort = (d: Date) => new Intl.DateTimeFormat(en ? "en-GB" : "nb-NO", { time
   </div>
 </section>
 
+{/* Ankeret #aktivitetskalender er en del av adressen og beholdes */}
 <section class="band band--cal" id="aktivitetskalender">
   <div class="wrap section">
-  <div class="head"><div><p class="eyebrow">{en ? "What's on in HPGT" : "Det skjer i HPGT"}</p><h2 class="h2">{t.kalender}</h2></div><a class="more" href={sti(sprak, "/arrangementer/")}>{en ? "All events" : "Alle arrangementer"}&nbsp;<Pil retning="hoyre" /></a></div>
-  <Aktivitetskalender kommende={kommende} tidligere={tidligere} />
+  <div class="head"><div><p class="eyebrow">{en ? "What's on in HPGT" : "Det skjer i HPGT"}</p><h2 class="h2">{t.calendar}</h2></div><a class="more" href={localPath(lang, "/arrangementer/")}>{en ? "All events" : "Alle arrangementer"}&nbsp;<Arrow direction="right" /></a></div>
+  <ActivityCalendar upcoming={upcoming} past={past} />
   </div>
 </section>

@@ -1,11 +1,12 @@
 // Søkeindeks for /sok/ og /en/search/: innlegg, faste sider og kurssider på begge språk, som ren tekst.
-// Søket skjer i nettleseren (public/assets/js/sok.js) – ingenting sendes til andre tjenester.
+// Søket skjer i nettleseren (public/assets/js/search.js) – ingenting sendes til andre tjenester.
+// Adressen /sok.json og de korte feltnavnene (s, u, t, k, d, x) leses av search.js.
 import { getCollection } from "astro:content";
-import { lenke, kursLenke } from "../lib/site";
-import { tilEngelsk } from "../lib/engelske-adresser.mjs";
+import { link, courseLink } from "../lib/site";
+import { toEnglish } from "../lib/english-paths.mjs";
 
 // Markdown til ren tekst: fjern bilder, behold lenketekst, fjern formatering og HTML
-const tekst = (md = "") =>
+const plainText = (md = "") =>
   md
     .replace(/```[\s\S]*?```/g, " ")
     .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
@@ -17,7 +18,7 @@ const tekst = (md = "") =>
     .slice(0, 4000);
 
 export async function GET() {
-  const [innlegg, sider, kurs, siderEn, kursEn, innleggEn] = await Promise.all([
+  const [posts, pages, courses, pagesEn, coursesEn, postsEn] = await Promise.all([
     getCollection("innlegg", (p) => !p.data.utkast),
     getCollection("sider"),
     getCollection("kurs"),
@@ -25,14 +26,14 @@ export async function GET() {
     getCollection("kurs_en"),
     getCollection("innlegg_en"),
   ]);
-  const publisert = new Set(innlegg.map((p) => p.id));
-  const dok = [
-    ...innlegg.map((p) => ({ s: "nb", u: lenke(p), t: p.data.title, k: p.data.kategorier[0], d: p.data.date.toISOString().slice(0, 10), x: tekst(`${p.data.ingress ?? ""} ${p.body}`) })),
-    ...sider.map((p) => ({ s: "nb", u: lenke(p), t: p.data.title, k: "Side", x: tekst(`${p.data.ingress ?? ""} ${p.body}`) })),
-    ...kurs.map((p) => ({ s: "nb", u: kursLenke(p), t: p.data.title, k: "Kurs", x: tekst(`${p.data.ingress ?? ""} ${p.body}`) })),
-    ...siderEn.map((p) => ({ s: "en", u: `/en${tilEngelsk(lenke(p))}`, t: p.data.title, k: "Page", x: tekst(`${p.data.ingress ?? ""} ${p.body}`) })),
-    ...innleggEn.filter((p) => publisert.has(p.id)).map((p) => ({ s: "en", u: lenke(p), t: p.data.title, k: "News", d: p.data.date.toISOString().slice(0, 10), x: tekst(`${p.data.ingress ?? ""} ${p.body}`) })),
-    ...kursEn.map((p) => ({ s: "en", u: `/en${tilEngelsk(kursLenke(p))}`, t: p.data.title, k: "Course", x: tekst(`${p.data.ingress ?? ""} ${p.body}`) })),
+  const published = new Set(posts.map((p) => p.id));
+  const docs = [
+    ...posts.map((p) => ({ s: "nb", u: link(p), t: p.data.title, k: p.data.kategorier[0], d: p.data.date.toISOString().slice(0, 10), x: plainText(`${p.data.ingress ?? ""} ${p.body}`) })),
+    ...pages.map((p) => ({ s: "nb", u: link(p), t: p.data.title, k: "Side", x: plainText(`${p.data.ingress ?? ""} ${p.body}`) })),
+    ...courses.map((p) => ({ s: "nb", u: courseLink(p), t: p.data.title, k: "Kurs", x: plainText(`${p.data.ingress ?? ""} ${p.body}`) })),
+    ...pagesEn.map((p) => ({ s: "en", u: `/en${toEnglish(link(p))}`, t: p.data.title, k: "Page", x: plainText(`${p.data.ingress ?? ""} ${p.body}`) })),
+    ...postsEn.filter((p) => published.has(p.id)).map((p) => ({ s: "en", u: link(p), t: p.data.title, k: "News", d: p.data.date.toISOString().slice(0, 10), x: plainText(`${p.data.ingress ?? ""} ${p.body}`) })),
+    ...coursesEn.map((p) => ({ s: "en", u: `/en${toEnglish(courseLink(p))}`, t: p.data.title, k: "Course", x: plainText(`${p.data.ingress ?? ""} ${p.body}`) })),
   ];
-  return new Response(JSON.stringify(dok), { headers: { "Content-Type": "application/json" } });
+  return new Response(JSON.stringify(docs), { headers: { "Content-Type": "application/json" } });
 }

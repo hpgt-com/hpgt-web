@@ -1,0 +1,16 @@
+---
+import Layout from "@design/Layout.astro";
+import PostList from "@design/PostList.astro";
+import { getCategories, groupByYear } from "../../../lib/site";
+export async function getStaticPaths() {
+  const categories = await getCategories();
+  return categories.map((k) => ({ params: { category: k.slug }, props: { k, categories } }));
+}
+const { k, categories } = Astro.props;
+const lead = k.slug === "moter-og-referater"
+  ? "Innkallinger, protokoller og årsberetninger fra årsmøter og klubbmøter. Signerte dokumenter ligger som PDF-vedlegg."
+  : undefined;
+---
+<Layout title={k.name}>
+  <PostList title={k.name} lead={lead} years={groupByYear(k.posts)} categories={categories} active={k.slug} />
+</Layout>

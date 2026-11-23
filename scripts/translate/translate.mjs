@@ -19,7 +19,7 @@ import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, readdirSync, writeFileSync, existsSync } from "node:fs";
 import { join, basename, dirname, relative, sep } from "node:path";
 import { fileURLToPath } from "node:url";
-import { tilEngelsk as toEnglish } from "../../src/lib/engelske-adresser.mjs";
+import { toEnglish } from "../../src/lib/english-paths.mjs";
 import { tmpdir } from "node:os";
 
 const ROOT = fileURLToPath(new URL("../../", import.meta.url));

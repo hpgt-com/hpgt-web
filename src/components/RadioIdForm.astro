@@ -1,0 +1,42 @@
+---
+// Skjema for å melde inn, endre eller fjerne en RadioID. Sendes til /api/radioid (worker/index.js),
+// som sjekker Turnstile og lager en GitHub-issue (via GitHub-appen «HPGT Web Forms»). Turnstile-nøkkelen her er Cloudflares
+// testnøkkel; publiseringen bytter den med den ekte fra miljøet «produksjon» (.github/workflows/deploy.yml). I prototypen sendes ingenting; skjemaet viser bare hva saken ville blitt.
+// Feltnavnene (name=…) leses av workeren og beholdes.
+import { site, url } from "../lib/site";
+import "./form.css";
+const demo = site.prototype;
+const varios = ["XCTracer Maxx", "XCTracer Maxx II", "XCTracer Maxx III", "Oudie Omni", "XCTrack + FANET-modul", "Skytraxx 5", "Skytraxx 5 Mini", "Syride", "Flymaster"];
+---
+<section class="form" id="meld-inn" aria-labelledby="meld-inn-h">
+  <h2 id="meld-inn-h">Meld inn, endre eller fjern din RadioID</h2>
+  <p class="form__info">Innmeldingen går bare til de som vedlikeholder listen, og lagres i et lukket arkiv som ikke er offentlig. Bare navn, RadioID og vario vises i listen over når innmeldingen er lagt inn, og kommentaren leses bare av dem. Ber du om å bli fjernet, tas du ut av listen. Vi spør ikke om e-post eller telefon.</p>
+  <form class="form__fields" method="post" action="/api/radioid" data-demo={demo ? "" : undefined}>
+    <fieldset class="form__choices">
+      <legend>Hva vil du gjøre?</legend>
+      <label><input type="radio" name="handling" value="ny" checked /> Legg meg til</label>
+      <label><input type="radio" name="handling" value="endre" /> Endre min oppføring</label>
+      <label><input type="radio" name="handling" value="fjern" /> Fjern meg fra listen</label>
+    </fieldset>
+    <div class="form__row">
+      <div><label for="rid-name">Navn i listen</label>
+        <input id="rid-name" name="navn" required maxlength="60" autocomplete="given-name" placeholder="F.eks. Kari" /></div>
+      <div><label for="rid-id">RadioID</label>
+        <input id="rid-id" name="radioid" required maxlength="8" pattern="(0[xX])?[0-9A-Fa-f]{6}" autocapitalize="characters" spellcheck="false" placeholder="F.eks. 200B6A" aria-describedby="rid-id-help" />
+        <small id="rid-id-help">6 tegn, 0–9 og A–F. Se tabellen over for hvor du finner den.</small></div>
+    </div>
+    <div><label for="rid-equipment">Vario / utstyr <span class="form__optional">(valgfritt)</span></label>
+      <input id="rid-equipment" name="utstyr" maxlength="60" list="rid-varios" />
+      <datalist id="rid-varios">{varios.map((v) => <option value={v} />)}</datalist></div>
+    <div><label for="rid-comment">Kommentar <span class="form__optional">(valgfritt)</span></label>
+      <textarea id="rid-comment" name="kommentar" maxlength="500" rows="3"></textarea></div>
+    <div class="form__hp" aria-hidden="true"><label>Nettside <input name="nettside" tabindex="-1" autocomplete="off" /></label></div>
+    {demo
+      ? <p class="form__turnstile">Her kommer Cloudflare Turnstile – en usynlig «er du et menneske?»-sjekk uten bildegåter eller sporing.</p>
+      : <div class="cf-turnstile" data-sitekey={site.turnstile} data-action="radioid"></div>}
+    <div class="form__submit"><button type="submit">Send inn</button><p class="form__status" role="status" aria-live="polite"></p></div>
+    <pre class="form__demo" hidden></pre>
+  </form>
+</section>
+{!demo && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
+<script is:inline src={url("/assets/js/form.js")} defer></script>

@@ -1,9 +1,9 @@
 ---
 import Layout from "@design/Layout.astro";
 import EventList from "@design/EventList.astro";
-import { hentArrangementer } from "../../lib/site";
-const { kommende, tidligere } = await hentArrangementer();
+import { getEvents } from "../../lib/site";
+const { upcoming, past } = await getEvents();
 ---
 <Layout title="Arrangementer">
-  <EventList kommende={kommende} tidligere={tidligere} />
+  <EventList upcoming={upcoming} past={past} />
 </Layout>

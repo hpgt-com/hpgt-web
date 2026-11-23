@@ -180,12 +180,12 @@ til `main`. Siden er GitHub Pages fra grenen `gh-pages`, på `status.hpgt.com` (
 
 ### Legge til en side i den engelske versjonen
 1. Legg filnavnet til siden (uten `.md`) til i `PAGES` i `scripts/translate/translate.mjs`.
-2. Skal den norske adressen ha en engelsk, legg den til i `src/lib/engelske-adresser.mjs`.
+2. Skal den norske adressen ha en engelsk, legg den til i `src/lib/english-paths.mjs`.
 3. Pull request. Oversettelsen skjer ved neste publisering.
 
 ### Legge til et nytt skjema
 Bruk Turnstile-widgeten «hpgt.com skjemaer» med en ny `action`, gi sakene en egen etikett i `hpgt-com/form-submissions`
-(eller et eget privat repo hvis andre skal lese dem, se ADR 0007), legg siden til i `SKJEMASIDER` i
+(eller et eget privat repo hvis andre skal lese dem, se ADR 0007), legg siden til i `FORM_PAGES` i
 `src/components/Head.astro` og i `public/_headers`, og sjekk `action` i Workeren. Ingen ny widget eller nye nøkler.
 
 ### Sette regelsettet for `main`

@@ -1,0 +1,9 @@
+/* Faste farger for gruppene i kalenderen – like i alle design. Samme fargefamilie som kategoriene på Nytt. */
+[data-cat="kurs"] { --k: #2e7d32; }
+[data-cat="fagdag"] { --k: #4d6c15; }
+[data-cat="mote"] { --k: #a65300; }
+[data-cat="sosialt"] { --k: #00747f; }
+[data-cat="konkurranse"] { --k: #c2185b; }
+/* Mørk modus: lysere varianter, så teksten i fargen er lesbar på mørk bakgrunn (4.5:1). */
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) [data-cat="kurs"] { --k: #86c98a; } :root:not([data-theme="light"]) [data-cat="fagdag"] { --k: #b5d67a; } :root:not([data-theme="light"]) [data-cat="mote"] { --k: #ffb866; } :root:not([data-theme="light"]) [data-cat="sosialt"] { --k: #5fd3e3; } :root:not([data-theme="light"]) [data-cat="konkurranse"] { --k: #f27aa3; } }
+:root[data-theme="dark"] [data-cat="kurs"] { --k: #86c98a; } :root[data-theme="dark"] [data-cat="fagdag"] { --k: #b5d67a; } :root[data-theme="dark"] [data-cat="mote"] { --k: #ffb866; } :root[data-theme="dark"] [data-cat="sosialt"] { --k: #5fd3e3; } :root[data-theme="dark"] [data-cat="konkurranse"] { --k: #f27aa3; }

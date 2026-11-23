@@ -1,0 +1,31 @@
+/* Bildevisning og visningsvelger. Bruker designets --cal-*-variabler (Fjord+ som standard) og kategorifargen --k. */
+.view-toggle[hidden], .card-grid[hidden] { display: none; }
+.view-toggle { display: flex; justify-content: flex-end; margin: 16px 0 -8px; }
+.view-toggle button { font: inherit; font-weight: 700; font-size: .85rem; padding: 6px 12px; border: 1px solid var(--cal-line, #ccd7e4); background: var(--cal-surface, #fff); color: var(--cal-text, #0e1b2b); cursor: pointer; }
+.view-toggle button + button { border-left: 0; }
+.view-toggle button[aria-pressed="true"] { background: var(--cal-text, #0e1b2b); border-color: var(--cal-text, #0e1b2b); color: var(--on-sel, #fff); }
+.view-toggle button:focus-visible { outline: 3px solid var(--cal-accent, #1f86d1); outline-offset: 2px; }
+
+.card-grid { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); }
+.card a { display: flex; flex-direction: column; height: 100%; background: var(--cal-surface, #fff); border: 1px solid var(--cal-line, #ccd7e4); color: var(--cal-text, #0e1b2b); text-decoration: none; transition: border-color .15s, transform .15s; }
+.card a:hover { border-color: var(--cal-accent, #1f86d1); transform: translateY(-2px); }
+.card a:focus-visible { outline: 3px solid var(--cal-accent, #1f86d1); outline-offset: 2px; }
+.card__image { display: block; aspect-ratio: 16 / 10; overflow: hidden; background: var(--cal-tint, #e2eaf3); }
+.card__image img { width: 100%; height: 100%; object-fit: cover; display: block; margin: 0; }
+
+.card__text { display: flex; flex-direction: column; gap: 4px; padding: 12px 14px 14px; }
+.card__category { font: 600 .62rem/1.4 var(--cal-mono, ui-monospace, monospace); letter-spacing: .1em; text-transform: uppercase; color: var(--k, var(--cal-accent-ink, #1569a8)); }
+.card__title { font-weight: 700; line-height: 1.3; }
+.card__meta { font-size: .82rem; color: var(--cal-muted, #56657a); }
+@media (prefers-reduced-motion: reduce) { .card a { transition: none; } .card a:hover { transform: none; } }
+
+/* Typefilter i kalenderen */
+[data-group][hidden], [data-section][hidden] { display: none !important; }
+.type-filter { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0 0; }
+.type-filter[hidden] { display: none; }
+.type-filter button { font: inherit; font-weight: 700; font-size: .85rem; padding: 5px 11px; border: 1px solid var(--cal-line, #ccd7e4); background: var(--cal-surface, #fff); color: var(--k, var(--cal-text, #0e1b2b)); cursor: pointer; }
+.type-filter button small { color: var(--cal-muted, #56657a); font-weight: 600; }
+.type-filter button[aria-pressed="true"] { background: var(--k, var(--cal-text, #0e1b2b)); border-color: var(--k, var(--cal-text, #0e1b2b)); color: var(--on-sel, #fff); }
+.type-filter button[aria-pressed="true"] small { color: var(--on-sel, #fff); }
+.type-filter button:focus-visible { outline: 3px solid var(--cal-accent, #1f86d1); outline-offset: 2px; }
+.type-filter button:disabled { opacity: .45; cursor: default; }

@@ -1,107 +1,107 @@
 import { getCollection, type CollectionEntry } from "astro:content";
 import site from "../data/site.json";
-import meny from "../data/meny.json";
-import forside from "../data/forside.json";
+import menu from "../data/meny.json";
+import frontPage from "../data/forside.json";
 import radioid from "../data/radioid.json";
 
-export { site, meny, forside, radioid };
-export type Innlegg = CollectionEntry<"innlegg">;
-type ArrFelt = NonNullable<Innlegg["data"]["arrangement"]>;
+export { site, menu, frontPage, radioid };
+export type Post = CollectionEntry<"innlegg">;
+type EventFields = NonNullable<Post["data"]["arrangement"]>;
 /** Et arrangement er et innlegg med arrangementsfelt. data har innleggets felt pluss start, slutt, sted, type osv. */
-export type Arrangement = Omit<Innlegg, "data"> & { data: Innlegg["data"] & Omit<ArrFelt, "start"> & { start: Date } };
+export type EventPost = Omit<Post, "data"> & { data: Post["data"] & Omit<EventFields, "start"> & { start: Date } };
 
-/** Gruppene i kalenderen (delen før « / » i arrangementstypen), med fast rekkefølge og farge (se typefarger.css). */
-export const GRUPPER = [
-  { navn: "Kurs", slug: "kurs" }, { navn: "Fagdag", slug: "fagdag" }, { navn: "Møte", slug: "mote" },
-  { navn: "Sosialt", slug: "sosialt" }, { navn: "Konkurranse", slug: "konkurranse" },
+/** Gruppene i kalenderen (delen før « / » i arrangementstypen), med fast rekkefølge og farge (se type-colors.css). */
+export const GROUPS = [
+  { name: "Kurs", slug: "kurs" }, { name: "Fagdag", slug: "fagdag" }, { name: "Møte", slug: "mote" },
+  { name: "Sosialt", slug: "sosialt" }, { name: "Konkurranse", slug: "konkurranse" },
 ];
-export const gruppeFor = (type = "") => GRUPPER.find((g) => g.navn === type.split(" / ")[0]) ?? GRUPPER[3];
+export const groupFor = (type = "") => GROUPS.find((g) => g.name === type.split(" / ")[0]) ?? GROUPS[3];
 /** «Kurs / PP2 (nybegynner)» → «Kurs · PP2 (nybegynner)» */
-export const typeTekst = (type = "") => type.replace(" / ", " · ");
+export const typeLabel = (type = "") => type.replace(" / ", " · ");
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
 /** Intern lenke med base-sti; eksterne lenker returneres uendret. */
 export const url = (p = "/") => (p.startsWith("/") && !p.startsWith("//") ? BASE + p : p);
-export const ekstern = (p: string) => /^https?:/.test(p);
+export const isExternal = (p: string) => /^https?:/.test(p);
 
 // Datoene fra WordPress er lokal tid uten tidssone; de leses som UTC og vises uendret.
 const fmt = (d: Date, o: Intl.DateTimeFormatOptions) => new Intl.DateTimeFormat("nb-NO", { timeZone: "UTC", ...o }).format(d);
-export const dato = (d: Date) => fmt(d, { day: "numeric", month: "long", year: "numeric" });
-export const datoKort = (d: Date) => fmt(d, { day: "numeric", month: "short" });
-export const dag = (d: Date) => fmt(d, { day: "numeric" });
-export const mnd = (d: Date) => fmt(d, { month: "short" }).replace(".", "");
-export const klokke = (d: Date) => fmt(d, { hour: "2-digit", minute: "2-digit" });
+export const formatDate = (d: Date) => fmt(d, { day: "numeric", month: "long", year: "numeric" });
+export const formatDateShort = (d: Date) => fmt(d, { day: "numeric", month: "short" });
+export const formatDay = (d: Date) => fmt(d, { day: "numeric" });
+export const formatMonth = (d: Date) => fmt(d, { month: "short" }).replace(".", "");
+export const formatClock = (d: Date) => fmt(d, { hour: "2-digit", minute: "2-digit" });
 
 export const slug = (s: string) =>
   s.toLowerCase().replace(/æ/g, "ae").replace(/ø/g, "o").replace(/å/g, "a")
     .normalize("NFKD").replace(/[^\w\s-]/g, "").trim().replace(/[\s_]+/g, "-");
 
-export const utdrag = (body = "", n = 160) => {
+export const excerpt = (body = "", n = 160) => {
   const t = body.replace(/\[Eksternt bilde\]\([^)]*\)/g, "").replace(/!\[[^\]]*\]\([^)]*\)/g, "").replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
     .replace(/[#*_>`|-]+/g, " ").replace(/\s+/g, " ").trim();
   return t.length > n ? t.slice(0, n).replace(/\s\S*$/, "") + " …" : t;
 };
 /** Forsidebilde, eller første bilde i teksten. */
-export const bildeFor = (p: Innlegg) => p.data.bilde ?? p.body?.match(/!\[[^\]]*\]\(([^)\s]+)/)?.[1];
+export const imageFor = (p: Post) => p.data.bilde ?? p.body?.match(/!\[[^\]]*\]\(([^)\s]+)/)?.[1];
 
-export async function hentInnlegg() {
+export async function getPosts() {
   return (await getCollection("innlegg", (p) => !p.data.utkast)).sort((a, b) => +b.data.date - +a.data.date);
 }
-/** Arrangementene (kommende og tidligere). innlegg: en annen liste enn de norske, f.eks. de engelske (innleggFor i i18n.ts). */
-export async function hentArrangementer(innlegg?: Innlegg[]) {
-  const alle = (innlegg ?? (await hentInnlegg()))
+/** Arrangementene (kommende og tidligere). posts: en annen liste enn de norske, f.eks. de engelske (postsFor i i18n.ts). */
+export async function getEvents(posts?: Post[]) {
+  const all = (posts ?? (await getPosts()))
     .filter((p) => p.data.arrangement?.start)
-    .map((p) => ({ ...p, data: { ...p.data, ...p.data.arrangement } }) as Arrangement)
+    .map((p) => ({ ...p, data: { ...p.data, ...p.data.arrangement } }) as EventPost)
     .sort((a, b) => +a.data.start - +b.data.start);
-  const naa = Date.now();
-  const ferdig = (e: Arrangement) => +(e.data.slutt ?? e.data.start) < naa;
-  return { kommende: alle.filter((e) => !ferdig(e)), tidligere: alle.filter(ferdig).reverse() };
+  const now = Date.now();
+  const isOver = (e: EventPost) => +(e.data.slutt ?? e.data.start) < now;
+  return { upcoming: all.filter((e) => !isOver(e)), past: all.filter(isOver).reverse() };
 }
 /** Kurssidene i kursmenyen, i valgt rekkefølge. */
-export const kursLenke = (k: { id: string }) => `/kurs/${k.id}/`;
-export async function hentKurs(sprak: "nb" | "en" = "nb") {
-  return (await getCollection(sprak === "en" ? "kurs_en" : "kurs")).sort((a, b) => a.data.rekkefolge - b.data.rekkefolge || a.data.title.localeCompare(b.data.title, "nb"));
+export const courseLink = (k: { id: string }) => `/kurs/${k.id}/`;
+export async function getCourses(lang: "nb" | "en" = "nb") {
+  return (await getCollection(lang === "en" ? "kurs_en" : "kurs")).sort((a, b) => a.data.rekkefolge - b.data.rekkefolge || a.data.title.localeCompare(b.data.title, "nb"));
 }
-export async function hentKategorier(innlegg?: Innlegg[]) {
-  const map = new Map<string, Innlegg[]>();
-  for (const p of innlegg ?? (await hentInnlegg())) for (const k of p.data.kategorier) map.set(k, [...(map.get(k) ?? []), p]);
-  return [...map].map(([navn, poster]) => ({ navn, slug: slug(navn), poster })).sort((a, b) => b.poster.length - a.poster.length);
+export async function getCategories(posts?: Post[]) {
+  const map = new Map<string, Post[]>();
+  for (const p of posts ?? (await getPosts())) for (const k of p.data.kategorier) map.set(k, [...(map.get(k) ?? []), p]);
+  return [...map].map(([name, posts]) => ({ name, slug: slug(name), posts })).sort((a, b) => b.posts.length - a.posts.length);
 }
-export const grupperPaaAar = (poster: Innlegg[]) => {
-  const g = new Map<number, Innlegg[]>();
-  for (const p of poster) g.set(p.data.date.getFullYear(), [...(g.get(p.data.date.getFullYear()) ?? []), p]);
+export const groupByYear = (posts: Post[]) => {
+  const g = new Map<number, Post[]>();
+  for (const p of posts) g.set(p.data.date.getFullYear(), [...(g.get(p.data.date.getFullYear()) ?? []), p]);
   return [...g];
 };
-export const tidSted = (e: Arrangement) => [e.data.sted, !e.data.heldag && `kl. ${klokke(e.data.start)}`].filter(Boolean).join(" · ");
+export const timeAndPlace = (e: EventPost) => [e.data.sted, !e.data.heldag && `kl. ${formatClock(e.data.start)}`].filter(Boolean).join(" · ");
 /** Adressen til et innlegg/side/arrangement: permalink fra WordPress, ellers filnavnet uten datoprefiks (nye saker fra CMS-et). */
-export const lenke = (e: { id: string; data: { permalink?: string } }) =>
+export const link = (e: { id: string; data: { permalink?: string } }) =>
   e.data.permalink ??
   // Konkurranser opprettet i Pages CMS (sider/konkurranser/2027.md) får /klubben/konkurranser/2027/
   (e.id.startsWith("konkurranser/") ? `/klubben/${e.id}/` : `/${e.id.split("/").pop()!.replace(/^\d{4}-\d{2}-\d{2}-/, "")}/`);
 
 /** Status for kursblokken på forsiden, regnet ut fra datoene i forside.json ved hvert bygg. */
-export function kursStatus(k: { start: string; slutt: string; frist: string }, naa = new Date()) {
-  if (naa > new Date(k.slutt)) return { tekst: "Gjennomført", aapen: false, ferdig: true };
-  if (naa > new Date(k.frist)) return { tekst: "Påmeldingen er stengt", aapen: false, ferdig: false };
-  return { tekst: "Påmelding åpen", aapen: true, ferdig: false };
+export function courseStatus(k: { start: string; slutt: string; frist: string }, now = new Date()) {
+  if (now > new Date(k.slutt)) return { label: "Gjennomført", open: false, done: true };
+  if (now > new Date(k.frist)) return { label: "Påmeldingen er stengt", open: false, done: false };
+  return { label: "Påmelding åpen", open: true, done: false };
 }
 
 /** Siste møter og referater, med PDF-vedlegg hentet fra vedlegg-feltet eller fra lenker i teksten. */
-export async function hentDokumenter(antall = 5) {
-  const poster = (await hentInnlegg()).filter((p) => p.data.kategorier.includes("Møter og referater"));
-  return poster.slice(0, antall).map((p) => {
-    const iTekst = [...(p.body ?? "").matchAll(/\]\((\/[^)\s]+\.pdf)\)/gi)].map((m) => m[1]);
-    const pdf = p.data.vedlegg[0]?.fil ?? iTekst[0];
-    return { tittel: p.data.title, dato: p.data.date, side: lenke(p), pdf };
+export async function getDocuments(count = 5) {
+  const posts = (await getPosts()).filter((p) => p.data.kategorier.includes("Møter og referater"));
+  return posts.slice(0, count).map((p) => {
+    const inText = [...(p.body ?? "").matchAll(/\]\((\/[^)\s]+\.pdf)\)/gi)].map((m) => m[1]);
+    const pdf = p.data.vedlegg[0]?.fil ?? inText[0];
+    return { title: p.data.title, date: p.data.date, page: link(p), pdf };
   });
 }
 
 /** Arrangementer gruppert på år (nyeste først), til arrangementsoversikten. */
-export const arrangementerPaaAar = (liste: Arrangement[]) => {
-  const g = new Map<number, Arrangement[]>();
-  for (const e of liste) g.set(e.data.start.getUTCFullYear(), [...(g.get(e.data.start.getUTCFullYear()) ?? []), e]);
+export const eventsByYear = (list: EventPost[]) => {
+  const g = new Map<number, EventPost[]>();
+  for (const e of list) g.set(e.data.start.getUTCFullYear(), [...(g.get(e.data.start.getUTCFullYear()) ?? []), e]);
   return [...g].sort((a, b) => b[0] - a[0]);
 };
-export const sted = (e: Arrangement) => e.data.sted ?? (e.data.digital ? "Digitalt" : "");
-export const gruppe = (e: Arrangement) => gruppeFor(e.data.type).slug;
-export const tid = (e: Arrangement) => (e.data.heldag ? "Hele dagen" : `kl. ${klokke(e.data.start)}`);
+export const place = (e: EventPost) => e.data.sted ?? (e.data.digital ? "Digitalt" : "");
+export const group = (e: EventPost) => groupFor(e.data.type).slug;
+export const time = (e: EventPost) => (e.data.heldag ? "Hele dagen" : `kl. ${formatClock(e.data.start)}`);

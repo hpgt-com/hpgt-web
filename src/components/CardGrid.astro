@@ -1,0 +1,35 @@
+---
+// Bildevisning (kort med bilde) av innlegg eller arrangementer. Skjult til leseren velger «Bilder» (ViewToggle).
+// Uten bilde vises et standardbilde med ikon i kategoriens farge, med kategorien (innlegg) eller datoen (arrangementer).
+import { url, link, slug, imageFor, group, type Post, type EventPost } from "../lib/site";
+import { pageInfo, formatsFor, categoryName, typeLabelFor } from "../lib/i18n";
+import DefaultImage from "./DefaultImage.astro";
+import "./cards.css";
+import "./type-colors.css";
+interface Props { posts?: Post[]; events?: EventPost[] }
+const { posts, events } = Astro.props;
+const { lang } = pageInfo(Astro.url.pathname);
+const { date, dateShort, place, time } = formatsFor(lang);
+let cards: { href: string; image?: string; title: string; meta: string; cat?: string; catName?: string; label?: string }[] = [];
+if (posts) {
+  cards = posts.map((p) => ({ href: link(p), image: imageFor(p), title: p.data.title, meta: date(p.data.date),
+    cat: slug(p.data.kategorier[0]), catName: undefined, label: categoryName(lang, p.data.kategorier[0]) }));
+} else if (events) {
+  cards = events.map((e) => ({ href: link(e), image: imageFor(e as any), title: e.data.title,
+    meta: [date(e.data.start), place(e), time(e)].filter(Boolean).join(" · "), cat: group(e), catName: typeLabelFor(lang, e.data.type), label: dateShort(e.data.start) }));
+}
+---
+<ul class="card-grid" data-view="pictures" hidden>
+  {cards.map((k) => (
+    <li class="card" data-group={k.cat}><a href={url(k.href)}>
+      {k.image
+        ? <span class="card__image default-image--photo" data-cat={k.cat}><img src={url(k.image)} alt="" loading="lazy" decoding="async" />{k.label && <span class="default-image__label">{k.label}</span>}</span>
+        : <DefaultImage class="card__image" cat={k.cat} label={k.label} seed={k.href} />}
+      <span class="card__text">
+        {k.catName && <span class="card__category cat" data-cat={k.cat}>{k.catName}</span>}
+        <span class="card__title">{k.title}</span>
+        <span class="card__meta">{k.meta}</span>
+      </span>
+    </a></li>
+  ))}
+</ul>

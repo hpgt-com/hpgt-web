@@ -1,0 +1,25 @@
+/* RadioID-skjema. Bruker designets --cal-*-variabler der de finnes, ellers Fjord+ sine farger. */
+.form { --_line: var(--cal-line, #ccd7e4); --_muted: var(--cal-muted, #56657a); --_accent: var(--cal-accent, #1f86d1); --_accent-ink: var(--cal-accent-ink, #1569a8); --_surface: var(--cal-surface, #fff); --_tint: var(--cal-tint, #e2eaf3);
+  margin-top: 2.5rem; padding: 20px; border: 1px solid var(--_line); background: var(--_surface); }
+.form h2 { margin-top: 0; }
+.form__info { color: var(--_muted); }
+.form__fields { display: grid; gap: 14px; }
+.form__fields label { display: block; font-weight: 700; font-size: .92rem; margin-bottom: 4px; }
+.form__fields input:not([type="radio"]), .form__fields textarea { width: 100%; box-sizing: border-box; font: inherit; padding: 8px 10px; border: 1px solid var(--_line); border-radius: 4px; background: #fff; color: inherit; }
+.form__fields input:focus-visible, .form__fields textarea:focus-visible, .form__fields button:focus-visible { outline: 3px solid var(--_accent); outline-offset: 1px; }
+.form__fields input:user-invalid { border-color: #c62828; }
+.form__fields small, .form__optional { color: var(--_muted); font-weight: 400; font-size: .82rem; }
+.form__choices { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.form__choices legend { font-weight: 700; font-size: .92rem; margin-bottom: 6px; padding: 0; }
+.form__choices label { display: inline-flex; gap: 6px; align-items: center; font-weight: 400; margin: 0; }
+.form__row { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; }
+@media (max-width: 600px) { .form__row { grid-template-columns: 1fr; } }
+.form__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.form__turnstile { margin: 0; padding: 10px 12px; border: 1px dashed var(--_line); color: var(--_muted); font-size: .85rem; }
+.form__submit { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.form__submit button { font: inherit; font-weight: 700; padding: 9px 20px; border: 0; border-radius: 4px; background: var(--_accent-ink); color: var(--on-sel, #fff); cursor: pointer; }
+.form__submit button:hover { background: var(--_accent); }
+.form__submit button[disabled] { opacity: .6; cursor: wait; }
+.form__status { margin: 0; font-weight: 600; }
+.form__status[data-ok="false"] { color: #c62828; }
+.form__demo { margin: 0; padding: 14px; background: var(--_tint); border-left: 3px solid var(--_accent); white-space: pre-wrap; font-size: .82rem; }

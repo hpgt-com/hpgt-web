@@ -1,30 +1,30 @@
 ---
-import VisningsValg from "../components/VisningsValg.astro";
-import Kortnett from "../components/Kortnett.astro";
-import SeksjonsMeny from "../components/SeksjonsMeny.astro";
-import { url, lenke, slug } from "../lib/site";
-import { sideInfo, katNavn, fmtFor, sti } from "../lib/i18n";
-const { title, ingress, grupper, kategorier, aktiv } = Astro.props;
-const { sprak } = sideInfo(Astro.url.pathname);
-const { dato } = fmtFor(sprak);
-const en = sprak === "en";
+import ViewToggle from "../components/ViewToggle.astro";
+import CardGrid from "../components/CardGrid.astro";
+import SectionMenu from "../components/SectionMenu.astro";
+import { url, link, slug } from "../lib/site";
+import { pageInfo, categoryName, formatsFor, localPath } from "../lib/i18n";
+const { title, lead, years, categories, active } = Astro.props;
+const { lang } = pageInfo(Astro.url.pathname);
+const { date } = formatsFor(lang);
+const en = lang === "en";
 ---
 <div class="wrap section">
-  <SeksjonsMeny />
+  <SectionMenu />
   <p class="eyebrow">{en ? "Archive since 2012" : "Arkiv fra 2012"}</p>
   <h1 class="h1">{title}</h1>
-  {ingress && <p class="lead">{ingress}</p>}
+  {lead && <p class="lead">{lead}</p>}
   <nav class="filters" aria-label={en ? "Categories" : "Kategorier"}>
-    <a href={sti(sprak, "/nytt/")} aria-current={!aktiv ? "page" : undefined}>{en ? "All" : "Alle"}</a>
-    {kategorier.map((k) => <a href={sti(sprak, `/nytt/kategori/${k.slug}/`)} data-kat={k.slug} aria-current={aktiv === k.slug ? "page" : undefined}>{katNavn(sprak, k.navn)} <small>{k.poster.length}</small></a>)}
+    <a href={localPath(lang, "/nytt/")} aria-current={!active ? "page" : undefined}>{en ? "All" : "Alle"}</a>
+    {categories.map((k) => <a href={localPath(lang, `/nytt/kategori/${k.slug}/`)} data-cat={k.slug} aria-current={active === k.slug ? "page" : undefined}>{categoryName(lang, k.name)} <small>{k.posts.length}</small></a>)}
     {/* Referatene er bare på norsk */}
-    {en && <a href={url("/nytt/kategori/moter-og-referater/")} data-kat="moter-og-referater" lang="nb" hreflang="nb">Meetings and minutes (in Norwegian)</a>}
+    {en && <a href={url("/nytt/kategori/moter-og-referater/")} data-cat="moter-og-referater" lang="nb" hreflang="nb">Meetings and minutes (in Norwegian)</a>}
   </nav>
-  <VisningsValg />
-  {grupper.map(([aar, poster]) => (
-    <section class="year"><h2 class="year__h">{aar}</h2>
-      <ul class="rows" data-visning="liste">{poster.map((p) => <li><a href={url(lenke(p))}><time>{dato(p.data.date)}</time><span>{p.data.title}</span><span class="kat" data-kat={slug(p.data.kategorier[0])}>{katNavn(sprak, p.data.kategorier[0])}</span></a></li>)}</ul>
-      <Kortnett innlegg={poster} />
+  <ViewToggle />
+  {years.map(([year, posts]) => (
+    <section class="year"><h2 class="year__h">{year}</h2>
+      <ul class="rows" data-view="list">{posts.map((p) => <li><a href={url(link(p))}><time>{date(p.data.date)}</time><span>{p.data.title}</span><span class="cat" data-cat={slug(p.data.kategorier[0])}>{categoryName(lang, p.data.kategorier[0])}</span></a></li>)}</ul>
+      <CardGrid posts={posts} />
     </section>
   ))}
 </div>

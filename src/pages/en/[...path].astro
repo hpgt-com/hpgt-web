@@ -1,53 +1,52 @@
 ---
-// Engelske sider: /en/<engelsk adresse> (src/lib/engelske-adresser.mjs). Innholdet er oversatt automatisk (scripts/oversett).
+// Engelske sider: /en/<engelsk adresse> (src/lib/english-paths.mjs). Innholdet er oversatt automatisk (scripts/translate).
 // Innleggene (nyheter og arrangementer) har den engelske adressen i permalink, og lenker til det norske originalinnlegget.
 import { getCollection, render } from "astro:content";
 import Layout from "@design/Layout.astro";
 import Article from "@design/Article.astro";
-import Styret from "../../components/Styret.astro";
-import KommendeKurs from "../../components/KommendeKurs.astro";
-import SeksjonOversikt from "../../components/SeksjonOversikt.astro";
-import KursOversikt from "../../components/KursOversikt.astro";
-import ArrangementBoks from "../../components/ArrangementBoks.astro";
-import Vedlegg from "../../components/Vedlegg.astro";
-import { arrangementLd, ldJson } from "../../lib/strukturert";
-import { url, lenke, kursLenke, hentInnlegg } from "../../lib/site";
-import { T, datoFor, tilEngelsk } from "../../lib/i18n";
+import Board from "../../components/Board.astro";
+import UpcomingCourses from "../../components/UpcomingCourses.astro";
+import SectionOverview from "../../components/SectionOverview.astro";
+import CourseOverview from "../../components/CourseOverview.astro";
+import EventBox from "../../components/EventBox.astro";
+import Attachments from "../../components/Attachments.astro";
+import { eventLd, ldJson } from "../../lib/structured-data";
+import { url, link, courseLink, getPosts } from "../../lib/site";
+import { T, dateFor, toEnglish } from "../../lib/i18n";
 
 export async function getStaticPaths() {
   const trim = (s: string) => s.replace(/^\/|\/$/g, "");
-  const [sider, kurs, innlegg, norske] = await Promise.all([getCollection("sider_en"), getCollection("kurs_en"), getCollection("innlegg_en"), hentInnlegg()]);
-  const original = new Map(norske.map((p) => [p.id, p]));
+  const [pages, courses, posts, norwegian] = await Promise.all([getCollection("sider_en"), getCollection("kurs_en"), getCollection("innlegg_en"), getPosts()]);
+  const original = new Map(norwegian.map((p) => [p.id, p]));
   return [
     // Bare innlegg som fortsatt er publisert på norsk (ikke utkast eller slettet)
-    ...innlegg.filter((e) => original.has(e.id)).map((entry) => ({ params: { path: trim(lenke(entry).replace(/^\/en/, "")) }, props: { type: "innlegg", entry, norsk: lenke(original.get(entry.id)!) } })),
-    ...sider.map((entry) => ({ params: { path: trim(tilEngelsk(lenke(entry))) }, props: { type: "side", entry } })),
-    ...kurs.map((entry) => ({ params: { path: trim(tilEngelsk(kursLenke(entry))) }, props: { type: "kurs", entry } })),
+    ...posts.filter((e) => original.has(e.id)).map((entry) => ({ params: { path: trim(link(entry).replace(/^\/en/, "")) }, props: { type: "post", entry, originalPath: link(original.get(entry.id)!) } })),
+    ...pages.map((entry) => ({ params: { path: trim(toEnglish(link(entry))) }, props: { type: "page", entry } })),
+    ...courses.map((entry) => ({ params: { path: trim(toEnglish(courseLink(entry))) }, props: { type: "course", entry } })),
   ];
 }
-const { type, entry, norsk } = Astro.props as any;
+const { type, entry, originalPath } = Astro.props as any;
 const { Content, headings } = await render(entry);
 const d = entry.data;
 const t = T.en;
-const erInnlegg = type === "innlegg";
-const erArr = erInnlegg && d.arrangement?.start;
-const arrLd = erArr ? arrangementLd(entry, lenke(entry)) : null;
-const meta = erInnlegg ? `${d.forfatter ? `By ${d.forfatter} · ` : ""}${datoFor("en", d.date)}` : d.sist_endret ? `${t.sistOppdatert} ${datoFor("en", d.sist_endret)}` : undefined;
-const tilbake = type === "kurs" ? { tekst: t.kurs, url: url("/en/courses/") }
-  : erArr ? { tekst: "All events", url: url("/en/events/") } : erInnlegg ? { tekst: "All news", url: url("/en/news/") } : undefined;
-const kursSide = type === "kurs" || d.mal === "kurs";
+const isPost = type === "post";
+const isEvent = isPost && d.arrangement?.start;
+const eventData = isEvent ? eventLd(entry, link(entry)) : null;
+const meta = isPost ? `${d.forfatter ? `By ${d.forfatter} · ` : ""}${dateFor("en", d.date)}` : d.sist_endret ? `${t.lastUpdated} ${dateFor("en", d.sist_endret)}` : undefined;
+const back = type === "course" ? { label: t.courses, url: url("/en/courses/") }
+  : isEvent ? { label: "All events", url: url("/en/events/") } : isPost ? { label: "All news", url: url("/en/news/") } : undefined;
 ---
 <Layout title={d.title} description={d.ingress} image={d.bilde}>
-  <Article title={d.title} ingress={d.ingress} bilde={erInnlegg ? undefined : d.bilde} meta={meta} kategorier={erInnlegg ? d.kategorier : undefined} tilbake={tilbake} type={type} overskrifter={headings}>
-    {erInnlegg && <p class="oversatt-merke" role="note">Translated automatically from Norwegian. <a href={url(norsk)} lang="nb" hreflang="nb">Read the original</a>.</p>}
-    {arrLd && <script type="application/ld+json" set:html={ldJson(arrLd)} />}
-    {erArr && <ArrangementBoks a={d.arrangement} />}
-    {type === "kurs" && d.kurstype && <KommendeKurs type={d.kurstype} />}
-    {d.mal === "kurs" && <KommendeKurs />}
-    {d.mal === "kontakt" && <Styret />}
+  <Article title={d.title} lead={d.ingress} image={isPost ? undefined : d.bilde} meta={meta} categories={isPost ? d.kategorier : undefined} back={back} headings={headings}>
+    {isPost && <p class="translated-note" role="note">Translated automatically from Norwegian. <a href={url(originalPath)} lang="nb" hreflang="nb">Read the original</a>.</p>}
+    {eventData && <script type="application/ld+json" set:html={ldJson(eventData)} />}
+    {isEvent && <EventBox a={d.arrangement} />}
+    {type === "course" && d.kurstype && <UpcomingCourses type={d.kurstype} />}
+    {d.mal === "kurs" && <UpcomingCourses />}
+    {d.mal === "kontakt" && <Board />}
     <Content />
-    {d.mal === "kurs" && <KursOversikt />}
-    {d.mal === "seksjon" && <SeksjonOversikt />}
-    {d.vedlegg?.length > 0 && <Vedlegg filer={d.vedlegg} />}
+    {d.mal === "kurs" && <CourseOverview />}
+    {d.mal === "seksjon" && <SectionOverview />}
+    {d.vedlegg?.length > 0 && <Attachments files={d.vedlegg} />}
   </Article>
 </Layout>
