@@ -190,7 +190,8 @@ repoet. Nye skjemaer bruker den samme Turnstile-widgeten med sin egen `action`.
   token for hver innsending.
 - **Hemmeligheter bare i miljøer som bare `main` kan bruke** (GitHub) eller i Cloudflare, aldri i koden.
 - **Alt går gjennom pull request** med påkrevde sjekker (bygg, avhengigheter, sikkerhet i arbeidsflytene, CodeQL).
-- **Streng CSP** med `default-src 'none'` og uten `unsafe-inline`, og ingen tredjepartsskript.
+- **Streng CSP** med `default-src 'none'` og uten `unsafe-inline`. Brudd rapporteres til `/api/csp-report`, og Trusted
+  Types står i rapportmodus.
 
 Detaljer: [SECURITY.md](../SECURITY.md).
 

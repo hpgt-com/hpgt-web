@@ -24,11 +24,16 @@
     "ALLOWED_ORIGIN": "https://hpgt.com",
     "TURNSTILE_HOSTNAME": "hpgt.com"
   },
-  // Maks 3 innsendinger per minutt per IP-adresse
-  "ratelimits": [{ "name": "RATE_LIMIT", "namespace_id": "1001", "simple": { "limit": 3, "period": 60 } }],
+  // Skjemaene: maks 3 innsendinger per minutt per IP-adresse. CSP-rapportene: maks 30 per minutt, telt under en hash av
+  // adressen. Hver grense har sin egen namespace_id i kontoen HPGT (1002 brukes av datatjenesten for flysteder).
+  "ratelimits": [
+    { "name": "RATE_LIMIT", "namespace_id": "1001", "simple": { "limit": 3, "period": 60 } },
+    { "name": "CSP_LIMIT", "namespace_id": "1003", "simple": { "limit": 30, "period": 60 } }
+  ],
   // Workers Logs: én logglinje per kall til workeren (bare /api/*, skjemaene): tid, adresse, statuskode, varighet og
   // feil, med metadata om forespørselen (bl.a. IP og land). Lagres i inntil 7 dager hos Cloudflare
   // (Observability Free: aldri betalt, logging stopper for dagen ved grensen på 0,5 GB). Innholdet i skjemaene
   // logges ikke (workeren skriver ingenting med console.log). Ses under Workers & Pages → hpgt-web → Observability.
-  "observability": { "enabled": true, "head_sampling_rate": 1, "logs": { "invocation_logs": true } }
+  // Bare Workerens egne linjer (console.log), uten Cloudflares logg per kall, som tar med IP-adresse og nettleser.
+  "observability": { "enabled": true, "head_sampling_rate": 1, "logs": { "invocation_logs": false } }
 }
