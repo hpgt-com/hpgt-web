@@ -15,8 +15,8 @@ request samme dag, hvis endringen ble gjort i et dashbord).
 | Forhåndsvisningsmodus (`prototype`), standardbildet for deling (`delingsbilde`), tokenet for Web Analytics (`statistikk`), adressen til GoatCounter (`goatcounter`) | `src/data/site.json` |
 | Menyer og seksjoner | `src/data/meny.json` |
 | Innhold, styret, RadioID-registeret, standardbilder | Pages CMS |
-| Nettstedsnøkkelen for Turnstile, ID-ene til GitHub-appen | GitHub → `hpgt-web` → Settings → Environments → `produksjon` (variabler) |
-| Hemmeligheter (Turnstile-hemmeligheten, appnøkkelen, Cloudflare-tokenet) | Cloudflare og `produksjon`, aldri i filer (se [Hemmeligheter og variabler](#hemmeligheter-og-variabler)) |
+| Nettstedsnøkkelen for Turnstile, ID-ene til GitHub-appen | GitHub → `hpgt-web` → Settings → Environments → `production` (variabler) |
+| Hemmeligheter (Turnstile-hemmeligheten, appnøkkelen, Cloudflare-tokenet) | Cloudflare og `production`, aldri i filer (se [Hemmeligheter og variabler](#hemmeligheter-og-variabler)) |
 | DNS, videresendingen fra `www`, DNSSEC og soneinnstillingene for hpgt.com | `infra/hpgt.com/terraform.tfvars` i det private repoet [hpgt-com/operations](https://github.com/hpgt-com/operations) (se `infra/README.md` der) |
 
 En verdi ligger utenfor repoet bare når den er hemmelig eller bare publiseringsjobben skal bruke den. Alt annet står i
@@ -62,17 +62,17 @@ godkjennerne i miljøene i de private repoene (`form-submissions` og `operations
 
 | Navn | Hvor | Type | Hva | Fornyes |
 |---|---|---|---|---|
-| `CLOUDFLARE_API_TOKEN` | GitHub `hpgt-web` → Environments → `produksjon` | Hemmelighet | Publiserer Workeren `hpgt-web`, og bare den. Lages under Cloudflare → Workers & Pages → hpgt-web → Settings → Builds → «API token for external CI/CD» | Årlig |
+| `CLOUDFLARE_API_TOKEN` | GitHub `hpgt-web` → Environments → `production` | Hemmelighet | Publiserer Workeren `hpgt-web`, og bare den. Lages under Cloudflare → Workers & Pages → hpgt-web → Settings → Builds → «API token for external CI/CD» | Årlig |
 | `CLOUDFLARE_ACCOUNT_ID` | Samme miljø | Hemmelighet | Hvilken Cloudflare-konto | Aldri |
 | `TURNSTILE_SITEKEY` | Samme miljø | Variabel | Den offentlige nøkkelen til Turnstile-widgeten «hpgt.com skjemaer». Settes inn ved publisering | Med en ny widget |
 | `GH_APP_ID`, `GH_APP_INSTALLATION_ID` | Samme miljø | Variabel | GitHub-appen «HPGT Web Forms» og installasjonen dens, som bare gjelder det private repoet `hpgt-com/form-submissions` | Aldri |
 | `TURNSTILE_SECRET` | Cloudflare → Workers & Pages → hpgt-web → Settings → Variables and Secrets | Hemmelighet | Workerens kontroll av Turnstile-svar | Hvis den kan ha lekket |
 | `GITHUB_APP_PRIVATE_KEY` | Samme sted | Hemmelighet | Den private nøkkelen til appen (.pem). Workeren lager tokens for én time med den | Hvis den kan ha lekket |
-| `ANTHROPIC_ORGANIZATION_ID`, `ANTHROPIC_FEDERATION_RULE_ID`, `ANTHROPIC_SERVICE_ACCOUNT_ID`, `ANTHROPIC_WORKSPACE_ID` | GitHub `hpgt-web` → Environments → `oversetting` | Variabler | Hvilken federation-regel og tjenestekonto innloggingen bruker. Ingen nøkkel er lagret | Aldri |
+| `ANTHROPIC_ORGANIZATION_ID`, `ANTHROPIC_FEDERATION_RULE_ID`, `ANTHROPIC_SERVICE_ACCOUNT_ID`, `ANTHROPIC_WORKSPACE_ID` | GitHub `hpgt-web` → Environments → `translation` | Variabler | Hvilken federation-regel og tjenestekonto innloggingen bruker. Ingen nøkkel er lagret | Aldri |
 | Tokenet for Cloudflare Web Analytics | `src/data/site.json` → `statistikk` | I Git (offentlig) | Anonym besøksstatistikk. Tom = av | – |
 | Adressen til GoatCounter | `src/data/site.json` → `goatcounter` | I Git (offentlig) | Anonym besøksstatistikk og klikkhendelser (`hpgt-web.goatcounter.com`, samme GoatCounter-konto som flysteder). Tom = av | – |
 
-Begge miljøene (`produksjon` og `oversetting`) er begrenset til grenen `main`.
+Begge miljøene (`production` og `translation`) er begrenset til grenen `main`.
 
 **Utløpsdatoene** for alle tokens og nøkler i klubben (og domenet) ligger i det private repoet
 [hpgt-com/operations](https://github.com/hpgt-com/operations) (`expiry.json`), ikke her: en ukentlig sjekk der oppretter
@@ -98,7 +98,7 @@ en sak før noe utløper. Oppdater datoen der hver gang et token eller en nøkke
 ### Fornye Cloudflare-tokenet (årlig)
 1. Cloudflare → Workers & Pages → `hpgt-web` → Settings → Builds → **Create token**. Navn:
    `hpgt-web publish (worker hpgt-web)`, levetid 12 måneder.
-2. GitHub → `hpgt-web` → Settings → Environments → `produksjon` → `CLOUDFLARE_API_TOKEN` → lim inn.
+2. GitHub → `hpgt-web` → Settings → Environments → `production` → `CLOUDFLARE_API_TOKEN` → lim inn.
 3. Actions → «Bygg og publiser» → **Run workflow**. Når den er grønn: slett det gamle tokenet under Cloudflare → Manage
    Account → Account API Tokens.
 4. Sett den nye utløpsdatoen i `expiry.json` i det private repoet `hpgt-com/operations` (pull request). Den ukentlige
@@ -209,7 +209,7 @@ Pages CMS med «Changes must be made through a pull request».
 | `guard` feiler med «Kunne ikke slå opp …», «Uventet svar …» eller «git … feilet» | Et oppslag i GitHub eller en Git-kommando feilet, så endringen kunne ikke kontrolleres helt | Kjør arbeidsflyten på nytt. Den publiserer aldri etter en ufullstendig kontroll |
 | `guard` feiler med «Fant ikke forrige publisering …» | Den sist publiserte committen finnes ikke (historikken er skrevet om), eller ingen publisering har lyktes, så det er ingenting å sammenligne med | Se gjennom committene på `main` siden siste publisering, og kjør så «Bygg og publiser» for hånd (Actions → Run workflow). En manuell kjøring kontrollerer bare siste commit, og loggen viser hvem som kjørte den |
 | `build` stopper på `check-media` | En fil i `public/media/` som ikke er et bilde eller en PDF | Fjern den, eller erstatt den med et bilde eller en PDF |
-| `publish` stopper på «Sett inn skjemaenes ID-er» | En variabel i `produksjon` mangler eller har feil format | Rett variabelen og kjør på nytt |
+| `publish` stopper på «Sett inn skjemaenes ID-er» | En variabel i `production` mangler eller har feil format | Rett variabelen og kjør på nytt |
 | `translate` advarer om innloggingen | Anthropic-federation, kreditten eller ID-ene | Nettstedet publiseres likevel, med de forrige oversettelsene. Sjekk platform.claude.com |
 | Et skjema (RadioID eller «Meld feil») svarer «Noe gikk galt hos oss» | Appnøkkelen, installasjonen av appen eller ID-ene | Sjekk at appen er installert på `form-submissions` og at nøkkelen i Cloudflare er riktig |
 

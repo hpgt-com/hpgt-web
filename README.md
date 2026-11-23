@@ -70,7 +70,7 @@ tekst oversettes ikke på nytt. Alle publiserte innlegg oversettes unntatt møte
 tekster (menyer, knapper) ligger i `src/lib/i18n.ts`.
 
 - Ingen lagret nøkkel: jobben logger inn med GitHubs OIDC-token (workload identity federation, satt opp i
-  platform.claude.com). ID-ene er variabler (ikke hemmeligheter) i miljøet **oversetting**, som er begrenset til
+  platform.claude.com). ID-ene er variabler (ikke hemmeligheter) i miljøet **translation**, som er begrenset til
   `main`: `ANTHROPIC_ORGANIZATION_ID`, `ANTHROPIC_FEDERATION_RULE_ID`, `ANTHROPIC_SERVICE_ACCOUNT_ID` og eventuelt
   `ANTHROPIC_WORKSPACE_ID`. Uten innlogging publiseres nettstedet likevel, med de forrige oversettelsene.
 - Hvilke sider som oversettes: `PAGES` øverst i `scripts/translate/translate.mjs`.

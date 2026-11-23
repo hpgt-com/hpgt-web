@@ -82,7 +82,7 @@ sequenceDiagram
   O->>Bg: oversatt tekst (artefakt)
   Bg->>Bg: npm ci + astro build (kontrollerer alt innhold)
   Bg->>P: ferdig nettsted (artefakt)
-  P->>P: setter inn skjemaenes ID-er fra miljøet «produksjon»
+  P->>P: setter inn skjemaenes ID-er fra miljøet «production»
   P->>CF: wrangler deploy
   Note over Ed,CF: Tar 2–3 minutter. Feiler et steg, blir forrige versjon stående.
 ```
@@ -97,9 +97,9 @@ stopper publiseringen hvis en commit uten pull request har endret noe annet enn 
 
 | Jobb | Har tilgang til | Kjører kode fra repoet? |
 |---|---|---|
-| `translate` | En kortvarig innlogging hos Anthropic (miljøet `oversetting`) | Bare oversettelsesskriptet, ikke pakkene til nettstedet |
+| `translate` | En kortvarig innlogging hos Anthropic (miljøet `translation`) | Bare oversettelsesskriptet, ikke pakkene til nettstedet |
 | `build` | Ingen hemmeligheter | Ja (npm-pakker og bygget) |
-| `publish` | Cloudflare-tokenet (miljøet `produksjon`) | Nei, bare Wrangler, installert fra `deploy/package-lock.json` uten installasjonsskript |
+| `publish` | Cloudflare-tokenet (miljøet `production`) | Nei, bare Wrangler, installert fra `deploy/package-lock.json` uten installasjonsskript |
 
 Pull requests (også fra administratorer) bygges og kontrolleres av `pr-check.yml`, `security.yml` og
 `code-scanning.yml` før de kan merges, men publiseres ikke.
