@@ -12,6 +12,9 @@
 //  - Meld feil: hvilken side, hva som er feil og eventuelt hvordan vi kan svare (valgfritt). Etikett «feedback».
 
 import { installasjonsToken, HEADERS } from "./github-app.js";
+import { readLimitedBody } from "./body.js";
+
+const MAX_BODY_BYTES = 12000;
 
 const HANDLINGER = { ny: "Legg til", endre: "Endre", fjern: "Fjern" };
 
@@ -26,7 +29,8 @@ export default {
     const m = M[new URL(req.url).searchParams.get("sprak") === "en" ? "en" : "nb"];
     if (req.method !== "POST") return svar(405, m.post);
     if (req.headers.get("Origin") !== env.TILLATT_OPPRINNELSE) return svar(403, m.opprinnelse);
-    if (Number(req.headers.get("Content-Length") || 0) > 12000) return svar(413, m.stor);
+    // Avviser tidlig når hodet sier at kroppen er for stor. Den harde grensen gjelder når kroppen leses under.
+    if (Number(req.headers.get("Content-Length") || 0) > MAX_BODY_BYTES) return svar(413, m.stor);
 
     const ip = req.headers.get("CF-Connecting-IP") || "";
     if (env.BEGRENS) {
@@ -35,7 +39,11 @@ export default {
     }
 
     let f;
-    try { f = await req.formData(); } catch { return svar(400, m.lese); }
+    try {
+      const body = await readLimitedBody(req, MAX_BODY_BYTES);
+      if (body === null) return svar(413, m.stor);
+      f = await new Response(body, { headers: { "Content-Type": req.headers.get("Content-Type") || "" } }).formData();
+    } catch { return svar(400, m.lese); }
     if (tekst(f.get("nettside"), 200)) return svar(200, m.takk); // honningkrukke: late som alt gikk bra
     return skjema(f, env, ip, m);
   },

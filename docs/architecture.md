@@ -139,7 +139,7 @@ sequenceDiagram
 
   Pilot->>Page: fills in the form
   Page->>W: POST (with the Turnstile answer)
-  W->>W: checks origin, size, rate (3/min/IP), honeypot
+  W->>W: checks origin, size (12 000 bytes read), rate (3/min/IP), honeypot
   W->>TS: is the answer genuine? (action «radioid», host hpgt.com)
   W->>GH: JWT signed with the app's key → one-hour token (Issues only, form-submissions only)
   W->>GH: creates the issue «RadioID: legg til …» in the private repository
