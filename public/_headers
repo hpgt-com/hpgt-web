@@ -1,5 +1,5 @@
 # Sikkerhetshoder (Cloudflare). Samme CSP som i <meta>, pluss det som bare kan settes som HTTP-hode.
-# cloudflareinsights.com: anonym besøksstatistikk (Cloudflare Web Analytics). Lastes bare når site.json → statistikk er satt.
+# cloudflareinsights.com: anonym besøksstatistikk (Cloudflare Web Analytics). Lastes bare når site.json → webAnalytics er satt.
 # hpgt-web.goatcounter.com: anonym besøksstatistikk og klikk (GoatCounter, site.json → goatcounter). Bare tellepunktet.
 /*
   Content-Security-Policy: default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self'; img-src 'self' data: https://hpgt-web.goatcounter.com; font-src 'self'; connect-src 'self' https://cloudflareinsights.com https://hpgt-web.goatcounter.com; frame-src https://www.youtube-nocookie.com https://player.vimeo.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests

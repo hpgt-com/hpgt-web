@@ -18,69 +18,69 @@ export const EVENT_TYPES = [
 /** Et innlegg blir et arrangement (vises i kalenderen) når start er fylt ut. */
 const eventFields = z.object({
   start: z.preprocess(empty, z.coerce.date().optional()),
-  slutt: z.preprocess(empty, z.coerce.date().optional()),
-  heldag: z.preprocess(empty, z.boolean().default(false)),
+  end: z.preprocess(empty, z.coerce.date().optional()),
+  allDay: z.preprocess(empty, z.boolean().default(false)),
   type: z.preprocess(empty, z.enum(EVENT_TYPES, { message: "Velg en type fra listen" })),
-  sted: z.preprocess(empty, z.string().optional()),
-  digital: z.preprocess(empty, z.string().url("Må være en full lenke (https://…)").optional()),
-  pamelding: z.preprocess(empty, z.string().optional()),
+  location: z.preprocess(empty, z.string().optional()),
+  online: z.preprocess(empty, z.string().url("Må være en full lenke (https://…)").optional()),
+  signup: z.preprocess(empty, z.string().optional()),
   // Tomt = HPGT. Brukes når medlemmer inviteres til noe andre arrangerer (f.eks. SIV i Narvik, NorgesCup).
-  arrangor: z.preprocess(empty, z.string().optional()),
+  organizer: z.preprocess(empty, z.string().optional()),
 }).optional();
 
 const postSchema = z.object({
   title: z.string(),
   date: z.coerce.date(),
-  kategorier: z.array(z.string()).default(["Nyhet"]),
-  bilde: z.string().optional(),
-  forfatter: z.string().optional(),
-  ingress: z.string().optional(),
-  vedlegg: z.array(z.object({ tittel: z.string(), fil: z.string() })).default([]),
+  categories: z.array(z.string()).default(["Nyhet"]),
+  image: z.string().optional(),
+  author: z.string().optional(),
+  lead: z.string().optional(),
+  attachments: z.array(z.object({ title: z.string(), file: z.string() })).default([]),
   permalink,
-  utkast: z.boolean().default(false),
+  draft: z.boolean().default(false),
   wp_id: z.number().optional(),
-    arrangement: eventFields,
+  event: eventFields,
 });
-const posts = defineCollection({ loader: glob({ pattern: "**/*.md", base: "./src/content/innlegg" }), schema: postSchema });
+const posts = defineCollection({ loader: glob({ pattern: "**/*.md", base: "./src/content/posts" }), schema: postSchema });
 
 const pageSchema = z.object({
   title: z.string(),
   permalink,
-  ingress: z.string().optional(),
-  bilde: z.string().optional(),
-  mal: z.enum(["standard", "kontakt", "radioid", "kurs", "seksjon", "bidra", "konkurranser"]).default("standard"),
-  // Konkurransesider (src/content/sider/konkurranser/ÅR.md): år og vinnere vises i oversikten på /klubben/konkurranser/
-  aar: z.preprocess(empty, z.coerce.number().optional()),
-  vinner_foto: z.preprocess(empty, z.string().optional()),
-  vinner_video: z.preprocess(empty, z.string().optional()),
-  sist_endret: z.coerce.date().optional(),
+  lead: z.string().optional(),
+  image: z.string().optional(),
+  template: z.enum(["standard", "kontakt", "radioid", "kurs", "seksjon", "bidra", "konkurranser"]).default("standard"),
+  // Konkurransesider (src/content/pages/konkurranser/ÅR.md): år og vinnere vises i oversikten på /klubben/konkurranser/
+  year: z.preprocess(empty, z.coerce.number().optional()),
+  winnerPhoto: z.preprocess(empty, z.string().optional()),
+  winnerVideo: z.preprocess(empty, z.string().optional()),
+  updated: z.coerce.date().optional(),
   wp_id: z.number().optional(),
 });
-const pages = defineCollection({ loader: glob({ pattern: "**/*.md", base: "./src/content/sider" }), schema: pageSchema });
+const pages = defineCollection({ loader: glob({ pattern: "**/*.md", base: "./src/content/pages" }), schema: pageSchema });
 
-// Kurssidene (/kurs/<filnavn>/). Vises i kursmenyen øverst på alle kurssider, sortert etter «rekkefolge».
+// Kurssidene (/kurs/<filnavn>/). Vises i kursmenyen øverst på alle kurssider, sortert etter «menuOrder».
 const courseSchema = z.object({
   title: z.string(),
-  menynavn: z.preprocess(empty, z.string().optional()),
-  ingress: z.preprocess(empty, z.string().optional()),
-  bilde: z.preprocess(empty, z.string().optional()),
+  menuTitle: z.preprocess(empty, z.string().optional()),
+  lead: z.preprocess(empty, z.string().optional()),
+  image: z.preprocess(empty, z.string().optional()),
   // Kommende datoer på kurssiden hentes fra arrangementer med denne typen
-  kurstype: z.preprocess(empty, z.enum(EVENT_TYPES).optional()),
-  rekkefolge: z.preprocess(empty, z.coerce.number().default(50)),
-  sist_endret: z.preprocess(empty, z.coerce.date().optional()),
+  courseType: z.preprocess(empty, z.enum(EVENT_TYPES).optional()),
+  menuOrder: z.preprocess(empty, z.coerce.number().default(50)),
+  updated: z.preprocess(empty, z.coerce.date().optional()),
 });
-const courses = defineCollection({ loader: glob({ pattern: "*.md", base: "./src/content/kurs" }), schema: courseSchema });
+const courses = defineCollection({ loader: glob({ pattern: "*.md", base: "./src/content/courses" }), schema: courseSchema });
 
 // Engelske versjoner, laget automatisk av scripts/translate/translate.mjs før bygget (mappa .translated er ikke i git)
-const pagesEn = defineCollection({ loader: glob({ pattern: "*.md", base: "./.translated/sider" }), schema: pageSchema });
-const coursesEn = defineCollection({ loader: glob({ pattern: "*.md", base: "./.translated/kurs" }), schema: courseSchema });
+const pagesEn = defineCollection({ loader: glob({ pattern: "*.md", base: "./.translated/pages" }), schema: pageSchema });
+const coursesEn = defineCollection({ loader: glob({ pattern: "*.md", base: "./.translated/courses" }), schema: courseSchema });
 // Innleggene på engelsk har samme id som de norske, og permalink er den engelske adressen (/en/…)
-const postsEn = defineCollection({ loader: glob({ pattern: "**/*.md", base: "./.translated/innlegg" }), schema: postSchema });
+const postsEn = defineCollection({ loader: glob({ pattern: "**/*.md", base: "./.translated/posts" }), schema: postSchema });
 
 const board = defineCollection({
-  loader: file("./src/data/styret.json", { parser: (t) => JSON.parse(t).medlemmer }),
-  schema: z.object({ rolle: z.string(), navn: z.string(), telefon: z.string().optional(), epost: z.string().optional(), bilde: z.string().optional() }),
+  loader: file("./src/data/board.json", { parser: (t) => JSON.parse(t).members }),
+  schema: z.object({ role: z.string(), name: z.string(), phone: z.string().optional(), email: z.string().optional(), image: z.string().optional() }),
 });
 
-// Navnene på samlingene er de samme som mappene i src/content/ (og i .pages.yml), og beholdes.
-export const collections = { innlegg: posts, sider: pages, kurs: courses, sider_en: pagesEn, kurs_en: coursesEn, innlegg_en: postsEn, styret: board };
+// Navnene på samlingene er de samme som mappene i src/content/ (og navnene i .pages.yml).
+export const collections = { posts, pages, courses, pages_en: pagesEn, courses_en: coursesEn, posts_en: postsEn, board };

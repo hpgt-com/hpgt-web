@@ -18,7 +18,7 @@ import { eventLd, ldJson } from "../lib/structured-data";
 
 export async function getStaticPaths() {
   const trim = (e: any) => link(e).replace(/^\/|\/$/g, "");
-  const [posts, drafts, pages, courses] = await Promise.all([getCollection("innlegg", (p) => !p.data.utkast), getCollection("innlegg", (p) => p.data.utkast), getCollection("sider"), getCollection("kurs")]);
+  const [posts, drafts, pages, courses] = await Promise.all([getCollection("posts", (p) => !p.data.draft), getCollection("posts", (p) => p.data.draft), getCollection("pages"), getCollection("courses")]);
   return [
     ...posts.map((entry) => ({ params: { path: trim(entry) }, props: { type: "post", entry } })),
     // Utkast: forhåndsvisning på /utkast/<adresse>/. Ikke i lister, søk eller sitemap, og noindex.
@@ -31,33 +31,33 @@ const { type, entry, draft = false } = Astro.props as any;
 const { Content, headings } = await render(entry);
 const d = entry.data;
 let meta: string | undefined;
-if (type === "post") meta = `${d.forfatter ? `Av ${d.forfatter} · ` : ""}${formatDate(d.date)}`;
-if (type !== "post" && d.sist_endret) meta = `Sist oppdatert ${formatDate(d.sist_endret)}`;
-const isEvent = type === "post" && d.arrangement?.start;
+if (type === "post") meta = `${d.author ? `Av ${d.author} · ` : ""}${formatDate(d.date)}`;
+if (type !== "post" && d.updated) meta = `Sist oppdatert ${formatDate(d.updated)}`;
+const isEvent = type === "post" && d.event?.start;
 const eventData = isEvent && !draft ? eventLd(entry, link(entry)) : null;
 // «Kopier lenke»: kopierer innleggets adresse, så den kan limes inn i Facebook-gruppa (Facebooks delevindu kan ikke
 // lenger dele i grupper). public/assets/js/copy-link.js; uten JavaScript vises adressen som tekst.
 const shareUrl = type === "post" && !draft ? new URL(link(entry), site.url).href : null;
 const back = type === "course" ? { label: "Kurs", url: url("/kurs/") } : isEvent ? { label: "Alle arrangementer", url: url("/arrangementer/") } : type === "post" ? { label: "Alle nyheter", url: url("/nytt/") } : undefined;
 ---
-<Layout title={draft ? `Utkast: ${d.title}` : d.title} description={d.ingress} image={d.bilde} noindex={draft}>
-  <Article title={d.title} lead={d.ingress} image={type !== "post" ? d.bilde : undefined} meta={meta}
-    categories={type === "post" ? d.kategorier : undefined} back={back} headings={headings}>
+<Layout title={draft ? `Utkast: ${d.title}` : d.title} description={d.lead} image={d.image} noindex={draft}>
+  <Article title={d.title} lead={d.lead} image={type !== "post" ? d.image : undefined} meta={meta}
+    categories={type === "post" ? d.categories : undefined} back={back} headings={headings}>
     {draft && <aside class="draft-note" role="note"><strong>Utkast, bare forhåndsvisning.</strong> Denne adressen står ikke på forsiden, under Nytt eller i søket. Når innlegget er klart, fjerner du haken «Utkast» i Pages CMS. Da publiseres det på <code>{link(entry)}</code>.</aside>}
-    {type === "course" && d.kurstype && <UpcomingCourses type={d.kurstype} />}
+    {type === "course" && d.courseType && <UpcomingCourses type={d.courseType} />}
     {eventData && <script type="application/ld+json" set:html={ldJson(eventData)} />}
-    {isEvent && <EventBox a={d.arrangement} />}
+    {isEvent && <EventBox a={d.event} />}
     {/* mal: malvalget i Pages CMS (verdiene er en del av innholdet) */}
-    {d.mal === "kurs" && <UpcomingCourses />}
-    {d.mal === "kontakt" && <Board />}
-    {d.mal === "radioid" && <RadioId />}
-    {d.mal === "bidra" && <p><a class="btn" href={site.cms}>Logg inn i Pages CMS <Arrow /></a></p>}
-    {d.mal === "konkurranser" && <CompetitionOverview />}
+    {d.template === "kurs" && <UpcomingCourses />}
+    {d.template === "kontakt" && <Board />}
+    {d.template === "radioid" && <RadioId />}
+    {d.template === "bidra" && <p><a class="btn" href={site.cms}>Logg inn i Pages CMS <Arrow /></a></p>}
+    {d.template === "konkurranser" && <CompetitionOverview />}
     <Content />
-    {d.mal === "kurs" && <CourseOverview />}
-    {d.mal === "seksjon" && <SectionOverview />}
-    {d.mal === "radioid" && <RadioIdForm />}
-    {d.vedlegg?.length > 0 && <Attachments files={d.vedlegg} />}
+    {d.template === "kurs" && <CourseOverview />}
+    {d.template === "seksjon" && <SectionOverview />}
+    {d.template === "radioid" && <RadioIdForm />}
+    {d.attachments?.length > 0 && <Attachments files={d.attachments} />}
     {shareUrl && <p class="share-link"><span data-copy-fallback>Lenke til innlegget: <code>{shareUrl}</code></span><button class="btn" type="button" data-goatcounter-click="share/copy-link" data-copy={shareUrl} data-ok="Lenken er kopiert" hidden>Kopier lenke</button> <span class="share-link__status" role="status" aria-live="polite"></span></p>}
     {shareUrl && <script is:inline src={url("/assets/js/copy-link.js")} defer></script>}
   </Article>

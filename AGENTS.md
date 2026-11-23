@@ -31,5 +31,10 @@ filer. Den eneste serverkoden er skjemaendepunktet i `worker/`. Arkitektur, drif
 - Skript og stilark ligger i egne filer. Ingen innebygd kode i HTML og ingen `innerHTML`.
 - Skjemaendepunktet i `worker/` følger reglene for serverløse endepunkter i websikkerhet.
 - Innhold under `src/content/` og `src/data/` redigeres også i Pages CMS, som committer rett til `main`.
-  Feltnavn som brukes i `.pages.yml`, endres sammen med den.
+  Feltnavn som brukes i `.pages.yml`, endres sammen med den, og sammen med listen `TILLATT` i `guard`-jobben
+  (`deploy.yml`) når en mappe eller datafil får nytt navn.
+- Mapper, datafiler og feltnavn i innholdet er engelske. Redaktørene ser de norske `label`-ene i `.pages.yml`, så nye
+  felt og samlinger får alltid en norsk `label`. Verdiene og filnavnene til innleggene og sidene endres ikke.
+- Oversettelsene i `scripts/translate/translate.mjs` har nøkler med de gamle norske navnene (`LEGACY`). Endres et
+  mappe- eller feltnavn som oversettes, må det legges inn der, ellers oversettes teksten på nytt.
 - Filer under `src/pages/` følger språket i adressen.

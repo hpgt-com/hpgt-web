@@ -1,7 +1,7 @@
 ---
 import Arrow from "./Arrow.astro";
 // Faktaboks øverst i et innlegg som også er et arrangement: når, hvor (fysisk eller nettmøte), type og påmelding.
-// a: arrangement-feltet i innlegget (feltnavnene er de samme som i Pages CMS).
+// a: event-feltet i innlegget (feltnavnene er de samme som i Pages CMS).
 import { url, groupFor } from "../lib/site";
 import { pageInfo, formatsFor, typeLabelFor } from "../lib/i18n";
 import "./event.css";
@@ -10,19 +10,19 @@ const { a } = Astro.props;
 const { lang } = pageInfo(Astro.url.pathname);
 const en = lang === "en";
 const { date, clock } = formatsFor(lang);
-const start: Date = a.start, end: Date | undefined = a.slutt;
+const start: Date = a.start, end: Date | undefined = a.end;
 const sameDay = !end || start.toISOString().slice(0, 10) === end.toISOString().slice(0, 10);
 const when = sameDay ? date(start) : `${date(start).replace(/ \d{4}$/, "")} – ${date(end!)}`;
-const time = a.heldag ? (en ? "All day" : "Hele dagen") : `${en ? "" : "kl. "}${clock(start)}${end && sameDay ? "–" + clock(end) : ""}`;
+const time = a.allDay ? (en ? "All day" : "Hele dagen") : `${en ? "" : "kl. "}${clock(start)}${end && sameDay ? "–" + clock(end) : ""}`;
 const isOver = +(end ?? start) < Date.now();
 ---
 <aside class="event-box" aria-label={en ? "About the event" : "Om arrangementet"}>
   <dl>
     <div><dt>{en ? "When" : "Når"}</dt><dd>{when}<br /><span class="event-box__time">{time}</span></dd></div>
-    <div><dt>{en ? "Where" : "Hvor"}</dt><dd>{a.sted ?? (a.digital ? (en ? "Online" : "Digitalt") : (en ? "To be announced" : "Kommer"))}{a.digital && <><br /><a href={a.digital}>{en ? "Join online" : "Bli med på nett"}&nbsp;<Arrow /></a></>}</dd></div>
-    <div><dt>{en ? "Organiser" : "Arrangør"}</dt><dd>{a.arrangor ?? "HPGT"}</dd></div>
+    <div><dt>{en ? "Where" : "Hvor"}</dt><dd>{a.location ?? (a.online ? (en ? "Online" : "Digitalt") : (en ? "To be announced" : "Kommer"))}{a.online && <><br /><a href={a.online}>{en ? "Join online" : "Bli med på nett"}&nbsp;<Arrow /></a></>}</dd></div>
+    <div><dt>{en ? "Organiser" : "Arrangør"}</dt><dd>{a.organizer ?? "HPGT"}</dd></div>
     <div><dt>Type</dt><dd><span class="event-box__type cat" data-cat={groupFor(a.type).slug}>{typeLabelFor(lang, a.type)}</span></dd></div>
   </dl>
-  {a.pamelding && !isOver && <a class="event-box__button" href={url(a.pamelding)}>{en ? "Sign up" : "Meld deg på"}</a>}
+  {a.signup && !isOver && <a class="event-box__button" href={url(a.signup)}>{en ? "Sign up" : "Meld deg på"}</a>}
   {isOver && <p class="event-box__done">{en ? "This event has taken place." : "Dette arrangementet er gjennomført."}</p>}
 </aside>

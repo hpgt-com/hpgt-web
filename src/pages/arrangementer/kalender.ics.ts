@@ -23,9 +23,9 @@ const nextDay = (d: Date) => day(new Date(+d + 86400000));
 const now = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d+/, "");
 
 function vevent(e: EventPost) {
-  const { start, slutt: end, heldag: allDay, sted: place, digital, type } = e.data;
+  const { start, end, allDay, location: place, online, type } = e.data;
   const url = new URL(link(e), site.url).href;
-  const description = [e.data.ingress ?? excerpt(e.body, 300), digital && `Nettmøte: ${digital}`, url].filter(Boolean).join("\n\n");
+  const description = [e.data.lead ?? excerpt(e.body, 300), online && `Nettmøte: ${online}`, url].filter(Boolean).join("\n\n");
   const lines = [
     "BEGIN:VEVENT",
     `UID:${e.id.replace(/[^\w-]/g, "-")}@hpgt.com`,
@@ -35,7 +35,7 @@ function vevent(e: EventPost) {
       : [`DTSTART;TZID=Europe/Oslo:${local(start)}`, `DTEND;TZID=Europe/Oslo:${local(end ?? new Date(+start + 2 * 3600000))}`]),
     `SUMMARY:${escape(e.data.title)}`,
     `DESCRIPTION:${escape(description)}`,
-    ...(place || digital ? [`LOCATION:${escape(place ?? "Digitalt")}`] : []),
+    ...(place || online ? [`LOCATION:${escape(place ?? "Digitalt")}`] : []),
     `CATEGORIES:${escape(type.replace(" / ", ","))}`,
     `URL:${url}`,
     "END:VEVENT",
@@ -46,10 +46,10 @@ function vevent(e: EventPost) {
 export async function GET() {
   const { upcoming, past } = await getEvents();
   const oneYearAgo = Date.now() - 365 * 86400000;
-  const all = [...past.filter((e) => +(e.data.slutt ?? e.data.start) > oneYearAgo).reverse(), ...upcoming];
+  const all = [...past.filter((e) => +(e.data.end ?? e.data.start) > oneYearAgo).reverse(), ...upcoming];
   const lines = [
     "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//HPGT//hpgt.com//NO", "CALSCALE:GREGORIAN", "METHOD:PUBLISH",
-    `X-WR-CALNAME:${escape(site.kortnavn)} – arrangementer`, "X-WR-TIMEZONE:Europe/Oslo", "REFRESH-INTERVAL;VALUE=DURATION:PT12H",
+    `X-WR-CALNAME:${escape(site.shortName)} – arrangementer`, "X-WR-TIMEZONE:Europe/Oslo", "REFRESH-INTERVAL;VALUE=DURATION:PT12H",
     // Norsk tid: sommertid fra siste søndag i mars, vintertid fra siste søndag i oktober
     "BEGIN:VTIMEZONE", "TZID:Europe/Oslo",
     "BEGIN:DAYLIGHT", "TZOFFSETFROM:+0100", "TZOFFSETTO:+0200", "TZNAME:CEST", "DTSTART:19700329T020000", "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU", "END:DAYLIGHT",

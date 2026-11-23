@@ -1,5 +1,5 @@
 ---
-// Rekkefølgen i styret.json (redigeres i CMS-et) bestemmer rekkefølgen på siden. id brukes som anker, f.eks. /klubben/styret/#faglig-leder.
+// Rekkefølgen i board.json (redigeres i CMS-et) bestemmer rekkefølgen på siden. id brukes som anker, f.eks. /klubben/styret/#faglig-leder.
 import "./board.css";
 import { url } from "../lib/site";
 import { T, pageInfo, boardFor } from "../lib/i18n";
@@ -8,15 +8,15 @@ const t = T[lang];
 const board = boardFor(lang);
 ---
 <ul class="people" aria-label={t.board}>
-  {board.medlemmer.map((p) => (
+  {board.members.map((p) => (
     <li class="person" id={p.id}>
-      {p.bilde && <img src={url(p.bilde)} alt={`${t.portrait} ${p.navn}`} width="160" height="160" loading="lazy" />}
+      {p.image && <img src={url(p.image)} alt={`${t.portrait} ${p.name}`} width="160" height="160" loading="lazy" />}
       <div>
-        <p class="person__role">{p.rolle}</p>
-        <p class="person__name">{p.navn}</p>
-        {"ansvar" in p && p.ansvar && <p class="person__responsibility"><b>{t.contactMe}</b> {p.ansvar}</p>}
-        {p.telefon && <p><a href={`tel:${p.telefon.replace(/\s/g, "")}`}>{p.telefon}</a></p>}
-        {"epost" in p && p.epost && <p><a href={`mailto:${p.epost}`}>{p.epost}</a></p>}
+        <p class="person__role">{p.role}</p>
+        <p class="person__name">{p.name}</p>
+        {"responsibility" in p && p.responsibility && <p class="person__responsibility"><b>{t.contactMe}</b> {p.responsibility}</p>}
+        {p.phone && <p><a href={`tel:${p.phone.replace(/\s/g, "")}`}>{p.phone}</a></p>}
+        {"email" in p && p.email && <p><a href={`mailto:${p.email}`}>{p.email}</a></p>}
       </div>
     </li>
   ))}

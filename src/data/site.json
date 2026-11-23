@@ -1,27 +1,27 @@
 {
-  "navn": "Harstad Hang- og Paragliderklubb",
-  "kortnavn": "HPGT",
+  "name": "Harstad Hang- og Paragliderklubb",
+  "shortName": "HPGT",
   "url": "https://hpgt.com",
-  "beskrivelse": "Paragliding, speedflying og paramotor i Harstad og omegn. Kurs, tandem, flysteder og et sosialt klubbmiljø.",
+  "description": "Paragliding, speedflying og paramotor i Harstad og omegn. Kurs, tandem, flysteder og et sosialt klubbmiljø.",
   "prototype": false,
-  "epost": {
-    "leder": "leder@hpgt.com",
-    "fagligLeder": "faglig.leder@hpgt.com"
+  "email": {
+    "chair": "leder@hpgt.com",
+    "headInstructor": "faglig.leder@hpgt.com"
   },
-  "orgnr": "996870618",
+  "orgNumber": "996870618",
   "vipps": "967338",
   "facebook": "https://www.facebook.com/groups/281075801914003",
   "instagram": "https://www.instagram.com/harstadparagliding/",
-  "flysteder": "https://flysteder.hpgt.com/",
-  "minidrett": "https://www.minidrett.no",
+  "flyingSites": "https://flysteder.hpgt.com/",
+  "minIdrett": "https://www.minidrett.no",
   "cms": "https://app.pagescms.org",
-  "sitat": {
-    "tekst": "Skjønner ikke hvorfor folk gidder å ruse seg når de bare kan fly paraglider",
-    "kilde": "tidligere tandempassasjer"
+  "quote": {
+    "text": "Skjønner ikke hvorfor folk gidder å ruse seg når de bare kan fly paraglider",
+    "source": "tidligere tandempassasjer"
   },
-  "delingsbilde": "/media/archive/2026/03/received_14693510906506755701209126633616533.jpeg",
+  "shareImage": "/media/archive/2026/03/received_14693510906506755701209126633616533.jpeg",
   "turnstile": "1x00000000000000000000AA",
-  "statistikk": "e5d618da4aeb40f4adf618247ea72b72",
+  "webAnalytics": "e5d618da4aeb40f4adf618247ea72b72",
   "goatcounter": "https://hpgt-web.goatcounter.com/count",
-  "driftsstatus": "https://status.hpgt.com/"
+  "statusPage": "https://status.hpgt.com/"
 }

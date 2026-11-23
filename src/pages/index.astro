@@ -6,7 +6,7 @@ import { clubLd, ldJson } from "../lib/structured-data";
 const posts = await getPosts();
 const { upcoming, past } = await getEvents();
 ---
-<Layout title={site.navn}>
+<Layout title={site.name}>
   <script type="application/ld+json" set:html={ldJson(clubLd())} />
   <Home posts={posts} upcoming={upcoming} past={past} />
 </Layout>

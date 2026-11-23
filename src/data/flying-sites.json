@@ -1,0 +1,386 @@
+{
+ "source": "https://flysteder.hpgt.com/",
+ "fetched": "2026-11-10",
+ "sites": [
+  {
+   "id": "blahatten",
+   "name": "Blåhatten",
+   "elevation": 475,
+   "directions": [
+    "SØ",
+    "S"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/blahatten/"
+  },
+  {
+   "id": "dale",
+   "name": "Dale",
+   "elevation": 75,
+   "directions": [
+    "S",
+    "SV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/dale/"
+  },
+  {
+   "id": "daleskallen",
+   "name": "Daleskallen",
+   "elevation": 176,
+   "directions": [
+    "V"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/daleskallen/"
+  },
+  {
+   "id": "elgen",
+   "name": "Elgen",
+   "elevation": 497,
+   "directions": [
+    "N",
+    "NØ",
+    "Ø",
+    "SØ",
+    "S",
+    "SV",
+    "V",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/elgen/"
+  },
+  {
+   "id": "finnslettheia",
+   "name": "Finnslettheia",
+   "elevation": 502,
+   "directions": [
+    "Ø",
+    "SØ"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/finnslettheia/"
+  },
+  {
+   "id": "haugfjellet",
+   "name": "Haugfjellet",
+   "elevation": 523,
+   "directions": [
+    "NØ",
+    "Ø",
+    "SØ",
+    "S"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/haugfjellet/"
+  },
+  {
+   "id": "heia",
+   "name": "Heia",
+   "elevation": 475,
+   "directions": [
+    "N",
+    "NØ",
+    "Ø",
+    "V",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/heia/"
+  },
+  {
+   "id": "hinnstein",
+   "name": "Hinnstein",
+   "elevation": 558,
+   "directions": [
+    "Ø",
+    "SØ"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/hinnstein/"
+  },
+  {
+   "id": "hogfjellet",
+   "name": "Høgfjellet",
+   "elevation": 617,
+   "directions": [
+    "N",
+    "NØ",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/hogfjellet/"
+  },
+  {
+   "id": "keipen",
+   "name": "Keipen",
+   "elevation": 475,
+   "directions": [
+    "SØ",
+    "S",
+    "SV",
+    "V"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/keipen/"
+  },
+  {
+   "id": "kilhusasen",
+   "name": "Kilhusåsen",
+   "elevation": 280,
+   "directions": [
+    "V",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/kilhusasen/"
+  },
+  {
+   "id": "lundenesgalten",
+   "name": "Lundenesgalten",
+   "elevation": 780,
+   "directions": [
+    "Ø",
+    "SØ"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/lundenesgalten/"
+  },
+  {
+   "id": "mela-aksla",
+   "name": "Melå aksla",
+   "elevation": 540,
+   "directions": [
+    "N",
+    "NØ",
+    "Ø",
+    "S",
+    "SV",
+    "V",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/mela-aksla/"
+  },
+  {
+   "id": "nona",
+   "name": "Nona",
+   "elevation": 999,
+   "directions": [
+    "NØ",
+    "Ø",
+    "SØ",
+    "SV",
+    "V",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/nona/"
+  },
+  {
+   "id": "nontua",
+   "name": "Nontua",
+   "elevation": 564,
+   "directions": [
+    "N",
+    "NØ",
+    "Ø",
+    "SØ",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/nontua/"
+  },
+  {
+   "id": "ramnskogheia",
+   "name": "Ramnskogheia",
+   "elevation": 485,
+   "directions": [
+    "N",
+    "NØ",
+    "Ø",
+    "SØ",
+    "S",
+    "SV",
+    "V",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/ramnskogheia/"
+  },
+  {
+   "id": "reinebringen",
+   "name": "Reinebringen",
+   "elevation": 484,
+   "directions": [
+    "N",
+    "NØ",
+    "Ø",
+    "SØ",
+    "S"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/reinebringen/"
+  },
+  {
+   "id": "reinfjellet",
+   "name": "Reinfjellet",
+   "elevation": 893,
+   "directions": [
+    "NØ",
+    "Ø",
+    "SØ",
+    "S"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/reinfjellet/"
+  },
+  {
+   "id": "ryten",
+   "name": "Ryten",
+   "elevation": 510,
+   "directions": [
+    "Ø",
+    "SØ",
+    "S",
+    "SV",
+    "V"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/ryten/"
+  },
+  {
+   "id": "rodmoldheia",
+   "name": "Rødmoldheia",
+   "elevation": 621,
+   "directions": [
+    "SØ",
+    "S",
+    "SV",
+    "V"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/rodmoldheia/"
+  },
+  {
+   "id": "samaasen",
+   "name": "Samaåsen",
+   "elevation": 171,
+   "directions": [
+    "V",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/samaasen/"
+  },
+  {
+   "id": "sollifjellet",
+   "name": "Sollifjellet",
+   "elevation": 563,
+   "directions": [
+    "N",
+    "NØ",
+    "Ø",
+    "SØ",
+    "S",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/sollifjellet/"
+  },
+  {
+   "id": "steinsasen",
+   "name": "Steinsåsen",
+   "elevation": 488,
+   "directions": [
+    "SV",
+    "V",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/steinsasen/"
+  },
+  {
+   "id": "storbakkan",
+   "name": "Storbakkan",
+   "elevation": 340,
+   "directions": [
+    "Ø",
+    "SØ",
+    "S",
+    "SV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/storbakkan/"
+  },
+  {
+   "id": "storhornet",
+   "name": "Storhornet",
+   "elevation": 609,
+   "directions": [
+    "N",
+    "NØ",
+    "Ø",
+    "V",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/storhornet/"
+  },
+  {
+   "id": "storlitinden",
+   "name": "Storlitinden",
+   "elevation": 597,
+   "directions": [
+    "SØ",
+    "S",
+    "SV",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/storlitinden/"
+  },
+  {
+   "id": "svartdalsasen",
+   "name": "Svartdalsåsen",
+   "elevation": 340,
+   "directions": [
+    "V",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/svartdalsasen/"
+  },
+  {
+   "id": "saetertinden",
+   "name": "Sætertinden",
+   "elevation": 1089,
+   "directions": [
+    "NØ",
+    "Ø",
+    "SØ",
+    "S",
+    "SV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/saetertinden/"
+  },
+  {
+   "id": "trastad",
+   "name": "Trastad",
+   "elevation": 158,
+   "directions": [
+    "SV",
+    "V"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/trastad/"
+  },
+  {
+   "id": "utstrand",
+   "name": "Utstrand",
+   "elevation": 13,
+   "directions": [
+    "SV",
+    "V"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/utstrand/"
+  },
+  {
+   "id": "vetefjellet",
+   "name": "Vetefjellet",
+   "elevation": 527,
+   "directions": [
+    "Ø",
+    "SØ",
+    "S"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/vetefjellet/"
+  },
+  {
+   "id": "arbostadtinden",
+   "name": "Årbostadtinden",
+   "elevation": 1179,
+   "directions": [
+    "N",
+    "NØ",
+    "Ø",
+    "SØ",
+    "NV"
+   ],
+   "url": "https://flysteder.hpgt.com/flysteder/arbostadtinden/"
+  }
+ ]
+}

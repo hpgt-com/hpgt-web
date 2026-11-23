@@ -11,6 +11,6 @@ const localize = (u: string) => (lang === "en" ? `/en${toEnglish(u)}` : u);
 {courses.length > 0 && <section class="course-cards" aria-labelledby="course-cards-h">
   <h2 id="course-cards-h">{T[lang].ourCourses}</h2>
   <ul>{courses.map((k) => <li><a href={url(localize(courseLink(k)))}>
-    {k.data.bilde && <img src={url(k.data.bilde)} alt="" loading="lazy" />}
-    <b>{k.data.title}</b>{k.data.ingress && <span>{k.data.ingress}</span>}</a></li>)}</ul>
+    {k.data.image && <img src={url(k.data.image)} alt="" loading="lazy" />}
+    <b>{k.data.title}</b>{k.data.lead && <span>{k.data.lead}</span>}</a></li>)}</ul>
 </section>}

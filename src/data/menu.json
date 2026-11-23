@@ -1,0 +1,98 @@
+{
+  "main": [
+    {
+      "text": "Kurs",
+      "url": "/kurs/"
+    },
+    {
+      "text": "Tandem",
+      "url": "/tandem/"
+    },
+    {
+      "text": "Arrangementer",
+      "url": "/arrangementer/"
+    },
+    {
+      "text": "Nytt",
+      "url": "/nytt/"
+    },
+    {
+      "text": "For piloter",
+      "url": "/for-piloter/"
+    },
+    {
+      "text": "Klubben",
+      "url": "/klubben/"
+    },
+    {
+      "text": "Flysteder",
+      "url": "https://flysteder.hpgt.com/",
+      "external": true
+    }
+  ],
+  "sections": [
+    {
+      "text": "For piloter",
+      "url": "/for-piloter/",
+      "first": "Oversikt",
+      "pages": [
+        {
+          "text": "Vær og lenker",
+          "url": "/for-piloter/vaer/"
+        },
+        {
+          "text": "NOTAM",
+          "url": "/for-piloter/notam/"
+        },
+        {
+          "text": "Flystripa",
+          "url": "/for-piloter/flystripa/"
+        },
+        {
+          "text": "Mørkeflyging",
+          "url": "/for-piloter/morkeflyging/"
+        },
+        {
+          "text": "RadioID",
+          "url": "/for-piloter/radioid/"
+        },
+        {
+          "text": "Flysteder",
+          "url": "https://flysteder.hpgt.com/",
+          "external": true,
+          "lead": "Kartet over klubbens flysteder med start- og landingsplasser.",
+          "leadEn": "Map of the club’s flying sites with launch and landing areas."
+        }
+      ]
+    },
+    {
+      "text": "Klubben",
+      "url": "/klubben/",
+      "first": "Om klubben",
+      "pages": [
+        {
+          "text": "Styret og roller",
+          "url": "/klubben/styret/"
+        },
+        {
+          "text": "Møter og referater",
+          "url": "/nytt/kategori/moter-og-referater/",
+          "lead": "Innkallinger, protokoller og årsberetninger fra årsmøter og klubbmøter.",
+          "leadEn": "Notices, minutes and annual reports from club meetings (in Norwegian)."
+        },
+        {
+          "text": "Økonomisk støtte",
+          "url": "/klubben/stotte/"
+        },
+        {
+          "text": "Konkurranser",
+          "url": "/klubben/konkurranser/"
+        },
+        {
+          "text": "Skriv på siden",
+          "url": "/klubben/bidra/"
+        }
+      ]
+    }
+  ]
+}

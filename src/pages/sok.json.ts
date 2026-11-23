@@ -19,21 +19,21 @@ const plainText = (md = "") =>
 
 export async function GET() {
   const [posts, pages, courses, pagesEn, coursesEn, postsEn] = await Promise.all([
-    getCollection("innlegg", (p) => !p.data.utkast),
-    getCollection("sider"),
-    getCollection("kurs"),
-    getCollection("sider_en"),
-    getCollection("kurs_en"),
-    getCollection("innlegg_en"),
+    getCollection("posts", (p) => !p.data.draft),
+    getCollection("pages"),
+    getCollection("courses"),
+    getCollection("pages_en"),
+    getCollection("courses_en"),
+    getCollection("posts_en"),
   ]);
   const published = new Set(posts.map((p) => p.id));
   const docs = [
-    ...posts.map((p) => ({ s: "nb", u: link(p), t: p.data.title, k: p.data.kategorier[0], d: p.data.date.toISOString().slice(0, 10), x: plainText(`${p.data.ingress ?? ""} ${p.body}`) })),
-    ...pages.map((p) => ({ s: "nb", u: link(p), t: p.data.title, k: "Side", x: plainText(`${p.data.ingress ?? ""} ${p.body}`) })),
-    ...courses.map((p) => ({ s: "nb", u: courseLink(p), t: p.data.title, k: "Kurs", x: plainText(`${p.data.ingress ?? ""} ${p.body}`) })),
-    ...pagesEn.map((p) => ({ s: "en", u: `/en${toEnglish(link(p))}`, t: p.data.title, k: "Page", x: plainText(`${p.data.ingress ?? ""} ${p.body}`) })),
-    ...postsEn.filter((p) => published.has(p.id)).map((p) => ({ s: "en", u: link(p), t: p.data.title, k: "News", d: p.data.date.toISOString().slice(0, 10), x: plainText(`${p.data.ingress ?? ""} ${p.body}`) })),
-    ...coursesEn.map((p) => ({ s: "en", u: `/en${toEnglish(courseLink(p))}`, t: p.data.title, k: "Course", x: plainText(`${p.data.ingress ?? ""} ${p.body}`) })),
+    ...posts.map((p) => ({ s: "nb", u: link(p), t: p.data.title, k: p.data.categories[0], d: p.data.date.toISOString().slice(0, 10), x: plainText(`${p.data.lead ?? ""} ${p.body}`) })),
+    ...pages.map((p) => ({ s: "nb", u: link(p), t: p.data.title, k: "Side", x: plainText(`${p.data.lead ?? ""} ${p.body}`) })),
+    ...courses.map((p) => ({ s: "nb", u: courseLink(p), t: p.data.title, k: "Kurs", x: plainText(`${p.data.lead ?? ""} ${p.body}`) })),
+    ...pagesEn.map((p) => ({ s: "en", u: `/en${toEnglish(link(p))}`, t: p.data.title, k: "Page", x: plainText(`${p.data.lead ?? ""} ${p.body}`) })),
+    ...postsEn.filter((p) => published.has(p.id)).map((p) => ({ s: "en", u: link(p), t: p.data.title, k: "News", d: p.data.date.toISOString().slice(0, 10), x: plainText(`${p.data.lead ?? ""} ${p.body}`) })),
+    ...coursesEn.map((p) => ({ s: "en", u: `/en${toEnglish(courseLink(p))}`, t: p.data.title, k: "Course", x: plainText(`${p.data.lead ?? ""} ${p.body}`) })),
   ];
   return new Response(JSON.stringify(docs), { headers: { "Content-Type": "application/json" } });
 }

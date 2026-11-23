@@ -1,14 +1,14 @@
 ---
-// Tabell over foto- og videokonkurransene på /klubben/konkurranser/, bygget fra sidene i src/content/sider/konkurranser/.
+// Tabell over foto- og videokonkurransene på /klubben/konkurranser/, bygget fra sidene i src/content/pages/konkurranser/.
 // En ny konkurranse opprettet i Pages CMS (Konkurranser) dukker opp her automatisk.
 import { getCollection } from "astro:content";
 import { url, link } from "../lib/site";
-const competitions = (await getCollection("sider", (s) => s.id.startsWith("konkurranser/"))).sort((a, b) => (b.data.aar ?? 0) - (a.data.aar ?? 0));
+const competitions = (await getCollection("pages", (s) => s.id.startsWith("konkurranser/"))).sort((a, b) => (b.data.year ?? 0) - (a.data.year ?? 0));
 ---
 {competitions.length > 0 && <>
   <h2 id="foto-og-videokonkurranser">Foto- og videokonkurranser</h2>
   <table>
     <thead><tr><th>År</th><th>1. plass foto</th><th>1. plass video</th><th></th></tr></thead>
-    <tbody>{competitions.map((k) => <tr><td><b>{k.data.aar}</b></td><td>{k.data.vinner_foto ?? "–"}</td><td>{k.data.vinner_video ?? "–"}</td><td><a href={url(link(k))}>Se konkurransen</a></td></tr>)}</tbody>
+    <tbody>{competitions.map((k) => <tr><td><b>{k.data.year}</b></td><td>{k.data.winnerPhoto ?? "–"}</td><td>{k.data.winnerVideo ?? "–"}</td><td><a href={url(link(k))}>Se konkurransen</a></td></tr>)}</tbody>
   </table>
 </>}

@@ -16,7 +16,7 @@ import { T, dateFor, toEnglish } from "../../lib/i18n";
 
 export async function getStaticPaths() {
   const trim = (s: string) => s.replace(/^\/|\/$/g, "");
-  const [pages, courses, posts, norwegian] = await Promise.all([getCollection("sider_en"), getCollection("kurs_en"), getCollection("innlegg_en"), getPosts()]);
+  const [pages, courses, posts, norwegian] = await Promise.all([getCollection("pages_en"), getCollection("courses_en"), getCollection("posts_en"), getPosts()]);
   const original = new Map(norwegian.map((p) => [p.id, p]));
   return [
     // Bare innlegg som fortsatt er publisert på norsk (ikke utkast eller slettet)
@@ -30,23 +30,23 @@ const { Content, headings } = await render(entry);
 const d = entry.data;
 const t = T.en;
 const isPost = type === "post";
-const isEvent = isPost && d.arrangement?.start;
+const isEvent = isPost && d.event?.start;
 const eventData = isEvent ? eventLd(entry, link(entry)) : null;
-const meta = isPost ? `${d.forfatter ? `By ${d.forfatter} · ` : ""}${dateFor("en", d.date)}` : d.sist_endret ? `${t.lastUpdated} ${dateFor("en", d.sist_endret)}` : undefined;
+const meta = isPost ? `${d.author ? `By ${d.author} · ` : ""}${dateFor("en", d.date)}` : d.updated ? `${t.lastUpdated} ${dateFor("en", d.updated)}` : undefined;
 const back = type === "course" ? { label: t.courses, url: url("/en/courses/") }
   : isEvent ? { label: "All events", url: url("/en/events/") } : isPost ? { label: "All news", url: url("/en/news/") } : undefined;
 ---
-<Layout title={d.title} description={d.ingress} image={d.bilde}>
-  <Article title={d.title} lead={d.ingress} image={isPost ? undefined : d.bilde} meta={meta} categories={isPost ? d.kategorier : undefined} back={back} headings={headings}>
+<Layout title={d.title} description={d.lead} image={d.image}>
+  <Article title={d.title} lead={d.lead} image={isPost ? undefined : d.image} meta={meta} categories={isPost ? d.categories : undefined} back={back} headings={headings}>
     {isPost && <p class="translated-note" role="note">Translated automatically from Norwegian. <a href={url(originalPath)} lang="nb" hreflang="nb">Read the original</a>.</p>}
     {eventData && <script type="application/ld+json" set:html={ldJson(eventData)} />}
-    {isEvent && <EventBox a={d.arrangement} />}
-    {type === "course" && d.kurstype && <UpcomingCourses type={d.kurstype} />}
-    {d.mal === "kurs" && <UpcomingCourses />}
-    {d.mal === "kontakt" && <Board />}
+    {isEvent && <EventBox a={d.event} />}
+    {type === "course" && d.courseType && <UpcomingCourses type={d.courseType} />}
+    {d.template === "kurs" && <UpcomingCourses />}
+    {d.template === "kontakt" && <Board />}
     <Content />
-    {d.mal === "kurs" && <CourseOverview />}
-    {d.mal === "seksjon" && <SectionOverview />}
-    {d.vedlegg?.length > 0 && <Attachments files={d.vedlegg} />}
+    {d.template === "kurs" && <CourseOverview />}
+    {d.template === "seksjon" && <SectionOverview />}
+    {d.attachments?.length > 0 && <Attachments files={d.attachments} />}
   </Article>
 </Layout>

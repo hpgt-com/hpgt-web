@@ -41,7 +41,7 @@ const next = upcoming[0];
       {all.map((e) => {
         const isOver = !upcoming.includes(e);
         return (
-          <li data-calendar-item data-start={iso(e.data.start)} data-end={iso(e.data.slutt ?? e.data.start)} hidden={!visibleWithoutJs.has(e.id)}>
+          <li data-calendar-item data-start={iso(e.data.start)} data-end={iso(e.data.end ?? e.data.start)} hidden={!visibleWithoutJs.has(e.id)}>
             <span class="calendar-date">{fmt(e.data.start)}</span>
             <a href={url(link(e))}>{e.data.title} <Arrow /></a>
             <small class="calendar-meta"><span>{time(e)}</span>{place(e) && <span>{place(e)}</span>}</small>

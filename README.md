@@ -19,8 +19,9 @@ npm run icons                # makes favicon.ico and apple-touch-icon.png from t
 
 | Mappe | Innhold |
 |---|---|
-| `src/content/innlegg` | Nyheter, referater og arrangementer (Markdown). Et innlegg med feltet `arrangement` vises også i kalenderen. Adressen er `permalink`, eller filnavnet for nye innlegg. |
-| `src/content/sider` | Faste sider |
+| `src/content/posts` | Nyheter, referater og arrangementer (Markdown). Et innlegg med feltet `event` vises også i kalenderen. Adressen er `permalink`, eller filnavnet for nye innlegg. |
+| `src/content/pages` | Faste sider, og konkurransesidene i `pages/konkurranser/` (mappenavnet gir adressen `/klubben/konkurranser/ÅR/`) |
+| `src/content/courses` | Kurssidene (`/kurs/<filnavn>/`) |
 | `src/data/*.json` | Forsiden, styret, RadioID, menyen og innstillingene for nettstedet |
 | `src/design` | Designet «Fjord+»: `style.css` og malene Layout, Home, Article, PostList og EventList |
 | `src/components` | Felles deler: kalender, kort, RadioID-skjemaet, styret, faktaboksen for arrangementer |
@@ -29,8 +30,10 @@ npm run icons                # makes favicon.ico and apple-touch-icon.png from t
 | `public/media` | Bilder og dokumenter, se «Mappestruktur for bilder og filer» under |
 | `scripts/wp-import` | Engangsskript som konverterte WordPress-eksporten |
 
-Nettstedet er på norsk, med en engelsk versjon under `/en/`. Mappe- og feltnavnene i innholdet er derfor norske, og det
-samme er mange kodekommentarer. Dokumentasjonen er på norsk.
+Nettstedet er på norsk, med en engelsk versjon under `/en/`. Mappe-, fil- og feltnavnene i innholdet er engelske
+(`posts`, `title`, `lead`, `event` …), som annen kode. Det redaktørene ser i Pages CMS, er norsk: hver samling og hvert
+felt har en norsk `label` i `.pages.yml`. Verdiene (tekster, kategorier, typer, adresser) og filnavnene til innleggene og
+sidene er norske, fordi de vises for leserne eller bestemmer adressene. Kodekommentarer og dokumentasjonen er på norsk.
 
 ## Mappestruktur for bilder og filer
 

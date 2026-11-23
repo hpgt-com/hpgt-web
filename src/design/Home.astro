@@ -8,7 +8,7 @@ const { posts, upcoming, past } = Astro.props;
 // Engelsk forside: samme oppsett, med de oversatte nyhetene og arrangementene (src/pages/en/index.astro)
 const { lang } = pageInfo(Astro.url.pathname);
 const t = T[lang];
-// Feltnavnene (heltebilde, stikkord, slagord, veier …) er de samme som i forside.json, som redigeres i Pages CMS
+// Feltnavnene (heroImage, kicker, headline, paths …) er de samme som i front-page.json, som redigeres i Pages CMS
 const frontPage = frontPageFor(lang);
 const english = await englishPaths();
 const href = (u: string) => linkFor(lang, u, english);
@@ -16,28 +16,28 @@ const en = lang === "en";
 const shortDate = (d: Date) => new Intl.DateTimeFormat(en ? "en-GB" : "nb-NO", { timeZone: "UTC", day: "2-digit", month: "short", year: "numeric" }).format(d).replace(/\./g, "");
 ---
 <section class="hero">
-  <img class="hero__img" src={url(frontPage.heltebilde)} alt={t.heroAlt} />
+  <img class="hero__img" src={url(frontPage.heroImage)} alt={t.heroAlt} />
   <div class="wrap hero__in">
-    <p class="eyebrow eyebrow--light"><span class="dot" aria-hidden="true"></span>{frontPage.stikkord}</p>
-    <h1 class="hero__title">{frontPage.slagord}</h1>
-    <p class="hero__lead">{frontPage.slagordIngress}</p>
+    <p class="eyebrow eyebrow--light"><span class="dot" aria-hidden="true"></span>{frontPage.kicker}</p>
+    <h1 class="hero__title">{frontPage.headline}</h1>
+    <p class="hero__lead">{frontPage.headlineLead}</p>
     <p class="actions">
       <a class="btn" href={href("/kurs/")}>{t.exploreCourses} <Arrow /></a>
       <a class="btn btn--ghost" href={href("/for-piloter/")}>{t.flyWithUs} <Arrow direction="right" /></a>
       <a class="hero__cal" href="#aktivitetskalender">{t.calendar}&nbsp;<Arrow direction="down" /></a>
     </p>
-    <div class="hero__strip"><span>Harstad / Sør-Troms</span><span>{frontPage.heltebildeKreditt}</span></div>
+    <div class="hero__strip"><span>Harstad / Sør-Troms</span><span>{frontPage.heroImageCredit}</span></div>
   </div>
 </section>
 
 <section class="wrap section">
   <div class="head"><div><p class="eyebrow">{t.intoTheAir}</p><h2 class="h2">{t.findYourWay}</h2></div><a class="more" href={href("/klubben/")}>{t.aboutClub}&nbsp;<Arrow /></a></div>
   <div class="paths">
-    {frontPage.veier.map((v, i) => (
+    {frontPage.paths.map((v, i) => (
       <a class="path" href={href(v.url)}>
         <span class="eyebrow">{String(i + 1).padStart(2, "0")} / {v.verb}</span>
-        <span class="path__title">{v.tittel}</span>
-        <span class="path__text">{v.tekst}</span>
+        <span class="path__title">{v.title}</span>
+        <span class="path__text">{v.text}</span>
         <span class="path__arrow" aria-hidden="true"><Arrow /></span>
       </a>
     ))}
@@ -53,12 +53,12 @@ const shortDate = (d: Date) => new Intl.DateTimeFormat(en ? "en-GB" : "nb-NO", {
       const b = imageFor(p);
       return (
         <a class="post" href={url(link(p))}>
-          {b ? <span class="post__noimg default-image--photo" data-cat={slug(p.data.kategorier[0])}><img src={url(b)} alt="" loading="lazy" /><span class="default-image__label">{categoryName(lang, p.data.kategorier[0])}</span></span> : <DefaultImage class="post__noimg" cat={slug(p.data.kategorier[0])} label={categoryName(lang, p.data.kategorier[0])} seed={link(p)} />}
+          {b ? <span class="post__noimg default-image--photo" data-cat={slug(p.data.categories[0])}><img src={url(b)} alt="" loading="lazy" /><span class="default-image__label">{categoryName(lang, p.data.categories[0])}</span></span> : <DefaultImage class="post__noimg" cat={slug(p.data.categories[0])} label={categoryName(lang, p.data.categories[0])} seed={link(p)} />}
           <span class="post__body">
             <span class="post__meta">{shortDate(p.data.date)}</span>
             <span class="post__title">{p.data.title}</span>
             <span class="post__text">{excerpt(p.body, 150)}</span>
-            {p.data.forfatter && <span class="post__by">{en ? "By" : "Av"} <b>{p.data.forfatter}</b></span>}
+            {p.data.author && <span class="post__by">{en ? "By" : "Av"} <b>{p.data.author}</b></span>}
           </span>
         </a>
       );

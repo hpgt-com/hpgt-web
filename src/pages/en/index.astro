@@ -1,5 +1,5 @@
 ---
-// Engelsk forside. Bygges bare når forsidetekstene er oversatt (.translated/forside.json).
+// Engelsk forside. Bygges bare når forsidetekstene er oversatt (.translated/front-page.json).
 import Layout from "@design/Layout.astro";
 import Home from "@design/Home.astro";
 import { site, getEvents } from "../../lib/site";
@@ -11,7 +11,7 @@ export async function getStaticPaths() {
 const posts = await translatedPosts("en");
 const { upcoming, past } = await getEvents(await postsFor("en"));
 ---
-<Layout title={site.navn} description="Paragliding, speedflying and paramotor in Harstad, Northern Norway. Courses, tandem flights, flying sites and a friendly club.">
+<Layout title={site.name} description="Paragliding, speedflying and paramotor in Harstad, Northern Norway. Courses, tandem flights, flying sites and a friendly club.">
   <script type="application/ld+json" set:html={ldJson(clubLd())} />
   <Home posts={posts} upcoming={upcoming} past={past} />
 </Layout>

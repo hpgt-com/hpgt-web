@@ -108,14 +108,14 @@ Pull requests (også fra administratorer) bygges og kontrolleres av `pr-check.ym
 
 | Innhold | Fil eller mappe | Redigeres i |
 |---|---|---|
-| Nyheter, referater, arrangementer | `src/content/innlegg/YEAR/*.md` | Pages CMS |
-| Faste sider (For piloter, Klubben …) | `src/content/sider/*.md` | Pages CMS |
-| Konkurranser | `src/content/sider/konkurranser/YEAR.md` | Pages CMS |
-| Kurssider | `src/content/kurs/*.md` | Pages CMS |
-| Forsiden, styret, RadioID-registeret | `src/data/forside.json`, `styret.json`, `radioid.json` | Pages CMS |
-| Standardbilder per kategori | `src/data/standardbilder.json` | Pages CMS |
+| Nyheter, referater, arrangementer | `src/content/posts/YEAR/*.md` | Pages CMS |
+| Faste sider (For piloter, Klubben …) | `src/content/pages/*.md` | Pages CMS |
+| Konkurranser | `src/content/pages/konkurranser/YEAR.md` | Pages CMS |
+| Kurssider | `src/content/courses/*.md` | Pages CMS |
+| Forsiden, styret, RadioID-registeret | `src/data/front-page.json`, `board.json`, `radio-id.json` | Pages CMS |
+| Standardbilder per kategori | `src/data/default-images.json` | Pages CMS |
 | Bilder og PDF-er | `public/media/…` (se README-en) | Pages CMS (opplasting) |
-| Menyer, innstillinger for nettstedet | `src/data/meny.json`, `site.json` | Bare pull request |
+| Menyer, innstillinger for nettstedet | `src/data/menu.json`, `site.json` | Bare pull request |
 | Design | `src/design/` (`style.css`, maler), `src/components/` | Bare pull request |
 | Videresending fra gamle adresser | `astro.config.mjs`, `public/_redirects` | Bare pull request |
 
@@ -123,12 +123,26 @@ Hvert felt kontrolleres av `src/content.config.ts`. En ugyldig verdi fra CMS-et 
 en ødelagt side. Hvilke felt redaktørene ser, bestemmes av `.pages.yml`. Felt som ikke står der, fjernes når noen
 lagrer, og derfor har noen felt `hidden: true`.
 
+Mappene, datafilene og feltnavnene er engelske (for eksempel `posts`, `title`, `lead`, `event.location`), mens det
+redaktørene ser, er norsk: hver samling og hvert felt i `.pages.yml` har en norsk `label` («Nyheter, referater og
+arrangementer», «Ingress», «Arrangement (valgfritt)» …). Verdiene er norske, og filnavnene til innleggene og sidene
+beholdes fordi de kan bestemme adressen. Av samme grunn heter mappa med konkurransesidene `konkurranser`: navnet gir
+adressen `/klubben/konkurranser/ÅR/`.
+
+Det Pages CMS kan lagre uten pull request (mappene i `src/content/`, `public/media/` og de fire datafilene over), står i
+listen `TILLATT` i `guard`-jobben i `deploy.yml`. Får en av dem nytt navn, må listen endres i samme pull request.
+
 ## Engelsk versjon
 
 Sidene i `PAGES` i `scripts/translate/translate.mjs` (kurs, for piloter, klubbsidene og så videre) oversettes automatisk
 ved hver publisering. Uendret tekst gjenbrukes fra forrige publisering (`/en/oversettelser.json`), så bare nye eller
 endrede avsnitt sendes til Anthropic. Engelske adresser (`/klubben/styret/` → `/en/club/board/`) står i
 `src/lib/english-paths.mjs`, og faste tekster (menyer, knapper) i `src/lib/i18n.ts`.
+
+Nøklene i oversettelsene (`/en/oversettelser.json`) bruker fortsatt de norske navnene fra før innholdsmodellen fikk
+engelske navn, for eksempel `sider/kurs#ingress`, `innlegg/2019/navn#title` og `forside#veier.0.tittel`. Tabellen
+`LEGACY` i `scripts/translate/translate.mjs` oversetter de nye mappe- og feltnavnene til de gamle, så oversettelsene
+som allerede er publisert, brukes videre og ingenting oversettes på nytt bare fordi et navn er endret.
 
 Nyheter og arrangementer oversettes også (`/en/news/`, `/en/events/`, og hvert innlegg på `/en/<address>/`), unntatt
 møtereferater, som er formelle dokumenter for medlemmene og blir stående på norsk. Hvert engelske innlegg sier at det er
@@ -161,7 +175,7 @@ får svaret bekreftet av Turnstile. Deretter bytter den en JWT signert med appen
 saken i det private repoet og svarer piloten.
 
 Sakene ligger i det private repoet `hpgt-com/form-submissions`, fordi de inneholder navn, RadioID-er og kommentarer,
-også ønsker om å bli fjernet. Den som vedlikeholder registeret, oppdaterer `radioid.json` i Pages CMS (bare den ferdige
+også ønsker om å bli fjernet. Den som vedlikeholder registeret, oppdaterer `radio-id.json` i Pages CMS (bare den ferdige
 oppføringen publiseres) og lukker saken. Koden er `worker/index.js` og `worker/github-app.js`.
 
 Det andre skjemaet, **«Meld feil»** (`/meld-feil/` og `/en/report-error/`, lenket fra bunnen av hver side), virker på

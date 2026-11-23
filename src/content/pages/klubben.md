@@ -1,0 +1,8 @@
+---
+title: "Om klubben"
+permalink: "/klubben/"
+template: "seksjon"
+lead: "Harstad Hang- og Paragliderklubb (HPGT) er en idrettsforening tilknyttet Norges Luftsportforbund. Vi er en sosial gjeng som møtes så fort været tillater det."
+image: "/media/archive/2026/03/received_24415437096123797173128654438448749.jpeg"
+---
+Klubben holder nybegynnerkurs, sikkerhetsdager og sosiale samlinger, og vedlikeholder oversikten over flysteder i området. Ta gjerne kontakt om du er i nærheten og vil fly med oss.

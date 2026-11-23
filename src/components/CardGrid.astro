@@ -13,7 +13,7 @@ const { date, dateShort, place, time } = formatsFor(lang);
 let cards: { href: string; image?: string; title: string; meta: string; cat?: string; catName?: string; label?: string }[] = [];
 if (posts) {
   cards = posts.map((p) => ({ href: link(p), image: imageFor(p), title: p.data.title, meta: date(p.data.date),
-    cat: slug(p.data.kategorier[0]), catName: undefined, label: categoryName(lang, p.data.kategorier[0]) }));
+    cat: slug(p.data.categories[0]), catName: undefined, label: categoryName(lang, p.data.categories[0]) }));
 } else if (events) {
   cards = events.map((e) => ({ href: link(e), image: imageFor(e as any), title: e.data.title,
     meta: [date(e.data.start), place(e), time(e)].filter(Boolean).join(" · "), cat: group(e), catName: typeLabelFor(lang, e.data.type), label: dateShort(e.data.start) }));

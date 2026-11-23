@@ -1,36 +1,39 @@
 # Pages CMS – redigeringsgrensesnittet for hpgt.com (https://pagescms.org).
 # Bidragsytere inviteres på e-post og ser bare det som er satt opp her.
-# Teknisk oppsett (site.json, meny.json, kode, arbeidsflyter) er bevisst IKKE med:
+# Teknisk oppsett (site.json, menu.json, kode, arbeidsflyter) er bevisst IKKE med:
 # det kan bare endres av de med tilgang til GitHub-repoet (minste privilegium).
+#
+# Navnene (name), mappene og feltnavnene er engelske. Det redaktørene ser, er label og description, som er norske:
+# et felt uten label vises med navnet sitt, så alle synlige felt har label.
 
 media:
   # Bilder og dokumenter ligger i public/media/ (se README). Hvert bildefelt laster opp til sin egen mappe.
-  - name: bilder
+  - name: images
     label: Bilder
     input: public/media
     output: /media
     categories: [image]
-  - name: dokumenter
+  - name: documents
     label: Dokumenter
     input: public/media/documents
     output: /media/documents
     categories: [document]
 
 content:
-  - name: innlegg
+  - name: posts
     label: Nyheter, referater og arrangementer
     type: collection
-    path: src/content/innlegg
+    path: src/content/posts
     filename: "{year}-{month}-{day}-{primary}.md"
     view:
-      fields: [title, date, kategorier]
+      fields: [title, date, categories]
       primary: title
       sort: [date, title]
       default: { sort: date, order: desc }
     fields:
       - { name: title, label: Tittel, type: string, required: true }
       - { name: date, label: Dato, type: date, required: true, options: { time: true } }
-      - name: kategorier
+      - name: categories
         label: Kategori
         type: select
         description: "Velg én kategori."
@@ -38,203 +41,204 @@ content:
         options:
           multiple: { min: 1, max: 1 }
           values: [Nyhet, Møter og referater, Kurs og fagdag, Sosialt og turer, Konkurranser]
-      - { name: bilde, label: Hovedbilde, type: image, description: "Legg gjerne alltid inn et bilde fra turen, kurset eller møtet – det gjør innlegget mye mer synlig. Vises øverst i innlegget, på forsiden og i bildevisningen på Nytt. Liggende bilder blir finest. Uten bilde brukes et standardbilde for kategorien.", options: { media: bilder, path: public/media/posts } }
-      - { name: forfatter, label: "Skrevet av (fornavn)", type: string }
-      - { name: ingress, label: Ingress, type: text, description: "1–2 setninger som oppsummerer saken." }
-      - name: vedlegg
+      - { name: image, label: Hovedbilde, type: image, description: "Legg gjerne alltid inn et bilde fra turen, kurset eller møtet – det gjør innlegget mye mer synlig. Vises øverst i innlegget, på forsiden og i bildevisningen på Nytt. Liggende bilder blir finest. Uten bilde brukes et standardbilde for kategorien.", options: { media: images, path: public/media/posts } }
+      - { name: author, label: "Skrevet av (fornavn)", type: string }
+      - { name: lead, label: Ingress, type: text, description: "1–2 setninger som oppsummerer saken." }
+      - name: attachments
         label: Vedlegg (PDF, referater, innkallinger)
         type: object
         list: true
         description: "Bare dokumenter som kan være offentlige (f.eks. signerte referater og årsberetninger) – alt som lastes opp her kan lastes ned av alle. Utkast, regnskap, medlemslister og andre interne dokumenter hører hjemme i klubbens Google Drive."
         fields:
-          - { name: tittel, label: Navn på dokumentet, type: string, required: true }
-          - { name: fil, label: Fil, type: file, required: true, options: { media: dokumenter } }
-      - name: arrangement
+          - { name: title, label: Navn på dokumentet, type: string, required: true }
+          - { name: file, label: Fil, type: file, required: true, options: { media: documents } }
+      - name: event
         label: Arrangement (valgfritt)
         type: object
         description: "Gjelder innlegget et kurs, en fagdag, et møte eller et sosialt treff med dato? Fyll ut starttidspunkt, så vises det også i kalenderen under Arrangementer."
         fields:
           - { name: start, label: Starter, type: date, options: { time: true } }
-          - { name: slutt, label: Slutter, type: date, options: { time: true } }
-          - { name: heldag, label: Hele dagen (ingen klokkeslett), type: boolean, default: false }
+          - { name: end, label: Slutter, type: date, options: { time: true } }
+          - { name: allDay, label: Hele dagen (ingen klokkeslett), type: boolean, default: false }
           - name: type
             label: Type
             description: "Velg fra listen. Gruppen foran / (Kurs, Fagdag, Møte, Sosialt, Konkurranse) bestemmer filter og farge i kalenderen. Kurs etter NLFs utdanningsprogrammer: PP2 = grunnkurs paragliding, SPG2 = grunnkurs speedgliding, PPG3 = motorparaglider (krever PP2), SIV = sikkerhetskurs (krav til PP4). Skriv selve kursnavnet i tittelen."
             type: select
             options: { values: ["Kurs / PP2", "Kurs / SPG2", "Kurs / PPG3", "Kurs / SIV", "Kurs / Prøvedag", "Kurs / Annet kurs", "Fagdag / Nødskjerm og vingesjekk", "Fagdag / Sikkerhetsseminar", "Fagdag / Annen fagdag", "Møte / Årsmøte", "Møte / Klubbmøte", "Møte / Styremøte", "Sosialt / Julebord", "Sosialt / Afterflight", "Sosialt / Kickoff", "Sosialt / Tur", "Konkurranse / Cup og stevne", "Konkurranse / Foto og video", "Konkurranse / Annen konkurranse"] }
-          - { name: sted, label: Sted (fysisk), type: string, description: "F.eks. «Seljestadhallen» eller «Sollifjellet». La stå tom hvis det bare er på nett." }
-          - { name: digital, label: Lenke til nettmøte, type: string, description: "Teams/Zoom/Meet-lenke hvis man kan delta digitalt." }
-          - { name: arrangor, label: "Arrangør (la stå tom hvis det er HPGT)", type: string, description: "F.eks. «Narvik Paragliderklubb» eller «NLF». Vises som «Arrangeres av …»." }
-          - { name: pamelding, label: Lenke til påmelding, type: string, description: "Skjema, Min idrett eller lignende. Knappen skjules når arrangementet er over." }
-      - { name: utkast, label: "Utkast (forhåndsvisning)", type: boolean, default: false, description: "Med hake: innlegget vises bare på hpgt.com/utkast/ + adressen (f.eks. hpgt.com/utkast/mitt-innlegg/), 2–3 minutter etter lagring. Ikke på forsiden, under Nytt eller i søket. Fjern haken når det er klart, så publiseres det." }
+          - { name: location, label: Sted (fysisk), type: string, description: "F.eks. «Seljestadhallen» eller «Sollifjellet». La stå tom hvis det bare er på nett." }
+          - { name: online, label: Lenke til nettmøte, type: string, description: "Teams/Zoom/Meet-lenke hvis man kan delta digitalt." }
+          - { name: organizer, label: "Arrangør (la stå tom hvis det er HPGT)", type: string, description: "F.eks. «Narvik Paragliderklubb» eller «NLF». Vises som «Arrangeres av …»." }
+          - { name: signup, label: Lenke til påmelding, type: string, description: "Skjema, Min idrett eller lignende. Knappen skjules når arrangementet er over." }
+      - { name: draft, label: "Utkast (forhåndsvisning)", type: boolean, default: false, description: "Med hake: innlegget vises bare på hpgt.com/utkast/ + adressen (f.eks. hpgt.com/utkast/mitt-innlegg/), 2–3 minutter etter lagring. Ikke på forsiden, under Nytt eller i søket. Fjern haken når det er klart, så publiseres det." }
       # Skjulte felt: Pages CMS fjerner felt som ikke står her når et innlegg lagres. permalink holder på
       # adressen fra WordPress (gamle lenker), wp_id er sporbarhet tilbake til WordPress.
       - { name: permalink, label: Adresse, type: string, hidden: true }
       - { name: wp_id, label: WordPress-ID, type: number, hidden: true }
       - { name: body, label: Tekst, type: rich-text }
 
-  - name: sider
+  - name: pages
     label: Faste sider
     type: collection
-    path: src/content/sider
+    path: src/content/pages
     view: { fields: [title], primary: title }
     fields:
       - { name: title, label: Tittel, type: string, required: true }
-      - { name: ingress, label: Ingress, type: text }
-      - { name: bilde, label: Toppbilde, type: image, options: { media: bilder, path: public/media/pages } }
-      - { name: sist_endret, label: Sist oppdatert, type: date }
+      - { name: lead, label: Ingress, type: text }
+      - { name: image, label: Toppbilde, type: image, options: { media: images, path: public/media/pages } }
+      - { name: updated, label: Sist oppdatert, type: date }
       - { name: permalink, label: Adresse, type: string, hidden: true }
-      - { name: mal, label: Mal, type: string, hidden: true }
+      - { name: template, label: Mal, type: string, hidden: true }
       - { name: wp_id, label: WordPress-ID, type: number, hidden: true }
       # Konkurransesidene ligger også her (mappa konkurranser); feltene må stå, ellers fjernes de ved lagring
-      - { name: aar, label: År, type: number, hidden: true }
-      - { name: vinner_foto, label: "1. plass foto", type: string, hidden: true }
-      - { name: vinner_video, label: "1. plass video", type: string, hidden: true }
+      - { name: year, label: År, type: number, hidden: true }
+      - { name: winnerPhoto, label: "1. plass foto", type: string, hidden: true }
+      - { name: winnerVideo, label: "1. plass video", type: string, hidden: true }
       - { name: body, label: Tekst, type: rich-text }
 
-  - name: kurs
+  - name: courses
     label: Kurs
     type: collection
-    path: src/content/kurs
+    path: src/content/courses
     filename: "{primary}.md"
-    view: { fields: [title, rekkefolge], primary: title, sort: [rekkefolge, title], default: { sort: rekkefolge, order: asc } }
+    view: { fields: [title, menuOrder], primary: title, sort: [menuOrder, title], default: { sort: menuOrder, order: asc } }
     description: "Én side per kurs, f.eks. /kurs/paragliding-pp2/. Nye kurs dukker automatisk opp i kursmenyen og som kort på Kurs-siden. Datoene skrives ikke her, men i et innlegg med arrangement av samme type – da vises de øverst på kurssiden."
     fields:
       - { name: title, label: Tittel, type: string, required: true, description: "F.eks. «Grunnkurs i speedgliding (SPG2)». Adressen lages av tittelen første gang siden lagres." }
-      - { name: menynavn, label: Kort navn i kursmenyen, type: string, description: "F.eks. «Speedgliding (SPG2)». Tomt = tittelen." }
-      - { name: ingress, label: Ingress, type: text, description: "1–2 setninger. Vises også på kortet på Kurs-siden." }
-      - { name: bilde, label: Toppbilde, type: image, options: { media: bilder, path: public/media/pages } }
-      - name: kurstype
+      - { name: menuTitle, label: Kort navn i kursmenyen, type: string, description: "F.eks. «Speedgliding (SPG2)». Tomt = tittelen." }
+      - { name: lead, label: Ingress, type: text, description: "1–2 setninger. Vises også på kortet på Kurs-siden." }
+      - { name: image, label: Toppbilde, type: image, options: { media: images, path: public/media/pages } }
+      - name: courseType
         label: Kurstype
         type: select
         description: "Kommende arrangementer med denne typen vises som «Neste kurs» øverst på siden."
         options: { values: ["Kurs / PP2", "Kurs / SPG2", "Kurs / PPG3", "Kurs / SIV", "Kurs / Prøvedag", "Kurs / Annet kurs", "Fagdag / Nødskjerm og vingesjekk", "Fagdag / Sikkerhetsseminar", "Fagdag / Annen fagdag"] }
-      - { name: rekkefolge, label: Rekkefølge i menyen, type: number, default: 50, description: "Lavest først." }
-      - { name: sist_endret, label: Sist oppdatert, type: date }
+      - { name: menuOrder, label: Rekkefølge i menyen, type: number, default: 50, description: "Lavest først." }
+      - { name: updated, label: Sist oppdatert, type: date }
       - { name: body, label: Tekst, type: rich-text }
 
-  - name: konkurranser
+  - name: competitions
     label: Konkurranser
     type: collection
-    path: src/content/sider/konkurranser
+    path: src/content/pages/konkurranser
     filename: "{year}.md"
-    view: { fields: [title, aar], primary: title, sort: [aar], default: { sort: aar, order: desc } }
+    view: { fields: [title, year], primary: title, sort: [year], default: { sort: year, order: desc } }
     description: "Én side per foto- og videokonkurranse, f.eks. /klubben/konkurranser/2027/. Dukker automatisk opp i oversikten på Konkurranser-siden. Bruk overskriftene Vinnere, Premier, Sponsorer, Innsendte bilder, Videoer og Regler – listene under Sponsorer, Innsendte bilder og Videoer vises da som logoer, bildegalleri og videokort."
     fields:
       - { name: title, label: Tittel, type: string, required: true, description: "F.eks. «Foto- og videokonkurransen 2027»" }
-      - { name: aar, label: År, type: number, required: true }
-      - { name: ingress, label: Ingress, type: text }
-      - { name: bilde, label: Toppbilde, type: image, options: { media: bilder, path: public/media/competitions } }
-      - { name: vinner_foto, label: "1. plass foto", type: string, description: "Vises i oversikten. Tom til vinneren er kåret." }
-      - { name: vinner_video, label: "1. plass video", type: string }
-      - { name: sist_endret, label: Sist oppdatert, type: date }
+      - { name: year, label: År, type: number, required: true }
+      - { name: lead, label: Ingress, type: text }
+      - { name: image, label: Toppbilde, type: image, options: { media: images, path: public/media/competitions } }
+      - { name: winnerPhoto, label: "1. plass foto", type: string, description: "Vises i oversikten. Tom til vinneren er kåret." }
+      - { name: winnerVideo, label: "1. plass video", type: string }
+      - { name: updated, label: Sist oppdatert, type: date }
       - { name: wp_id, label: WordPress-ID, type: number, hidden: true }
       - { name: body, label: Tekst, type: rich-text }
 
-  - name: standardbilder
+  - name: default-images
     label: Standardbilder
     type: file
-    path: src/data/standardbilder.json
+    path: src/data/default-images.json
     format: json
     description: "Bilder som brukes på innlegg og arrangementer uten eget bilde. Legg gjerne inn flere per kategori – innleggene fordeles på dem, og hvert innlegg får alltid samme bilde. Tom liste = farge med ikon."
     fields:
-      - { name: beskrivelse, type: string, hidden: true }
-      - { name: nyhet, label: Nyhet, type: image, list: true, options: { media: bilder, path: public/media/defaults } }
-      - { name: moter-og-referater, label: Møter og referater, type: image, list: true, options: { media: bilder, path: public/media/defaults } }
-      - { name: kurs, label: Kurs, type: image, list: true, options: { media: bilder, path: public/media/defaults } }
-      - { name: fagdag, label: Fagdag, type: image, list: true, options: { media: bilder, path: public/media/defaults } }
-      - { name: sosialt-og-turer, label: Sosialt og turer, type: image, list: true, options: { media: bilder, path: public/media/defaults } }
-      - { name: konkurranser, label: Konkurranser, type: image, list: true, options: { media: bilder, path: public/media/defaults } }
+      - { name: description, type: string, hidden: true }
+      - { name: news, label: Nyhet, type: image, list: true, options: { media: images, path: public/media/defaults } }
+      - { name: meetings, label: Møter og referater, type: image, list: true, options: { media: images, path: public/media/defaults } }
+      - { name: courses, label: Kurs, type: image, list: true, options: { media: images, path: public/media/defaults } }
+      - { name: trainingDays, label: Fagdag, type: image, list: true, options: { media: images, path: public/media/defaults } }
+      - { name: social, label: Sosialt og turer, type: image, list: true, options: { media: images, path: public/media/defaults } }
+      - { name: competitions, label: Konkurranser, type: image, list: true, options: { media: images, path: public/media/defaults } }
 
-  - name: forside
+  - name: front-page
     label: Forsiden
     type: file
-    path: src/data/forside.json
+    path: src/data/front-page.json
     format: json
     fields:
-      - { name: stikkord, label: "Stikkord over overskriften", type: string }
-      - { name: slagord, label: Stor overskrift, type: string }
-      - { name: slagordIngress, label: Tekst under overskriften, type: text }
-      - { name: heltebilde, label: Toppbilde, type: image, options: { media: bilder, path: public/media/pages } }
-      - { name: heltebildeKreditt, label: Bildekreditt, type: string }
-      - name: kurs
+      - { name: kicker, label: "Stikkord over overskriften", type: string }
+      - { name: headline, label: Stor overskrift, type: string }
+      - { name: headlineLead, label: Tekst under overskriften, type: text }
+      - { name: heroImage, label: Toppbilde, type: image, options: { media: images, path: public/media/pages } }
+      - { name: heroImageCredit, label: Bildekreditt, type: string }
+      - name: course
         label: Kursblokken
         type: object
         fields:
-          - { name: tittel, type: string }
-          - { name: tekst, label: Tekst før kurset, type: text }
-          - { name: etterKurs, label: Tekst når kurset er ferdig, type: text }
+          - { name: title, label: Tittel, type: string }
+          - { name: text, label: Tekst før kurset, type: text }
+          - { name: afterCourse, label: Tekst når kurset er ferdig, type: text }
           - { name: start, label: Første kursdag, type: date }
-          - { name: slutt, label: Siste kursdag, type: date }
-          - { name: frist, label: Påmeldingsfrist, type: date }
-          - { name: pris, type: string }
-          - { name: plasser, type: string }
+          - { name: end, label: Siste kursdag, type: date }
+          - { name: deadline, label: Påmeldingsfrist, type: date }
+          - { name: price, label: Pris, type: string }
+          - { name: seats, label: Plasser, type: string }
           - { name: url, label: Lenke, type: string }
-      - name: veier
+      - name: paths
         label: «Finn din vei inn»-kort
         type: object
         list: { max: 3 }
         fields:
           - { name: verb, label: "Etikett (Lær, Opplev …)", type: string }
-          - { name: tittel, type: string }
-          - { name: tekst, type: text }
+          - { name: title, label: Tittel, type: string }
+          - { name: text, label: Tekst, type: text }
           - { name: url, label: Lenke, type: string }
-          - { name: bilde, type: image, options: { media: bilder, path: public/media/pages } }
-      - { name: galleri, label: Bildegalleri, type: image, list: { max: 6 }, options: { media: bilder, path: public/media/pages } }
-      - { name: tittel, label: Overskrift (eldre design), type: string }
-      - { name: ingress, label: Ingress, type: text }
-      - { name: bilde, label: Toppbilde, type: image, options: { media: bilder, path: public/media/pages } }
-      - { name: bildetekst, label: Bildetekst, type: string }
-      - name: knapper
+          - { name: image, label: Bilde, type: image, options: { media: images, path: public/media/pages } }
+      - { name: gallery, label: Bildegalleri, type: image, list: { max: 6 }, options: { media: images, path: public/media/pages } }
+      - { name: title, label: Overskrift (eldre design), type: string }
+      - { name: lead, label: Ingress, type: text }
+      - { name: image, label: Toppbilde, type: image, options: { media: images, path: public/media/pages } }
+      - { name: caption, label: Bildetekst, type: string }
+      - name: buttons
         label: Knapper
         type: object
         list: { max: 2 }
-        fields: [{ name: tekst, type: string }, { name: url, label: Lenke, type: string }]
-      - name: kort
+        fields: [{ name: text, label: Tekst, type: string }, { name: url, label: Lenke, type: string }]
+      - name: cards
         label: Kort (Lær å fly, Tandem …)
         type: object
         list: { max: 4 }
         fields:
-          - { name: tittel, type: string }
-          - { name: tekst, type: text }
+          - { name: title, label: Tittel, type: string }
+          - { name: text, label: Tekst, type: text }
           - { name: url, label: Lenke, type: string }
-          - { name: bilde, type: image, options: { media: bilder, path: public/media/pages } }
-          - { name: ikon, type: string, hidden: true }
-      - name: snarveier
+          - { name: image, label: Bilde, type: image, options: { media: images, path: public/media/pages } }
+          - { name: icon, type: string, hidden: true }
+      - name: shortcuts
         label: Snarveier for piloter
         type: object
         list: true
-        fields: [{ name: tekst, type: string }, { name: url, label: Lenke, type: string }]
+        fields: [{ name: text, label: Tekst, type: string }, { name: url, label: Lenke, type: string }]
 
-  - name: styret
+  - name: board
     label: Styret
     type: file
-    path: src/data/styret.json
+    path: src/data/board.json
     format: json
     fields:
-      - name: medlemmer
+      - name: members
         label: Styremedlemmer
         type: object
         list: true
         fields:
           - { name: id, label: "Kort ID (f.eks. leder)", type: string, required: true }
-          - { name: rolle, type: string, required: true }
-          - { name: navn, type: string, required: true }
-          - { name: ansvar, label: "Kontakt meg om", type: text, description: "Hva medlemmer bør kontakte denne rollen om." }
-          - { name: telefon, type: string }
-          - { name: epost, label: E-post, type: string }
-          - { name: bilde, type: image, options: { media: bilder, path: public/media/board } }
+          - { name: role, label: Rolle, type: string, required: true }
+          - { name: name, label: Navn, type: string, required: true }
+          - { name: responsibility, label: "Kontakt meg om", type: text, description: "Hva medlemmer bør kontakte denne rollen om." }
+          - { name: phone, label: Telefon, type: string }
+          - { name: email, label: E-post, type: string }
+          - { name: image, label: Bilde, type: image, options: { media: images, path: public/media/board } }
 
-  - name: radioid
+  - name: radio-id
     label: FLARM/FANET RadioID-register
     type: file
-    path: src/data/radioid.json
+    path: src/data/radio-id.json
     format: json
     fields:
-      - name: piloter
+      - name: pilots
+        label: Piloter
         type: object
         list: true
         fields:
           - { name: pilot, label: Fornavn, type: string, required: true }
           - { name: id, label: "RadioID (6 hex-tegn)", type: string, required: true, pattern: "^[0-9A-Fa-f]{6}$" }
-          - { name: utstyr, label: Vario / utstyr, type: string }
+          - { name: equipment, label: Vario / utstyr, type: string }

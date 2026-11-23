@@ -58,7 +58,7 @@ jobs:
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           # Det redaktørene kan endre i Pages CMS (.pages.yml). Alt annet skal gå gjennom en pull request.
-          TILLATT='^(src/content/(innlegg|sider|kurs)/|public/media/|src/data/(forside|styret|radioid|standardbilder)\.json$)'
+          TILLATT='^(src/content/(posts|pages|courses)/|public/media/|src/data/(front-page|board|radio-id|default-images)\.json$)'
           if ! forrige=$(gh api "repos/$GH_REPO/actions/workflows/deploy.yml/runs?branch=main&status=success&per_page=1" --jq '.workflow_runs[0].head_sha // empty'); then
             echo "::error::Kunne ikke slå opp forrige publisering. Publiseringen stoppes; kjør på nytt."
             exit 1

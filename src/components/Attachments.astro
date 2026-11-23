@@ -2,10 +2,10 @@
 import { url } from "../lib/site";
 import { pageInfo } from "../lib/i18n";
 const en = pageInfo(Astro.url.pathname).lang === "en";
-// files: vedlegg-feltet i innlegget (tittel og fil er feltnavn i Pages CMS)
-const { files } = Astro.props as { files: { tittel: string; fil: string }[] };
+// files: attachments-feltet i innlegget (title og file er feltnavn i Pages CMS)
+const { files } = Astro.props as { files: { title: string; file: string }[] };
 ---
 <section class="attachments" aria-label={en ? "Attachments" : "Vedlegg"}>
   <h2>{en ? "Attachments" : "Vedlegg"}</h2>
-  <ul>{files.map((f) => <li><a href={url(f.fil)} download>{f.tittel}</a></li>)}</ul>
+  <ul>{files.map((f) => <li><a href={url(f.file)} download>{f.title}</a></li>)}</ul>
 </section>

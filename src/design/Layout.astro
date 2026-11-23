@@ -48,16 +48,16 @@ const isActive = (u: string) => !isExternal(u) && (section ? u === section.url :
       <button class="theme-switch" type="button" role="switch" aria-checked="false" aria-label={t.darkMode} data-theme-button hidden><span class="theme-switch__knob" aria-hidden="true"></span></button>
       <button class="menu-btn" type="button" data-menu-button aria-expanded="false" aria-controls="nav">{t.menu}</button>
       <nav id="nav" class="nav" aria-label={t.mainMenu}>
-        {menu.hoved.map((m, i) => {
+        {menu.main.map((m, i) => {
           const s = sections.get(m.url);
-          const top = <a href={href(m.url)} aria-current={isActive(m.url) ? "page" : undefined}>{menuLabel(lang, m.tekst)}{isExternal(m.url) && <> <Arrow /></>}</a>;
+          const top = <a href={href(m.url)} aria-current={isActive(m.url) ? "page" : undefined}>{menuLabel(lang, m.text)}{isExternal(m.url) && <> <Arrow /></>}</a>;
           if (!s) return top;
           const id = `submenu-${i}`;
           return <div class="nav__group" data-dropdown>
             {top}
-            <button class="nav__toggle" type="button" aria-expanded="false" aria-controls={id} aria-label={`${menuLabel(lang, m.tekst)}: ${t.showSubpages}`}><span aria-hidden="true">▾</span></button>
+            <button class="nav__toggle" type="button" aria-expanded="false" aria-controls={id} aria-label={`${menuLabel(lang, m.text)}: ${t.showSubpages}`}><span aria-hidden="true">▾</span></button>
             <ul class="nav__sub" id={id}>
-              {[{ tekst: s.forste, url: s.url }, ...s.sider].map((l) => <li><a href={sectionHref(s, l.url, lang, english)} aria-current={path === l.url ? "page" : undefined}>{s.url === "/kurs/" && l.url !== "/kurs/" ? l.tekst : menuLabel(lang, l.tekst)}{isExternal(l.url) && <> <Arrow /></>}</a></li>)}
+              {[{ text: s.first, url: s.url }, ...s.pages].map((l) => <li><a href={sectionHref(s, l.url, lang, english)} aria-current={path === l.url ? "page" : undefined}>{s.url === "/kurs/" && l.url !== "/kurs/" ? l.text : menuLabel(lang, l.text)}{isExternal(l.url) && <> <Arrow /></>}</a></li>)}
             </ul>
           </div>;
         })}
@@ -68,13 +68,13 @@ const isActive = (u: string) => !isExternal(u) && (section ? u === section.url :
   <main id="innhold"><slot /></main>
   <footer class="foot">
     <div class="wrap foot__grid">
-      <div><p class="foot__logo">HPGT</p><p class="muted">Harstad Hang og Paragliderklubb<br />Org.nr. {site.orgnr} · Vipps {site.vipps}<br /><a href={`mailto:${site.epost.leder}`}>{site.epost.leder}</a></p></div>
-      {/* Bunnen viser de samme seksjonene som toppmenyen (meny.json → seksjoner), som et nettstedskart */}
-      {menu.seksjoner.map((s) => <nav aria-label={menuLabel(lang, s.tekst)}><h2>{menuLabel(lang, s.tekst)}</h2>
-        {[{ tekst: s.forste, url: s.url }, ...s.sider].map((m) => <a href={href(m.url)}>{menuLabel(lang, m.tekst)}{isExternal(m.url) && <> <Arrow /></>}</a>)}</nav>)}
+      <div><p class="foot__logo">HPGT</p><p class="muted">Harstad Hang og Paragliderklubb<br />Org.nr. {site.orgNumber} · Vipps {site.vipps}<br /><a href={`mailto:${site.email.chair}`}>{site.email.chair}</a></p></div>
+      {/* Bunnen viser de samme seksjonene som toppmenyen (menu.json → sections), som et nettstedskart */}
+      {menu.sections.map((s) => <nav aria-label={menuLabel(lang, s.text)}><h2>{menuLabel(lang, s.text)}</h2>
+        {[{ text: s.first, url: s.url }, ...s.pages].map((m) => <a href={href(m.url)}>{menuLabel(lang, m.text)}{isExternal(m.url) && <> <Arrow /></>}</a>)}</nav>)}
       <nav aria-label={t.follow}><h2>{t.follow}</h2><a href={site.facebook}>Facebook&nbsp;<Arrow /></a><a href={site.instagram}>Instagram&nbsp;<Arrow /></a></nav>
     </div>
-    <div class="wrap foot__end"><p class="quote">«{site.sitat.tekst}» <span>– {site.sitat.kilde}</span></p><p class="muted">{site.statistikk ? t.noTrackingStats : t.noTracking} <a class="foot__link" href={href("/personvern/")}>{t.privacy}</a>{(site as { driftsstatus?: string }).driftsstatus && <> · <a class="foot__link" href={(site as { driftsstatus?: string }).driftsstatus}>{t.serviceStatus}</a></>}</p>
+    <div class="wrap foot__end"><p class="quote">«{site.quote.text}» <span>– {site.quote.source}</span></p><p class="muted">{site.webAnalytics ? t.noTrackingStats : t.noTracking} <a class="foot__link" href={href("/personvern/")}>{t.privacy}</a>{(site as { statusPage?: string }).statusPage && <> · <a class="foot__link" href={(site as { statusPage?: string }).statusPage}>{t.serviceStatus}</a></>}</p>
       {/* «Meld feil»: tar med adressen til siden man er på (ReportErrorForm.astro) */}
       {/* Engelske sider: si at teksten er maskinoversatt, og be om å få høre om feil */}
       <p class="muted">{lang === "en" && <>The English version is translated automatically from Norwegian. </>}<a class="foot__link" data-goatcounter-click="report-error" href={`${url(lang === "en" ? "/en/report-error/" : "/meld-feil/")}?side=${encodeURIComponent(Astro.url.pathname)}`}>{t.reportError}</a></p></div>
