@@ -34,6 +34,7 @@ let meta: string | undefined;
 if (type === "innlegg") meta = `${d.forfatter ? `Av ${d.forfatter} · ` : ""}${dato(d.date)}`;
 if (type !== "innlegg" && d.sist_endret) meta = `Sist oppdatert ${dato(d.sist_endret)}`;
 const erArr = type === "innlegg" && d.arrangement?.start;
+const arrLd = erArr && !utkast ? arrangementLd(entry, lenke(entry)) : null;
 // «Kopier lenke»: kopierer innleggets adresse, så den kan limes inn i Facebook-gruppa (Facebooks delevindu kan ikke
 // lenger dele i grupper). public/assets/js/kopier.js; uten JavaScript vises adressen som tekst.
 const delLenke = type === "innlegg" && !utkast ? new URL(lenke(entry), site.url).href : null;
@@ -44,7 +45,7 @@ const tilbake = type === "kurs" ? { tekst: "Kurs", url: url("/kurs/") } : erArr 
     kategorier={type === "innlegg" ? d.kategorier : undefined} tilbake={tilbake} type={type} overskrifter={headings}>
     {utkast && <aside class="utkast-merke" role="note"><strong>Utkast, bare forhåndsvisning.</strong> Denne adressen står ikke på forsiden, under Nytt eller i søket. Når innlegget er klart, fjerner du haken «Utkast» i Pages CMS. Da publiseres det på <code>{lenke(entry)}</code>.</aside>}
     {type === "kurs" && d.kurstype && <KommendeKurs type={d.kurstype} />}
-    {erArr && !utkast && <script type="application/ld+json" set:html={ldJson(arrangementLd(entry, lenke(entry)))} />}
+    {arrLd && <script type="application/ld+json" set:html={ldJson(arrLd)} />}
     {erArr && <ArrangementBoks a={d.arrangement} />}
     {d.mal === "kurs" && <KommendeKurs />}
     {d.mal === "kontakt" && <Styret />}

@@ -31,6 +31,7 @@ const d = entry.data;
 const t = T.en;
 const erInnlegg = type === "innlegg";
 const erArr = erInnlegg && d.arrangement?.start;
+const arrLd = erArr ? arrangementLd(entry, lenke(entry)) : null;
 const meta = erInnlegg ? `${d.forfatter ? `By ${d.forfatter} · ` : ""}${datoFor("en", d.date)}` : d.sist_endret ? `${t.sistOppdatert} ${datoFor("en", d.sist_endret)}` : undefined;
 const tilbake = type === "kurs" ? { tekst: t.kurs, url: url("/en/courses/") }
   : erArr ? { tekst: "All events", url: url("/en/events/") } : erInnlegg ? { tekst: "All news", url: url("/en/news/") } : undefined;
@@ -39,7 +40,7 @@ const kursSide = type === "kurs" || d.mal === "kurs";
 <Layout title={d.title} description={d.ingress} image={d.bilde}>
   <Article title={d.title} ingress={d.ingress} bilde={erInnlegg ? undefined : d.bilde} meta={meta} kategorier={erInnlegg ? d.kategorier : undefined} tilbake={tilbake} type={type} overskrifter={headings}>
     {erInnlegg && <p class="oversatt-merke" role="note">Translated automatically from Norwegian. <a href={url(norsk)} lang="nb" hreflang="nb">Read the original</a>.</p>}
-    {erArr && <script type="application/ld+json" set:html={ldJson(arrangementLd(entry, lenke(entry)))} />}
+    {arrLd && <script type="application/ld+json" set:html={ldJson(arrLd)} />}
     {erArr && <ArrangementBoks a={d.arrangement} />}
     {type === "kurs" && d.kurstype && <KommendeKurs type={d.kurstype} />}
     {d.mal === "kurs" && <KommendeKurs />}
