@@ -37,7 +37,7 @@
     try {
       const r = await fetch(form.action, { method: "POST", body: data });
       const svar = await r.json();
-      vis(svar.melding, svar.ok);
+      vis(svar.message, svar.ok);
       if (svar.ok) {
         form.reset(); if (sideFelt && side) sideFelt.value = side;
         // Til klikkstatistikken (statistikk.js): bare hvilket skjema, aldri innholdet
