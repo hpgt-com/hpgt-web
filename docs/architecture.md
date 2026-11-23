@@ -213,9 +213,40 @@ Detaljer: [SECURITY.md](../SECURITY.md).
 | `src/components/` | Gjenbrukbare deler |
 | `src/lib/` | Hjelpefunksjoner (lenker, språk, seksjoner) |
 | `src/pages/` | Adressene (Astro-ruter) |
-| `test/` | Enhetstester for `worker/` |
+| `test/` | Enhetstester for `worker/`, og ende-til-ende-testene i `test/e2e/` (se «Testene» under) |
 | `worker/` | Serverkoden for skjemaene |
 | `wrangler.jsonc` | Cloudflare-oppsett |
+
+## Testene
+
+Alle kjører i jobben `build` i `pr-check.yml` for hver pull request, og lokalt med kommandoene i
+[AGENTS.md](../AGENTS.md#kommandoer). Ingen av dem trenger nett.
+
+| Test | Hva |
+|---|---|
+| `npm test` (`test/*.test.js`) | Enhetstester for `worker/`, uten nettleser |
+| `node scripts/check-links.mjs` | Interne lenker og bilder i `dist/` |
+| `node scripts/check-accessibility.mjs` | axe i lys og mørk visning |
+| `npm run check:budget` | Ytelsesbudsjettet per side |
+| `npm run test:e2e` (`test/e2e/*.test.mjs`) | Ende-til-ende i Chromium mot den bygde siden |
+
+Ende-til-ende-testene bruker `scripts/serve-dist.mjs`, som serverer `dist/` slik Cloudflare gjør i drift:
+
+- Hodene fra `_headers` brukes som hos Cloudflare: alle regler som passer adressen, i rekkefølge, med `! Navn` for å
+  fjerne et hode og komma mellom verdiene når flere regler setter det samme hodet. Hodene settes på alle svar fra de
+  statiske filene, også videresendinger og 404-siden, men ikke på svar fra Workeren.
+- `_redirects`, `html_handling: "force-trailing-slash"` (307 fra `/x` til `/x/`) og `not_found_handling: "404-page"`
+  fra `wrangler.jsonc`.
+- `/api/*` går til den ekte Workeren (`worker/index.js`) med et stubbet miljø: `ALLOWED_ORIGIN` er serverens egen
+  adresse, hastighetsgrensene slipper alt gjennom, og det finnes ingen Turnstile-hemmelighet eller GitHub-app. Workeren
+  får ikke kontakte andre verter, så en gyldig innsending stopper ved menneskesjekken (403).
+
+Testene sjekker sikkerhetshodene (CSP, at bare skjemasidene tillater Turnstile, HSTS, COOP, CORP, rapporteringen og
+Trusted Types i Report-Only), at sidene ikke har CSP-brudd eller skriptfeil i lys og mørk visning på PC og mobil,
+skriptene i `public/assets/js/` (meny, tema, typefilter, bildevisning, søk, innholdsfortegnelse, «Kopier lenke»),
+skjemaene (honningkrukka, svaret fra Workeren, 405 og 403), 404-siden og videresendingene. Nettleseren når ingen andre
+verter: forespørsler dit avbrytes, og navneoppslag feiler. Det som ikke etterlignes: komprimering, ETag og 304,
+hurtigbufferen og hodene Cloudflare selv legger til.
 
 ## Hvorfor disse valgene
 

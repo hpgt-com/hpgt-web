@@ -57,3 +57,9 @@ jobs:
       - run: npm run check:budget
         env:
           CHROMIUM_PATH: /usr/bin/google-chrome
+
+      # Ende-til-ende-tester (test/e2e/) i Chrome mot den bygde siden, med de samme hodene, videresendingene og den
+      # samme Workeren som i drift (scripts/serve-dist.mjs). Alle andre verter er blokkert, så testene trenger ikke nett.
+      - run: npm run test:e2e
+        env:
+          CHROMIUM_PATH: /usr/bin/google-chrome
