@@ -1,0 +1,18 @@
+---
+// Søkeside: skjema og resultatliste. Søket gjøres av public/assets/js/search.js mot /sok.json (ingen eksterne tjenester).
+import { url } from "../lib/site";
+import { pageInfo } from "../lib/i18n";
+const { lang } = pageInfo(Astro.url.pathname);
+const en = lang === "en";
+---
+<form class="search" role="search" data-search data-base={import.meta.env.BASE_URL.replace(/\/$/, "")} action={url(en ? "/en/search/" : "/sok/")} method="get">
+  <label for="search-field" class="search__label">{en ? "Search the site" : "Søk på siden"}</label>
+  <div class="search__row">
+    <input id="search-field" type="search" name="q" autocomplete="off" placeholder={en ? "E.g. course, tandem, NOTAM …" : "F.eks. kurs, tandem, NOTAM, årsmøte …"} />
+    <button type="submit" class="btn">{en ? "Search" : "Søk"}</button>
+  </div>
+</form>
+<p class="search__status" data-search-status aria-live="polite"></p>
+<ol class="search__results" data-search-results></ol>
+<noscript><p>{en ? "Search requires JavaScript." : "Søket krever JavaScript."}</p></noscript>
+<script is:inline src={url("/assets/js/search.js")} defer></script>

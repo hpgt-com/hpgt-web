@@ -1,0 +1,58 @@
+---
+import Arrow from "./Arrow.astro";
+// Aktivitetskalender: månedsrutenett + liste over månedens aktiviteter. Rutenettet tegnes av /assets/js/calendar.js;
+// uten JavaScript vises en vanlig liste med de siste aktivitetene. Farger og skrift styres av --cal-*-variabler i hvert design.
+import "./calendar.css";
+import { url, link, site, type EventPost } from "../lib/site";
+import { pageInfo, formatsFor } from "../lib/i18n";
+interface Props { upcoming: EventPost[]; past: EventPost[]; }
+const { upcoming, past } = Astro.props;
+const { lang } = pageInfo(Astro.url.pathname);
+const en = lang === "en";
+const { date: fmt, place, time } = formatsFor(lang);
+const all = [...past].reverse().concat(upcoming);
+const iso = (d: Date) => d.toISOString().slice(0, 10);
+const visibleWithoutJs = new Set((upcoming.length ? upcoming.slice(0, 5) : past.slice(0, 5)).map((e) => e.id));
+const next = upcoming[0];
+---
+<div class="calendar" data-calendar>
+  <div class="calendar-grid" data-calendar-grid hidden>
+    <div class="calendar-controls">
+      <p class="calendar-label" data-calendar-label aria-live="polite"></p>
+      <div class="calendar-buttons">
+        <button type="button" data-calendar-step="-1" aria-label={en ? "Previous month" : "Forrige måned"}>‹</button>
+        <button type="button" data-calendar-today>{en ? "Today" : "I dag"}</button>
+        <button type="button" data-calendar-step="1" aria-label={en ? "Next month" : "Neste måned"}>›</button>
+      </div>
+    </div>
+    <table class="calendar-days" aria-labelledby="calendar-title">
+      <thead><tr>{(en ? [["Monday", "Mo"], ["Tuesday", "Tu"], ["Wednesday", "We"], ["Thursday", "Th"], ["Friday", "Fr"], ["Saturday", "Sa"], ["Sunday", "Su"]] : [["Mandag", "Ma"], ["Tirsdag", "Ti"], ["Onsdag", "On"], ["Torsdag", "To"], ["Fredag", "Fr"], ["Lørdag", "Lø"], ["Søndag", "Sø"]]).map(([l, k]) => <th scope="col" abbr={l}>{k}</th>)}</tr></thead>
+      <tbody data-calendar-days></tbody>
+    </table>
+    <p class="calendar-legend"><span aria-hidden="true"></span> {en ? "Day with an activity" : "Dag med aktivitet"}</p>
+  </div>
+  <div class="calendar-agenda">
+    <div class="calendar-summary">
+      <span class="calendar-eyebrow">{en ? "Next activity" : "Neste aktivitet"}</span>
+      <p>{next ? <><a href={url(link(next))}>{next.data.title}</a> – {fmt(next.data.start)}</> : en ? "No new activities have been added yet." : "Ingen nye aktiviteter er lagt inn ennå."}</p>
+    </div>
+    <h3 class="calendar-title" id="calendar-title" data-calendar-title>{upcoming.length ? (en ? "Upcoming activities" : "Kommende aktiviteter") : (en ? "Recent activities" : "Siste aktiviteter")}</h3>
+    <ul class="calendar-list">
+      {all.map((e) => {
+        const isOver = !upcoming.includes(e);
+        return (
+          <li data-calendar-item data-start={iso(e.data.start)} data-end={iso(e.data.slutt ?? e.data.start)} hidden={!visibleWithoutJs.has(e.id)}>
+            <span class="calendar-date">{fmt(e.data.start)}</span>
+            <a href={url(link(e))}>{e.data.title} <Arrow /></a>
+            <small class="calendar-meta"><span>{time(e)}</span>{place(e) && <span>{place(e)}</span>}</small>
+            <span class="calendar-past" data-calendar-past hidden={!isOver}>{en ? "Held" : "Avholdt"}</span>
+          </li>
+        );
+      })}
+    </ul>
+    <p class="calendar-empty" data-calendar-empty hidden>{en ? "No activities this month." : "Ingen aktiviteter denne måneden."}</p>
+    <button type="button" class="calendar-jump" data-calendar-jump hidden></button>
+    <a class="calendar-facebook" href={site.facebook}>{en ? "The club's Facebook group" : "Klubbens Facebook-gruppe"}&nbsp;<Arrow /></a>
+  </div>
+</div>
+<script is:inline src={url("/assets/js/calendar.js")} defer></script>

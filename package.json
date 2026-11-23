@@ -3,15 +3,15 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node scripts/oversett/oversett.mjs && astro dev",
-    "build": "node scripts/sjekk-media.mjs && node scripts/oversett/oversett.mjs && node scripts/videobilder.mjs && astro build && node scripts/skaler-bilder.mjs && node scripts/sitemap.mjs",
+    "dev": "node scripts/translate/translate.mjs && astro dev",
+    "build": "node scripts/check-media.mjs && node scripts/translate/translate.mjs && node scripts/video-thumbnails.mjs && astro build && node scripts/resize-images.mjs && node scripts/sitemap.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "test": "node --test \"test/*.test.js\"",
-    "forhandsvisning": "./scripts/bygg-forhandsvisning.sh",
-    "sjekk": "node scripts/sjekk-lenker.mjs && node scripts/sjekk-tilgjengelighet.mjs",
+    "preview:build": "./scripts/build-preview.sh",
+    "check:site": "node scripts/check-links.mjs && node scripts/check-accessibility.mjs",
     "check:budget": "node scripts/check-budget.mjs",
-    "ikoner": "node scripts/lag-ikoner.mjs"
+    "icons": "node scripts/make-icons.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.3.9",

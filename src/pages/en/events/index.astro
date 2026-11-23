@@ -2,10 +2,10 @@
 // Engelske arrangementer: alle, med engelsk tittel der innlegget er oversatt, ellers norsk tittel og «(in Norwegian)»
 import Layout from "@design/Layout.astro";
 import EventList from "@design/EventList.astro";
-import { hentArrangementer } from "../../../lib/site";
-import { innleggFor } from "../../../lib/i18n";
-const { kommende, tidligere } = await hentArrangementer(await innleggFor("en"));
+import { getEvents } from "../../../lib/site";
+import { postsFor } from "../../../lib/i18n";
+const { upcoming, past } = await getEvents(await postsFor("en"));
 ---
 <Layout title="Events" description="Courses, training days, meetings, social events and competitions in Harstad Hang- og Paragliderklubb.">
-  <EventList kommende={kommende} tidligere={tidligere} />
+  <EventList upcoming={upcoming} past={past} />
 </Layout>

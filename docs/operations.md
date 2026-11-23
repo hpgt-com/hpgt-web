@@ -179,13 +179,13 @@ til `main`. Siden er GitHub Pages fra grenen `gh-pages`, på `status.hpgt.com` (
 3. Test skjemaet, og slett den gamle nøkkelen på siden til appen.
 
 ### Legge til en side i den engelske versjonen
-1. Legg filnavnet til siden (uten `.md`) til i `SIDER` i `scripts/oversett/oversett.mjs`.
-2. Skal den norske adressen ha en engelsk, legg den til i `src/lib/engelske-adresser.mjs`.
+1. Legg filnavnet til siden (uten `.md`) til i `PAGES` i `scripts/translate/translate.mjs`.
+2. Skal den norske adressen ha en engelsk, legg den til i `src/lib/english-paths.mjs`.
 3. Pull request. Oversettelsen skjer ved neste publisering.
 
 ### Legge til et nytt skjema
 Bruk Turnstile-widgeten «hpgt.com skjemaer» med en ny `action`, gi sakene en egen etikett i `hpgt-com/form-submissions`
-(eller et eget privat repo hvis andre skal lese dem, se ADR 0007), legg siden til i `SKJEMASIDER` i
+(eller et eget privat repo hvis andre skal lese dem, se ADR 0007), legg siden til i `FORM_PAGES` i
 `src/components/Head.astro` og i `public/_headers`, og sjekk `action` i Workeren. Ingen ny widget eller nye nøkler.
 
 ### Sette regelsettet for `main`
@@ -208,7 +208,7 @@ Pages CMS med «Changes must be made through a pull request».
 | `vakt` feiler, og saken «Publisering stoppet: Pages CMS endret filer utenfor innholdet» opprettes | En commit lagret rett på `main` (fra Pages CMS, uten pull request) endret filer utenfor innholdet | Finn ut hvem som lagret og hvorfor. Var det ikke meningen: `git revert` av committen i en pull request, og sjekk kontoen til redaktøren. Var det meningen: gjør endringen på nytt i en pull request. Publiseringen fortsetter når filene er som ved siste publisering |
 | `vakt` feiler med «Kunne ikke slå opp …», «Uventet svar …» eller «git … feilet» | Et oppslag i GitHub eller en Git-kommando feilet, så endringen kunne ikke kontrolleres helt | Kjør arbeidsflyten på nytt. Den publiserer aldri etter en ufullstendig kontroll |
 | `vakt` feiler med «Fant ikke forrige publisering …» | Den sist publiserte committen finnes ikke (historikken er skrevet om), eller ingen publisering har lyktes, så det er ingenting å sammenligne med | Se gjennom committene på `main` siden siste publisering, og kjør så «Bygg og publiser» for hånd (Actions → Run workflow). En manuell kjøring kontrollerer bare siste commit, og loggen viser hvem som kjørte den |
-| `bygg` stopper på `sjekk-media` | En fil i `public/media/` som ikke er et bilde eller en PDF | Fjern den, eller erstatt den med et bilde eller en PDF |
+| `bygg` stopper på `check-media` | En fil i `public/media/` som ikke er et bilde eller en PDF | Fjern den, eller erstatt den med et bilde eller en PDF |
 | `publiser` stopper på «Sett inn skjemaenes ID-er» | En variabel i `produksjon` mangler eller har feil format | Rett variabelen og kjør på nytt |
 | `oversett` advarer om innloggingen | Anthropic-federation, kreditten eller ID-ene | Nettstedet publiseres likevel, med de forrige oversettelsene. Sjekk platform.claude.com |
 | Et skjema (RadioID eller «Meld feil») svarer «Noe gikk galt hos oss» | Appnøkkelen, installasjonen av appen eller ID-ene | Sjekk at appen er installert på `form-submissions` og at nøkkelen i Cloudflare er riktig |

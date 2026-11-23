@@ -1,39 +1,40 @@
 ---
-import VisningsValg from "../components/VisningsValg.astro";
-import Kortnett from "../components/Kortnett.astro";
-import ArrangementFilter from "../components/ArrangementFilter.astro";
-import { url, lenke, gruppe, arrangementerPaaAar } from "../lib/site";
-import { sideInfo, fmtFor, typeTekstFor } from "../lib/i18n";
-const { kommende, tidligere } = Astro.props;
-const { sprak } = sideInfo(Astro.url.pathname);
-const { dato, sted, tid } = fmtFor(sprak);
-const typeTekst = (t: string) => typeTekstFor(sprak, t);
-const en = sprak === "en";
-const kol = en ? ["Date", "Event", "Place", "Time"] : ["Dato", "Arrangement", "Sted", "Tid"];
-const aar = arrangementerPaaAar(tidligere);
+import ViewToggle from "../components/ViewToggle.astro";
+import CardGrid from "../components/CardGrid.astro";
+import EventFilter from "../components/EventFilter.astro";
+import { url, link, group, eventsByYear } from "../lib/site";
+import { pageInfo, formatsFor, typeLabelFor } from "../lib/i18n";
+const { upcoming, past } = Astro.props;
+const { lang } = pageInfo(Astro.url.pathname);
+const { date, place, time } = formatsFor(lang);
+const typeLabel = (t: string) => typeLabelFor(lang, t);
+const en = lang === "en";
+const columns = en ? ["Date", "Event", "Place", "Time"] : ["Dato", "Arrangement", "Sted", "Tid"];
+const years = eventsByYear(past);
 ---
 <div class="wrap section">
   <p class="eyebrow">{en ? "Calendar" : "Kalender"}</p>
   <h1 class="h1">{en ? "Events" : "Arrangementer"}</h1>
   <p class="lead">{en ? "Everything with a date: courses, training days, meetings, social events and competitions. Click through for time, place and sign-up." : "Alt med dato: kurs, fagdager, møter, sosiale treff og konkurranser. Klikk deg inn for tid, sted og påmelding."}</p>
   <nav class="filters" aria-label={en ? "Jump to year" : "Hopp til år"}>
-    <a href="#kommende">{en ? "Upcoming" : "Kommende"} <small>{kommende.length}</small></a>
-    {aar.map(([a, liste]) => <a href={`#ar-${a}`}>{a} <small>{liste.length}</small></a>)}
+    <a href="#kommende">{en ? "Upcoming" : "Kommende"} <small>{upcoming.length}</small></a>
+    {years.map(([y, list]) => <a href={`#ar-${y}`}>{y} <small>{list.length}</small></a>)}
   </nav>
   {/* Kalenderabonnement (src/pages/arrangementer/kalender.ics.ts). webcal: åpner kalenderappen som abonnement. */}
-  <p class="abonner"><a class="btn" href="webcal://hpgt.com/arrangementer/kalender.ics" data-goatcounter-click="calendar/subscribe">{en ? "Subscribe in your calendar" : "Abonner i kalenderen din"}</a>
+  <p class="subscribe"><a class="btn" href="webcal://hpgt.com/arrangementer/kalender.ics" data-goatcounter-click="calendar/subscribe">{en ? "Subscribe in your calendar" : "Abonner i kalenderen din"}</a>
     <small>{en ? "New events appear in your phone's calendar by themselves (event titles in Norwegian). Or copy the address: " : "Nye arrangementer dukker opp i kalenderen på telefonen av seg selv. Eller kopier adressen: "}<a href={url("/arrangementer/kalender.ics")} data-goatcounter-click="calendar/download">hpgt.com/arrangementer/kalender.ics</a></small></p>
-  <ArrangementFilter alle={[...kommende, ...tidligere]} />
-  <VisningsValg />
-  <section class="year" id="kommende" data-seksjon><h2 class="year__h">{en ? "Upcoming" : "Kommende"}</h2>
-    {kommende.length === 0 ? <p class="hint">{en ? "No new events have been added yet. Keep an eye on our Facebook group." : "Ingen nye arrangementer er lagt inn ennå. Følg med i Facebook-gruppa."}</p> :
-      <ul class="rows ev" data-visning="liste"><li class="ev__head" aria-hidden="true">{kol.map((k) => <span>{k}</span>)}</li>{kommende.map((e) => <li data-gruppe={gruppe(e)}><a href={url(lenke(e))}><time>{dato(e.data.start)}</time><span class="ev__t">{e.data.title} <span class="kat ev__type" data-kat={gruppe(e)}>{typeTekst(e.data.type)}</span></span><span class="ev__sted">{sted(e) || "–"}</span><span class="ev__tid">{tid(e)}</span></a></li>)}</ul>}
-    {kommende.length > 0 && <Kortnett arrangementer={kommende} />}
+  <EventFilter all={[...upcoming, ...past]} />
+  <ViewToggle />
+  {/* Ankrene #kommende og #ar-ÅR er en del av adressen og beholdes */}
+  <section class="year" id="kommende" data-section><h2 class="year__h">{en ? "Upcoming" : "Kommende"}</h2>
+    {upcoming.length === 0 ? <p class="hint">{en ? "No new events have been added yet. Keep an eye on our Facebook group." : "Ingen nye arrangementer er lagt inn ennå. Følg med i Facebook-gruppa."}</p> :
+      <ul class="rows ev" data-view="list"><li class="ev__head" aria-hidden="true">{columns.map((k) => <span>{k}</span>)}</li>{upcoming.map((e) => <li data-group={group(e)}><a href={url(link(e))}><time>{date(e.data.start)}</time><span class="ev__t">{e.data.title} <span class="cat ev__type" data-cat={group(e)}>{typeLabel(e.data.type)}</span></span><span class="ev__place">{place(e) || "–"}</span><span class="ev__time">{time(e)}</span></a></li>)}</ul>}
+    {upcoming.length > 0 && <CardGrid events={upcoming} />}
   </section>
-  {aar.map(([a, liste]) => (
-    <section class="year" id={`ar-${a}`} data-seksjon><h2 class="year__h">{a}</h2>
-      <ul class="rows ev" data-visning="liste"><li class="ev__head" aria-hidden="true">{kol.map((k) => <span>{k}</span>)}</li>{liste.map((e) => <li data-gruppe={gruppe(e)}><a href={url(lenke(e))}><time>{dato(e.data.start)}</time><span class="ev__t">{e.data.title} <span class="kat ev__type" data-kat={gruppe(e)}>{typeTekst(e.data.type)}</span></span><span class="ev__sted">{sted(e) || "–"}</span><span class="ev__tid">{tid(e)}</span></a></li>)}</ul>
-      <Kortnett arrangementer={liste} />
+  {years.map(([y, list]) => (
+    <section class="year" id={`ar-${y}`} data-section><h2 class="year__h">{y}</h2>
+      <ul class="rows ev" data-view="list"><li class="ev__head" aria-hidden="true">{columns.map((k) => <span>{k}</span>)}</li>{list.map((e) => <li data-group={group(e)}><a href={url(link(e))}><time>{date(e.data.start)}</time><span class="ev__t">{e.data.title} <span class="cat ev__type" data-cat={group(e)}>{typeLabel(e.data.type)}</span></span><span class="ev__place">{place(e) || "–"}</span><span class="ev__time">{time(e)}</span></a></li>)}</ul>
+      <CardGrid events={list} />
     </section>
   ))}
 </div>

@@ -1,0 +1,14 @@
+---
+import Layout from "@design/Layout.astro";
+import PostList from "@design/PostList.astro";
+import { getCategories, groupByYear } from "../../../../lib/site";
+import { translatedPosts, categoryName } from "../../../../lib/i18n";
+export async function getStaticPaths() {
+  const categories = await getCategories(await translatedPosts("en"));
+  return categories.map((k) => ({ params: { category: k.slug }, props: { k, categories } }));
+}
+const { k, categories } = Astro.props;
+---
+<Layout title={categoryName("en", k.name)}>
+  <PostList title={categoryName("en", k.name)} years={groupByYear(k.posts)} categories={categories} active={k.slug} />
+</Layout>

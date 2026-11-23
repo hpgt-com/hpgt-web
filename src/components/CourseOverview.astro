@@ -1,0 +1,16 @@
+---
+// Kort for hver kursside på /kurs/
+import { getCourses, courseLink, url } from "../lib/site";
+import { T, pageInfo } from "../lib/i18n";
+import "./courses.css";
+const { lang } = pageInfo(Astro.url.pathname);
+const courses = await getCourses(lang);
+import { toEnglish } from "../lib/english-paths.mjs";
+const localize = (u: string) => (lang === "en" ? `/en${toEnglish(u)}` : u);
+---
+{courses.length > 0 && <section class="course-cards" aria-labelledby="course-cards-h">
+  <h2 id="course-cards-h">{T[lang].ourCourses}</h2>
+  <ul>{courses.map((k) => <li><a href={url(localize(courseLink(k)))}>
+    {k.data.bilde && <img src={url(k.data.bilde)} alt="" loading="lazy" />}
+    <b>{k.data.title}</b>{k.data.ingress && <span>{k.data.ingress}</span>}</a></li>)}</ul>
+</section>}

@@ -1,29 +1,29 @@
 // @ts-check
 // HPGT – hpgt.com. Statisk Astro-side; innhold redigeres i Pages CMS (.pages.yml).
-// Designet ligger i src/design. BASE/OUT brukes bare når forhåndsvisningen bygges (scripts/bygg-forhandsvisning.sh).
+// Designet ligger i src/design. BASE/OUT brukes bare når forhåndsvisningen bygges (scripts/build-preview.sh).
 import { defineConfig } from "astro/config";
 import { fileURLToPath } from "node:url";
 import { unified } from "@astrojs/markdown-remark";
 import rehypeBase from "./src/lib/rehype-base.mjs";
 import { readFileSync } from "node:fs";
-import { tilEngelsk, GAMLE_ENGELSKE } from "./src/lib/engelske-adresser.mjs";
+import { toEnglish, OLD_ENGLISH_PATHS } from "./src/lib/english-paths.mjs";
 
-// /event/<navn>/ for arrangementer som ble slått sammen med et innlegg (scripts/wp-import/flett-arrangementer.py)
-const omdirigeringer = JSON.parse(readFileSync(new URL("./src/data/omdirigeringer.json", import.meta.url), "utf-8"));
+// /event/<navn>/ for arrangementer som ble slått sammen med et innlegg (scripts/wp-import/merge-events.py)
+const redirects = JSON.parse(readFileSync(new URL("./src/data/omdirigeringer.json", import.meta.url), "utf-8"));
 
 const BASE = process.env.BASE || "/";
 
 // Engelske sider som har ligget på norske adresser (/en/klubben/styret/) videresendes til de engelske (/en/club/board/)
-const engelskeVideresendinger = Object.fromEntries(GAMLE_ENGELSKE.map((g) => [`/en${g}`, `/en${tilEngelsk(g)}`]));
+const englishRedirects = Object.fromEntries(OLD_ENGLISH_PATHS.map((g) => [`/en${g}`, `/en${toEnglish(g)}`]));
 // Eldre /en/-videresendinger i lista under peker også til de nye adressene
-const tilEngelskeMal = (r) => Object.fromEntries(Object.entries(r).map(([fra, til]) => [fra, fra.startsWith("/en/") ? `/en${tilEngelsk(til.slice(3))}` : til]));
+const toEnglishTargets = (r) => Object.fromEntries(Object.entries(r).map(([from, to]) => [from, from.startsWith("/en/") ? `/en${toEnglish(to.slice(3))}` : to]));
 
 export default defineConfig({
   site: "https://hpgt.com",
   base: BASE,
   outDir: process.env.OUT || "dist",
   trailingSlash: "always",
-  redirects: tilEngelskeMal({ ...engelskeVideresendinger, ...omdirigeringer, "/kurs-2026/": "/kurs/", "/events/": "/arrangementer/", "/nytt/kategori/kurs/": "/nytt/kategori/kurs-og-fagdag/", "/galleri/": "/klubben/konkurranser/2014/",
+  redirects: toEnglishTargets({ ...englishRedirects, ...redirects, "/kurs-2026/": "/kurs/", "/events/": "/arrangementer/", "/nytt/kategori/kurs/": "/nytt/kategori/kurs-og-fagdag/", "/galleri/": "/klubben/konkurranser/2014/",
     // «Fly med oss» ble slått sammen med For piloter (samme innhold); RadioID ligger fortsatt under /flysteder/
     "/flysteder/": "/for-piloter/", "/konkurranse-2019/": "/klubben/konkurranser/2019/",
     // Reglene ligger nå på hver konkurranseside

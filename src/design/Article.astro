@@ -1,24 +1,24 @@
 ---
 import { url, slug } from "../lib/site";
-import Innhold from "./Innhold.astro";
-import SeksjonsMeny from "../components/SeksjonsMeny.astro";
-import { T, sideInfo, katNavn, sti } from "../lib/i18n";
-const { sprak } = sideInfo(Astro.url.pathname);
-const t = T[sprak];
-const { title, ingress, bilde, meta, kategorier, tilbake, overskrifter = [] } = Astro.props;
+import TableOfContents from "./TableOfContents.astro";
+import SectionMenu from "../components/SectionMenu.astro";
+import { T, pageInfo, categoryName, localPath } from "../lib/i18n";
+const { lang } = pageInfo(Astro.url.pathname);
+const t = T[lang];
+const { title, lead, image, meta, categories, back, headings = [] } = Astro.props;
 // Innholdsfortegnelse bare når teksten har minst tre overskrifter
-const toc = overskrifter.filter((h: { depth: number }) => h.depth <= 3).length >= 3;
+const toc = headings.filter((h: { depth: number }) => h.depth <= 3).length >= 3;
 ---
 <article class:list={["wrap article", { "article--toc": toc }]}>
-  {toc && <Innhold overskrifter={overskrifter} />}
+  {toc && <TableOfContents headings={headings} />}
   <div class="article__main">
-    <nav class="crumbs" aria-label={t.brodsmuler}><a href={url(sprak === "en" ? "/en/" : "/")}>{t.hjem}</a>{tilbake && <><span>/</span><a href={tilbake.url}>{tilbake.tekst}</a></>}</nav>
-    <SeksjonsMeny />
-    {meta && <p class="post__meta">{kategorier?.map((k) => <><a class="kat" data-kat={slug(k)} href={sti(sprak, `/nytt/kategori/${slug(k)}/`)}>{katNavn(sprak, k)}</a> · </>)}{meta}</p>}
+    <nav class="crumbs" aria-label={t.breadcrumb}><a href={url(lang === "en" ? "/en/" : "/")}>{t.home}</a>{back && <><span>/</span><a href={back.url}>{back.label}</a></>}</nav>
+    <SectionMenu />
+    {meta && <p class="post__meta">{categories?.map((k) => <><a class="cat" data-cat={slug(k)} href={localPath(lang, `/nytt/kategori/${slug(k)}/`)}>{categoryName(lang, k)}</a> · </>)}{meta}</p>}
     <h1 class="h1">{title}</h1>
-    {ingress && <p class="lead">{ingress}</p>}
-    {bilde && <img class="article__img" src={url(bilde)} alt="" />}
-    {toc && <Innhold overskrifter={overskrifter} mobil />}
+    {lead && <p class="lead">{lead}</p>}
+    {image && <img class="article__img" src={url(image)} alt="" />}
+    {toc && <TableOfContents headings={headings} mobile />}
     <div class="prose"><slot /></div>
   </div>
 </article>

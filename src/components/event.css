@@ -1,0 +1,17 @@
+/* Faktaboks for arrangementer og «kommende kurs» på kurssiden. Bruker designets --cal-*-variabler. */
+.event-box { margin: 0 0 1.6rem; padding: 16px 18px; border: 1px solid var(--cal-line, #ccd7e4); border-left: 4px solid var(--cal-accent, #1f86d1); background: var(--cal-surface, #fff); }
+.event-box dl { margin: 0; display: grid; gap: 12px 24px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+.event-box dt { font: 600 .64rem/1.4 var(--cal-mono, ui-monospace, monospace); letter-spacing: .12em; text-transform: uppercase; color: var(--cal-muted, #56657a); margin-bottom: 2px; }
+.event-box dd { margin: 0; font-weight: 700; line-height: 1.35; }
+.event-box__time { font-weight: 400; color: var(--cal-muted, #56657a); }
+.event-box__type { color: var(--k, var(--cal-accent-ink, #1569a8)); }
+.event-box__button { display: inline-block; margin-top: 14px; padding: 9px 18px; border-radius: 4px; background: var(--cal-accent-ink, #1569a8); color: #fff !important; font-weight: 700; text-decoration: none; }
+.event-box__button:hover { background: var(--cal-accent, #1f86d1); }
+.event-box__done { margin: 12px 0 0; font-size: .88rem; color: var(--cal-muted, #56657a); }
+.upcoming-courses { margin: 0 0 2rem; padding: 18px 20px; background: var(--cal-tint, #e2eaf3); }
+.upcoming-courses h2 { margin-top: 0; }
+.upcoming-courses ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.upcoming-courses li a { display: grid; gap: 2px; padding: 10px 12px; background: var(--cal-surface, #fff); border: 1px solid var(--cal-line, #ccd7e4); text-decoration: none; color: inherit; }
+.upcoming-courses li a:hover { border-color: var(--cal-accent, #1f86d1); }
+.upcoming-courses li span { font-size: .88rem; color: var(--cal-muted, #56657a); }
+.upcoming-courses__all { margin: 12px 0 0; }

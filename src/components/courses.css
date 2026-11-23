@@ -1,0 +1,12 @@
+/* Kursmenyen og kurskortene på /kurs/ */
+.section-menu { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 1.6rem; padding: 0; }
+.section-menu a { padding: 7px 14px; border: 1.5px solid var(--line); border-radius: 999px; text-decoration: none; color: inherit; font-weight: 700; font-size: .9rem; background: var(--surface); }
+.section-menu a:hover { border-color: var(--sky); }
+.section-menu a[aria-current] { background: var(--text); border-color: var(--text); color: var(--bg); }
+.course-cards ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.course-cards a { display: grid; gap: 6px; align-content: start; height: 100%; text-decoration: none; color: inherit; border: 1px solid var(--line); background: var(--surface); padding-bottom: 14px; }
+.course-cards a:hover { border-color: var(--sky); }
+.course-cards a > * { margin: 0 14px; }
+.course-cards img { margin: 0; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.course-cards b { margin-top: 8px; font-size: 1.05rem; }
+.course-cards span { font-size: .92rem; color: var(--muted); }

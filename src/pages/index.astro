@@ -1,12 +1,12 @@
 ---
 import Layout from "@design/Layout.astro";
 import Home from "@design/Home.astro";
-import { hentInnlegg, hentArrangementer, site } from "../lib/site";
-import { klubbLd, ldJson } from "../lib/strukturert";
-const innlegg = await hentInnlegg();
-const { kommende, tidligere } = await hentArrangementer();
+import { getPosts, getEvents, site } from "../lib/site";
+import { clubLd, ldJson } from "../lib/structured-data";
+const posts = await getPosts();
+const { upcoming, past } = await getEvents();
 ---
 <Layout title={site.navn}>
-  <script type="application/ld+json" set:html={ldJson(klubbLd())} />
-  <Home innlegg={innlegg} kommende={kommende} tidligere={tidligere} />
+  <script type="application/ld+json" set:html={ldJson(clubLd())} />
+  <Home posts={posts} upcoming={upcoming} past={past} />
 </Layout>

@@ -1,0 +1,12 @@
+---
+// Bytter mellom liste og bildevisning på Nytt og Arrangementer. Skjult uten JavaScript – da vises listen som før.
+import { url } from "../lib/site";
+import { pageInfo } from "../lib/i18n";
+import "./cards.css";
+const en = pageInfo(Astro.url.pathname).lang === "en";
+---
+<div class="view-toggle" role="group" aria-label={en ? "View" : "Visning"} hidden>
+  <button type="button" data-view-option="list" aria-pressed="true"><span aria-hidden="true">☰</span> {en ? "List" : "Liste"}</button>
+  <button type="button" data-view-option="pictures" aria-pressed="false"><span aria-hidden="true">▦</span> {en ? "Pictures" : "Bilder"}</button>
+</div>
+<script is:inline src={url("/assets/js/view.js")} defer></script>

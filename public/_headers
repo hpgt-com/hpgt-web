@@ -15,7 +15,7 @@
   X-Robots-Tag: noindex, nofollow
 
 # Skjemaene (RadioID og «Meld feil»): samme regler, men Cloudflare Turnstile får laste skript og vise sin sjekk. Bare disse sidene.
-# Må stemme med SKJEMASIDER i src/components/Head.astro.
+# Må stemme med FORM_PAGES i src/components/Head.astro.
 /for-piloter/radioid/
   ! Content-Security-Policy
   Content-Security-Policy: default-src 'none'; script-src 'self' https://challenges.cloudflare.com https://static.cloudflareinsights.com; style-src 'self'; img-src 'self' data: https://hpgt-web.goatcounter.com; font-src 'self'; connect-src 'self' https://cloudflareinsights.com https://hpgt-web.goatcounter.com; frame-src https://challenges.cloudflare.com https://www.youtube-nocookie.com https://player.vimeo.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests

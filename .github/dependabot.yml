@@ -15,7 +15,7 @@ updates:
         patterns: ["*"]
 
   - package-ecosystem: npm
-    directories: ["/", "/scripts/oversett", "/deploy"]
+    directories: ["/", "/scripts/translate", "/deploy"]
     schedule:
       interval: monthly
     labels: ["dependencies"]

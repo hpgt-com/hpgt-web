@@ -3,7 +3,7 @@
 // etter navnet, så leseren ser hvor lenken går uten at redaktøren må skrive det.
 import { domainToUnicode } from "node:url";
 
-const domene = (href) => {
+const domain = (href) => {
   try {
     return domainToUnicode(new URL(href).hostname).replace(/^www\./, "");
   } catch {
@@ -11,21 +11,21 @@ const domene = (href) => {
   }
 };
 
-const lenkepunkt = (li) => {
-  const innhold = li.children.find((c) => c.type === "element" && c.tagName === "p") ?? li;
-  const barn = innhold.children.filter((c) => !(c.type === "text" && !c.value.trim()));
-  const [a, tekst] = barn;
+const linkItem = (li) => {
+  const container = li.children.find((c) => c.type === "element" && c.tagName === "p") ?? li;
+  const children = container.children.filter((c) => !(c.type === "text" && !c.value.trim()));
+  const [a, text] = children;
   if (a?.type !== "element" || a.tagName !== "a" || !/^https?:/.test(a.properties?.href || "")) return;
-  if (tekst?.type !== "text" || !/^\s*[–—-]\s/.test(tekst.value)) return;
-  const d = domene(a.properties.href);
+  if (text?.type !== "text" || !/^\s*[–—-]\s/.test(text.value)) return;
+  const d = domain(a.properties.href);
   if (!d) return;
   // Venstre kolonne: navn og domene. Høyre kolonne: beskrivelsen (og alt som følger etter).
-  const i = innhold.children.indexOf(a);
-  tekst.value = tekst.value.replace(/^\s*[–—-]\s*/, "");
-  const resten = innhold.children.slice(innhold.children.indexOf(tekst));
+  const i = container.children.indexOf(a);
+  text.value = text.value.replace(/^\s*[–—-]\s*/, "");
+  const rest = container.children.slice(container.children.indexOf(text));
   const el = (cls, children) => ({ type: "element", tagName: "span", properties: { className: [cls] }, children });
-  innhold.children.splice(i, innhold.children.length - i, el("lenke__navn", [a, el("lenke__domene", [{ type: "text", value: d }])]), el("lenke__tekst", resten));
-  li.properties.className = [...(li.properties.className || []), "lenkepunkt"];
+  container.children.splice(i, container.children.length - i, el("link__name", [a, el("link__domain", [{ type: "text", value: d }])]), el("link__text", rest));
+  li.properties.className = [...(li.properties.className || []), "link-item"];
 };
 
 export default function rehypeBase({ base = "/" } = {}) {
@@ -37,13 +37,13 @@ export default function rehypeBase({ base = "/" } = {}) {
       if (n.properties?.src) n.properties.src = fix(n.properties.src);
       if (n.tagName === "img") Object.assign(n.properties, { loading: "lazy", decoding: "async" });
       if (n.tagName === "a" && /^https?:/.test(n.properties.href || "")) n.properties.rel = "noopener external";
-      if (n.tagName === "li") lenkepunkt(n);
+      if (n.tagName === "li") linkItem(n);
     }
     (n.children || []).forEach(walk);
     // En liste der alle punktene er lenkepunkter, vises som tabell
     if (n.tagName === "ul") {
       const li = n.children.filter((c) => c.type === "element");
-      if (li.length && li.every((c) => c.properties?.className?.includes("lenkepunkt"))) n.properties.className = [...(n.properties.className || []), "lenkeliste"];
+      if (li.length && li.every((c) => c.properties?.className?.includes("link-item"))) n.properties.className = [...(n.properties.className || []), "link-list"];
     }
   };
   return (tree) => walk(tree);

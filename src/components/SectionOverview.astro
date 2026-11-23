@@ -1,0 +1,18 @@
+---
+import Arrow from "./Arrow.astro";
+// Kort for hver underside på oversiktssiden til For piloter og Klubben (samme utseende som kurskortene)
+import { url } from "../lib/site";
+import { pageInfo, menuLabel, englishPaths, linkFor } from "../lib/i18n";
+import { sectionFor } from "../lib/sections";
+import "./courses.css";
+const { path, lang } = pageInfo(Astro.url.pathname);
+const s = await sectionFor(path, lang);
+const english = await englishPaths();
+const href = (u: string) => linkFor(lang, u, english);
+---
+{s && s.url !== "/kurs/" && <section class="course-cards" aria-labelledby="section-h">
+  <h2 id="section-h">{lang === "en" ? "In this section" : "I denne delen"}</h2>
+  <ul>{s.sider.map((l) => <li><a href={href(l.url)}>
+    {l.bilde && <img src={url(l.bilde)} alt="" loading="lazy" />}
+    <b>{menuLabel(lang, l.tekst)}{l.ekstern && <> <Arrow /></>}</b>{l.ingress && <span>{l.ingress}</span>}</a></li>)}</ul>
+</section>}

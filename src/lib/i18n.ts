@@ -1,40 +1,40 @@
 // Norsk og engelsk. Faste tekster (menyer, knapper, overskrifter) står her; sideinnholdet oversettes
-// automatisk ved publisering (scripts/oversett/oversett.mjs) og ligger i samlingene sider_en og kurs_en.
+// automatisk ved publisering (scripts/translate/translate.mjs) og ligger i samlingene sider_en og kurs_en.
 import { getCollection } from "astro:content";
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { forside as forsideNb, url, lenke, ekstern, hentInnlegg, slug, klokke, type Innlegg, type Arrangement } from "./site";
-import styretNb from "../data/styret.json";
-import { tilEngelsk, tilNorsk } from "./engelske-adresser.mjs";
-export { tilEngelsk, tilNorsk };
+import { frontPage as frontPageNb, url, link, isExternal, getPosts, slug, formatClock, type Post, type EventPost } from "./site";
+import boardNb from "../data/styret.json";
+import { toEnglish, toNorwegian } from "./english-paths.mjs";
+export { toEnglish, toNorwegian };
 
-export type Sprak = "nb" | "en";
+export type Lang = "nb" | "en";
 
 export const T = {
   nb: {
-    hopp: "Hopp til innhold", meny: "Meny", hovedmeny: "Hovedmeny", klubben: "Klubben", piloter: "For piloter", folg: "Følg oss",
-    sporing: "Ingen sporing eller informasjonskapsler.", sporingStatistikk: "Ingen informasjonskapsler eller sporing. Anonym besøksstatistikk via Cloudflare og GoatCounter.", hjem: "Hjem", brodsmuler: "Brødsmuler", paaSiden: "På denne siden",
-    sistOppdatert: "Sist oppdatert", kurs: "Kurs", alleKurs: "Alle kurs", kursene: "Kursene våre", nesteKurs: "Neste kurs",
-    kommende: "Kommende kurs og fagdager", ingenKurs: "Ingen kurs er satt opp akkurat nå. Følg med her og i Facebook-gruppa",
-    forrigeVar: "forrige var", heleKalenderen: "Hele kalenderen", kontaktMeg: "Kontakt meg om:", portrett: "Portrett av", styret: "Styret",
-    morkTema: "Mørkt tema", sok: "Søk", meldFeil: "Meld feil på denne siden", personvern: "Personvern", driftsstatus: "Driftsstatus", visUndersider: "vis undersider",
-    utforskKurs: "Utforsk kurs", flyMedOss: "Fly med oss", kalender: "Aktivitetskalender", utILufta: "Ut i lufta", finnVei: "Finn din vei inn.",
-    omKlubben: "Om klubben", heltebildeAlt: "Tandemflyging over snødekte fjell ved Harstad",
+    skip: "Hopp til innhold", menu: "Meny", mainMenu: "Hovedmeny", club: "Klubben", pilots: "For piloter", follow: "Følg oss",
+    noTracking: "Ingen sporing eller informasjonskapsler.", noTrackingStats: "Ingen informasjonskapsler eller sporing. Anonym besøksstatistikk via Cloudflare og GoatCounter.", home: "Hjem", breadcrumb: "Brødsmuler", onThisPage: "På denne siden",
+    lastUpdated: "Sist oppdatert", courses: "Kurs", allCourses: "Alle kurs", ourCourses: "Kursene våre", nextCourse: "Neste kurs",
+    upcoming: "Kommende kurs og fagdager", noCourses: "Ingen kurs er satt opp akkurat nå. Følg med her og i Facebook-gruppa",
+    previousWas: "forrige var", fullCalendar: "Hele kalenderen", contactMe: "Kontakt meg om:", portrait: "Portrett av", board: "Styret",
+    darkMode: "Mørkt tema", search: "Søk", reportError: "Meld feil på denne siden", privacy: "Personvern", serviceStatus: "Driftsstatus", showSubpages: "vis undersider",
+    exploreCourses: "Utforsk kurs", flyWithUs: "Fly med oss", calendar: "Aktivitetskalender", intoTheAir: "Ut i lufta", findYourWay: "Finn din vei inn.",
+    aboutClub: "Om klubben", heroAlt: "Tandemflyging over snødekte fjell ved Harstad",
   },
   en: {
-    hopp: "Skip to content", meny: "Menu", hovedmeny: "Main menu", klubben: "The club", piloter: "For pilots", folg: "Follow us",
-    sporing: "No tracking or cookies.", sporingStatistikk: "No cookies or tracking. Anonymous visitor statistics via Cloudflare and GoatCounter.", hjem: "Home", brodsmuler: "Breadcrumb", paaSiden: "On this page",
-    sistOppdatert: "Last updated", kurs: "Courses", alleKurs: "All courses", kursene: "Our courses", nesteKurs: "Next course",
-    kommende: "Upcoming courses and training days", ingenKurs: "No courses are scheduled right now. Keep an eye on this page and our Facebook group",
-    forrigeVar: "the last one was", heleKalenderen: "Full calendar", kontaktMeg: "Contact me about:", portrett: "Portrait of", styret: "Board",
-    morkTema: "Dark mode", sok: "Search", meldFeil: "Report an error on this page", personvern: "Privacy", driftsstatus: "Service status", visUndersider: "show subpages",
-    utforskKurs: "Explore courses", flyMedOss: "Fly with us", kalender: "Activity calendar", utILufta: "Into the air", finnVei: "Find your way in.",
-    omKlubben: "About the club", heltebildeAlt: "Tandem flight over snow-covered mountains near Harstad",
+    skip: "Skip to content", menu: "Menu", mainMenu: "Main menu", club: "The club", pilots: "For pilots", follow: "Follow us",
+    noTracking: "No tracking or cookies.", noTrackingStats: "No cookies or tracking. Anonymous visitor statistics via Cloudflare and GoatCounter.", home: "Home", breadcrumb: "Breadcrumb", onThisPage: "On this page",
+    lastUpdated: "Last updated", courses: "Courses", allCourses: "All courses", ourCourses: "Our courses", nextCourse: "Next course",
+    upcoming: "Upcoming courses and training days", noCourses: "No courses are scheduled right now. Keep an eye on this page and our Facebook group",
+    previousWas: "the last one was", fullCalendar: "Full calendar", contactMe: "Contact me about:", portrait: "Portrait of", board: "Board",
+    darkMode: "Dark mode", search: "Search", reportError: "Report an error on this page", privacy: "Privacy", serviceStatus: "Service status", showSubpages: "show subpages",
+    exploreCourses: "Explore courses", flyWithUs: "Fly with us", calendar: "Activity calendar", intoTheAir: "Into the air", findYourWay: "Find your way in.",
+    aboutClub: "About the club", heroAlt: "Tandem flight over snow-covered mountains near Harstad",
   },
 } as const;
 
 // Menyene i meny.json oversatt etter norsk tekst. Mangler en, vises den norske.
-const MENY_EN: Record<string, string> = {
+const MENU_EN: Record<string, string> = {
   "Kurs": "Courses", "Tandem": "Tandem", "Flysteder": "Flying sites", "Arrangementer": "Events", "Nytt": "News", "Klubben": "Club",
   "Lenker og værstasjoner": "Links and weather stations", "NOTAM ved vinsjing": "NOTAM for winch towing",
   "FLARM/FANET RadioID-register": "FLARM/FANET RadioID register", "Flysteder (kart)": "Flying sites (map)",
@@ -42,78 +42,78 @@ const MENY_EN: Record<string, string> = {
   "Oversikt": "Overview", "Alle kurs": "All courses", "Styret og roller": "Board and roles", "Møter og referater": "Meetings and minutes",
   "Økonomisk støtte": "Financial support", "Konkurranser": "Competitions", "Skriv på siden": "Write for the site", "Prøv redaktøren": "Try the editor",
 };
-export const menyTekst = (sprak: Sprak, tekst: string) => (sprak === "en" ? MENY_EN[tekst] ?? tekst : tekst);
+export const menuLabel = (lang: Lang, label: string) => (lang === "en" ? MENU_EN[label] ?? label : label);
 
-const oversatt = (fil: string) => {
-  const sti = join(process.cwd(), ".oversatt", fil);
-  return existsSync(sti) ? JSON.parse(readFileSync(sti, "utf-8")) : undefined;
+const readTranslated = (file: string) => {
+  const path = join(process.cwd(), ".translated", file);
+  return existsSync(path) ? JSON.parse(readFileSync(path, "utf-8")) : undefined;
 };
 /** Forsidetekstene på riktig språk (norsk hvis oversettelsen mangler). */
-export const forsideFor = (sprak: Sprak): typeof forsideNb => (sprak === "en" ? oversatt("forside.json") ?? forsideNb : forsideNb);
-export const styretFor = (sprak: Sprak): typeof styretNb => (sprak === "en" ? oversatt("styret.json") ?? styretNb : styretNb);
+export const frontPageFor = (lang: Lang): typeof frontPageNb => (lang === "en" ? readTranslated("forside.json") ?? frontPageNb : frontPageNb);
+export const boardFor = (lang: Lang): typeof boardNb => (lang === "en" ? readTranslated("styret.json") ?? boardNb : boardNb);
 
 /** Norske stier (uten base) som har en engelsk versjon. */
-let stier: Promise<Set<string>> | undefined;
-export function engelskeStier() {
-  stier ??= (async () => {
-    const [sider, kurs] = await Promise.all([getCollection("sider_en"), getCollection("kurs_en")]);
-    const s = new Set<string>([...sider.map((e) => lenke(e)), ...kurs.map((k) => `/kurs/${k.id}/`)]);
-    if (oversatt("forside.json")) s.add("/");
+let paths: Promise<Set<string>> | undefined;
+export function englishPaths() {
+  paths ??= (async () => {
+    const [pages, courses] = await Promise.all([getCollection("sider_en"), getCollection("kurs_en")]);
+    const s = new Set<string>([...pages.map((e) => link(e)), ...courses.map((k) => `/kurs/${k.id}/`)]);
+    if (readTranslated("forside.json")) s.add("/");
     // Oversatte innlegg (norsk adresse), og Nytt, kategoriene og Arrangementer, som finnes på engelsk når innleggene gjør det
-    const en = await engelskeInnlegg();
+    const en = await englishPostMap();
     if (en.size) {
-      const nb = await hentInnlegg();
-      for (const p of nb) if (en.has(p.id)) s.add(lenke(p));
+      const nb = await getPosts();
+      for (const p of nb) if (en.has(p.id)) s.add(link(p));
       s.add("/nytt/"); s.add("/arrangementer/");
       for (const k of new Set(nb.filter((p) => en.has(p.id)).flatMap((p) => p.data.kategorier))) s.add(`/nytt/kategori/${slug(k)}/`);
     }
     s.add("/meld-feil/"); // egen engelsk side (src/pages/en/report-error.astro)
     return s;
   })();
-  return stier;
+  return paths;
 }
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
 /** Sti uten base og uten /en, og språket den er på. */
-export function sideInfo(pathname: string): { sti: string; sprak: Sprak } {
+export function pageInfo(pathname: string): { path: string; lang: Lang } {
   const p = pathname.slice(BASE.length) || "/";
-  // sti er alltid den norske adressen, også på engelske sider (/en/club/board/ → /klubben/styret/)
-  return p === "/en/" || p.startsWith("/en/") ? { sti: tilNorsk(p.slice(3) || "/"), sprak: "en" } : { sti: p, sprak: "nb" };
+  // path er alltid den norske adressen, også på engelske sider (/en/club/board/ → /klubben/styret/)
+  return p === "/en/" || p.startsWith("/en/") ? { path: toNorwegian(p.slice(3) || "/"), lang: "en" } : { path: p, lang: "nb" };
 }
 /** Lenke på riktig språk: engelsk versjon hvis den finnes, ellers den norske siden. */
-export const lenkeFor = (sprak: Sprak, u: string, engelske: Set<string>) =>
-  ekstern(u) ? u : url(sprak === "en" && engelske.has(u) ? `/en${tilEngelsk(u)}` : u);
+export const linkFor = (lang: Lang, u: string, english: Set<string>) =>
+  isExternal(u) ? u : url(lang === "en" && english.has(u) ? `/en${toEnglish(u)}` : u);
 
-export const datoFor = (sprak: Sprak, d: Date) =>
-  new Intl.DateTimeFormat(sprak === "en" ? "en-GB" : "nb-NO", { timeZone: "UTC", day: "numeric", month: "long", year: "numeric" }).format(d);
+export const dateFor = (lang: Lang, d: Date) =>
+  new Intl.DateTimeFormat(lang === "en" ? "en-GB" : "nb-NO", { timeZone: "UTC", day: "numeric", month: "long", year: "numeric" }).format(d);
 
 
 // ── Nyheter og arrangementer på engelsk ────────────────────────────────────────────────────────────────────────────
-// Innleggene oversettes automatisk (scripts/oversett), unntatt referater. Et innlegg uten oversettelse vises på engelske
+// Innleggene oversettes automatisk (scripts/translate), unntatt referater. Et innlegg uten oversettelse vises på engelske
 // sider med norsk tittel og «(in Norwegian)», og lenker til den norske siden.
-let enInnlegg: Promise<Map<string, Innlegg>> | undefined;
-const engelskeInnlegg = () => (enInnlegg ??= getCollection("innlegg_en").then((l) => new Map(l.map((e) => [e.id, e as unknown as Innlegg]))));
+let enPosts: Promise<Map<string, Post>> | undefined;
+const englishPostMap = () => (enPosts ??= getCollection("innlegg_en").then((l) => new Map(l.map((e) => [e.id, e as unknown as Post]))));
 
 /** Publiserte innlegg på språket, nyeste først. Engelsk: oversettelsen der den finnes, ellers det norske innlegget (merket). */
-export async function innleggFor(sprak: Sprak): Promise<(Innlegg & { norsk?: boolean })[]> {
-  const nb = await hentInnlegg();
-  if (sprak === "nb") return nb;
-  const en = await engelskeInnlegg();
-  return nb.map((p) => en.get(p.id) ?? { ...p, norsk: true, data: { ...p.data, title: `${p.data.title} (in Norwegian)` } });
+export async function postsFor(lang: Lang): Promise<(Post & { untranslated?: boolean })[]> {
+  const nb = await getPosts();
+  if (lang === "nb") return nb;
+  const en = await englishPostMap();
+  return nb.map((p) => en.get(p.id) ?? { ...p, untranslated: true, data: { ...p.data, title: `${p.data.title} (in Norwegian)` } });
 }
 /** Bare de oversatte innleggene (engelsk Nytt), eller alle på norsk. */
-export const oversatteInnlegg = async (sprak: Sprak) => (await innleggFor(sprak)).filter((p) => !p.norsk);
+export const translatedPosts = async (lang: Lang) => (await postsFor(lang)).filter((p) => !p.untranslated);
 /** Det engelske innlegget med samme id, hvis det finnes. */
-export const engelskInnlegg = async (id: string) => (await engelskeInnlegg()).get(id);
+export const englishPost = async (id: string) => (await englishPostMap()).get(id);
 
-const KATEGORI_EN: Record<string, string> = {
+const CATEGORY_EN: Record<string, string> = {
   "Nyhet": "News", "Møter og referater": "Meetings and minutes", "Kurs og fagdag": "Courses and training days",
   "Sosialt og turer": "Social and trips", "Konkurranser": "Competitions",
 };
 /** Kategorinavn på språket. Adressen og fargen bruker fortsatt den norske (slug). */
-export const katNavn = (sprak: Sprak, k: string) => (sprak === "en" ? KATEGORI_EN[k] ?? k : k);
+export const categoryName = (lang: Lang, k: string) => (lang === "en" ? CATEGORY_EN[k] ?? k : k);
 
-const GRUPPE_EN: Record<string, string> = { Kurs: "Course", Fagdag: "Training day", "Møte": "Meeting", Sosialt: "Social", Konkurranse: "Competition" };
+const GROUP_EN: Record<string, string> = { Kurs: "Course", Fagdag: "Training day", "Møte": "Meeting", Sosialt: "Social", Konkurranse: "Competition" };
 const TYPE_EN: Record<string, string> = {
   "Prøvedag": "Try-out day", "Annet kurs": "Other course", "Nødskjerm og vingesjekk": "Reserve and wing check",
   Sikkerhetsseminar: "Safety seminar", "Annen fagdag": "Other training day", "Årsmøte": "Annual meeting", Klubbmøte: "Club meeting",
@@ -121,24 +121,24 @@ const TYPE_EN: Record<string, string> = {
   "Cup og stevne": "Cup and meet", "Foto og video": "Photo and video", "Annen konkurranse": "Other competition",
 };
 /** Gruppenavn i kalenderen («Kurs» → «Course»). */
-export const gruppeNavn = (sprak: Sprak, navn: string) => (sprak === "en" ? GRUPPE_EN[navn] ?? navn : navn);
+export const groupName = (lang: Lang, name: string) => (lang === "en" ? GROUP_EN[name] ?? name : name);
 /** «Kurs / PP2» → «Kurs · PP2» eller «Course · PP2». */
-export const typeTekstFor = (sprak: Sprak, type = "") => {
+export const typeLabelFor = (lang: Lang, type = "") => {
   const [g, t] = type.split(" / ");
-  return sprak === "en" ? [GRUPPE_EN[g] ?? g, t && (TYPE_EN[t] ?? t)].filter(Boolean).join(" · ") : type.replace(" / ", " · ");
+  return lang === "en" ? [GROUP_EN[g] ?? g, t && (TYPE_EN[t] ?? t)].filter(Boolean).join(" · ") : type.replace(" / ", " · ");
 };
 
 /** Dato- og tidstekster på språket. */
-export const fmtFor = (sprak: Sprak) => {
-  const loc = sprak === "en" ? "en-GB" : "nb-NO";
+export const formatsFor = (lang: Lang) => {
+  const loc = lang === "en" ? "en-GB" : "nb-NO";
   const f = (d: Date, o: Intl.DateTimeFormatOptions) => new Intl.DateTimeFormat(loc, { timeZone: "UTC", ...o }).format(d);
   return {
-    dato: (d: Date) => f(d, { day: "numeric", month: "long", year: "numeric" }),
-    datoKort: (d: Date) => f(d, { day: "numeric", month: "short" }),
-    klokke: (d: Date) => (sprak === "en" ? f(d, { hour: "2-digit", minute: "2-digit", hour12: false }) : klokke(d)),
-    tid: (e: Arrangement) => (e.data.heldag ? (sprak === "en" ? "All day" : "Hele dagen") : `${sprak === "en" ? "" : "kl. "}${f(e.data.start, { hour: "2-digit", minute: "2-digit", hour12: false })}`),
-    sted: (e: Arrangement) => e.data.sted ?? (e.data.digital ? (sprak === "en" ? "Online" : "Digitalt") : ""),
+    date: (d: Date) => f(d, { day: "numeric", month: "long", year: "numeric" }),
+    dateShort: (d: Date) => f(d, { day: "numeric", month: "short" }),
+    clock: (d: Date) => (lang === "en" ? f(d, { hour: "2-digit", minute: "2-digit", hour12: false }) : formatClock(d)),
+    time: (e: EventPost) => (e.data.heldag ? (lang === "en" ? "All day" : "Hele dagen") : `${lang === "en" ? "" : "kl. "}${f(e.data.start, { hour: "2-digit", minute: "2-digit", hour12: false })}`),
+    place: (e: EventPost) => e.data.sted ?? (e.data.digital ? (lang === "en" ? "Online" : "Digitalt") : ""),
   };
 };
 /** Intern adresse på språket: /nytt/ → /en/news/ på engelsk. */
-export const sti = (sprak: Sprak, u: string) => url(sprak === "en" ? `/en${tilEngelsk(u)}` : u);
+export const localPath = (lang: Lang, u: string) => url(lang === "en" ? `/en${toEnglish(u)}` : u);

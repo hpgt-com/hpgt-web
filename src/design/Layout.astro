@@ -1,5 +1,5 @@
 ---
-import Pil from "../components/Pil.astro";
+import Arrow from "../components/Arrow.astro";
 import Head from "../components/Head.astro";
 import ProtoBanner from "../components/ProtoBanner.astro";
 import "../components/proto.css";
@@ -7,76 +7,77 @@ import "@fontsource-variable/inter-tight/index.css";
 import "@fontsource/ibm-plex-mono/500.css";
 import "@fontsource/ibm-plex-mono/600.css";
 import "./style.css";
-import { site, meny, url, ekstern } from "../lib/site";
-import { T, sideInfo, engelskeStier, lenkeFor, menyTekst, tilEngelsk } from "../lib/i18n";
-import { seksjonFor, alleSeksjoner, seksjonsHref } from "../lib/seksjoner";
+import { site, menu, url, isExternal } from "../lib/site";
+import { T, pageInfo, englishPaths, linkFor, menuLabel, toEnglish } from "../lib/i18n";
+import { sectionFor, allSections, sectionHref } from "../lib/sections";
 const { title, description, image, noindex = false } = Astro.props;
 // Språket bestemmes av adressen: /en/… er engelsk
-const { sti, sprak } = sideInfo(Astro.url.pathname);
-const t = T[sprak];
-const engelske = await engelskeStier();
-const finnes = engelske.has(sti);
+const { path, lang } = pageInfo(Astro.url.pathname);
+const t = T[lang];
+const english = await englishPaths();
+const hasEnglish = english.has(path);
 // Språkbryteren går til samme side på det andre språket, eller til forsiden hvis siden ikke er oversatt
 // «Fant ikke siden» (/404/) har ingen egen adresse å bytte til, så bryteren går til forsiden.
-const tilNorsk = url(sti === "/404/" ? "/" : sti);
-const tilEngelskSide = url(finnes ? `/en${tilEngelsk(sti)}` : "/en/");
-const visBryter = engelske.has("/");
-const lenk = (u: string) => lenkeFor(sprak, u, engelske);
+const norwegianHref = url(path === "/404/" ? "/" : path);
+const englishHref = url(hasEnglish ? `/en${toEnglish(path)}` : "/en/");
+const showSwitch = english.has("/");
+const href = (u: string) => linkFor(lang, u, english);
 // Sider i en seksjon (For piloter, Klubben, Kurs) markerer seksjonen i toppmenyen, f.eks. referater under Klubben, ikke Nytt
-const seksjon = await seksjonFor(sti, sprak);
+const section = await sectionFor(path, lang);
 // Toppmenyens punkter med undersider får et nedtrekkspanel (PC) og vises som tre på mobil
-const seksjoner = await alleSeksjoner(sprak);
-const aktiv = (u: string) => !ekstern(u) && (seksjon ? u === seksjon.url : u === "/" ? sti === "/" : sti.startsWith(u));
+const sections = await allSections(lang);
+const isActive = (u: string) => !isExternal(u) && (section ? u === section.url : u === "/" ? path === "/" : path.startsWith(u));
 ---
 <!doctype html>
-<html lang={sprak}>
-<head><Head title={title} description={description} image={image} sprak={sprak} sti={sti} alternativ={finnes} noindex={noindex} /></head>
+<html lang={lang}>
+<head><Head title={title} description={description} image={image} lang={lang} path={path} alternate={hasEnglish} noindex={noindex} /></head>
 <body>
-  <a class="skip" href="#innhold">{t.hopp}</a>
+  <a class="skip" href="#innhold">{t.skip}</a>
   <ProtoBanner />
   <header class="top">
     <div class="wrap top__in">
-      <a class="brand" href={url(sprak === "en" ? "/en/" : "/")}>
+      <a class="brand" href={url(lang === "en" ? "/en/" : "/")}>
         <img src={url("/assets/img/hpgt-logo.png")} alt="" width="36" height="36" />
         <span><b>HPGT</b><small>Harstad Hang og Paragliderklubb</small></span>
       </a>
-      <a class="sok-knapp" href={url(sprak === "en" ? "/en/search/" : "/sok/")} aria-label={t.sok} title={t.sok}><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2" /><path d="M15.5 15.5 21 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg></a>
-      {visBryter && <nav class="sprakvalg" aria-label="Språk / Language">
-        <a href={tilNorsk} lang="nb" hreflang="nb" aria-current={sprak === "nb" ? "true" : undefined} title="Norsk">NO</a>
-        <a href={tilEngelskSide} lang="en" hreflang="en" aria-current={sprak === "en" ? "true" : undefined} title={finnes || sprak === "en" ? "English" : "English (this page is only in Norwegian – opens the English front page)"}>EN</a>
+      <a class="search-button" href={url(lang === "en" ? "/en/search/" : "/sok/")} aria-label={t.search} title={t.search}><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2" /><path d="M15.5 15.5 21 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg></a>
+      {showSwitch && <nav class="lang-switch" aria-label="Språk / Language">
+        <a href={norwegianHref} lang="nb" hreflang="nb" aria-current={lang === "nb" ? "true" : undefined} title="Norsk">NO</a>
+        <a href={englishHref} lang="en" hreflang="en" aria-current={lang === "en" ? "true" : undefined} title={hasEnglish || lang === "en" ? "English" : "English (this page is only in Norwegian – opens the English front page)"}>EN</a>
       </nav>}
-      <button class="tema-bryter" type="button" role="switch" aria-checked="false" aria-label={t.morkTema} data-tema-knapp hidden><span class="tema-bryter__knott" aria-hidden="true"></span></button>
-      <button class="menu-btn" type="button" data-menu-button aria-expanded="false" aria-controls="nav">{t.meny}</button>
-      <nav id="nav" class="nav" aria-label={t.hovedmeny}>
-        {meny.hoved.map((m, i) => {
-          const s = seksjoner.get(m.url);
-          const topp = <a href={lenk(m.url)} aria-current={aktiv(m.url) ? "page" : undefined}>{menyTekst(sprak, m.tekst)}{ekstern(m.url) && <> <Pil /></>}</a>;
-          if (!s) return topp;
-          const id = `undermeny-${i}`;
-          return <div class="nav__gruppe" data-nedtrekk>
-            {topp}
-            <button class="nav__pil" type="button" aria-expanded="false" aria-controls={id} aria-label={`${menyTekst(sprak, m.tekst)}: ${t.visUndersider}`}><span aria-hidden="true">▾</span></button>
-            <ul class="nav__under" id={id}>
-              {[{ tekst: s.forste, url: s.url }, ...s.sider].map((l) => <li><a href={seksjonsHref(s, l.url, sprak, engelske)} aria-current={sti === l.url ? "page" : undefined}>{s.url === "/kurs/" && l.url !== "/kurs/" ? l.tekst : menyTekst(sprak, l.tekst)}{ekstern(l.url) && <> <Pil /></>}</a></li>)}
+      <button class="theme-switch" type="button" role="switch" aria-checked="false" aria-label={t.darkMode} data-theme-button hidden><span class="theme-switch__knob" aria-hidden="true"></span></button>
+      <button class="menu-btn" type="button" data-menu-button aria-expanded="false" aria-controls="nav">{t.menu}</button>
+      <nav id="nav" class="nav" aria-label={t.mainMenu}>
+        {menu.hoved.map((m, i) => {
+          const s = sections.get(m.url);
+          const top = <a href={href(m.url)} aria-current={isActive(m.url) ? "page" : undefined}>{menuLabel(lang, m.tekst)}{isExternal(m.url) && <> <Arrow /></>}</a>;
+          if (!s) return top;
+          const id = `submenu-${i}`;
+          return <div class="nav__group" data-dropdown>
+            {top}
+            <button class="nav__toggle" type="button" aria-expanded="false" aria-controls={id} aria-label={`${menuLabel(lang, m.tekst)}: ${t.showSubpages}`}><span aria-hidden="true">▾</span></button>
+            <ul class="nav__sub" id={id}>
+              {[{ tekst: s.forste, url: s.url }, ...s.sider].map((l) => <li><a href={sectionHref(s, l.url, lang, english)} aria-current={path === l.url ? "page" : undefined}>{s.url === "/kurs/" && l.url !== "/kurs/" ? l.tekst : menuLabel(lang, l.tekst)}{isExternal(l.url) && <> <Arrow /></>}</a></li>)}
             </ul>
           </div>;
         })}
       </nav>
     </div>
   </header>
+  {/* Ankeret #innhold beholdes (det er en del av adressen når noen lenker til hopp-lenken) */}
   <main id="innhold"><slot /></main>
   <footer class="foot">
     <div class="wrap foot__grid">
       <div><p class="foot__logo">HPGT</p><p class="muted">Harstad Hang og Paragliderklubb<br />Org.nr. {site.orgnr} · Vipps {site.vipps}<br /><a href={`mailto:${site.epost.leder}`}>{site.epost.leder}</a></p></div>
       {/* Bunnen viser de samme seksjonene som toppmenyen (meny.json → seksjoner), som et nettstedskart */}
-      {meny.seksjoner.map((s) => <nav aria-label={menyTekst(sprak, s.tekst)}><h2>{menyTekst(sprak, s.tekst)}</h2>
-        {[{ tekst: s.forste, url: s.url }, ...s.sider].map((m) => <a href={lenk(m.url)}>{menyTekst(sprak, m.tekst)}{ekstern(m.url) && <> <Pil /></>}</a>)}</nav>)}
-      <nav aria-label={t.folg}><h2>{t.folg}</h2><a href={site.facebook}>Facebook&nbsp;<Pil /></a><a href={site.instagram}>Instagram&nbsp;<Pil /></a></nav>
+      {menu.seksjoner.map((s) => <nav aria-label={menuLabel(lang, s.tekst)}><h2>{menuLabel(lang, s.tekst)}</h2>
+        {[{ tekst: s.forste, url: s.url }, ...s.sider].map((m) => <a href={href(m.url)}>{menuLabel(lang, m.tekst)}{isExternal(m.url) && <> <Arrow /></>}</a>)}</nav>)}
+      <nav aria-label={t.follow}><h2>{t.follow}</h2><a href={site.facebook}>Facebook&nbsp;<Arrow /></a><a href={site.instagram}>Instagram&nbsp;<Arrow /></a></nav>
     </div>
-    <div class="wrap foot__end"><p class="quote">«{site.sitat.tekst}» <span>– {site.sitat.kilde}</span></p><p class="muted">{site.statistikk ? t.sporingStatistikk : t.sporing} <a class="foot__meld" href={lenk("/personvern/")}>{t.personvern}</a>{(site as { driftsstatus?: string }).driftsstatus && <> · <a class="foot__meld" href={(site as { driftsstatus?: string }).driftsstatus}>{t.driftsstatus}</a></>}</p>
-      {/* «Meld feil»: tar med adressen til siden man er på (MeldFeilSkjema.astro) */}
+    <div class="wrap foot__end"><p class="quote">«{site.sitat.tekst}» <span>– {site.sitat.kilde}</span></p><p class="muted">{site.statistikk ? t.noTrackingStats : t.noTracking} <a class="foot__link" href={href("/personvern/")}>{t.privacy}</a>{(site as { driftsstatus?: string }).driftsstatus && <> · <a class="foot__link" href={(site as { driftsstatus?: string }).driftsstatus}>{t.serviceStatus}</a></>}</p>
+      {/* «Meld feil»: tar med adressen til siden man er på (ReportErrorForm.astro) */}
       {/* Engelske sider: si at teksten er maskinoversatt, og be om å få høre om feil */}
-      <p class="muted">{sprak === "en" && <>The English version is translated automatically from Norwegian. </>}<a class="foot__meld" data-goatcounter-click="report-error" href={`${url(sprak === "en" ? "/en/report-error/" : "/meld-feil/")}?side=${encodeURIComponent(Astro.url.pathname)}`}>{t.meldFeil}</a></p></div>
+      <p class="muted">{lang === "en" && <>The English version is translated automatically from Norwegian. </>}<a class="foot__link" data-goatcounter-click="report-error" href={`${url(lang === "en" ? "/en/report-error/" : "/meld-feil/")}?side=${encodeURIComponent(Astro.url.pathname)}`}>{t.reportError}</a></p></div>
   </footer>
 </body>
 </html>
