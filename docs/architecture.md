@@ -28,7 +28,7 @@ flowchart LR
   subgraph GitHub["GitHub (org hpgt-com)"]
     CMS[Pages CMS<br/>GitHub-app, bare dette repoet]
     REPO[(hpgt-web<br/>innhold + kode)]
-    ACT[GitHub Actions<br/>oversett → bygg → publiser]
+    ACT[GitHub Actions<br/>translate → build → publish]
   end
 
   ISS[(Privat repo<br/>form-submissions<br/>saker, etikett radioid og feedback)]
@@ -69,9 +69,9 @@ sequenceDiagram
   actor Ed as Redaktør
   participant CMS as Pages CMS
   participant Repo as GitHub (main)
-  participant O as Jobben «oversett»
-  participant Bg as Jobben «bygg»
-  participant P as Jobben «publiser»
+  participant O as Jobben «translate»
+  participant Bg as Jobben «build»
+  participant P as Jobben «publish»
   participant CF as Cloudflare
 
   Ed->>CMS: Lagre
@@ -87,19 +87,19 @@ sequenceDiagram
   Note over Ed,CF: Tar 2–3 minutter. Feiler et steg, blir forrige versjon stående.
 ```
 
-Når en redaktør lagrer, committer Pages CMS til `main`, og «Bygg og publiser» starter. `oversett` henter de forrige
-oversettelsene og oversetter bare ny eller endret tekst. `bygg` bygger og kontrollerer nettstedet. `publiser` setter inn
+Når en redaktør lagrer, committer Pages CMS til `main`, og «Bygg og publiser» starter. `translate` henter de forrige
+oversettelsene og oversetter bare ny eller endret tekst. `build` bygger og kontrollerer nettstedet. `publish` setter inn
 skjemaenes ID-er og publiserer med Wrangler. Det tar 2–3 minutter, og feiler et steg, blir forrige versjon stående.
 
-De tre jobbene er skilt fra hverandre med vilje (`.github/workflows/deploy.yml`). Før dem kjører jobben `vakt`, som
+De tre jobbene er skilt fra hverandre med vilje (`.github/workflows/deploy.yml`). Før dem kjører jobben `guard`, som
 stopper publiseringen hvis en commit uten pull request har endret noe annet enn innholdet (se
 [operations.md](operations.md#når-publiseringen-feiler)).
 
 | Jobb | Har tilgang til | Kjører kode fra repoet? |
 |---|---|---|
-| `oversett` | En kortvarig innlogging hos Anthropic (miljøet `oversetting`) | Bare oversettelsesskriptet, ikke pakkene til nettstedet |
-| `bygg` | Ingen hemmeligheter | Ja (npm-pakker og bygget) |
-| `publiser` | Cloudflare-tokenet (miljøet `produksjon`) | Nei, bare Wrangler, installert fra `deploy/package-lock.json` uten installasjonsskript |
+| `translate` | En kortvarig innlogging hos Anthropic (miljøet `oversetting`) | Bare oversettelsesskriptet, ikke pakkene til nettstedet |
+| `build` | Ingen hemmeligheter | Ja (npm-pakker og bygget) |
+| `publish` | Cloudflare-tokenet (miljøet `produksjon`) | Nei, bare Wrangler, installert fra `deploy/package-lock.json` uten installasjonsskript |
 
 Pull requests (også fra administratorer) bygges og kontrolleres av `pr-check.yml`, `security.yml` og
 `code-scanning.yml` før de kan merges, men publiseres ikke.

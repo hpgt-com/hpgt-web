@@ -16,7 +16,7 @@ med vilje.
 - Lagring går rett til `main`, så appen har et unntak i regelsettet for `main`. Feil fanges av kontrollen i bygget, og
   alt kan angres i Git.
 - På grunn av unntaket kan en kapret redaktørkonto eller et innbrudd hos Pages CMS endre kode. Publiseringsflyten
-  stopper derfor hvis en commit uten pull request endrer noe utenfor innholdet (jobben `vakt`), og opplastinger er
+  stopper derfor hvis en commit uten pull request endrer noe utenfor innholdet (jobben `guard`), og opplastinger er
   begrenset til bilder og PDF-er.
 - Felt som ikke står i `.pages.yml`, fjernes når noen lagrer. Tekniske felt må stå der som `hidden`.
 
