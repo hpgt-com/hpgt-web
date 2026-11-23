@@ -206,7 +206,6 @@ Detaljer: [SECURITY.md](../SECURITY.md).
 | `docs/` | Denne dokumentasjonen |
 | `public/` | Filer som publiseres som de er: bilder, skript, `_headers`, `_redirects`, `robots.txt` |
 | `scripts/` | Oversettelse, miniatyrbilder for video, skalering av bilder, nettstedskart, WordPress-import (engangs) |
-| `settings/` | Innstillinger for organisasjonen og repoet som ikke kan ligge i repoet (settes av en eier av organisasjonen) |
 | `src/content/` | Innholdet (Markdown) |
 | `src/data/` | Innhold og innstillinger (JSON) |
 | `src/design/` | Designet «Fjord+» |

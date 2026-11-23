@@ -33,7 +33,7 @@ glemt.
 | Bygg og publisering (`.github/workflows/`) | Cloudflare: egne domener (custom domains) på Workeren og Turnstile-widgeten |
 | Cloudflare-oppsettet for Workeren (`wrangler.jsonc`), også at `workers.dev`-adressen og forhåndsvisningsadressene er slått av | GitHub-miljøene og variablene deres |
 | Sikkerhetshoder og videresendinger (`public/_headers`, `_redirects`) | GitHub-appene og hvor de er installert |
-| Regelsettet for `main` (`settings/ruleset-main.json`, settes med `settings/apply.sh`), også unntaket for Pages CMS-appen (ID 866529) | Pages CMS: hvem som er invitert |
+| Regelsettet for `main`, også unntaket for Pages CMS-appen, i `github.json` i `hpgt-com/operations` (settes med `scripts/apply-settings.mjs` der) | Pages CMS: hvem som er invitert |
 | Hva redaktørene ser (`.pages.yml`) | Anthropic: federation-regelen og tjenestekontoen |
 | DNS, videresendingen fra `www`, DNSSEC og soneinnstillingene (OpenTofu i `infra/` i hpgt-com/operations) | |
 
@@ -193,10 +193,9 @@ Bruk Turnstile-widgeten «hpgt.com skjemaer» med en ny `action`, gi sakene en e
 `src/components/Head.astro` og i `public/_headers`, og sjekk `action` i Workeren. Ingen ny widget eller nye nøkler.
 
 ### Sette regelsettet for `main`
-`settings/apply.sh` kjøres av en eier av organisasjonen fra `hpgt-com/repo-template`. Regelsettet i malen har ikke
-unntaket for Pages CMS-appen, så bruk `settings/ruleset-main.json` fra dette repoet, eller legg til unntaket igjen
-etterpå (Settings → Rules → Main protection → Bypass list → Pages CMS-appen, «Always»). Uten det feiler lagring i
-Pages CMS med «Changes must be made through a pull request».
+Regelsettet, også unntaket for Pages CMS-appen, står i `github.json` i `hpgt-com/operations`, og settes med
+`node scripts/apply-settings.mjs --apply` der (se README-en i operations). Uten unntaket feiler lagring i Pages CMS med
+«Changes must be made through a pull request».
 
 ### Rulle tilbake en publisering
 - **Raskest:** Cloudflare → Workers & Pages → `hpgt-web` → **Deployments** → velg forrige versjon → **Rollback**.
