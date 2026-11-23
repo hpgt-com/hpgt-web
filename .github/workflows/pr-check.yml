@@ -41,6 +41,9 @@ jobs:
       # Workeren for RadioID-skjemaet skal i det minste være gyldig JavaScript.
       - run: node --check worker/index.js
 
+      # Enhetstester for skjemaendepunktet (Node-testkjøreren, uten nettleser eller nettverk).
+      - run: npm test
+
       # Alle interne lenker og bilder i den bygde siden peker til noe som finnes.
       - run: node scripts/sjekk-lenker.mjs
 

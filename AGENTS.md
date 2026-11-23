@@ -16,6 +16,7 @@ filer. Den eneste serverkoden er skjemaendepunktet i `worker/`. Arkitektur, drif
 | `npm run dev` | Utviklingsserver |
 | `npm run build` | Før hver pull request: bygger til `dist/` og kontrollerer innholdet |
 | `npm run check` | Etter endringer i koden (`astro check`) |
+| `npm test` | Etter endringer i `worker/`: enhetstestene i `test/` |
 | `npm run sjekk` | Etter bygget: interne lenker og tilgjengelighet (axe) i lys og mørk visning |
 
 ## Regler
