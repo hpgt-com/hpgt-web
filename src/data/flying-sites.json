@@ -1,12 +1,12 @@
 {
- "kilde": "https://flysteder.hpgt.com/",
- "hentet": "2026-11-10",
- "steder": [
+ "source": "https://flysteder.hpgt.com/",
+ "fetched": "2026-11-10",
+ "sites": [
   {
    "id": "blahatten",
-   "navn": "Blåhatten",
-   "moh": 475,
-   "retninger": [
+   "name": "Blåhatten",
+   "elevation": 475,
+   "directions": [
     "SØ",
     "S"
    ],
@@ -14,9 +14,9 @@
   },
   {
    "id": "dale",
-   "navn": "Dale",
-   "moh": 75,
-   "retninger": [
+   "name": "Dale",
+   "elevation": 75,
+   "directions": [
     "S",
     "SV"
    ],
@@ -24,18 +24,18 @@
   },
   {
    "id": "daleskallen",
-   "navn": "Daleskallen",
-   "moh": 176,
-   "retninger": [
+   "name": "Daleskallen",
+   "elevation": 176,
+   "directions": [
     "V"
    ],
    "url": "https://flysteder.hpgt.com/flysteder/daleskallen/"
   },
   {
    "id": "elgen",
-   "navn": "Elgen",
-   "moh": 497,
-   "retninger": [
+   "name": "Elgen",
+   "elevation": 497,
+   "directions": [
     "N",
     "NØ",
     "Ø",
@@ -49,9 +49,9 @@
   },
   {
    "id": "finnslettheia",
-   "navn": "Finnslettheia",
-   "moh": 502,
-   "retninger": [
+   "name": "Finnslettheia",
+   "elevation": 502,
+   "directions": [
     "Ø",
     "SØ"
    ],
@@ -59,9 +59,9 @@
   },
   {
    "id": "haugfjellet",
-   "navn": "Haugfjellet",
-   "moh": 523,
-   "retninger": [
+   "name": "Haugfjellet",
+   "elevation": 523,
+   "directions": [
     "NØ",
     "Ø",
     "SØ",
@@ -71,9 +71,9 @@
   },
   {
    "id": "heia",
-   "navn": "Heia",
-   "moh": 475,
-   "retninger": [
+   "name": "Heia",
+   "elevation": 475,
+   "directions": [
     "N",
     "NØ",
     "Ø",
@@ -84,9 +84,9 @@
   },
   {
    "id": "hinnstein",
-   "navn": "Hinnstein",
-   "moh": 558,
-   "retninger": [
+   "name": "Hinnstein",
+   "elevation": 558,
+   "directions": [
     "Ø",
     "SØ"
    ],
@@ -94,9 +94,9 @@
   },
   {
    "id": "hogfjellet",
-   "navn": "Høgfjellet",
-   "moh": 617,
-   "retninger": [
+   "name": "Høgfjellet",
+   "elevation": 617,
+   "directions": [
     "N",
     "NØ",
     "NV"
@@ -105,9 +105,9 @@
   },
   {
    "id": "keipen",
-   "navn": "Keipen",
-   "moh": 475,
-   "retninger": [
+   "name": "Keipen",
+   "elevation": 475,
+   "directions": [
     "SØ",
     "S",
     "SV",
@@ -117,9 +117,9 @@
   },
   {
    "id": "kilhusasen",
-   "navn": "Kilhusåsen",
-   "moh": 280,
-   "retninger": [
+   "name": "Kilhusåsen",
+   "elevation": 280,
+   "directions": [
     "V",
     "NV"
    ],
@@ -127,9 +127,9 @@
   },
   {
    "id": "lundenesgalten",
-   "navn": "Lundenesgalten",
-   "moh": 780,
-   "retninger": [
+   "name": "Lundenesgalten",
+   "elevation": 780,
+   "directions": [
     "Ø",
     "SØ"
    ],
@@ -137,9 +137,9 @@
   },
   {
    "id": "mela-aksla",
-   "navn": "Melå aksla",
-   "moh": 540,
-   "retninger": [
+   "name": "Melå aksla",
+   "elevation": 540,
+   "directions": [
     "N",
     "NØ",
     "Ø",
@@ -152,9 +152,9 @@
   },
   {
    "id": "nona",
-   "navn": "Nona",
-   "moh": 999,
-   "retninger": [
+   "name": "Nona",
+   "elevation": 999,
+   "directions": [
     "NØ",
     "Ø",
     "SØ",
@@ -166,9 +166,9 @@
   },
   {
    "id": "nontua",
-   "navn": "Nontua",
-   "moh": 564,
-   "retninger": [
+   "name": "Nontua",
+   "elevation": 564,
+   "directions": [
     "N",
     "NØ",
     "Ø",
@@ -179,9 +179,9 @@
   },
   {
    "id": "ramnskogheia",
-   "navn": "Ramnskogheia",
-   "moh": 485,
-   "retninger": [
+   "name": "Ramnskogheia",
+   "elevation": 485,
+   "directions": [
     "N",
     "NØ",
     "Ø",
@@ -195,9 +195,9 @@
   },
   {
    "id": "reinebringen",
-   "navn": "Reinebringen",
-   "moh": 484,
-   "retninger": [
+   "name": "Reinebringen",
+   "elevation": 484,
+   "directions": [
     "N",
     "NØ",
     "Ø",
@@ -208,9 +208,9 @@
   },
   {
    "id": "reinfjellet",
-   "navn": "Reinfjellet",
-   "moh": 893,
-   "retninger": [
+   "name": "Reinfjellet",
+   "elevation": 893,
+   "directions": [
     "NØ",
     "Ø",
     "SØ",
@@ -220,9 +220,9 @@
   },
   {
    "id": "ryten",
-   "navn": "Ryten",
-   "moh": 510,
-   "retninger": [
+   "name": "Ryten",
+   "elevation": 510,
+   "directions": [
     "Ø",
     "SØ",
     "S",
@@ -233,9 +233,9 @@
   },
   {
    "id": "rodmoldheia",
-   "navn": "Rødmoldheia",
-   "moh": 621,
-   "retninger": [
+   "name": "Rødmoldheia",
+   "elevation": 621,
+   "directions": [
     "SØ",
     "S",
     "SV",
@@ -245,9 +245,9 @@
   },
   {
    "id": "samaasen",
-   "navn": "Samaåsen",
-   "moh": 171,
-   "retninger": [
+   "name": "Samaåsen",
+   "elevation": 171,
+   "directions": [
     "V",
     "NV"
    ],
@@ -255,9 +255,9 @@
   },
   {
    "id": "sollifjellet",
-   "navn": "Sollifjellet",
-   "moh": 563,
-   "retninger": [
+   "name": "Sollifjellet",
+   "elevation": 563,
+   "directions": [
     "N",
     "NØ",
     "Ø",
@@ -269,9 +269,9 @@
   },
   {
    "id": "steinsasen",
-   "navn": "Steinsåsen",
-   "moh": 488,
-   "retninger": [
+   "name": "Steinsåsen",
+   "elevation": 488,
+   "directions": [
     "SV",
     "V",
     "NV"
@@ -280,9 +280,9 @@
   },
   {
    "id": "storbakkan",
-   "navn": "Storbakkan",
-   "moh": 340,
-   "retninger": [
+   "name": "Storbakkan",
+   "elevation": 340,
+   "directions": [
     "Ø",
     "SØ",
     "S",
@@ -292,9 +292,9 @@
   },
   {
    "id": "storhornet",
-   "navn": "Storhornet",
-   "moh": 609,
-   "retninger": [
+   "name": "Storhornet",
+   "elevation": 609,
+   "directions": [
     "N",
     "NØ",
     "Ø",
@@ -305,9 +305,9 @@
   },
   {
    "id": "storlitinden",
-   "navn": "Storlitinden",
-   "moh": 597,
-   "retninger": [
+   "name": "Storlitinden",
+   "elevation": 597,
+   "directions": [
     "SØ",
     "S",
     "SV",
@@ -317,9 +317,9 @@
   },
   {
    "id": "svartdalsasen",
-   "navn": "Svartdalsåsen",
-   "moh": 340,
-   "retninger": [
+   "name": "Svartdalsåsen",
+   "elevation": 340,
+   "directions": [
     "V",
     "NV"
    ],
@@ -327,9 +327,9 @@
   },
   {
    "id": "saetertinden",
-   "navn": "Sætertinden",
-   "moh": 1089,
-   "retninger": [
+   "name": "Sætertinden",
+   "elevation": 1089,
+   "directions": [
     "NØ",
     "Ø",
     "SØ",
@@ -340,9 +340,9 @@
   },
   {
    "id": "trastad",
-   "navn": "Trastad",
-   "moh": 158,
-   "retninger": [
+   "name": "Trastad",
+   "elevation": 158,
+   "directions": [
     "SV",
     "V"
    ],
@@ -350,9 +350,9 @@
   },
   {
    "id": "utstrand",
-   "navn": "Utstrand",
-   "moh": 13,
-   "retninger": [
+   "name": "Utstrand",
+   "elevation": 13,
+   "directions": [
     "SV",
     "V"
    ],
@@ -360,9 +360,9 @@
   },
   {
    "id": "vetefjellet",
-   "navn": "Vetefjellet",
-   "moh": 527,
-   "retninger": [
+   "name": "Vetefjellet",
+   "elevation": 527,
+   "directions": [
     "Ø",
     "SØ",
     "S"
@@ -371,9 +371,9 @@
   },
   {
    "id": "arbostadtinden",
-   "navn": "Årbostadtinden",
-   "moh": 1179,
-   "retninger": [
+   "name": "Årbostadtinden",
+   "elevation": 1179,
+   "directions": [
     "N",
     "NØ",
     "Ø",

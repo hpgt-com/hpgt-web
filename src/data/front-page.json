@@ -1,0 +1,112 @@
+{
+  "title": "Fly med oss i Harstad",
+  "lead": "Harstad Hang- og Paragliderklubb samler piloter i Sør-Troms og nordre Nordland. Vi holder kurs, flyr tandem og drar på tur så fort været tillater det – bli med!",
+  "image": "/media/archive/2026/04/hpgt1.jpg",
+  "caption": "Klubbtur over Harstad",
+  "buttons": [
+    {
+      "text": "Nybegynnerkurs",
+      "url": "/kurs/paragliding-pp2/"
+    },
+    {
+      "text": "Se flysteder",
+      "url": "https://flysteder.hpgt.com/"
+    }
+  ],
+  "cards": [
+    {
+      "title": "Lær å fly",
+      "text": "Nybegynnerkurs til PP2 i juni. 6 plasser – førstemann til mølla.",
+      "url": "/kurs/paragliding-pp2/",
+      "image": "/media/archive/2019/01/20190803_175328.jpg",
+      "icon": "kurs"
+    },
+    {
+      "title": "Tandemtur",
+      "text": "Prøv det sammen med en erfaren tandempilot. 1 950 kr.",
+      "url": "/tandem/",
+      "image": "/media/archive/2026/04/tandem-2.jpg",
+      "icon": "tandem"
+    },
+    {
+      "title": "Flysteder",
+      "text": "Kart over startsteder med vindretning, nivå, vær og luftrom.",
+      "url": "https://flysteder.hpgt.com/",
+      "image": "/media/archive/2026/09/flysteder.hpgt_.com_.jpg",
+      "icon": "kart"
+    },
+    {
+      "title": "Bli medlem",
+      "text": "Meld deg inn via Min idrett, eller støtt oss med Grasrotandelen og Vipps.",
+      "url": "/klubben/stotte/",
+      "image": "/media/archive/2026/04/hpgt5.jpg",
+      "icon": "medlem"
+    }
+  ],
+  "shortcuts": [
+    {
+      "text": "Værstasjon Heia",
+      "url": "http://holfuy.com/no/data/490"
+    },
+    {
+      "text": "Lenker og vær",
+      "url": "/for-piloter/vaer/"
+    },
+    {
+      "text": "NOTAM ved vinsjing",
+      "url": "/for-piloter/notam/"
+    },
+    {
+      "text": "RadioID-register",
+      "url": "/for-piloter/radioid/"
+    },
+    {
+      "text": "Møter og referater",
+      "url": "/nytt/kategori/moter-og-referater/"
+    }
+  ],
+  "kicker": "Fjell · fjord · flyging",
+  "headline": "Luft under vingene.",
+  "headlineLead": "Vi flyr paraglider, speedglider og paramotor i Harstad og omegn. Bli med på kurs, prøv tandem eller bli kjent med klubbens flymiljø.",
+  "heroImage": "/media/archive/2026/04/tandem-2.jpg",
+  "heroImageCredit": "Fra klubbens bildesamling",
+  "paths": [
+    {
+      "verb": "Lær",
+      "title": "Paragliderkurs",
+      "text": "Fra første øvelse på bakken til PP2-nivå. Se klubbens kursinformasjon.",
+      "url": "/kurs/paragliding-pp2/"
+    },
+    {
+      "verb": "Opplev",
+      "title": "Fly tandem",
+      "text": "Opplev Harstad fra lufta sammen med en av klubbens tandempiloter.",
+      "url": "/tandem/"
+    },
+    {
+      "verb": "Delta",
+      "title": "Fly med oss",
+      "text": "Finn fellesskapet og inngangen til klubbens flystedsoversikt.",
+      "url": "/for-piloter/"
+    }
+  ],
+  "course": {
+    "title": "Nybegynnerkurs i paragliding (PP2)",
+    "text": "Kurset tar deg gradvis fra helt ukjent med sporten til PP2-nivå. Hjelm, pensum og lån av komplett kursutstyr er inkludert.",
+    "start": "2026-06-08",
+    "end": "2026-06-21",
+    "deadline": "2026-05-31",
+    "price": "15 000 kr",
+    "seats": "6",
+    "url": "/kurs/paragliding-pp2/",
+    "afterCourse": "Neste kurs blir annonsert her og i Facebook-gruppa. Ta gjerne kontakt hvis du vil stå på interesselisten."
+  },
+  "gallery": [
+    "/media/archive/2026/03/image_editor_output_image-873138208-17743579660303691002794240163423.jpeg",
+    "/media/archive/2026/04/received_8414391415615884463651169840206952.jpeg",
+    "/media/archive/2026/04/messenger_creation_88ba6466-589a-4c38-bdb7-88ae30be6a10697484271562761264.jpeg",
+    "/media/archive/2026/03/received_24415437096123797173128654438448749.jpeg",
+    "/media/archive/2026/04/hpgt5.jpg",
+    "/media/archive/2026/03/received_10242533524294022014510373500677286.jpeg"
+  ]
+}
