@@ -46,5 +46,7 @@ can, but this is a volunteer club project.
   put an HTML page or a script on hpgt.com.
 - **Publishing:** Wrangler is pinned to a fixed version in the `publiser` job, since that job holds the Cloudflare
   token.
-- **Content security:** strict CSP without `unsafe-inline` (`public/_headers`), no third-party scripts except
+- **Content security:** strict CSP with `default-src 'none'` and without `unsafe-inline` (`public/_headers`, and the same
+  policy as a meta tag in `src/components/Head.astro`), `Cross-Origin-Opener-Policy: same-origin` and
+  `Cross-Origin-Resource-Policy: same-site`, no third-party scripts except
   Cloudflare Turnstile on the RadioID page, no tracking, no cookies.
