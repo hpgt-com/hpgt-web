@@ -4,7 +4,7 @@
 // TZID=Europe/Oslo. Arrangementer eldre enn ett år tas ikke med.
 import { hentArrangementer, lenke, site, utdrag, type Arrangement } from "../../lib/site";
 
-const tekst = (s = "") => s.replace(/\\/g, "\\\\").replace(/;/g, "\;").replace(/,/g, "\\,").replace(/\r?\n/g, "\\n");
+const tekst = (s = "") => s.replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\r?\n/g, "\\n");
 // Linjer over 75 byte brytes (RFC 5545 3.1), uten å dele et tegn i to
 function brett(linje: string) {
   const ut: string[] = [];
