@@ -7,7 +7,7 @@ the code. The diagrams are text (Mermaid) and render directly on GitHub.
 |---|---|---|
 | [architecture.md](architecture.md) | How the site is built and fits together, with diagrams | Anyone who needs to understand or change it |
 | [operations.md](operations.md) | Accounts, secrets, routines and troubleshooting | Administrators |
-| [adr/](adr/README.md) | Decisions and why they were made | Anyone considering a significant change |
+| [decisions/](decisions/README.md) | Decisions and why they were made | Anyone considering a significant change |
 | [../SECURITY.md](../SECURITY.md) | Security measures, and how to report a vulnerability | Everyone |
 | [../README.md](../README.md) | Getting started, folder structure for images, the English version | Developers |
 
@@ -23,5 +23,5 @@ Editors need none of this: they use Pages CMS and the page `/klubben/bidra/`.
 - **Same PR.** If you change setup, a workflow or an account, update the documentation in the same pull request.
   Changes made in a dashboard (Cloudflare, GitHub settings) go into [operations.md](operations.md) the same day.
 - **Decisions get an ADR.** Larger choices (a new service, new access, a new way of publishing) are described in
-  [adr/](adr/README.md).
+  [decisions/](decisions/README.md).
 - **Never secrets.** The repository is public. Write where a secret lives, never its value.
