@@ -50,7 +50,7 @@ for (const path of ["/for-piloter/radioid/", "/meld-feil/", "/en/report-error/"]
     }
     assert.ok(!focused.includes("nettside"), `fokus: ${focused}`);
     // Turnstile er stoppet av testen (ingen eksterne verter)
-    assert.ok(page.context().blocked.some((u) => u.startsWith("https://challenges.cloudflare.com/")), "Turnstile-skriptet ble forsøkt lastet");
+    assert.ok(page.context().blocked.some((u) => new URL(u).origin === "https://challenges.cloudflare.com"), "Turnstile-skriptet ble forsøkt lastet");
   }));
 }
 
@@ -76,7 +76,7 @@ test("RadioID: gyldig innsending stopper ved menneskesjekken, og siden viser sva
 test("RadioID: ugyldig RadioID stoppes i nettleseren før noe sendes", () => withPage("/for-piloter/radioid/", async (page) => {
   const form = page.locator("form.form__fields");
   let sent = 0;
-  page.on("request", (r) => { if (r.url().includes("/api/")) sent++; });
+  page.on("request", (r) => { if (new URL(r.url()).pathname.startsWith("/api/")) sent++; });
   await form.locator("input[name=navn]").fill("Kari");
   await form.locator("input[name=radioid]").fill("XYZ");
   await form.getByRole("button", { name: "Send inn" }).click();

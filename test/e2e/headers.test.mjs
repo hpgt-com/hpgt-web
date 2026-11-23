@@ -16,6 +16,8 @@ after(() => server.close());
 const get = (path) => fetch(server.origin + path, { redirect: "manual" });
 // Direktivene i en CSP som { navn: [verdier] }
 const directives = (csp) => Object.fromEntries(csp.split(";").map((d) => d.trim().split(/\s+/)).filter((d) => d[0]).map(([n, ...v]) => [n, v]));
+// Om en kilde står i listen til et direktiv: nøyaktig lik, aldri som en del av en lengre adresse
+const allows = (sources = [], source) => sources.some((s) => s === source);
 
 function assertCommon(path, res) {
   const h = res.headers;
@@ -46,8 +48,8 @@ for (const path of PAGES) {
     const res = await get(path);
     assert.equal(res.status, path === "/finnes-ikke/" ? 404 : 200, path);
     const d = assertCommon(path, res);
-    assert.ok(!d["script-src"].includes(TURNSTILE), `${path}: Turnstile skal bare tillates på skjemasidene`);
-    assert.ok(!(d["frame-src"] ?? []).includes(TURNSTILE), path);
+    assert.ok(!allows(d["script-src"], TURNSTILE), `${path}: Turnstile skal bare tillates på skjemasidene`);
+    assert.ok(!allows(d["frame-src"], TURNSTILE), path);
   });
 }
 
@@ -56,8 +58,8 @@ for (const path of FORM_PAGES) {
     const res = await get(path);
     assert.equal(res.status, 200);
     const d = assertCommon(path, res);
-    assert.ok(d["script-src"].includes(TURNSTILE), "script-src");
-    assert.ok(d["frame-src"].includes(TURNSTILE), "frame-src");
+    assert.ok(allows(d["script-src"], TURNSTILE), "script-src");
+    assert.ok(allows(d["frame-src"], TURNSTILE), "frame-src");
     // Skjemasiden har samme CSP som resten, bortsett fra Turnstile
     const other = directives((await get("/")).headers.get("content-security-policy"));
     const strip = (v) => v.filter((x) => x !== TURNSTILE);
@@ -71,7 +73,10 @@ test("Turnstile bare på skjemasidene, også i <meta>-CSP-en", async () => {
     const html = await (await get(path)).text();
     const meta = html.match(/<meta http-equiv="Content-Security-Policy" content="([^"]+)"/)?.[1];
     assert.ok(meta, `${path}: mangler CSP i <meta>`);
-    assert.equal(meta.includes(TURNSTILE), FORM_PAGES.includes(path), path);
+    const m = directives(meta.replaceAll("&#39;", "'"));
+    const form = FORM_PAGES.includes(path);
+    assert.equal(allows(m["script-src"], TURNSTILE), form, `${path}: script-src`);
+    assert.equal(allows(m["frame-src"], TURNSTILE), form, `${path}: frame-src`);
   }
 });
 
