@@ -1,16 +1,16 @@
-# NNNN: Short title of the decision
+# NNNN: Kort tittel på beslutningen
 
-- **Status:** Proposed | Accepted | Superseded by NNNN
-- **Date:** YYYY-MM-DD
+- **Status:** Foreslått | Vedtatt | Erstattet av NNNN
+- **Dato:** YYYY-MM-DD
 
-## Context
-What problem or need led to the decision?
+## Bakgrunn
+Hvilket problem eller behov førte til beslutningen?
 
-## Decision
-What did we choose?
+## Beslutning
+Hva ble valgt?
 
-## Consequences
-What becomes easier, what becomes harder, and what must we watch?
+## Konsekvenser
+Hva blir enklere, hva blir vanskeligere, og hva må følges med på?
 
-## Alternatives considered
-Briefly what was rejected, and why.
+## Alternativer som ble vurdert
+Kort hva som ble forkastet, og hvorfor.

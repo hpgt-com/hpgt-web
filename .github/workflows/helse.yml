@@ -94,6 +94,6 @@ jobs:
 
           $problemer
 
-          Se docs/operations.md («When publishing fails» og «Watch the forms») og loggene i Cloudflare (Workers & Pages → hpgt-web → Observability). Saken lukkes av seg selv når alt er i orden igjen."
+          Se docs/operations.md («Når publiseringen feiler» og «Overvåke skjemaene») og loggene i Cloudflare (Workers & Pages → hpgt-web → Observability). Saken lukkes av seg selv når alt er i orden igjen."
           fi
           exit 1

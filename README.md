@@ -1,13 +1,13 @@
 # hpgt.com
 
-The website of Harstad Hang- og Paragliderklubb: a static [Astro](https://astro.build) site, edited in
-[Pages CMS](https://pagescms.org), published on Cloudflare.
-See **[docs/](docs/README.md)** for architecture, operations and decisions.
+Nettstedet til Harstad Hang- og Paragliderklubb: en statisk [Astro](https://astro.build)-side som redigeres i
+[Pages CMS](https://pagescms.org) og publiseres på Cloudflare.
+Arkitektur, drift og beslutninger står i **[docs/](docs/README.md)**.
 
-## For editors
-Sign in to Pages CMS, or see `/klubben/bidra/` on the site. You do not need to touch anything here.
+## For redaktører
+Logg inn i Pages CMS, eller se `/klubben/bidra/` på nettstedet. Ingenting her trenger å endres.
 
-## For developers
+## For utviklere
 ```bash
 npm install
 npm run dev                  # development server
@@ -17,72 +17,71 @@ npm run sjekk                # after a build: internal links, and accessibility 
 npm run ikoner               # makes favicon.ico and apple-touch-icon.png from the logo (when the logo changes)
 ```
 
-| Folder | Contents |
+| Mappe | Innhold |
 |---|---|
-| `src/content/innlegg` | News, minutes and events (Markdown). A post with the field `arrangement` is also shown in the calendar. The address is `permalink`, or the file name for new posts. |
-| `src/content/sider` | Fixed pages |
-| `src/data/*.json` | Home page, board, RadioID, menu and site settings |
-| `src/design` | The «Fjord+» design: `style.css` and the templates Layout, Home, Article, PostList and EventList |
-| `src/components` | Shared parts: calendar, cards, RadioID form, board, event fact box |
-| `worker/` | The only server code: the forms (RadioID and «Meld feil»), which create GitHub issues through the GitHub App «HPGT Web Forms» |
-| `docs/` | Architecture, operations and decisions (ADR) |
-| `public/media` | Images and documents, see «Folder structure for images and files» below |
-| `scripts/wp-import` | One-off scripts that converted the WordPress export |
+| `src/content/innlegg` | Nyheter, referater og arrangementer (Markdown). Et innlegg med feltet `arrangement` vises også i kalenderen. Adressen er `permalink`, eller filnavnet for nye innlegg. |
+| `src/content/sider` | Faste sider |
+| `src/data/*.json` | Forsiden, styret, RadioID, menyen og innstillingene for nettstedet |
+| `src/design` | Designet «Fjord+»: `style.css` og malene Layout, Home, Article, PostList og EventList |
+| `src/components` | Felles deler: kalender, kort, RadioID-skjemaet, styret, faktaboksen for arrangementer |
+| `worker/` | Den eneste serverkoden: skjemaene (RadioID og «Meld feil»), som lager GitHub-saker gjennom GitHub-appen «HPGT Web Forms» |
+| `docs/` | Arkitektur, drift og beslutninger (ADR) |
+| `public/media` | Bilder og dokumenter, se «Mappestruktur for bilder og filer» under |
+| `scripts/wp-import` | Engangsskript som konverterte WordPress-eksporten |
 
-The site itself is in Norwegian (with an English version under `/en/`), so folder and field names in the content are
-Norwegian, as are many code comments. The documentation is in English, and Norwegian names are explained where they appear.
+Nettstedet er på norsk, med en engelsk versjon under `/en/`. Mappe- og feltnavnene i innholdet er derfor norske, og det
+samme er mange kodekommentarer. Dokumentasjonen er på norsk.
 
-## Folder structure for images and files
+## Mappestruktur for bilder og filer
 
-Everything that is uploaded lives in `public/media/` (address `/media/…`), sorted by what it is used for. The folder
-names are English. Pages CMS uploads to the right folder by itself (`options.path` per field in `.pages.yml`).
+Alt som lastes opp, ligger i `public/media/` (adressen `/media/…`), sortert etter hva det brukes til. Mappenavnene er
+engelske. Pages CMS laster opp til riktig mappe av seg selv (`options.path` per felt i `.pages.yml`).
 
-| Folder | Contents | Uploaded from |
+| Mappe | Innhold | Lastes opp fra |
 |---|---|---|
-| `posts/` | Images for news and events | Main image on a post |
-| `pages/` | Header images for fixed pages, course pages and the home page | Header image, the home page's images |
-| `board/` | Portraits of the board | Board |
-| `defaults/` | Default images per category | Default images |
-| `competitions/YEAR/` | Everything about one competition: `entries/` (submitted photos) and `sponsors/` (the logos as they were that year) | Competitions |
-| `sponsors/NAME/` | The club's regular sponsors, one folder per sponsor. New logo versions next to the old ones, with the year in the name (`logo-2026.svg`) | Added when needed |
-| `documents/` | PDFs: minutes, notices, annual reports | Attachments on posts |
-| `archive/YEAR/MONTH/` | Everything from WordPress, as it was there | – (read only) |
-| `generated/` | Made during the build (video thumbnails), not in Git | – |
+| `posts/` | Bilder til nyheter og arrangementer | Hovedbildet på et innlegg |
+| `pages/` | Toppbilder til faste sider, kurssider og forsiden | Toppbilde, bildene på forsiden |
+| `board/` | Portretter av styret | Styret |
+| `defaults/` | Standardbilder per kategori | Standardbilder |
+| `competitions/YEAR/` | Alt om én konkurranse: `entries/` (innsendte bilder) og `sponsors/` (logoene slik de var det året) | Konkurranser |
+| `sponsors/NAME/` | Klubbens faste sponsorer, én mappe per sponsor. Nye logoversjoner ligger ved siden av de gamle, med året i navnet (`logo-2026.svg`) | Legges til ved behov |
+| `documents/` | PDF-er: referater, innkallinger, årsberetninger | Vedlegg på innlegg |
+| `archive/YEAR/MONTH/` | Alt fra WordPress, slik det lå der | – (bare lesing) |
+| `generated/` | Lages under bygget (miniatyrbilder for video), ikke i Git | – |
 
-Sponsors of a competition live with the competition (the logo as it was that year, even if the sponsor later changes
-its logo). The club's regular sponsors live in `sponsors/`. The same company can be in both.
+Sponsorene til en konkurranse ligger sammen med konkurransen (logoen slik den var det året, selv om sponsoren senere
+bytter logo). Klubbens faste sponsorer ligger i `sponsors/`. Samme firma kan ligge begge steder.
 
-Old `/wp-content/…` addresses are redirected to `archive/` and `competitions/YEAR/entries/` (`public/_redirects`).
-The design's own files (logo, scripts) are in `public/assets/`.
+Gamle `/wp-content/…`-adresser sendes videre til `archive/` og `competitions/YEAR/entries/` (`public/_redirects`).
+Designets egne filer (logo, skript) ligger i `public/assets/`.
 
-**What belongs where:** images used on the site and finished, public documents (signed minutes, annual reports) belong
-here. The repository is public: drafts, accounts, member lists and other internal documents belong in the club's
-Google Drive, not here, and are best not linked from the website (Drive links break easily and sharing quickly goes
-wrong).
+**Hva som hører hjemme hvor:** bilder som brukes på nettstedet, og ferdige, offentlige dokumenter (signerte referater,
+årsberetninger) hører hjemme her. Repoet er offentlig: utkast, regnskap, medlemslister og andre interne dokumenter
+hører hjemme i klubbens Google Drive, ikke her, og lenkes helst ikke fra nettstedet (Drive-lenker brytes lett, og
+delingen går fort galt).
 
-## English version
+## Engelsk versjon
 
-Courses, tandem, flying sites, the club pages, the home page, and news and events also exist in English under `/en/`. Nobody writes the
-text twice: on every publish, `scripts/oversett/oversett.mjs` translates new or changed Norwegian text with Claude
-(Anthropic API). The translations from the previous publish are fetched from `/en/oversettelser.json`, so unchanged
-text is not translated again. All published posts are translated except meeting minutes («Møter og referater»,
-`IKKE_OVERSETT` in the script), which stay in Norwegian; English lists link to them with «(in Norwegian)». Fixed texts
-(menus, buttons) are in
-`src/lib/i18n.ts`.
+Kurs, tandem, flysteder, klubbsidene, forsiden og nyheter og arrangementer finnes også på engelsk under `/en/`. Ingen
+skriver teksten to ganger: ved hver publisering oversetter `scripts/oversett/oversett.mjs` ny eller endret norsk tekst
+med Claude (Anthropic API). Oversettelsene fra forrige publisering hentes fra `/en/oversettelser.json`, så uendret
+tekst oversettes ikke på nytt. Alle publiserte innlegg oversettes unntatt møtereferater («Møter og referater»,
+`IKKE_OVERSETT` i skriptet), som blir stående på norsk. Engelske lister lenker til dem med «(in Norwegian)». Faste
+tekster (menyer, knapper) ligger i `src/lib/i18n.ts`.
 
-- No stored key: the job signs in with GitHub's OIDC token (workload identity federation, set up in
-  platform.claude.com). The IDs are variables (not secrets) in the environment **oversetting**, limited to `main`:
-  `ANTHROPIC_ORGANIZATION_ID`, `ANTHROPIC_FEDERATION_RULE_ID`, `ANTHROPIC_SERVICE_ACCOUNT_ID` and optionally
-  `ANTHROPIC_WORKSPACE_ID`. Without a sign-in the site is published as before, with the previous translations.
-- Which pages are translated: `SIDER` at the top of `scripts/oversett/oversett.mjs`.
-- English addresses (`/klubben/styret/` → `/en/club/board/`): `src/lib/engelske-adresser.mjs`. Old `/en/…` addresses
-  are redirected.
-- Testing locally without a key: `OVERSETT_TEST=1 npm run build` gives «[EN] …» texts.
+- Ingen lagret nøkkel: jobben logger inn med GitHubs OIDC-token (workload identity federation, satt opp i
+  platform.claude.com). ID-ene er variabler (ikke hemmeligheter) i miljøet **oversetting**, som er begrenset til
+  `main`: `ANTHROPIC_ORGANIZATION_ID`, `ANTHROPIC_FEDERATION_RULE_ID`, `ANTHROPIC_SERVICE_ACCOUNT_ID` og eventuelt
+  `ANTHROPIC_WORKSPACE_ID`. Uten innlogging publiseres nettstedet likevel, med de forrige oversettelsene.
+- Hvilke sider som oversettes: `SIDER` øverst i `scripts/oversett/oversett.mjs`.
+- Engelske adresser (`/klubben/styret/` → `/en/club/board/`): `src/lib/engelske-adresser.mjs`. Gamle `/en/…`-adresser
+  sendes videre.
+- Test lokalt uten nøkkel: `OVERSETT_TEST=1 npm run build` gir «[EN] …»-tekster.
 
-## Security
+## Sikkerhet
 
-See [SECURITY.md](SECURITY.md). The repository was made from `hpgt-com/repo-template`. The ruleset for `main` and the
-security settings are applied by an org owner:
+Se [SECURITY.md](SECURITY.md). Repoet bygger på `hpgt-com/repo-template`. Regelsettet for `main` og
+sikkerhetsinnstillingene settes av en eier av organisasjonen:
 
 ```bash
 ./settings/apply.sh repo hpgt-com/hpgt-web --checks bygg   # run from hpgt-com/repo-template

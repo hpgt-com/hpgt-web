@@ -1,20 +1,20 @@
-# 0001: Static site with Astro instead of WordPress
+# 0001: Statisk nettsted med Astro i stedet for WordPress
 
-- **Status:** Accepted
-- **Date:** 2026-10
+- **Status:** Vedtatt
+- **Dato:** 2026-10
 
-## Context
-WordPress at ProISP needed regular updates of the core and plugins, cost web hosting, and had a database and an
-online admin panel that volunteers had to keep secure.
+## Bakgrunn
+WordPress trengte jevnlige oppdateringer av kjernen og utvidelsene, kostet webhotell, og hadde en database og et
+administrasjonspanel på nett som frivillige måtte holde sikre.
 
-## Decision
-The site is built as finished HTML files with Astro from Markdown and JSON in Git. The content model
-(`src/content.config.ts`) validates every field.
+## Beslutning
+Nettstedet bygges som ferdige HTML-filer med Astro fra Markdown og JSON i Git. Innholdsmodellen
+(`src/content.config.ts`) kontrollerer hvert felt.
 
-## Consequences
-- No server or database to maintain or attack. All history is in Git.
-- An error in the content stops the build instead of producing a broken page.
-- Dynamic features (forms) must be small Cloudflare Workers of their own.
+## Konsekvenser
+- Ingen server eller database å vedlikeholde eller angripe. All historikk ligger i Git.
+- En feil i innholdet stopper bygget i stedet for å gi en ødelagt side.
+- Dynamiske funksjoner (skjemaer) må være egne, små Cloudflare Workers.
 
-## Alternatives considered
-Hugo (faster, but Go templates are harder for the next volunteer to take over), and staying on WordPress.
+## Alternativer som ble vurdert
+Hugo (raskere, men Go-maler er vanskeligere for neste frivillige å ta over), og å bli på WordPress.

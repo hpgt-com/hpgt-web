@@ -1,24 +1,24 @@
-# 0002: Pages CMS for the editors
+# 0002: Pages CMS for redaktørene
 
-- **Status:** Accepted
-- **Date:** 2026-10
+- **Status:** Vedtatt
+- **Dato:** 2026-10
 
-## Context
-Members without a GitHub account must be able to write news and minutes, without an administrator doing it for them.
+## Bakgrunn
+Medlemmer uten GitHub-konto må kunne skrive nyheter og referater uten at en administrator gjør det for dem.
 
-## Decision
-Pages CMS (app.pagescms.org). Administrators invite editors by e-mail. The app is installed on `hpgt-web` only, and
-`.pages.yml` decides which fields and files editors see. Technical setup (`site.json`, menus, code) is left out on
-purpose.
+## Beslutning
+Pages CMS (app.pagescms.org). Administratorer inviterer redaktører med e-post. Appen er bare installert på `hpgt-web`,
+og `.pages.yml` bestemmer hvilke felt og filer redaktørene ser. Teknisk oppsett (`site.json`, menyer, kode) er utelatt
+med vilje.
 
-## Consequences
-- E-mail users can change content and media only, not configuration or code.
-- Saving goes straight to `main`, so the app has a bypass in the ruleset for `main`. Mistakes are caught by the build
-  validation, and everything can be undone in Git.
-- Because of the bypass, a hijacked editor account or a breach at Pages CMS could change code. The publish workflow
-  therefore stops if a commit without a pull request changes anything outside the content (job `vakt`, added
-  2026-11-18), and uploads are limited to images and PDFs.
-- Fields not listed in `.pages.yml` are removed when someone saves. Technical fields must be listed there as `hidden`.
+## Konsekvenser
+- E-postbrukere kan bare endre innhold og media, ikke konfigurasjon eller kode.
+- Lagring går rett til `main`, så appen har et unntak i regelsettet for `main`. Feil fanges av kontrollen i bygget, og
+  alt kan angres i Git.
+- På grunn av unntaket kan en kapret redaktørkonto eller et innbrudd hos Pages CMS endre kode. Publiseringsflyten
+  stopper derfor hvis en commit uten pull request endrer noe utenfor innholdet (jobben `vakt`), og opplastinger er
+  begrenset til bilder og PDF-er.
+- Felt som ikke står i `.pages.yml`, fjernes når noen lagrer. Tekniske felt må stå der som `hidden`.
 
-## Alternatives considered
-Sveltia/Decap and Keystatic/TinaCMS need a GitHub account or a paid cloud.
+## Alternativer som ble vurdert
+Sveltia/Decap og Keystatic/TinaCMS krever GitHub-konto eller en betalt skytjeneste.

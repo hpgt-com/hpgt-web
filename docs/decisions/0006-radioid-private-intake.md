@@ -1,23 +1,24 @@
-# 0006: RadioID submissions in a private repository
+# 0006: RadioID-innmeldinger i et privat repo
 
-- **Status:** Accepted. The repository was renamed by [0007](0007-one-intake-repository-for-forms.md): `hpgt-com/form-submissions`
-- **Date:** 2026-11-18
+- **Status:** Vedtatt. Repoet ble omdøpt i [0007](0007-one-intake-repository-for-forms.md): `hpgt-com/form-submissions`
+- **Dato:** 2026-11-18
 
-## Context
-The RadioID form created its issues in `hpgt-web`, which is public. A submission holds a name, a RadioID, equipment
-and an optional comment, and a request to be removed would itself publish a new link between the name and the RadioID.
-Closing an issue does not hide it. Found in the security review of 18.11.2026.
+## Bakgrunn
+RadioID-skjemaet lagde sakene sine i `hpgt-web`, som er offentlig. En innmelding inneholder navn, RadioID, utstyr og en
+valgfri kommentar, og et ønske om å bli fjernet ville selv publisere en ny kobling mellom navnet og RadioID-en. Å lukke
+en sak skjuler den ikke. Funnet i en sikkerhetsgjennomgang.
 
-## Decision
-The Worker creates the issues in the private repository `hpgt-com/radioid-requests` (today `hpgt-com/form-submissions`, see [0007](0007-one-intake-repository-for-forms.md); the rest of this ADR uses the old name as it was decided). The GitHub App «HPGT Web Forms» is
-installed there only. Only the finished entry (name, RadioID, vario) is published, in `src/data/radioid.json`. The
-form says who reads the submission and the comment, and that it is not public.
+## Beslutning
+Workeren lager sakene i det private repoet `hpgt-com/radioid-requests` (omdøpt til `hpgt-com/form-submissions` i
+[0007](0007-one-intake-repository-for-forms.md); resten av denne ADR-en bruker navnet slik det ble besluttet).
+GitHub-appen «HPGT Web Forms» er bare installert der. Bare den ferdige oppføringen (navn, RadioID, vario) publiseres, i
+`src/data/radioid.json`. Skjemaet sier hvem som leser innmeldingen og kommentaren, og at den ikke er offentlig.
 
-## Consequences
-- Nothing a pilot writes in the form is public. Removal requests do not leave a public trace.
-- The maintainers must have access to the private repository and watch its issues.
-- The app's token can still only create issues, now in a repository with no code.
+## Konsekvenser
+- Ingenting en pilot skriver i skjemaet, er offentlig. Ønsker om fjerning etterlater ikke offentlige spor.
+- De som vedlikeholder registeret, må ha tilgang til det private repoet og følge sakene der.
+- Tokenet til appen kan fortsatt bare lage saker, nå i et repo uten kode.
 
-## Alternatives considered
-E-mail to the maintainer (no history, easily lost in an inbox), and keeping the issues public (personal data in a
-public repository).
+## Alternativer som ble vurdert
+E-post til den som vedlikeholder registeret (ingen historikk, forsvinner lett i innboksen), og å beholde sakene
+offentlige (personopplysninger i et offentlig repo).

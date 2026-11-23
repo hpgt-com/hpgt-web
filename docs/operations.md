@@ -1,232 +1,237 @@
-# Operations: accounts, secrets and routines
+# Drift: kontoer, hemmeligheter og rutiner
 
-The operations handbook for hpgt.com. It should let a new administrator take over without asking the previous one.
-How the site fits together is in [architecture.md](architecture.md), and why it is built this way in
+Driftshåndboken for hpgt.com. Den skal gjøre det mulig for en ny administrator å ta over uten å spørre den forrige.
+Hvordan nettstedet henger sammen, står i [architecture.md](architecture.md), og hvorfor det er bygd slik, i
 [decisions/](decisions/README.md).
 
-**Rule:** if you change setup, accounts or keys, update this file in the same pull request (or in a separate PR the same
-day, if the change was made in a dashboard).
+**Regel:** endres oppsett, kontoer eller nøkler, oppdateres denne filen i samme pull request (eller i en egen pull
+request samme dag, hvis endringen ble gjort i et dashbord).
 
-## Where do I change what?
+## Hvor endres hva?
 
-| Setting | Where |
+| Innstilling | Hvor |
 |---|---|
-| Address, e-mail addresses, org. no., Vipps, Facebook and Instagram, the link to flysteder, the status page (`driftsstatus`) | `src/data/site.json` |
-| Preview mode (`prototype`), the default share image (`delingsbilde`), the Web Analytics token (`statistikk`), the GoatCounter address (`goatcounter`) | `src/data/site.json` |
-| Menus and sections | `src/data/meny.json` |
-| Content, the board, the RadioID register, default images | Pages CMS |
-| The Turnstile site key, the GitHub App IDs | GitHub → `hpgt-web` → Settings → Environments → `produksjon` (variables) |
-| Secrets (Turnstile secret, the app key, the Cloudflare token) | Cloudflare and `produksjon`, never in files (see [Secrets and variables](#secrets-and-variables)) |
+| Adresse, e-postadresser, org.nr., Vipps, Facebook og Instagram, lenken til flysteder, statussiden (`driftsstatus`) | `src/data/site.json` |
+| Forhåndsvisningsmodus (`prototype`), standardbildet for deling (`delingsbilde`), tokenet for Web Analytics (`statistikk`), adressen til GoatCounter (`goatcounter`) | `src/data/site.json` |
+| Menyer og seksjoner | `src/data/meny.json` |
+| Innhold, styret, RadioID-registeret, standardbilder | Pages CMS |
+| Nettstedsnøkkelen for Turnstile, ID-ene til GitHub-appen | GitHub → `hpgt-web` → Settings → Environments → `produksjon` (variabler) |
+| Hemmeligheter (Turnstile-hemmeligheten, appnøkkelen, Cloudflare-tokenet) | Cloudflare og `produksjon`, aldri i filer (se [Hemmeligheter og variabler](#hemmeligheter-og-variabler)) |
+| DNS, videresendingen fra `www`, DNSSEC og soneinnstillingene for hpgt.com | `infra/hpgt.com/terraform.tfvars` i det private repoet [hpgt-com/operations](https://github.com/hpgt-com/operations) (se `infra/README.md` der) |
 
-A value lives outside the repository only when it is secret or only the publish job may use it. Everything else is in
-`site.json`, changed with one pull request.
+En verdi ligger utenfor repoet bare når den er hemmelig eller bare publiseringsjobben skal bruke den. Alt annet står i
+`site.json` og endres med én pull request.
 
-## What is in Git, and what is not
+## Hva ligger i Git, og hva gjør ikke
 
-Git is the source of truth for everything that can live there. The rest is set by hand in a dashboard and is therefore
-listed here, so it is not forgotten.
+Git er fasiten for alt som kan ligge der. Resten settes for hånd i et dashbord og står derfor her, så det ikke blir
+glemt.
 
-| In Git (changed through a pull request) | Outside Git (set by hand, documented below) |
+| I Git (endres med pull request) | Utenfor Git (settes for hånd, beskrevet under) |
 |---|---|
-| Content, design, code | Secrets in Cloudflare and in GitHub environments |
-| Build and publishing (`.github/workflows/`) | Cloudflare: custom domains, the Turnstile widget, redirect rules, DNS |
-| The Worker's Cloudflare setup (`wrangler.jsonc`), including that the `workers.dev` address and preview URLs are off | The GitHub environments and their variables |
-| Security headers and redirects (`public/_headers`, `_redirects`) | The GitHub Apps and where they are installed |
-| The ruleset for `main` (`settings/ruleset-main.json`, applied with `settings/apply.sh`), including the bypass for the Pages CMS app (ID 866529) | Pages CMS: who is invited |
-| What editors see (`.pages.yml`) | Anthropic: the federation rule and the service account |
+| Innhold, design, kode | Hemmeligheter i Cloudflare og i GitHub-miljøene |
+| Bygg og publisering (`.github/workflows/`) | Cloudflare: egne domener (custom domains) på Workeren og Turnstile-widgeten |
+| Cloudflare-oppsettet for Workeren (`wrangler.jsonc`), også at `workers.dev`-adressen og forhåndsvisningsadressene er slått av | GitHub-miljøene og variablene deres |
+| Sikkerhetshoder og videresendinger (`public/_headers`, `_redirects`) | GitHub-appene og hvor de er installert |
+| Regelsettet for `main` (`settings/ruleset-main.json`, settes med `settings/apply.sh`), også unntaket for Pages CMS-appen (ID 866529) | Pages CMS: hvem som er invitert |
+| Hva redaktørene ser (`.pages.yml`) | Anthropic: federation-regelen og tjenestekontoen |
+| DNS, videresendingen fra `www`, DNSSEC og soneinnstillingene (OpenTofu i `infra/` i hpgt-com/operations) | |
 
-## Accounts
+## Kontoer
 
-| Account | What | Owner / who has access |
+| Konto | Hva | Eier / hvem har tilgang |
 |---|---|---|
-| GitHub org `hpgt-com` | The repositories `hpgt-web`, `flying-sites`, `form-submissions` (private), `repo-template`, `.github`. Plan: GitHub Team, free through GitHub for Nonprofits (approved November 2026, GitHub Support ticket 4796969) | Org owners (2FA required) |
-| Cloudflare account «HPGT» | The Worker `hpgt-web`, DNS for hpgt.com, Turnstile, Web Analytics | The account's members |
-| Namecheap | Registrar for hpgt.com (the name servers point to Cloudflare) | Whoever holds the registrar access |
-| Google Workspace | E-mail on @hpgt.com (MX, SPF, DKIM and DMARC are in Cloudflare DNS) | Workspace administrator |
-| platform.claude.com (Anthropic) | Translation to English, paid with prepaid credit | The organisation's administrators |
-| GoatCounter | Visitor statistics and click events for hpgt.com (`hpgt-web`) and flysteder (`hpgt-flysteder`), one account with two sites | The account's users (Settings → Users) |
-| Pages CMS (app.pagescms.org) | The editor. Administrators sign in with GitHub, editors with e-mail | Administrators invite editors |
+| GitHub-organisasjonen `hpgt-com` | Repoene `hpgt-web`, `flying-sites`, `status`, `guidelines`, `repo-template`, `.github` og de private `form-submissions` og `operations`. Plan: GitHub Team, gratis gjennom GitHub for Nonprofits (GitHub Support-sak 4796969) | Eierne av organisasjonen (2FA påkrevd) |
+| Cloudflare-kontoen «HPGT» | Workeren `hpgt-web`, DNS for hpgt.com, Turnstile, Web Analytics | Medlemmene av kontoen |
+| Namecheap | Registrar for hpgt.com (navnetjenerne peker til Cloudflare) | Den som har tilgangen hos registraren |
+| Google Workspace | E-post på @hpgt.com (MX, SPF, DKIM og DMARC ligger i Cloudflare DNS) | Administratoren av Workspace |
+| platform.claude.com (Anthropic) | Oversettelse til engelsk, betalt med forhåndskjøpt kreditt | Administratorene av organisasjonen |
+| GoatCounter | Besøksstatistikk og klikkhendelser for hpgt.com (`hpgt-web`) og flysteder (`hpgt-flysteder`), én konto med to nettsteder | Brukerne av kontoen (Settings → Users) |
+| Pages CMS (app.pagescms.org) | Editoren. Administratorer logger inn med GitHub, redaktører med e-post | Administratorer inviterer redaktører |
 
-When someone leaves the board: remove them from each account above, and check that at least two people still have
-owner access to the GitHub org and to Cloudflare.
+Når noen går ut av styret: fjern dem fra hver konto over, og sjekk at minst to personer fortsatt har eiertilgang til
+GitHub-organisasjonen og til Cloudflare.
 
-**GitHub Team (nonprofit):** every member of the org uses a licence. The discount (100 %) should cover each one; after
-adding a member, check Settings → Billing and licensing in `hpgt-com` shows $0. If it does not, or if GitHub asks for the
-nonprofit status to be renewed, reply to the support ticket above or apply again at github.com/solutions/industry/nonprofits.
-Without the plan, the public repositories keep working as before; only rulesets and environment reviewers on the
-private `form-submissions` would stop applying.
+**GitHub Team (nonprofit):** hvert medlem av organisasjonen bruker en lisens. Rabatten (100 %) skal dekke hver av dem.
+Etter at et medlem er lagt til: sjekk at Settings → Billing and licensing i `hpgt-com` viser $0. Gjør den ikke det,
+eller ber GitHub om at nonprofit-statusen fornyes, svar på supportsaken over eller søk på nytt på
+github.com/solutions/industry/nonprofits. Uten planen virker de offentlige repoene som før. Bare regelsettene og
+godkjennerne i miljøene i de private repoene (`form-submissions` og `operations`) slutter å gjelde.
 
-## Secrets and variables
+## Hemmeligheter og variabler
 
-| Name | Where | Type | What | Renewed |
+| Navn | Hvor | Type | Hva | Fornyes |
 |---|---|---|---|---|
-| `CLOUDFLARE_API_TOKEN` | GitHub `hpgt-web` → Environments → `produksjon` | Secret | Publishes the Worker `hpgt-web`, and only that. Made under Cloudflare → Workers & Pages → hpgt-web → Settings → Builds → «API token for external CI/CD» | Yearly |
-| `CLOUDFLARE_ACCOUNT_ID` | Same environment | Secret | Which Cloudflare account | Never |
-| `TURNSTILE_SITEKEY` | Same environment | Variable | The public key of the Turnstile widget «hpgt.com skjemaer». Inserted when publishing | With a new widget |
-| `GH_APP_ID`, `GH_APP_INSTALLATION_ID` | Same environment | Variable | The GitHub App «HPGT Web Forms» and its installation, which covers only the private repository `hpgt-com/form-submissions` | Never |
-| `TURNSTILE_SECRET` | Cloudflare → Workers & Pages → hpgt-web → Settings → Variables and Secrets | Secret | The Worker's check of Turnstile answers | If it may have leaked |
-| `GITHUB_APP_PRIVATE_KEY` | Same place | Secret | The app's private key (.pem). The Worker makes one-hour tokens with it | If it may have leaked |
-| `ANTHROPIC_ORGANIZATION_ID`, `ANTHROPIC_FEDERATION_RULE_ID`, `ANTHROPIC_SERVICE_ACCOUNT_ID`, `ANTHROPIC_WORKSPACE_ID` | GitHub `hpgt-web` → Environments → `oversetting` | Variables | Which federation rule and service account the sign-in uses. No key is stored | Never |
-| Cloudflare Web Analytics token | `src/data/site.json` → `statistikk` | In Git (public) | Anonymous visitor statistics. Empty = off | – |
-| GoatCounter address | `src/data/site.json` → `goatcounter` | In Git (public) | Anonymous visitor statistics and click events (`hpgt-web.goatcounter.com`, the same GoatCounter account as flysteder). Empty = off | – |
+| `CLOUDFLARE_API_TOKEN` | GitHub `hpgt-web` → Environments → `produksjon` | Hemmelighet | Publiserer Workeren `hpgt-web`, og bare den. Lages under Cloudflare → Workers & Pages → hpgt-web → Settings → Builds → «API token for external CI/CD» | Årlig |
+| `CLOUDFLARE_ACCOUNT_ID` | Samme miljø | Hemmelighet | Hvilken Cloudflare-konto | Aldri |
+| `TURNSTILE_SITEKEY` | Samme miljø | Variabel | Den offentlige nøkkelen til Turnstile-widgeten «hpgt.com skjemaer». Settes inn ved publisering | Med en ny widget |
+| `GH_APP_ID`, `GH_APP_INSTALLATION_ID` | Samme miljø | Variabel | GitHub-appen «HPGT Web Forms» og installasjonen dens, som bare gjelder det private repoet `hpgt-com/form-submissions` | Aldri |
+| `TURNSTILE_SECRET` | Cloudflare → Workers & Pages → hpgt-web → Settings → Variables and Secrets | Hemmelighet | Workerens kontroll av Turnstile-svar | Hvis den kan ha lekket |
+| `GITHUB_APP_PRIVATE_KEY` | Samme sted | Hemmelighet | Den private nøkkelen til appen (.pem). Workeren lager tokens for én time med den | Hvis den kan ha lekket |
+| `ANTHROPIC_ORGANIZATION_ID`, `ANTHROPIC_FEDERATION_RULE_ID`, `ANTHROPIC_SERVICE_ACCOUNT_ID`, `ANTHROPIC_WORKSPACE_ID` | GitHub `hpgt-web` → Environments → `oversetting` | Variabler | Hvilken federation-regel og tjenestekonto innloggingen bruker. Ingen nøkkel er lagret | Aldri |
+| Tokenet for Cloudflare Web Analytics | `src/data/site.json` → `statistikk` | I Git (offentlig) | Anonym besøksstatistikk. Tom = av | – |
+| Adressen til GoatCounter | `src/data/site.json` → `goatcounter` | I Git (offentlig) | Anonym besøksstatistikk og klikkhendelser (`hpgt-web.goatcounter.com`, samme GoatCounter-konto som flysteder). Tom = av | – |
 
-Both environments (`produksjon` and `oversetting`) are limited to the branch `main`.
+Begge miljøene (`produksjon` og `oversetting`) er begrenset til grenen `main`.
 
-**Expiry dates** for every token and key in the club (and the domain) are kept in the private repository
-[hpgt-com/operations](https://github.com/hpgt-com/operations) (`utlop.json`), not here: a weekly check there opens an
-issue before something expires. Update the date there whenever you renew or replace a token or key.
+**Utløpsdatoene** for alle tokens og nøkler i klubben (og domenet) ligger i det private repoet
+[hpgt-com/operations](https://github.com/hpgt-com/operations) (`utlop.json`), ikke her: en ukentlig sjekk der oppretter
+en sak før noe utløper. Oppdater datoen der hver gang et token eller en nøkkel fornyes eller byttes.
 
-## Routines
+## Rutiner
 
-### Invite a new editor
-1. Sign in to app.pagescms.org with GitHub, open `hpgt-web` → **Collaborators** → **Invite** with the e-mail address.
-2. The editor gets an e-mail and signs in with it. They see only what `.pages.yml` shows.
-3. Remove them in the same place when they should no longer write.
+### Invitere en ny redaktør
+1. Logg inn på app.pagescms.org med GitHub, åpne `hpgt-web` → **Collaborators** → **Invite** med e-postadressen.
+2. Redaktøren får en e-post og logger inn med den. Redaktøren ser bare det `.pages.yml` viser.
+3. Fjern redaktøren samme sted når vedkommende ikke lenger skal skrive.
 
-### Preview a post before it is published, and share it
-1. In Pages CMS, tick **Utkast (forhåndsvisning)** on the post and save. After 2–3 minutes it can be read at
-   `hpgt.com/utkast/<address>/` (for example `hpgt.com/utkast/mitt-innlegg/`). Drafts are not on the home page, under
-   Nytt, in search or in the sitemap, and they have `noindex`. The address is not secret: anyone with the link can read it.
-2. When it is ready, remove the tick and save. The post is then published at its normal address, and the draft address
-   disappears.
-3. Published posts have a **Kopier lenke** button at the bottom. It copies the post's address, which you paste into a
-   new post in the club's Facebook group (Facebook fetches the image and title). Facebook no longer lets apps post to
-   groups, and its share window often cannot share to a group, so this is done by hand.
+### Forhåndsvise et innlegg før det publiseres, og dele det
+1. Kryss av for **Utkast (forhåndsvisning)** på innlegget i Pages CMS og lagre. Etter 2–3 minutter kan det leses på
+   `hpgt.com/utkast/<address>/` (for eksempel `hpgt.com/utkast/mitt-innlegg/`). Utkast vises ikke på forsiden, under
+   Nytt, i søket eller i nettstedskartet, og de har `noindex`. Adressen er ikke hemmelig: alle med lenken kan lese det.
+2. Når det er klart: fjern krysset og lagre. Innlegget publiseres da på sin vanlige adresse, og utkastadressen
+   forsvinner.
+3. Publiserte innlegg har en **Kopier lenke**-knapp nederst. Den kopierer adressen til innlegget, som limes inn i et
+   nytt innlegg i klubbens Facebook-gruppe (Facebook henter bildet og tittelen). Facebook lar ikke apper publisere i
+   grupper, og delingsvinduet kan ofte ikke dele til en gruppe, så dette gjøres for hånd.
 
-### Renew the Cloudflare token (yearly)
-1. Cloudflare → Workers & Pages → `hpgt-web` → Settings → Builds → **Create token**. Name:
-   `hpgt-web publish (worker hpgt-web)`, lifetime 12 months.
-2. GitHub → `hpgt-web` → Settings → Environments → `produksjon` → `CLOUDFLARE_API_TOKEN` → paste it.
-3. Actions → «Bygg og publiser» → **Run workflow**. When it is green: delete the old token under Cloudflare → Manage
+### Fornye Cloudflare-tokenet (årlig)
+1. Cloudflare → Workers & Pages → `hpgt-web` → Settings → Builds → **Create token**. Navn:
+   `hpgt-web publish (worker hpgt-web)`, levetid 12 måneder.
+2. GitHub → `hpgt-web` → Settings → Environments → `produksjon` → `CLOUDFLARE_API_TOKEN` → lim inn.
+3. Actions → «Bygg og publiser» → **Run workflow**. Når den er grønn: slett det gamle tokenet under Cloudflare → Manage
    Account → Account API Tokens.
-4. Set the new expiry date in `utlop.json` in the private repository `hpgt-com/operations` (pull request). Its
-   weekly check «Utløper snart» opens an issue there 45 days before the next expiry.
+4. Sett den nye utløpsdatoen i `utlop.json` i det private repoet `hpgt-com/operations` (pull request). Den ukentlige
+   sjekken «Utløper snart» der oppretter en sak 45 dager før neste utløp.
 
-When the token has expired, «Bygg og publiser» goes red on the job `publiser`, and changes from Pages CMS do not go out
-until the token is replaced.
+Når tokenet har gått ut, blir «Bygg og publiser» rød på jobben `publiser`, og endringer fra Pages CMS går ikke ut før
+tokenet er byttet.
 
-### Handle a RadioID submission
-1. An issue arrives in the **private** repository `hpgt-com/form-submissions` with the label `radioid` (watch it with
-   **Watch → Custom → Issues** to get e-mail). Submissions hold names and comments, so they are never in a public
-   repository; only the finished entry is published, in `radioid.json`.
-2. Update the register in Pages CMS (RadioID) and save.
-3. Close the issue.
+### Behandle en RadioID-innmelding
+1. En sak kommer i det **private** repoet `hpgt-com/form-submissions` med etiketten `radioid` (følg det med
+   **Watch → Custom → Issues** for å få e-post). Innmeldingene inneholder navn og kommentarer og ligger derfor aldri i et
+   offentlig repo. Bare den ferdige oppføringen publiseres, i `radioid.json`.
+2. Oppdater registeret i Pages CMS (RadioID) og lagre.
+3. Lukk saken.
 
-### Handle an error report («Meld feil»)
-1. Every page has the link «Meld feil på denne siden» at the bottom (English: «Report an error on this page»). It opens
-   `/meld-feil/` (`/en/report-error/`) with the page's address filled in. The report becomes an issue in the
-   **private** repository `hpgt-com/form-submissions` with the label `feedback`. Name or e-mail is optional, and is only
-   given by people who want a reply.
-2. Fix it in Pages CMS (or with a pull request), reply if the sender left contact details, and close the issue.
+### Behandle en feilmelding («Meld feil»)
+1. Hver side har lenken «Meld feil på denne siden» nederst (engelsk: «Report an error on this page»). Den åpner
+   `/meld-feil/` (`/en/report-error/`) med adressen til siden fylt inn. Meldingen blir en sak i det **private** repoet
+   `hpgt-com/form-submissions` med etiketten `feedback`. Navn og e-post er valgfritt og oppgis bare av dem som vil ha
+   svar.
+2. Rett feilen i Pages CMS (eller med en pull request), svar hvis avsenderen har lagt igjen kontaktinformasjon, og lukk
+   saken.
 
-### What watches what
+### Hva overvåker hva
 
-Four independent checks. Watch the repositories named below (Watch → Custom → Issues) to get the e-mails.
+Fire uavhengige sjekker. Følg repoene som er nevnt under (Watch → Custom → Issues) for å få e-postene.
 
-| Check | Runs where, how often | Checks | Alerts by |
+| Sjekk | Kjører hvor, hvor ofte | Sjekker | Varsler med |
 |---|---|---|---|
-| **Upptime** ([status.hpgt.com](https://status.hpgt.com), `hpgt-com/status`) | GitHub Actions, every 5 minutes. Independent of Cloudflare | hpgt.com, the forms (`/api/radioid` answers 405), flysteder.hpgt.com, the data service (`status.json` says `"ok":true`) | An issue in `hpgt-com/status`, closed when it is up again. The public status page shows uptime and incidents |
-| **Helsesjekk** (`.github/workflows/helse.yml`) | GitHub Actions, every hour | Pages answer, security headers (also on Worker errors), the real Turnstile key, `www` redirect, certificate ≥ 14 days | An issue labelled `bug` here, closed when all is well |
-| **Cloudflare notifications** | Cloudflare | DDoS attacks, abuse reports, blocks, the certificate (Universal SSL), weekly Web Analytics | E-mail (see «Watch the forms» below) |
-| **Expiry dates** («Utløper snart» in the private `hpgt-com/operations`) | GitHub Actions, Mondays | Tokens, keys and the domain, 45 days ahead (90 for the domain) | An issue in `hpgt-com/operations` |
+| **Upptime** ([status.hpgt.com](https://status.hpgt.com), `hpgt-com/status`) | GitHub Actions, hvert 5. minutt. Uavhengig av Cloudflare | hpgt.com, skjemaene (`/api/radioid` svarer 405), flysteder.hpgt.com, datatjenesten (`status.json` sier `"ok":true`) | En sak i `hpgt-com/status`, som lukkes når alt virker igjen. Den offentlige statussiden viser oppetid og hendelser |
+| **Helsesjekk** (`.github/workflows/helse.yml`) | GitHub Actions, hver time | Sidene svarer, sikkerhetshodene (også ved feil i Workeren), den ekte Turnstile-nøkkelen, videresendingen fra `www`, sertifikatet ≥ 14 dager | En sak med etiketten `bug` her, som lukkes når alt er i orden |
+| **Varsler fra Cloudflare** | Cloudflare | DDoS-angrep, misbruksrapporter, blokkeringer, sertifikatet (Universal SSL), ukentlig Web Analytics | E-post (se «Overvåke skjemaene» under) |
+| **Utløpsdatoer** («Utløper snart» i det private `hpgt-com/operations`) | GitHub Actions, mandager | Tokens, nøkler og domenet, 45 dager i forveien (90 for domenet) | En sak i `hpgt-com/operations` |
 
-flying-sites has its own checks too (hourly data service health, nightly backup, UptimeRobot); see its `docs/operations.md`.
-Scheduled workflows stop after 60 days without a commit in that repository (GitHub e-mails first; turn them on again
-under Actions). Upptime commits every few minutes, so its own schedule never stops.
+flying-sites har også egne sjekker (helsesjekk av datatjenesten hver time, nattlig sikkerhetskopi, UptimeRobot); se
+`docs/operations.md` der. Planlagte arbeidsflyter stopper etter 60 dager uten commit i repoet (GitHub sender e-post
+først; de slås på igjen under Actions). Upptime committer med noen minutters mellomrom, så dens egen plan stopper
+aldri.
 
-**Upptime setup:** the checks are in `.upptimerc.yml` in `hpgt-com/status` (change them with a pull request). It runs
-with the GitHub App «HPGT Status» (only installed on that repository, Contents and Issues; its key in the environment
-`status`), not a personal token, and the app is on the bypass list of that repository's ruleset because it commits the
-results to `main`. The page is GitHub Pages from the branch `gh-pages`, at `status.hpgt.com` (Cloudflare DNS: `status`
-CNAME `hpgt-com.github.io`, DNS only). The link «Driftsstatus» in the footer is `site.json` → `driftsstatus`.
+**Oppsettet for Upptime:** sjekkene står i `.upptimerc.yml` i `hpgt-com/status` (endres med pull request). Den kjører
+med GitHub-appen «HPGT Status» (bare installert på det repoet, Contents og Issues; nøkkelen ligger i miljøet `status`),
+ikke et personlig token, og appen står på unntakslisten i regelsettet for det repoet fordi den committer resultatene
+til `main`. Siden er GitHub Pages fra grenen `gh-pages`, på `status.hpgt.com` (Cloudflare DNS: `status` CNAME
+`hpgt-com.github.io`, DNS only). Lenken «Driftsstatus» i bunnteksten er `site.json` → `driftsstatus`.
 
-### Watch the forms (logs and alerts)
-- **Logs:** Cloudflare → Workers & Pages → `hpgt-web` → **Observability**. One line per call to the Worker (only the
-  forms, `/api/*`): time, address, status code, duration and errors, with request metadata (IP address, country). Kept
-  for up to 7 days (Observability Free; from 1.12.2026 seven days, before that three). The content of the forms is never
-  logged. The account has no Workers Paid plan, so logging is never charged: at the free daily limit (0.5 GB) it pauses
-  until the next day. Turned on in `wrangler.jsonc` (`observability`).
-- What to look for: many `403` (failed Turnstile or wrong origin) or `429` (rate limit) means someone is hammering the
-  forms; `502` means the GitHub App or its key is not working (see «When publishing fails» below).
-- **Alerts:** Cloudflare → Manage Account → **Notifications**, by e-mail. Set up by hand (November 2026), listed here so
-  they are not forgotten. They cover traffic through Cloudflare in the zone hpgt.com (hpgt.com and www), not
-  flysteder.hpgt.com, which goes straight to GitHub Pages.
+### Overvåke skjemaene (logger og varsler)
+- **Logger:** Cloudflare → Workers & Pages → `hpgt-web` → **Observability**. Én linje per kall til Workeren (bare
+  skjemaene, `/api/*`): tid, adresse, statuskode, varighet og feil, med metadata om forespørselen (IP-adresse, land).
+  Lagres i inntil 7 dager (Observability Free). Innholdet i skjemaene logges aldri. Kontoen har ikke Workers Paid, så
+  loggingen koster aldri noe: ved den daglige gratisgrensen (0,5 GB) stopper den til neste dag. Slått på i
+  `wrangler.jsonc` (`observability`).
+- Hva det skal ses etter: mange `403` (Turnstile feilet eller feil opprinnelse) eller `429` (takstbegrensning) betyr at
+  noen hamrer på skjemaene; `502` betyr at GitHub-appen eller nøkkelen dens ikke virker (se «Når publiseringen feiler»
+  under).
+- **Varsler:** Cloudflare → Manage Account → **Notifications**, på e-post. De ligger utenfor koden og står derfor her.
+  De gjelder hele sonen hpgt.com, også flysteder.hpgt.com og data.hpgt.com, som er Workere i samme sone.
 
-  | Notification | What it means | What to do |
+  | Varsel | Hva det betyr | Hva som gjøres |
   |---|---|---|
-  | `hpgt.com zone – HTTP DDoS Attack Alert` | Cloudflare has stopped an attack | Usually nothing. Look under Security → Events if the site was slow |
-  | `hpgt.com zone – Cloudflare abuse report alert` | Someone reported the domain to Cloudflare | Read the report, answer if needed |
-  | `hpgt.com zone – Alerts for New Blocks` | Cloudflare Trust & Safety has blocked content; the site may be unreachable | Check the dashboard, ask for a review if it is wrong |
-  | `hpgt.com zone – Universal SSL Alert` | The certificate could not be validated or renewed | Check SSL/TLS → Edge Certificates and the DNS records |
-  | `hpgt.com zone – Web Analytics Metrics Update` | Regular visitor numbers | Nothing, it is information |
-  | `Default budget alert (auto-created)` | Spending on a paid product | Nothing as long as the account is on the free plan |
+  | `hpgt.com zone – HTTP DDoS Attack Alert` | Cloudflare har stoppet et angrep | Vanligvis ingenting. Se under Security → Events hvis nettstedet var tregt |
+  | `hpgt.com zone – Cloudflare abuse report alert` | Noen har rapportert domenet til Cloudflare | Les rapporten, svar ved behov |
+  | `hpgt.com zone – Alerts for New Blocks` | Cloudflare Trust & Safety har blokkert innhold; nettstedet kan være utilgjengelig | Sjekk dashbordet, be om ny vurdering hvis det er feil |
+  | `hpgt.com zone – Universal SSL Alert` | Sertifikatet kunne ikke valideres eller fornyes | Sjekk SSL/TLS → Edge Certificates og DNS-postene |
+  | `hpgt.com zone – Web Analytics Metrics Update` | Jevnlige besøkstall | Ingenting, det er informasjon |
+  | `Default budget alert (auto-created)` | Forbruk på et betalt produkt | Ingenting så lenge kontoen er på gratisplanen |
 
-  There is no Cloudflare notification for the Cloudflare API token expiring: keep the calendar reminder (see «Renew
-  the Cloudflare token»).
-- **Health check:** `.github/workflows/helse.yml` checks hpgt.com from outside every hour: pages, security headers, the
-  real Turnstile key, the Worker (`/api/` answers 405 to GET), the `www` redirect and that the certificate has at least
-  14 days left. When something is wrong it opens an issue labelled `bug` (watch the repository to get e-mail) and closes
-  it when all is well again. GitHub turns the schedule off after 60 days without a commit; it says so by e-mail, and it
-  is turned on again under Actions → «Helsesjekk».
+  Cloudflare varsler ikke når Cloudflare-API-tokenet går ut. Det gjør «Utløper snart» i hpgt-com/operations (se
+  [Fornye Cloudflare-tokenet](#fornye-cloudflare-tokenet-årlig)).
+- **Helsesjekk:** `.github/workflows/helse.yml` sjekker hpgt.com utenfra hver time: sidene, sikkerhetshodene, den ekte
+  Turnstile-nøkkelen, Workeren (`/api/` svarer 405 på GET), videresendingen fra `www` og at sertifikatet har minst
+  14 dager igjen. Når noe er galt, oppretter den en sak med etiketten `bug` (følg repoet for å få e-post) og lukker den
+  når alt er i orden igjen. GitHub slår av planen etter 60 dager uten commit; det kommer en e-post om det, og den slås
+  på igjen under Actions → «Helsesjekk».
 
-### Replace the key of the GitHub App «HPGT Web Forms»
+### Bytte nøkkelen til GitHub-appen «HPGT Web Forms»
 1. hpgt-com → Settings → Developer settings → GitHub Apps → HPGT Web Forms → **Generate a private key**.
-2. Paste the .pem content as `GITHUB_APP_PRIVATE_KEY` in Cloudflare (see the table), and delete the file.
-3. Test the form, and delete the old key on the app page.
+2. Lim inn innholdet i .pem-filen som `GITHUB_APP_PRIVATE_KEY` i Cloudflare (se tabellen), og slett filen.
+3. Test skjemaet, og slett den gamle nøkkelen på siden til appen.
 
-### Add a page to the English version
-1. Add the page's file name (without `.md`) to `SIDER` in `scripts/oversett/oversett.mjs`.
-2. If its Norwegian address should have an English one, add it to `src/lib/engelske-adresser.mjs`.
-3. Pull request. The translation happens on the next publish.
+### Legge til en side i den engelske versjonen
+1. Legg filnavnet til siden (uten `.md`) til i `SIDER` i `scripts/oversett/oversett.mjs`.
+2. Skal den norske adressen ha en engelsk, legg den til i `src/lib/engelske-adresser.mjs`.
+3. Pull request. Oversettelsen skjer ved neste publisering.
 
-### Add a new form
-Use the Turnstile widget «hpgt.com skjemaer» with a new `action`, give its issues their own label in
-`hpgt-com/form-submissions` (or its own private repository if other people should read it, see ADR 0007), add the page to `SKJEMASIDER` in
-`src/components/Head.astro` and to `public/_headers`, and check the `action` in the Worker. No new widget or keys.
+### Legge til et nytt skjema
+Bruk Turnstile-widgeten «hpgt.com skjemaer» med en ny `action`, gi sakene en egen etikett i `hpgt-com/form-submissions`
+(eller et eget privat repo hvis andre skal lese dem, se ADR 0007), legg siden til i `SKJEMASIDER` i
+`src/components/Head.astro` og i `public/_headers`, og sjekk `action` i Workeren. Ingen ny widget eller nye nøkler.
 
-### Apply the ruleset for `main`
-`settings/apply.sh` is run by an org owner from `hpgt-com/repo-template`. The template's ruleset does not have the
-bypass for the Pages CMS app, so use this repository's `settings/ruleset-main.json`, or add the bypass again
-afterwards (Settings → Rules → Main protection → Bypass list → the Pages CMS app, «Always»). Without it, saving in
-Pages CMS fails with «Changes must be made through a pull request».
+### Sette regelsettet for `main`
+`settings/apply.sh` kjøres av en eier av organisasjonen fra `hpgt-com/repo-template`. Regelsettet i malen har ikke
+unntaket for Pages CMS-appen, så bruk `settings/ruleset-main.json` fra dette repoet, eller legg til unntaket igjen
+etterpå (Settings → Rules → Main protection → Bypass list → Pages CMS-appen, «Always»). Uten det feiler lagring i
+Pages CMS med «Changes must be made through a pull request».
 
-### Roll back a publish
-- **Fastest:** Cloudflare → Workers & Pages → `hpgt-web` → **Deployments** → choose the previous version →
-  **Rollback**.
-- **For good:** `git revert` of the change in a pull request. The next publish then puts out the right version, and Git
-  is the source of truth again. A rollback in Cloudflare alone is overwritten by the next publish.
+### Rulle tilbake en publisering
+- **Raskest:** Cloudflare → Workers & Pages → `hpgt-web` → **Deployments** → velg forrige versjon → **Rollback**.
+- **Varig:** `git revert` av endringen i en pull request. Neste publisering legger da ut riktig versjon, og Git er
+  fasiten igjen. En tilbakerulling bare i Cloudflare overskrives av neste publisering.
 
-### When publishing fails
+### Når publiseringen feiler
 
-| Symptom | Likely cause | Fix |
+| Symptom | Sannsynlig årsak | Løsning |
 |---|---|---|
-| `bygg` fails after saving in Pages CMS | An invalid field (date, type, a missing image) | Read the error message, fix the post in the CMS |
-| `publiser` fails with an authentication error | The Cloudflare token has expired or was deleted | Renew the token (see above) |
-| `vakt` fails and an issue «Publisering stoppet: Pages CMS endret filer utenfor innholdet» is opened | A commit saved straight to `main` (from Pages CMS, without a pull request) changed files outside the content | Find out who saved and why. If it was not intended: `git revert` of the commit in a pull request, and check the editor's account. If it was: make the change again in a pull request. Publishing resumes when the files are back as at the last publish |
-| `vakt` fails with «Kunne ikke slå opp …», «Uventet svar …» or «git … feilet» | A GitHub lookup or a Git command failed, so the change could not be checked in full | Run the workflow again. It never publishes on a partial check |
-| `vakt` fails with «Fant ikke forrige publisering …» | The last published commit is gone (history rewritten) or no publish has succeeded, so there is nothing to compare with | Look through the commits on `main` since the last publish, then run «Bygg og publiser» by hand (Actions → Run workflow). A manual run checks only the last commit, and the log says who ran it |
-| `bygg` stops at `sjekk-media` | A file in `public/media/` that is not an image or a PDF | Remove it, or replace it with an image or PDF |
-| `publiser` stops at «Sett inn skjemaenes ID-er» | A variable in `produksjon` is missing or has the wrong format | Fix the variable and run again |
-| `oversett` warns about the sign-in | The Anthropic federation, the credit or the IDs | The site is still published with the previous translations. Check platform.claude.com |
-| A form (RadioID or «Meld feil») answers «Noe gikk galt hos oss» | The app key, the app's installation or the IDs | Check that the app is installed on `form-submissions` and that the key in Cloudflare is right |
+| `bygg` feiler etter lagring i Pages CMS | Et ugyldig felt (dato, type, et bilde som mangler) | Les feilmeldingen, rett innlegget i CMS-et |
+| `publiser` feiler med en autentiseringsfeil | Cloudflare-tokenet har gått ut eller er slettet | Forny tokenet (se over) |
+| `vakt` feiler, og saken «Publisering stoppet: Pages CMS endret filer utenfor innholdet» opprettes | En commit lagret rett på `main` (fra Pages CMS, uten pull request) endret filer utenfor innholdet | Finn ut hvem som lagret og hvorfor. Var det ikke meningen: `git revert` av committen i en pull request, og sjekk kontoen til redaktøren. Var det meningen: gjør endringen på nytt i en pull request. Publiseringen fortsetter når filene er som ved siste publisering |
+| `vakt` feiler med «Kunne ikke slå opp …», «Uventet svar …» eller «git … feilet» | Et oppslag i GitHub eller en Git-kommando feilet, så endringen kunne ikke kontrolleres helt | Kjør arbeidsflyten på nytt. Den publiserer aldri etter en ufullstendig kontroll |
+| `vakt` feiler med «Fant ikke forrige publisering …» | Den sist publiserte committen finnes ikke (historikken er skrevet om), eller ingen publisering har lyktes, så det er ingenting å sammenligne med | Se gjennom committene på `main` siden siste publisering, og kjør så «Bygg og publiser» for hånd (Actions → Run workflow). En manuell kjøring kontrollerer bare siste commit, og loggen viser hvem som kjørte den |
+| `bygg` stopper på `sjekk-media` | En fil i `public/media/` som ikke er et bilde eller en PDF | Fjern den, eller erstatt den med et bilde eller en PDF |
+| `publiser` stopper på «Sett inn skjemaenes ID-er» | En variabel i `produksjon` mangler eller har feil format | Rett variabelen og kjør på nytt |
+| `oversett` advarer om innloggingen | Anthropic-federation, kreditten eller ID-ene | Nettstedet publiseres likevel, med de forrige oversettelsene. Sjekk platform.claude.com |
+| Et skjema (RadioID eller «Meld feil») svarer «Noe gikk galt hos oss» | Appnøkkelen, installasjonen av appen eller ID-ene | Sjekk at appen er installert på `form-submissions` og at nøkkelen i Cloudflare er riktig |
 
-## Launch and the domain
+## Domenet
 
-The launch order is in the pull request «Lansering» and in [decisions/0003](decisions/0003-cloudflare-workers.md): name servers
-to Cloudflare, custom domains `hpgt.com` and `www.hpgt.com` on the Worker, a redirect rule from `www`, and then
-`prototype: false`.
+Navnetjenerne for hpgt.com hos Namecheap peker til Cloudflare. `hpgt.com` og `www.hpgt.com` er egne domener (custom
+domains) på Workeren, `www` sendes videre (301) til `hpgt.com`, og `prototype` er `false` i `site.json` (se
+[decisions/0003](decisions/0003-cloudflare-workers.md)). DNS-postene, videresendingen og DNSSEC er kode i
+`infra/hpgt.com/terraform.tfvars` i hpgt-com/operations og endres med pull request der, ikke i dashbordet.
 
-E-mail is at Google and is not affected by the website, but its DNS records (MX, SPF, DKIM `google._domainkey`, DMARC)
-must be in Cloudflare DNS. DMARC reports go to Cloudflare (Email → DMARC Management).
+E-posten ligger hos Google og påvirkes ikke av nettstedet, men DNS-postene for den (MX, SPF, DKIM `google._domainkey`,
+DMARC) ligger i Cloudflare DNS. DMARC-rapportene går til Cloudflare (Email → DMARC Management).
 
-**DNSSEC** is on (November 2026): Cloudflare signs the zone, and the DS record (the link from `.com` to Cloudflare's
-key) is at the registrar, Namecheap → Domain List → hpgt.com → Advanced DNS → DNSSEC. Nothing to do day to day.
-**Before the name servers are ever moved away from Cloudflare:** remove the DS record at Namecheap first, wait a day,
-then turn DNSSEC off in Cloudflare (DNS → Settings) and move. In the other order hpgt.com, including e-mail, stops
-resolving for everyone whose resolver checks the signatures, until it is put right.
+**DNSSEC** er på: Cloudflare signerer sonen (`dnssec = true`), og DS-posten (koblingen fra `.com` til nøkkelen hos
+Cloudflare) ligger hos registraren, Namecheap → Domain List → hpgt.com → Advanced DNS → DNSSEC. Ingenting å gjøre i det
+daglige. **Før navnetjenerne noen gang flyttes bort fra Cloudflare:** fjern DS-posten hos Namecheap først, vent et
+døgn, slå så av DNSSEC (`dnssec = false` i `infra/hpgt.com/terraform.tfvars`, pull request i hpgt-com/operations) og
+flytt. I motsatt rekkefølge slutter hpgt.com, også e-posten, å virke for alle som har en resolver som sjekker
+signaturene, til det er rettet opp.
 
-## Backup
+## Sikkerhetskopi
 
-All content and all code are in Git, with the full history, and are also cloned locally by the administrators. There
-is no database. The secrets are not in Git: do not keep them anywhere other than where the table above says, and make
-new ones when needed instead.
+Alt innhold og all kode ligger i Git, med hele historikken, og er også klonet lokalt hos administratorene. Det finnes
+ingen database. Hemmelighetene ligger ikke i Git: de skal ikke ligge andre steder enn der tabellen over sier, og ved
+behov lages nye i stedet.

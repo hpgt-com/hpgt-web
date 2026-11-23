@@ -1,27 +1,27 @@
-# 0005: One token per task, owned by the club
+# 0005: Ett token per oppgave, eid av klubben
 
-- **Status:** Accepted
-- **Date:** 2026-11-18
+- **Status:** Vedtatt
+- **Dato:** 2026-11-18
 
-## Context
-Publishing used a personal Cloudflare token with access to every Worker on the account, and the RadioID form was
-planned with a personal GitHub token. Both would stop working if the person left the board, and both gave more access
-than needed.
+## Bakgrunn
+Publiseringen brukte et personlig Cloudflare-token med tilgang til alle Workere i kontoen, og RadioID-skjemaet var
+planlagt med et personlig GitHub-token. Begge ville sluttet å virke hvis personen gikk ut av styret, og begge ga mer
+tilgang enn nødvendig.
 
-## Decision
-- Cloudflare: one account token per Worker, made from the Worker itself («API token for external CI/CD»), which can
-  only publish that Worker. Renewed yearly.
-- The RadioID form: the GitHub App «HPGT Web Forms», owned by the org, installed only on the private repository
-  `hpgt-com/form-submissions` ([0006](0006-radioid-private-intake.md), [0007](0007-one-intake-repository-for-forms.md)) with
-  «Issues: Read and write» only. The Worker makes a one-hour token per submission.
-- Turnstile: one widget per website («hpgt.com skjemaer»), with its own `action` per form.
-- Public IDs (site key, App ID, Installation ID) as variables in the environment `produksjon`. Secrets only in
-  Cloudflare.
+## Beslutning
+- Cloudflare: ett kontotoken per Worker, laget fra selve Workeren («API token for external CI/CD»), som bare kan
+  publisere den Workeren. Fornyes årlig.
+- RadioID-skjemaet: GitHub-appen «HPGT Web Forms», eid av organisasjonen, bare installert på det private repoet
+  `hpgt-com/form-submissions` ([0006](0006-radioid-private-intake.md), [0007](0007-one-intake-repository-for-forms.md))
+  med bare «Issues: Read and write». Workeren lager et token for én time per innsending.
+- Turnstile: én widget per nettsted («hpgt.com skjemaer»), med egen `action` per skjema.
+- Offentlige ID-er (nettstedsnøkkel, App ID, Installation ID) som variabler i miljøet `produksjon`. Hemmeligheter bare
+  i Cloudflare.
 
-## Consequences
-- A leaked token can do one thing only. Nothing depends on one person's account.
-- The Cloudflare token must be renewed yearly (a reminder in the board's calendar).
+## Konsekvenser
+- Et token som lekker, kan bare gjøre én ting. Ingenting avhenger av én persons konto.
+- Cloudflare-tokenet må fornyes årlig (en påminnelse i styrets kalender).
 
-## Alternatives considered
-Fine-grained personal tokens (tied to a person, they expire), and one shared Cloudflare token for everything (too
-broad).
+## Alternativer som ble vurdert
+Finkornede personlige tokens (knyttet til en person, de utløper), og ett felles Cloudflare-token for alt (for vid
+tilgang).
