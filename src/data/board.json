@@ -1,30 +1,30 @@
 {
   "members": [
     {
+      "id": "leder",
       "role": "Leder",
       "name": "Kjerstine Marken Hamre",
+      "responsibility": "Generelle spørsmål, medlemskap, økonomi, samarbeid og sponsorer, tilgang til nettsiden.",
       "phone": "+47 412 02 000",
       "email": "leder@hpgt.com",
-      "image": "/media/archive/2026/03/image_editor_output_image1169016827-17743533286506307351329439192490.jpeg",
-      "id": "leder",
-      "responsibility": "Generelle spørsmål, medlemskap, økonomi, samarbeid og sponsorer, tilgang til nettsiden."
+      "image": "/media/archive/2026/03/image_editor_output_image1169016827-17743533286506307351329439192490.jpeg"
     },
     {
+      "id": "nestleder",
       "role": "Nestleder / skolesjef",
       "name": "Erlend Borge Madsen",
+      "responsibility": "Kurs og opplæring, tandem og spørsmål om å begynne å fly.",
       "phone": "+47 975 78 061",
-      "image": "/media/archive/2026/03/image_editor_output_image-873138208-17743579660303691002794240163423.jpeg",
-      "id": "nestleder",
-      "responsibility": "Kurs og opplæring, tandem og spørsmål om å begynne å fly."
+      "image": "/media/archive/2026/03/image_editor_output_image-873138208-17743579660303691002794240163423.jpeg"
     },
     {
+      "id": "faglig-leder",
       "role": "Faglig leder",
       "name": "Jonathan Wohlenberg",
+      "responsibility": "Sikkerhet, NOTAM og vinsjing, flysteder og luftrom, hendelser og nestenulykker.",
       "phone": "+47 955 27 485",
       "email": "faglig.leder@hpgt.com",
-      "image": "/media/archive/2026/04/messenger_creation_cf294fe1-3c18-445e-918a-12ec525a4aec3985823306367981125.jpeg",
-      "id": "faglig-leder",
-      "responsibility": "Sikkerhet, NOTAM og vinsjing, flysteder og luftrom, hendelser og nestenulykker, RadioID-registeret."
+      "image": "/media/archive/2026/04/messenger_creation_cf294fe1-3c18-445e-918a-12ec525a4aec3985823306367981125.jpeg"
     }
   ]
 }
