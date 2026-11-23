@@ -28,7 +28,7 @@ const analytics = site.statistikk;
 const goat = (site as { goatcounter?: string }).goatcounter;
 const GOAT = goat ? new URL(goat).origin : "";
 const CFA_SCRIPT = "https://static.cloudflareinsights.com", CFA_DATA = "https://cloudflareinsights.com";
-const csp = `default-src 'self'; script-src 'self'${turnstile ? " " + cf : ""}${analytics ? " " + CFA_SCRIPT : ""}; style-src 'self'; img-src 'self' data:${goat ? " " + GOAT : ""}; font-src 'self'; connect-src 'self'${analytics ? " " + CFA_DATA : ""}${goat ? " " + GOAT : ""}; frame-src ${turnstile ? cf + " " : ""}${VIDEO}; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests`;
+const csp = `default-src 'none'; script-src 'self'${turnstile ? " " + cf : ""}${analytics ? " " + CFA_SCRIPT : ""}; style-src 'self'; img-src 'self' data:${goat ? " " + GOAT : ""}; font-src 'self'; connect-src 'self'${analytics ? " " + CFA_DATA : ""}${goat ? " " + GOAT : ""}; frame-src ${turnstile ? cf + " " : ""}${VIDEO}; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests`;
 const canonical = new URL(Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ""), ""), site.url);
 ---
 <meta charset="utf-8" />
