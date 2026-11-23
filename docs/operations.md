@@ -11,9 +11,9 @@ request samme dag, hvis endringen ble gjort i et dashbord).
 
 | Innstilling | Hvor |
 |---|---|
-| Adresse, e-postadresser, org.nr., Vipps, Facebook og Instagram, lenken til flysteder, statussiden (`driftsstatus`) | `src/data/site.json` |
-| Forhåndsvisningsmodus (`prototype`), standardbildet for deling (`delingsbilde`), tokenet for Web Analytics (`statistikk`), adressen til GoatCounter (`goatcounter`) | `src/data/site.json` |
-| Menyer og seksjoner | `src/data/meny.json` |
+| Adresse, e-postadresser, org.nr., Vipps, Facebook og Instagram, lenken til flysteder, statussiden (`statusPage`) | `src/data/site.json` |
+| Forhåndsvisningsmodus (`prototype`), standardbildet for deling (`shareImage`), tokenet for Web Analytics (`webAnalytics`), adressen til GoatCounter (`goatcounter`) | `src/data/site.json` |
+| Menyer og seksjoner | `src/data/menu.json` |
 | Innhold, styret, RadioID-registeret, standardbilder | Pages CMS |
 | Nettstedsnøkkelen for Turnstile, ID-ene til GitHub-appen | GitHub → `hpgt-web` → Settings → Environments → `production` (variabler) |
 | Hemmeligheter (Turnstile-hemmeligheten, appnøkkelen, Cloudflare-tokenet) | Cloudflare og `production`, aldri i filer (se [Hemmeligheter og variabler](#hemmeligheter-og-variabler)) |
@@ -69,7 +69,7 @@ godkjennerne i miljøene i de private repoene (`form-submissions` og `operations
 | `TURNSTILE_SECRET` | Cloudflare → Workers & Pages → hpgt-web → Settings → Variables and Secrets | Hemmelighet | Workerens kontroll av Turnstile-svar | Hvis den kan ha lekket |
 | `GITHUB_APP_PRIVATE_KEY` | Samme sted | Hemmelighet | Den private nøkkelen til appen (.pem). Workeren lager tokens for én time med den | Hvis den kan ha lekket |
 | `ANTHROPIC_ORGANIZATION_ID`, `ANTHROPIC_FEDERATION_RULE_ID`, `ANTHROPIC_SERVICE_ACCOUNT_ID`, `ANTHROPIC_WORKSPACE_ID` | GitHub `hpgt-web` → Environments → `translation` | Variabler | Hvilken federation-regel og tjenestekonto innloggingen bruker. Ingen nøkkel er lagret | Aldri |
-| Tokenet for Cloudflare Web Analytics | `src/data/site.json` → `statistikk` | I Git (offentlig) | Anonym besøksstatistikk. Tom = av | – |
+| Tokenet for Cloudflare Web Analytics | `src/data/site.json` → `webAnalytics` | I Git (offentlig) | Anonym besøksstatistikk. Tom = av | – |
 | Adressen til GoatCounter | `src/data/site.json` → `goatcounter` | I Git (offentlig) | Anonym besøksstatistikk og klikkhendelser (`hpgt-web.goatcounter.com`, samme GoatCounter-konto som flysteder). Tom = av | – |
 
 Begge miljøene (`production` og `translation`) er begrenset til grenen `main`.
@@ -110,7 +110,7 @@ tokenet er byttet.
 ### Behandle en RadioID-innmelding
 1. En sak kommer i det **private** repoet `hpgt-com/form-submissions` med etiketten `radioid` (følg det med
    **Watch → Custom → Issues** for å få e-post). Innmeldingene inneholder navn og kommentarer og ligger derfor aldri i et
-   offentlig repo. Bare den ferdige oppføringen publiseres, i `radioid.json`.
+   offentlig repo. Bare den ferdige oppføringen publiseres, i `radio-id.json`.
 2. Oppdater registeret i Pages CMS (RadioID) og lagre.
 3. Lukk saken.
 
@@ -142,7 +142,7 @@ aldri.
 med GitHub-appen «HPGT Status» (bare installert på det repoet, Contents og Issues; nøkkelen ligger i miljøet `status`),
 ikke et personlig token, og appen står på unntakslisten i regelsettet for det repoet fordi den committer resultatene
 til `main`. Siden er GitHub Pages fra grenen `gh-pages`, på `status.hpgt.com` (Cloudflare DNS: `status` CNAME
-`hpgt-com.github.io`, DNS only). Lenken «Driftsstatus» i bunnteksten er `site.json` → `driftsstatus`.
+`hpgt-com.github.io`, DNS only). Lenken «Driftsstatus» i bunnteksten er `site.json` → `statusPage`.
 
 ### Overvåke skjemaene (logger og varsler)
 - **Logger:** Cloudflare → Workers & Pages → `hpgt-web` → **Observability**. Én linje per kall til Workeren (bare
