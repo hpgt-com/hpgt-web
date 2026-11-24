@@ -19,7 +19,7 @@ export const T = {
     previousWas: "forrige var", fullCalendar: "Hele kalenderen", contactMe: "Kontakt meg om:", portrait: "Portrett av", board: "Styret",
     darkMode: "Mørkt tema", search: "Søk", reportError: "Meld feil på denne siden", privacy: "Personvern", serviceStatus: "Driftsstatus", showSubpages: "vis undersider",
     exploreCourses: "Utforsk kurs", flyWithUs: "Fly med oss", calendar: "Aktivitetskalender", intoTheAir: "Ut i lufta", findYourWay: "Finn din vei inn.",
-    aboutClub: "Om klubben", sponsors: "Støttet av", newTab: "åpnes i ny fane", ourSponsors: "Sponsorene våre", heroAlt: "Tandemflyging over snødekte fjell ved Harstad",
+    aboutClub: "Om klubben", sponsors: "Støttet av", newTab: "åpnes i ny fane", heroAlt: "Tandemflyging over snødekte fjell ved Harstad",
   },
   en: {
     skip: "Skip to content", menu: "Menu", mainMenu: "Main menu", club: "The club", pilots: "For pilots", follow: "Follow us",
@@ -29,7 +29,7 @@ export const T = {
     previousWas: "the last one was", fullCalendar: "Full calendar", contactMe: "Contact me about:", portrait: "Portrait of", board: "Board",
     darkMode: "Dark mode", search: "Search", reportError: "Report an error on this page", privacy: "Privacy", serviceStatus: "Service status", showSubpages: "show subpages",
     exploreCourses: "Explore courses", flyWithUs: "Fly with us", calendar: "Activity calendar", intoTheAir: "Into the air", findYourWay: "Find your way in.",
-    aboutClub: "About the club", sponsors: "Supported by", newTab: "opens in a new tab", ourSponsors: "Our sponsors", heroAlt: "Tandem flight over snow-covered mountains near Harstad",
+    aboutClub: "About the club", sponsors: "Supported by", newTab: "opens in a new tab", heroAlt: "Tandem flight over snow-covered mountains near Harstad",
   },
 } as const;
 
