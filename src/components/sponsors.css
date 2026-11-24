@@ -11,3 +11,7 @@
 @media (hover: none) { .sponsors__list img { filter: none; opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .sponsors__list img { transition: none; } }
 .sponsors__hint { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+/* Større fliser i båndet på forsiden (FrontSponsors.astro) */
+.sponsors__list--large { gap: 14px; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+.sponsors__list--large a { height: 110px; padding: 14px 20px; }
+.sponsors__list--large img { max-height: 76px; }

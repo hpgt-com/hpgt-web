@@ -90,6 +90,7 @@ const sponsors = defineCollection({
     name: z.string().min(1),
     logo: z.string().regex(/^\/media\/sponsors\/[^/]+\.(svg|png|webp|jpe?g)$/i, "Logoen må ligge i public/media/sponsors/"),
     url: z.string().url().startsWith("https://"),
+    frontPage: z.boolean().optional(),
     until: z.union([z.literal(""), z.string().regex(/^\d{4}-\d{2}-\d{2}$/)]).optional(),
   }),
 });

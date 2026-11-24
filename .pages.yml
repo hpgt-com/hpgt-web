@@ -243,6 +243,7 @@ content:
           - { name: name, label: Firmanavn, type: string, required: true }
           - { name: logo, label: "Logo (SVG eller PNG med gjennomsiktig bakgrunn)", type: image, required: true, options: { media: images, path: public/media/sponsors } }
           - { name: url, label: "Lenke til nettsiden (https://…)", type: string, required: true }
+          - { name: frontPage, label: Vis også på forsiden, type: boolean, description: "Viser logoen stort i et eget bånd på forsiden, i tillegg til stripen nederst på alle sidene." }
           - { name: until, label: Vises til og med, type: date, description: "Tom = uten sluttdato. Logoen forsvinner ved første publisering etter datoen." }
 
   - name: radio-id

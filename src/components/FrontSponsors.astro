@@ -1,0 +1,15 @@
+---
+// Sponsorbåndet på forsiden: sponsorene som har «Vis også på forsiden» i Pages CMS. Uten slike sponsorer vises ingenting.
+import SponsorList from "./SponsorList.astro";
+import { activeSponsors } from "../lib/sponsors";
+import { T, type Lang } from "../lib/i18n";
+const { lang } = Astro.props as { lang: Lang };
+const t = T[lang];
+const sponsors = (await activeSponsors()).filter((s) => s.frontPage);
+---
+{sponsors.length > 0 && (
+  <section class="wrap section sponsors-front" aria-labelledby="sponsors-front-title">
+    <div class="head"><div><p class="eyebrow">{t.thanksTo}</p><h2 class="h2" id="sponsors-front-title">{t.ourSponsors}</h2></div></div>
+    <SponsorList sponsors={sponsors} lang={lang} large />
+  </section>
+)}

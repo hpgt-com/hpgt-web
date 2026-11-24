@@ -2,6 +2,7 @@
 import Arrow from "../components/Arrow.astro";
 import DefaultImage from "../components/DefaultImage.astro";
 import ActivityCalendar from "../components/ActivityCalendar.astro";
+import FrontSponsors from "../components/FrontSponsors.astro";
 import { url, link, slug, excerpt, imageFor } from "../lib/site";
 import { T, pageInfo, frontPageFor, englishPaths, linkFor, categoryName, localPath } from "../lib/i18n";
 const { posts, upcoming, past } = Astro.props;
@@ -73,3 +74,5 @@ const shortDate = (d: Date) => new Intl.DateTimeFormat(en ? "en-GB" : "nb-NO", {
   <ActivityCalendar upcoming={upcoming} past={past} />
   </div>
 </section>
+
+<FrontSponsors lang={lang} />

@@ -1,0 +1,17 @@
+---
+// Logoene som lenker, i gråtoner til man peker på dem (sponsors.css). Brukes av stripen nederst og båndet på forsiden.
+import { url, slug } from "../lib/site";
+import { T, type Lang } from "../lib/i18n";
+import "./sponsors.css";
+type Sponsor = { name: string; logo: string; url: string };
+const { sponsors, lang, large = false } = Astro.props as { sponsors: Sponsor[]; lang: Lang; large?: boolean };
+const t = T[lang];
+---
+<ul class:list={["sponsors__list", { "sponsors__list--large": large }]}>
+  {sponsors.map((s) => (
+    <li><a href={s.url} target="_blank" rel="sponsored noopener" data-goatcounter-click={`sponsor-${slug(s.name)}`}>
+      <img src={url(s.logo)} alt={s.name} width="160" height="56" loading="lazy" decoding="async" />
+      <span class="sponsors__hint"> ({t.newTab})</span>
+    </a></li>
+  ))}
+</ul>
