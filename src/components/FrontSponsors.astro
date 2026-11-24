@@ -8,8 +8,10 @@ const t = T[lang];
 const sponsors = (await activeSponsors()).filter((s) => s.frontPage);
 ---
 {sponsors.length > 0 && (
-  <section class="wrap section sponsors-front" aria-labelledby="sponsors-front-title">
-    <div class="head"><div><p class="eyebrow">{t.thanksTo}</p><h2 class="h2" id="sponsors-front-title">{t.ourSponsors}</h2></div></div>
-    <SponsorList sponsors={sponsors} lang={lang} large />
+  <section class="sponsors sponsors--front" aria-labelledby="sponsors-front-title">
+    <div class="wrap">
+      <h2 id="sponsors-front-title" class="sponsors__title">{t.ourSponsors}</h2>
+      <SponsorList sponsors={sponsors} lang={lang} large />
+    </div>
   </section>
 )}
