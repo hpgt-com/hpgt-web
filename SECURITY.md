@@ -1,54 +1,59 @@
-# Security
+# Sikkerhet
 
-## Reporting a security issue
+## Rapportere et sikkerhetsproblem
 
-Do not open a public issue. The same contacts are in https://hpgt.com/.well-known/security.txt. Use **Report a vulnerability** under this repository's **Security** tab, so only the
-maintainers see the report. Describe what you found, how to reproduce it and what it affects. We reply as soon as we
-can, but this is a volunteer club project.
+Ikke opprett en offentlig issue. Bruk **Report a vulnerability** under fanen **Security** i dette repoet, så bare
+vedlikeholderne ser rapporten. Beskriv hva du fant, hvordan det kan gjenskapes, og hva det påvirker. Vi svarer så
+fort vi kan, men dette er et frivillig klubbprosjekt. De samme kontaktene står i
+https://hpgt.com/.well-known/security.txt.
 
-## What is in place
+Rapporten kan skrives på norsk eller engelsk.
 
-- All changes to `main` go through a pull request (branch ruleset «Main protection»). Force push and deletion of `main`
-  are blocked.
-- Required checks: `dependency-review` (no dependencies with known vulnerabilities), `workflow-security` (zizmor) and
-  `build` (the whole site builds and every content file is valid), plus CodeQL code scanning (high or higher blocks the merge).
-- Actions are pinned to commit SHAs and updated monthly by Dependabot, with a cooldown of 7 days (30 for major
-  versions). Patch and minor updates of Actions are merged automatically when all required checks pass
-  (`dependabot-automerge.yml`). Other updates are merged by hand.
-- Workflows get read-only access by default; jobs ask for more only when they need it. `persist-credentials: false`
-  on every checkout.
-- Secrets live in GitHub environments limited to `main`, never in the code. `.gitignore` blocks `.env` and key files.
-- Secret scanning with push protection, Dependabot alerts and security updates are on.
+## Dette er på plass
 
-## This repository
+- Alle endringer på `main` går via pull request (regelsettet «Main protection»). Force push og sletting av `main` er
+  blokkert.
+- Påkrevde sjekker: `dependency-review` (ingen avhengigheter med kjente sårbarheter), `workflow-security` (zizmor) og
+  `build` (hele siden bygger, og alle innholdsfilene er gyldige), pluss kodeskanning med CodeQL (high eller høyere
+  stopper merge).
+- Actions er låst til commit-SHA og oppdateres månedlig av Dependabot, med en ventetid på 7 dager (30 for hovedversjoner
+  der økosystemet støtter det). Patch- og minor-oppdateringer av Actions merges automatisk når alle påkrevde sjekker er
+  grønne (`dependabot-automerge.yml`). Andre oppdateringer merges for hånd.
+- Arbeidsflyter har bare lesetilgang som standard, og jobber ber om mer bare når de trenger det.
+  `persist-credentials: false` på hver checkout.
+- Hemmeligheter ligger i GitHub-miljøer som bare tillater `main`, aldri i koden. `.gitignore` blokkerer `.env` og
+  nøkkelfiler.
+- Secret scanning med push protection, Dependabot-varsler og sikkerhetsoppdateringer er slått på.
 
-- **What is published:** hpgt.com, a static Astro site, on Cloudflare Workers (static assets). The only server code is
-  `worker/index.js`, which turns the forms (RadioID and «Meld feil») into GitHub issues in a private repository.
-- **Who edits:** club members through Pages CMS. The Pages CMS GitHub App is installed on this repository only, and
-  email collaborators can edit content and media, not code, workflows or settings (`.pages.yml`).
-- **Keys:**
-  - `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` in the environment `production` (main only). The token is an
-    account token made from the Worker (Workers & Pages → hpgt-web → Settings → Builds → «API token for external
-    CI/CD») and can only publish the Worker `hpgt-web`: no other Worker, no DNS, domains or other account settings. It
-    belongs to the club's account, not a person, and is renewed yearly. Only the `publish` job uses it, and that job
-    runs no code from the repository.
-  - `TURNSTILE_SECRET` and `GITHUB_APP_PRIVATE_KEY` for the form are Cloudflare secrets, not GitHub secrets. The
-    issues are made by the club's GitHub App «HPGT Web Forms» in the private repository `hpgt-com/form-submissions`
-    (the app is installed there only, «Issues: Read and
-    write» only). For each submission the Worker asks for a one-hour token limited to this repository and Issues: write
-    (`worker/github-app.js`), so there is no personal or long-lived token.
-  - `TURNSTILE_SITEKEY`, `GH_APP_ID` and `GH_APP_INSTALLATION_ID` are not secret. They are variables in `production`,
-    checked and inserted by the `publish` job; other builds use Cloudflare's Turnstile test key.
-- **Editors:** the Pages CMS app may save straight to `main` (bypass in the ruleset). The first job in the publish
-  workflow (`guard`) stops the publish and opens an issue if a commit that did not come through a merged pull request
-  changes anything other than the content (`src/content/`, `public/media/` and the CMS's JSON files). The build
-  (`scripts/check-media.mjs`) stops if `public/media/` holds anything other than images and PDFs, so an upload cannot
-  put an HTML page or a script on hpgt.com.
-- **Publishing:** Wrangler is pinned to a fixed version in the `publish` job, since that job holds the Cloudflare
-  token.
-- **Content security:** strict CSP with `default-src 'none'` and without `unsafe-inline` (`public/_headers`, and the same
-  policy as a meta tag in `src/components/Head.astro`), `Cross-Origin-Opener-Policy: same-origin` and
-  `Cross-Origin-Resource-Policy: same-site`. Violations, and Trusted Types in report-only mode, are reported to
-  `/api/csp-report`, which logs only the directive, the blocked host and the path, never the IP address or user agent.
-  No third-party scripts except Cloudflare Turnstile on the form pages and Cloudflare Web Analytics; no tracking, no
-  cookies.
+## Dette repoet
+
+- **Hva som publiseres:** hpgt.com, en statisk Astro-side, på Cloudflare Workers (statiske filer). Den eneste
+  serverkoden er `worker/index.js`, som gjør skjemaene (RadioID og «Meld feil») om til GitHub-issues i et privat repo.
+- **Hvem som redigerer:** klubbmedlemmer via Pages CMS. GitHub-appen til Pages CMS er bare installert på dette repoet,
+  og samarbeidspartnere med e-post kan redigere innhold og medier, ikke kode, arbeidsflyter eller innstillinger
+  (`.pages.yml`).
+- **Nøkler:**
+  - `CLOUDFLARE_API_TOKEN` og `CLOUDFLARE_ACCOUNT_ID` i miljøet `production` (bare main). Tokenet er et kontotoken
+    laget fra Workeren (Workers & Pages → hpgt-web → Settings → Builds → «API token for external CI/CD») og kan bare
+    publisere Workeren `hpgt-web`: ingen andre Workere, ikke DNS, domener eller andre kontoinnstillinger. Det tilhører
+    klubbens konto, ikke en person, og fornyes hvert år. Bare jobben `publish` bruker det, og den jobben kjører ingen
+    kode fra repoet.
+  - `TURNSTILE_SECRET` og `GITHUB_APP_PRIVATE_KEY` for skjemaet er Cloudflare-secrets, ikke GitHub-secrets. Issuene
+    lages av klubbens GitHub-app «HPGT Web Forms» i det private repoet `hpgt-com/form-submissions` (appen er bare
+    installert der, med bare «Issues: Read and write»). For hver innsending ber Workeren om et token som varer én
+    time, begrenset til det repoet og Issues: write (`worker/github-app.js`), så det finnes ikke noe personlig eller
+    langvarig token.
+  - `TURNSTILE_SITEKEY`, `GH_APP_ID` og `GH_APP_INSTALLATION_ID` er ikke hemmelige. De er variabler i `production`,
+    som sjekkes og settes inn av jobben `publish`. Andre bygg bruker testnøkkelen til Cloudflare Turnstile.
+- **Redaktører:** appen Pages CMS kan lagre rett til `main` (unntak i regelsettet). Den første jobben i
+  publiseringen (`guard`) stopper publiseringen og oppretter en issue hvis en commit som ikke kom fra en merget pull
+  request, endrer noe annet enn innholdet (`src/content/`, `public/media/` og JSON-filene til CMS-et). Bygget
+  (`scripts/check-media.mjs`) stopper hvis `public/media/` inneholder noe annet enn bilder og PDF-er, så en
+  opplasting ikke kan legge en HTML-side eller et skript på hpgt.com.
+- **Publisering:** Wrangler er låst til en fast versjon i jobben `publish`, fordi den jobben har Cloudflare-tokenet.
+- **Innholdssikkerhet:** streng CSP med `default-src 'none'` og uten `unsafe-inline` (`public/_headers`, og den samme
+  policyen som meta-tag i `src/components/Head.astro`), `Cross-Origin-Opener-Policy: same-origin` og
+  `Cross-Origin-Resource-Policy: same-site`. Brudd, og Trusted Types i report-only-modus, rapporteres til
+  `/api/csp-report`, som bare logger direktivet, verten som ble blokkert, og stien, aldri IP-adressen eller
+  nettleserinfo. Ingen skript fra tredjeparter, bortsett fra Cloudflare Turnstile på skjemasidene og Cloudflare Web
+  Analytics. Ingen sporing og ingen informasjonskapsler.
