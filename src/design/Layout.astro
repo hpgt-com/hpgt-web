@@ -2,6 +2,7 @@
 import Arrow from "../components/Arrow.astro";
 import Head from "../components/Head.astro";
 import ProtoBanner from "../components/ProtoBanner.astro";
+import Sponsors from "../components/Sponsors.astro";
 import "../components/proto.css";
 import "@fontsource-variable/inter-tight/index.css";
 import "@fontsource/ibm-plex-mono/500.css";
@@ -66,6 +67,7 @@ const isActive = (u: string) => !isExternal(u) && (section ? u === section.url :
   </header>
   {/* Ankeret #innhold beholdes (det er en del av adressen når noen lenker til hopp-lenken) */}
   <main id="innhold"><slot /></main>
+  <Sponsors lang={lang} />
   <footer class="foot">
     <div class="wrap foot__grid">
       <div><p class="foot__logo">HPGT</p><p class="muted">Harstad Hang og Paragliderklubb<br />Org.nr. {site.orgNumber} · Vipps {site.vipps}<br /><a href={`mailto:${site.email.chair}`}>{site.email.chair}</a></p></div>

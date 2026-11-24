@@ -82,5 +82,17 @@ const board = defineCollection({
   schema: z.object({ role: z.string(), name: z.string(), phone: z.string().optional(), email: z.string().optional(), image: z.string().optional() }),
 });
 
+// Sponsorene nederst på alle sidene (Sponsors.astro). Rekkefølgen i filen er rekkefølgen på siden; id-en er plassen.
+// «until» er siste dag logoen vises (tom = uten sluttdato). Logoen må ligge på siden selv (CSP: img-src 'self').
+const sponsors = defineCollection({
+  loader: file("./src/data/sponsors.json", { parser: (t) => Object.fromEntries(JSON.parse(t).sponsors.map((s: object, i: number) => [String(i).padStart(3, "0"), s])) }),
+  schema: z.object({
+    name: z.string().min(1),
+    logo: z.string().regex(/^\/media\/sponsors\/[^/]+\.(svg|png|webp|jpe?g)$/i, "Logoen må ligge i public/media/sponsors/"),
+    url: z.string().url().startsWith("https://"),
+    until: z.union([z.literal(""), z.string().regex(/^\d{4}-\d{2}-\d{2}$/)]).optional(),
+  }),
+});
+
 // Navnene på samlingene er de samme som mappene i src/content/ (og navnene i .pages.yml).
-export const collections = { posts, pages, courses, pages_en: pagesEn, courses_en: coursesEn, posts_en: postsEn, board };
+export const collections = { posts, pages, courses, pages_en: pagesEn, courses_en: coursesEn, posts_en: postsEn, board, sponsors };

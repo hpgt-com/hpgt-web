@@ -1,0 +1,8 @@
+{
+  "sponsors": [
+    { "name": "Fjellvind Sport (test)", "logo": "/media/sponsors/test-fjellvind.svg", "url": "https://example.com/", "until": "" },
+    { "name": "Nordlys Foto (test)", "logo": "/media/sponsors/test-nordlys.svg", "url": "https://example.com/", "until": "" },
+    { "name": "Kystbakeriet (test)", "logo": "/media/sponsors/test-kystbakeri.svg", "url": "https://example.com/", "until": "" },
+    { "name": "Havørn Elektro (test)", "logo": "/media/sponsors/test-havorn.svg", "url": "https://example.com/", "until": "2027-12-31" }
+  ]
+}
