@@ -241,8 +241,9 @@ content:
         list: true
         fields:
           - { name: name, label: Firmanavn, type: string, required: true }
-          - { name: logo, label: "Logo (SVG eller PNG med gjennomsiktig bakgrunn)", type: image, required: true, options: { media: images, path: public/media/sponsors } }
-          - { name: url, label: "Lenke til nettsiden (https://…)", type: string, required: true }
+          - { name: logo, label: "Logo (SVG eller PNG med gjennomsiktig bakgrunn)", type: image, required: true, description: "Tom kant rundt logoen skjæres bort, og logoen skaleres automatisk ved publisering.", options: { media: images, path: public/media/sponsors } }
+          - { name: url, label: "Lenke (https://…), til forsiden eller en bestemt side hos sponsoren", type: string, required: true }
+          - { name: from, label: Vises fra og med, type: date, description: "Tom = med en gang. Logoen kommer ved første publisering fra datoen." }
           - { name: until, label: Vises til og med, type: date, description: "Tom = uten sluttdato. Logoen forsvinner ved første publisering etter datoen." }
 
   - name: radio-id
