@@ -27,8 +27,10 @@ on:
     branches: [main]
   workflow_dispatch:
   schedule:
-    # 00:15 norsk vintertid, 01:15 sommertid: alltid etter midnatt her, så sponsorene for den nye dagen vises
-    - cron: "15 23 * * *"
+    # 00:05 norsk tid hele året, så sponsorene for den nye dagen vises. Ikke 00:00: GitHub forsinker ofte kjøringer på
+    # hel time.
+    - cron: "5 0 * * *"
+      timezone: "Europe/Oslo"
 
 permissions:
   contents: read

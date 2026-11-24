@@ -119,7 +119,7 @@ tokenet er byttet.
    eventuelt «Vises fra og med» og «Vises til og med». Lagre. Siden publiseres med en gang.
 2. Stripen «Støttet av» vises nederst på alle sidene så lenge minst én sponsor er aktiv. Bygget trimmer og skalerer
    logoene.
-3. Datoene gjelder i norsk tid. «Bygg og publiser» kjører hver natt (00:15 vintertid, 01:15 sommertid), men publiserer
+3. Datoene gjelder i norsk tid. «Bygg og publiser» kjører hver natt kl. 00:05 norsk tid, men publiserer
    bare når en sponsor starter eller går ut den dagen (jobben `dates`, `scripts/sponsor-dates.mjs`). Andre netter
    stopper den etter noen sekunder.
 4. GitHub slår av planlagte kjøringer i et offentlig repo når det ikke har vært aktivitet på 60 dager, og sier fra på
