@@ -1,6 +1,6 @@
-"""Convert the WordPress REST export of hpgt.com to Markdown + local media for Eleventy.
+"""Gjør om WordPress-eksporten (REST) av hpgt.com til Markdown og lokale mediefiler for Eleventy.
 
-Usage: python3 -I convert.py <crawl_dir> <site_dir>
+Bruk: python3 -I convert.py <crawl_dir> <site_dir>
 """
 import glob, html, json, os, re, sys, urllib.parse
 from bs4 import BeautifulSoup
@@ -34,7 +34,7 @@ for m in media:
 
 
 def localize(url):
-    """Map any hpgt.com upload URL (incl. resized/i0.wp.com variants) to a local web copy."""
+    """Gjør en opplastingsadresse på hpgt.com (også skalerte og i0.wp.com-varianter) om til en lokal kopi."""
     url = re.sub(r"^https?://i\d\.wp\.com/", "https://", url).split("?")[0]
     if "/wp-content/uploads/" not in url or "hpgt.com" not in url and not url.startswith("/"):
         return None
@@ -149,7 +149,7 @@ def write(path, fm, body):
         f.write("\n".join(lines) + body)
 
 
-# Posts
+# Innlegg
 for p in posts:
     slug = urllib.parse.unquote(p["slug"])
     fm = {
@@ -163,7 +163,7 @@ for p in posts:
     }
     write(os.path.join(SRC, "innlegg", p["date"][:4], f"{p['slug'][:80]}.md"), fm, to_md(p["content"]["rendered"]))
 
-# Pages (some are hand-written in the prototype and skipped here)
+# Sider (noen er skrevet for hånd i prototypen og hoppes over her)
 HANDMADE = {"om-klubben", "om-oss", "flysteder", "flarm-fanet-radioid", "konkurranse-2019"}
 for p in pages:
     if p["slug"] in HANDMADE:
@@ -173,7 +173,7 @@ for p in pages:
           "sist_endret": p["modified"][:10]}
     write(os.path.join(SRC, "sider", f"{p['slug']}.md"), fm, to_md(p["content"]["rendered"]))
 
-# Events – skrives midlertidig til arrangementer/ og flettes inn i innleggene med flett-arrangementer.py
+# Arrangementer – skrives midlertidig til arrangementer/ og flettes inn i innleggene med flett-arrangementer.py
 for e in events:
     venue = e.get("venue") if isinstance(e.get("venue"), dict) else {}
     fm = {

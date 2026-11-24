@@ -1,4 +1,4 @@
-name: PR check
+name: PR-sjekk
 
 # Bygger siden for hver PR mot main, også de som kommer fra Pages CMS. Et ugyldig felt i innholdet
 # (f.eks. en dato eller en arrangementstype som ikke finnes) stopper her, før det når main.

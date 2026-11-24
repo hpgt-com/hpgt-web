@@ -10,14 +10,14 @@ Logg inn i Pages CMS, eller se `/klubben/bidra/` på nettstedet. Ingenting her t
 ## For utviklere
 ```bash
 npm install
-npm run dev                  # development server
-npm run build                # builds to dist/ and validates all content
-npm run preview:build        # builds the preview (a selection of pages, relative links) to preview/
-npm run check:site           # after a build: internal links, and accessibility (axe) in light and dark mode
-npm run check:budget         # after a build: performance budget per page
-npm run test:e2e             # after a build: end-to-end tests in Chromium with the production headers
-node scripts/serve-dist.mjs  # after a build: serves dist/ locally like Cloudflare (headers, redirects, 404, /api/*)
-npm run icons                # makes favicon.ico and apple-touch-icon.png from the logo (when the logo changes)
+npm run dev                  # utviklingsserver
+npm run build                # bygger til dist/ og validerer alt innhold
+npm run preview:build        # bygger forhåndsvisningen (et utvalg sider, relative lenker) til preview/
+npm run check:site           # etter bygging: interne lenker, og tilgjengelighet (axe) i lys og mørk modus
+npm run check:budget         # etter bygging: ytelsesbudsjett per side
+npm run test:e2e             # etter bygging: ende-til-ende-tester i Chromium med hodene fra produksjon
+node scripts/serve-dist.mjs  # etter bygging: serverer dist/ lokalt som Cloudflare (hoder, videresendinger, 404, /api/*)
+npm run icons                # lager favicon.ico og apple-touch-icon.png fra logoen (når logoen endres)
 ```
 
 | Mappe | Innhold |
