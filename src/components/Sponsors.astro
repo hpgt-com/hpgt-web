@@ -1,0 +1,33 @@
+---
+// Sponsorstripen «Støttet av» over bunnen på alle sidene. Sponsorene står i src/data/sponsors.json (Pages CMS: «Sponsorer»).
+// Logoene vises i gråtoner og får farger ved hover og tastaturfokus. På skjermer uten hover (mobil) vises fargene hele tiden.
+// Start- og sluttdatoen («from», «until») gjelder i norsk tid ved hvert bygg. Nattsjekken i deploy.yml publiserer siden
+// natten en sponsor starter eller går ut (scripts/sponsor-dates.mjs). Uten aktive sponsorer vises ingenting.
+import { getCollection } from "astro:content";
+import { url, slug } from "../lib/site";
+import { T, type Lang } from "../lib/i18n";
+import { osloDate, isActive } from "../../scripts/sponsor-dates.mjs";
+import "./sponsors.css";
+const { lang } = Astro.props as { lang: Lang };
+const t = T[lang];
+const today = osloDate();
+const sponsors = (await getCollection("sponsors"))
+  .sort((a, b) => a.id.localeCompare(b.id))
+  .map((s) => s.data)
+  .filter((s) => isActive(s, today));
+---
+{sponsors.length > 0 && (
+  <section class="sponsors" aria-labelledby="sponsors-title">
+    <div class="wrap">
+      <h2 id="sponsors-title" class="sponsors__title">{t.sponsors}</h2>
+      <ul class="sponsors__list">
+        {sponsors.map((s) => (
+          <li><a href={s.url} target="_blank" rel="sponsored noopener" data-goatcounter-click={`sponsor-${slug(s.name)}`}>
+            <img src={url(s.logo)} alt={s.name} width="160" height="56" loading="lazy" decoding="async" />
+            <span class="sponsors__hint"> ({t.newTab})</span>
+          </a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}

@@ -113,6 +113,7 @@ Pull requests (også fra administratorer) bygges og kontrolleres av `pr-check.ym
 | Konkurranser | `src/content/pages/konkurranser/YEAR.md` | Pages CMS |
 | Kurssider | `src/content/courses/*.md` | Pages CMS |
 | Forsiden, styret, RadioID-registeret | `src/data/front-page.json`, `board.json`, `radio-id.json` | Pages CMS |
+| Sponsorene i stripen «Støttet av» nederst på alle sidene (logo, lenke, start- og sluttdato). Logoene trimmes og skaleres i bygget (`scripts/resize-images.mjs`). Uten sponsorer vises ingen stripe | `src/data/sponsors.json`, logoene i `public/media/sponsors/` | Pages CMS |
 | Standardbilder per kategori | `src/data/default-images.json` | Pages CMS |
 | Bilder og PDF-er | `public/media/…` (se README-en) | Pages CMS (opplasting) |
 | Menyer, innstillinger for nettstedet | `src/data/menu.json`, `site.json` | Bare pull request |

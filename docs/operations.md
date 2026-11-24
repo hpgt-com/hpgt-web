@@ -114,6 +114,18 @@ tokenet er byttet.
 2. Oppdater registeret i Pages CMS (RadioID) og lagre.
 3. Lukk saken.
 
+### Legge inn en sponsor
+1. Pages CMS → «Sponsorer» → legg til firmanavn, logo (helst SVG, ellers PNG med gjennomsiktig bakgrunn), lenke og
+   eventuelt «Vises fra og med» og «Vises til og med». Lagre. Siden publiseres med en gang.
+2. Stripen «Støttet av» vises nederst på alle sidene så lenge minst én sponsor er aktiv. Bygget trimmer og skalerer
+   logoene.
+3. Datoene gjelder i norsk tid. «Bygg og publiser» kjører hver natt kl. 00:05 norsk tid, men publiserer
+   bare når en sponsor starter eller går ut den dagen (jobben `dates`, `scripts/sponsor-dates.mjs`). Andre netter
+   stopper den etter noen sekunder.
+4. GitHub slår av planlagte kjøringer i et offentlig repo når det ikke har vært aktivitet på 60 dager, og sier fra på
+   e-post. Slå den på igjen under Actions → «Bygg og publiser» → **Enable workflow**, eller kjør den for hånd på
+   datoen.
+
 ### Behandle en feilmelding («Meld feil»)
 1. Hver side har lenken «Meld feil på denne siden» nederst (engelsk: «Report an error on this page»). Den åpner
    `/meld-feil/` (`/en/report-error/`) med adressen til siden fylt inn. Meldingen blir en sak i det **private** repoet

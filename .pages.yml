@@ -228,6 +228,24 @@ content:
           - { name: email, label: E-post, type: string }
           - { name: image, label: Bilde, type: image, options: { media: images, path: public/media/board } }
 
+  - name: sponsors
+    label: Sponsorer
+    type: file
+    path: src/data/sponsors.json
+    format: json
+    fields:
+      - name: sponsors
+        label: Sponsorer
+        description: "Vises under «Støttet av» nederst på alle sidene, i denne rekkefølgen. Uten sponsorer vises ingenting. Logoene vises i gråtoner og får farger når man peker på dem."
+        type: object
+        list: true
+        fields:
+          - { name: name, label: Firmanavn, type: string, required: true }
+          - { name: logo, label: "Logo (SVG eller PNG med gjennomsiktig bakgrunn)", type: image, required: true, description: "Tom kant rundt logoen skjæres bort, og logoen skaleres automatisk ved publisering.", options: { media: images, path: public/media/sponsors } }
+          - { name: url, label: "Lenke (https://…), til forsiden eller en bestemt side hos sponsoren", type: string, required: true }
+          - { name: from, label: Vises fra og med, type: date, description: "Tom = med en gang. Logoen kommer ved første publisering fra datoen." }
+          - { name: until, label: Vises til og med, type: date, description: "Tom = uten sluttdato. Logoen forsvinner ved første publisering etter datoen." }
+
   - name: radio-id
     label: FLARM/FANET RadioID-register
     type: file

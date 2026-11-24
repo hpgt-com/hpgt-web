@@ -1,0 +1,13 @@
+/* Sponsorstripen (Sponsors.astro): logoer på hvite fliser, i gråtoner til man peker på dem eller går til dem med tastaturet. */
+.sponsors { border-top: 1px solid var(--line); padding-block: 22px 26px; }
+.sponsors__title { margin: 0 0 12px; font: 600 .7rem/1.3 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.sponsors__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+.sponsors__list li { margin: 0; }
+.sponsors__list a { display: grid; place-items: center; height: 76px; padding: 10px 14px; background: #fff; border: 1px solid var(--line); border-radius: 4px; }
+.sponsors__list img { display: block; max-width: 100%; max-height: 52px; width: auto; height: auto; object-fit: contain; filter: grayscale(1); opacity: .65; transition: filter .25s, opacity .25s; }
+.sponsors__list a:hover img, .sponsors__list a:focus-visible img { filter: none; opacity: 1; }
+.sponsors__list a:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+/* Mobil og nettbrett har ingen hover: vis fargene */
+@media (hover: none) { .sponsors__list img { filter: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .sponsors__list img { transition: none; } }
+.sponsors__hint { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
