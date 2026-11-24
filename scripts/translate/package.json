@@ -4,6 +4,6 @@
   "type": "module",
   "description": "Oversetter utvalgte sider til engelsk ved publisering. Egen pakke så nøkkelen aldri er tilgjengelig for nettstedets byggepakker.",
   "dependencies": {
-    "@anthropic-ai/sdk": "1.8.0"
+    "@anthropic-ai/sdk": "1.10.0"
   }
 }
