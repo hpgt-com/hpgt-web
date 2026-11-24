@@ -3,6 +3,9 @@ name: Bygg og publiser
 # Bygger siden og publiserer den til Cloudflare (Workers static assets + workeren for RadioID-skjemaet)
 # når main endres, også når en redaktør lagrer i Pages CMS.
 #
+# Hver natt kjører bare jobben «dates». Den publiserer siden når en sponsor starter eller går ut den dagen
+# (scripts/sponsor-dates.mjs), ellers stopper den der, uten å installere eller bygge noe.
+#
 # Fire jobber, så ingen nøkkel er tilgjengelig for mer kode enn nødvendig:
 #   guard     Pages CMS har unntak fra PR-kravet og kan lagre rett på main. Endrer en commit som ikke kom gjennom en
 #             merget pull request (altså fra Pages CMS) noe annet enn innholdet (se TILLATT under), stopper publiseringen
@@ -23,6 +26,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    # 00:15 norsk vintertid, 01:15 sommertid: alltid etter midnatt her, så sponsorene for den nye dagen vises
+    - cron: "15 23 * * *"
 
 permissions:
   contents: read
@@ -36,7 +42,37 @@ env:
   OVERSETT_FORRIGE: https://hpgt.com/en/oversettelser.json
 
 jobs:
+  dates:
+    # Om natten: publiser bare når sponsorene som vises, er andre i dag enn i går. Ellers alltid.
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    outputs:
+      publish: ${{ steps.check.outputs.publish }}
+    steps:
+      - if: github.event_name == 'schedule'
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            scripts/sponsor-dates.mjs
+            src/data/sponsors.json
+          sparse-checkout-cone-mode: false
+
+      - id: check
+        shell: bash
+        env:
+          EVENT: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT" != "schedule" ]; then echo "publish=true" >> "$GITHUB_OUTPUT"; exit 0; fi
+          svar=$(node scripts/sponsor-dates.mjs)
+          echo "Sponsorene endres i dag: $svar"
+          echo "publish=$svar" >> "$GITHUB_OUTPUT"
+
   guard:
+    needs: dates
+    if: needs.dates.outputs.publish == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
@@ -59,7 +95,10 @@ jobs:
         run: |
           # Det redaktørene kan endre i Pages CMS (.pages.yml). Alt annet skal gå gjennom en pull request.
           TILLATT='^(src/content/(posts|pages|courses)/|public/media/|src/data/(front-page|board|radio-id|default-images|sponsors)\.json$)'
-          if ! forrige=$(gh api "repos/$GH_REPO/actions/workflows/deploy.yml/runs?branch=main&status=success&per_page=1" --jq '.workflow_runs[0].head_sha // empty'); then
+          # Nattkjøringene telles ikke: en natt uten sponsorendring er «vellykket» uten at denne sjekken har kjørt, og ville
+          # ellers latt en stoppet endring slippe gjennom med neste commit. Den nyeste av push og manuell kjøring brukes.
+          siste() { gh api "repos/$GH_REPO/actions/workflows/deploy.yml/runs?branch=main&status=success&event=$1&per_page=1" --jq '.workflow_runs[0] // empty | "\(.run_started_at) \(.head_sha)"'; }
+          if ! forrige=$( { siste push; siste workflow_dispatch; } | sort | tail -n 1 | cut -d " " -f 2 ); then
             echo "::error::Kunne ikke slå opp forrige publisering. Publiseringen stoppes; kjør på nytt."
             exit 1
           fi
