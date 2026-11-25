@@ -121,6 +121,36 @@ test("bildevisningen åpner et bilde, blar videre og lukkes", () => withPage("/n
   assert.equal(new URL(page.url()).pathname, "/nybegynner-kurs-pp2-2019/", "lenken åpnet ikke bildefilen");
 }));
 
+test("innsendte bilder vises stort over en miniatyrstripe og åpnes i fullskjerm", () => withPage("/klubben/konkurranser/2019/", {}, async (page) => {
+  const thumbs = page.locator(".entries__thumbs a");
+  const hrefs = await thumbs.evaluateAll((els) => els.map((a) => a.href));
+  assert.ok(hrefs.length >= 2, "konkurransesiden har flere innsendte bilder");
+  const big = page.locator(".entries__image");
+  const count = page.locator(".entries__count");
+  assert.equal(await big.getAttribute("src"), hrefs[0]);
+  assert.equal(await count.textContent(), `1 / ${hrefs.length}`);
+
+  await thumbs.nth(2).click();
+  assert.equal(await big.getAttribute("src"), hrefs[2], "miniatyren viser bildet stort");
+  assert.equal(await thumbs.nth(2).getAttribute("aria-current"), "true");
+  assert.equal(new URL(page.url()).pathname, "/klubben/konkurranser/2019/", "lenken åpnet ikke bildefilen");
+  await page.locator(".entries__arrow--next").click();
+  assert.equal(await count.textContent(), `4 / ${hrefs.length}`);
+  await page.locator(".entries__arrow--prev").click();
+  await page.locator(".entries__arrow--prev").click();
+  await page.locator(".entries__arrow--prev").click();
+  await page.locator(".entries__arrow--prev").click();
+  assert.equal(await big.getAttribute("src"), hrefs.at(-1), "Forrige fra det første går til det siste");
+
+  const dialog = page.locator("dialog.gallery");
+  await page.locator(".entries__stage").click();
+  await dialog.waitFor({ state: "visible" });
+  assert.equal(await dialog.locator(".gallery__stage img").getAttribute("src"), hrefs.at(-1));
+  assert.equal(await dialog.locator(".gallery__counter").textContent(), `${hrefs.length} av ${hrefs.length}`, "fullskjerm blar bare i bidragene");
+  await page.keyboard.press("Escape");
+  await dialog.waitFor({ state: "hidden" });
+}));
+
 test("søket på /sok/ finner et kjent innlegg", () => withPage("/sok/", {}, async (page) => {
   await page.locator("[data-search] input").fill("camilla instruktør");
   const hit = page.locator('[data-search-results] a[href="/camilla-er-forste-kvinnelige-pg-instruktor-i-klubben/"]');

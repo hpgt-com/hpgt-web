@@ -17,8 +17,10 @@ Rapporten kan skrives på norsk eller engelsk.
   `build` (hele siden bygger, og alle innholdsfilene er gyldige), pluss kodeskanning med CodeQL (high eller høyere
   stopper merge).
 - Actions er låst til commit-SHA og oppdateres månedlig av Dependabot, med en ventetid på 7 dager (30 for hovedversjoner
-  der økosystemet støtter det). Patch- og minor-oppdateringer av Actions merges automatisk når alle påkrevde sjekker er
-  grønne (`dependabot-automerge.yml`). Andre oppdateringer merges for hånd.
+  der økosystemet støtter det). Patch- og minor-oppdateringer av Actions og npm-pakker (også Wrangler) merges automatisk
+  når alle påkrevde sjekker er grønne (`dependabot-automerge.yml`). npm merges med et token fra GitHub-appen «HPGT Web
+  Dependabot», så merge starter publiseringen. Nøkkelen ligger i miljøet `automerge`, som bare tillater `main`.
+  Major-oppdateringer merges for hånd.
 - Arbeidsflyter har bare lesetilgang som standard, og jobber ber om mer bare når de trenger det.
   `persist-credentials: false` på hver checkout.
 - Hemmeligheter ligger i GitHub-miljøer som bare tillater `main`, aldri i koden. `.gitignore` blokkerer `.env` og

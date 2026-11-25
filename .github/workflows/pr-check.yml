@@ -41,7 +41,26 @@ jobs:
       # Workeren for RadioID-skjemaet skal i det minste være gyldig JavaScript.
       - run: node --check worker/index.js
 
-      # Enhetstester for skjemaendepunktet (Node-testkjøreren, uten nettleser eller nettverk).
+      # Workeren og den bygde siden pakkes av Wrangler fra deploy/ (samme versjon som publiseringen bruker), uten å
+      # publisere og uten nøkler. En Wrangler-versjon som ikke virker, eller en feil i wrangler.jsonc, stopper her og
+      # ikke i publiseringen etter merge. Derfor kan Dependabot-oppdateringer av Wrangler merges automatisk.
+      - run: npm ci --ignore-scripts
+        working-directory: deploy
+      - name: Workeren pakkes av wrangler
+        run: deploy/node_modules/.bin/wrangler deploy --dry-run --config wrangler.jsonc --outdir "$RUNNER_TEMP/worker"
+        env:
+          WRANGLER_SEND_METRICS: "false"
+
+      # Anthropic-SDK-en (scripts/translate) brukes bare ved publisering, med innlogging. Her lastes den og startes uten
+      # nøkkel og uten nett, så en oppdatering som ikke kan importeres eller ikke kan lage en klient, stopper her.
+      - run: npm ci --ignore-scripts
+        working-directory: scripts/translate
+      - name: Anthropic-SDK-en kan lastes
+        working-directory: scripts/translate
+        run: |
+          node --input-type=module -e 'const { default: Anthropic } = await import("@anthropic-ai/sdk"); new Anthropic({ apiKey: "test" }); console.log("ok");'
+
+      # Enhetstester for skjemaendepunktet og Markdown-oppsettet (Node-testkjøreren, uten nettleser eller nettverk).
       - run: npm test
 
       # Alle interne lenker og bilder i den bygde siden peker til noe som finnes.

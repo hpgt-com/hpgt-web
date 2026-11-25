@@ -1,7 +1,12 @@
 // Prefikser interne lenker og bilder i Markdown med base-stien (trengs bare når siden ikke ligger på roten).
 // Lenkelister: et listepunkt som er «[Navn](https://…) – beskrivelse» får domenet vist automatisk
 // etter navnet, så leseren ser hvor lenken går uten at redaktøren må skrive det.
+// Overskrifter: siden har tittelen som eneste <h1>, så «# Overskrift» i teksten blir <h2>, og en overskrift uten tekst
+// (en linje med bare «#») fjernes. Redaktørene i Pages CMS kan skrive begge deler.
 import { domainToUnicode } from "node:url";
+
+const HEADING = /^h[1-6]$/;
+const textOf = (n) => (n.type === "text" ? n.value : (n.children || []).map(textOf).join(""));
 
 const domain = (href) => {
   try {
@@ -38,7 +43,9 @@ export default function rehypeBase({ base = "/" } = {}) {
       if (n.tagName === "img") Object.assign(n.properties, { loading: "lazy", decoding: "async" });
       if (n.tagName === "a" && /^https?:/.test(n.properties.href || "")) n.properties.rel = "noopener external";
       if (n.tagName === "li") linkItem(n);
+      if (n.tagName === "h1") n.tagName = "h2";
     }
+    if (n.children) n.children = n.children.filter((c) => !(c.type === "element" && HEADING.test(c.tagName) && !textOf(c).trim()));
     (n.children || []).forEach(walk);
     // En liste der alle punktene er lenkepunkter, vises som tabell
     if (n.tagName === "ul") {

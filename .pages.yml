@@ -122,7 +122,7 @@ content:
     path: src/content/pages/konkurranser
     filename: "{year}.md"
     view: { fields: [title, year], primary: title, sort: [year], default: { sort: year, order: desc } }
-    description: "Én side per foto- og videokonkurranse, f.eks. /klubben/konkurranser/2027/. Dukker automatisk opp i oversikten på Konkurranser-siden. Bruk overskriftene Vinnere, Premier, Sponsorer, Innsendte bilder, Videoer og Regler – listene under Sponsorer, Innsendte bilder og Videoer vises da som logoer, bildegalleri og videokort."
+    description: "Én side per foto- og videokonkurranse, f.eks. /klubben/konkurranser/2027/. Dukker automatisk opp i oversikten på Konkurranser-siden. Bruk overskriftene Vinnere, Premier, Sponsorer, Innsendte bilder, Videoer og Regler – listene under Sponsorer, Innsendte bilder og Videoer vises da som logoer, bildegalleri (stort bilde over en stripe med miniatyrer, fullskjerm ved klikk) og videokort."
     fields:
       - { name: title, label: Tittel, type: string, required: true, description: "F.eks. «Foto- og videokonkurransen 2027»" }
       - { name: year, label: År, type: number, required: true }

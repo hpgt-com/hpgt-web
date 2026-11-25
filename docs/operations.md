@@ -69,10 +69,12 @@ godkjennerne i miljøene i de private repoene (`form-submissions` og `operations
 | `TURNSTILE_SECRET` | Cloudflare → Workers & Pages → hpgt-web → Settings → Variables and Secrets | Hemmelighet | Workerens kontroll av Turnstile-svar | Hvis den kan ha lekket |
 | `GITHUB_APP_PRIVATE_KEY` | Samme sted | Hemmelighet | Den private nøkkelen til appen (.pem). Workeren lager tokens for én time med den | Hvis den kan ha lekket |
 | `ANTHROPIC_ORGANIZATION_ID`, `ANTHROPIC_FEDERATION_RULE_ID`, `ANTHROPIC_SERVICE_ACCOUNT_ID`, `ANTHROPIC_WORKSPACE_ID` | GitHub `hpgt-web` → Environments → `translation` | Variabler | Hvilken federation-regel og tjenestekonto innloggingen bruker. Ingen nøkkel er lagret | Aldri |
+| `APP_CLIENT_ID` | GitHub `hpgt-web` → Settings → Secrets and variables → Actions → Variables | Variabel | Client ID til GitHub-appen «HPGT Web Dependabot», som slår på automatisk merge av npm-oppdateringer fra Dependabot, så merge starter publiseringen. Ikke hemmelig. Mangler den, merges npm manuelt | Aldri |
+| `APP_PRIVATE_KEY` | GitHub `hpgt-web` → Environments → `automerge` | Hemmelighet | Den private nøkkelen til appen (.pem). Arbeidsflyten lager et token for én time med den | Hvis den kan ha lekket |
 | Tokenet for Cloudflare Web Analytics | `src/data/site.json` → `webAnalytics` | I Git (offentlig) | Anonym besøksstatistikk. Tom = av | – |
 | Adressen til GoatCounter | `src/data/site.json` → `goatcounter` | I Git (offentlig) | Anonym besøksstatistikk og klikkhendelser (`hpgt-web.goatcounter.com`, samme GoatCounter-konto som flysteder). Tom = av | – |
 
-Begge miljøene (`production` og `translation`) er begrenset til grenen `main`.
+Alle miljøene (`production`, `translation` og `automerge`) er begrenset til grenen `main`.
 
 **Utløpsdatoene** for alle tokens og nøkler i klubben (og domenet) ligger i det private repoet
 [hpgt-com/operations](https://github.com/hpgt-com/operations) (`expiry.json`), ikke her: en ukentlig sjekk der oppretter
