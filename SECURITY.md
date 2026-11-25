@@ -55,7 +55,8 @@ Rapporten kan skrives på norsk eller engelsk.
 - **Publisering:** Wrangler er låst til en fast versjon i jobben `publish`, fordi den jobben har Cloudflare-tokenet.
 - **Innholdssikkerhet:** streng CSP med `default-src 'none'` og uten `unsafe-inline` (`public/_headers`, og den samme
   policyen som meta-tag i `src/components/Head.astro`), `Cross-Origin-Opener-Policy: same-origin` og
-  `Cross-Origin-Resource-Policy: same-site`. Brudd, og Trusted Types i report-only-modus, rapporteres til
+  `Cross-Origin-Resource-Policy: same-site`. Trusted Types håndheves (`require-trusted-types-for 'script'`): sidens
+  skript setter aldri HTML eller skriptadresser fra strenger. Brudd rapporteres til
   `/api/csp-report`, som bare logger direktivet, verten som ble blokkert, og stien, aldri IP-adressen eller
   nettleserinfo. Ingen skript fra tredjeparter, bortsett fra Cloudflare Turnstile på skjemasidene og Cloudflare Web
   Analytics. Ingen sporing og ingen informasjonskapsler.

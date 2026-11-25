@@ -167,9 +167,10 @@ til `main`. Siden er GitHub Pages fra grenen `gh-pages`, på `status.hpgt.com` (
   Cloudflares egen logg per kall er slått av (`invocation_logs: false` i `wrangler.jsonc`), fordi den tar med
   IP-adressen. Linjene lagres i inntil 7 dager (Observability Free). Kontoen har ikke Workers Paid, så loggingen koster
   aldri noe: ved den daglige gratisgrensen (0,5 GB) stopper den til neste dag.
-- **CSP-rapporter:** nettleserne sender brudd på CSP-en og på Trusted Types (rapportmodus) til `/api/csp-report`
-  (`worker/csp-report.js`). Søk etter `csp-report` i loggen. Trusted Types kan håndheves når rapportene over noen uker
-  ikke viser brudd fra sidens egne skript.
+- **CSP-rapporter:** nettleserne sender brudd på CSP-en, også Trusted Types, til `/api/csp-report`
+  (`worker/csp-report.js`). Søk etter `csp-report` i loggen. Et brudd på Trusted Types (`require-trusted-types-for`,
+  `disposition=enforce`) betyr at noe på siden ble stoppet: et skript som setter HTML eller en skriptadresse fra en
+  streng, i vår kode eller hos Turnstile eller Web Analytics.
 - Hva det skal ses etter: mange `403` (Turnstile feilet eller feil opprinnelse) eller `429` (takstbegrensning) betyr at
   noen hamrer på skjemaene; `502` betyr at GitHub-appen eller nøkkelen dens ikke virker (se «Når publiseringen feiler»
   under).
