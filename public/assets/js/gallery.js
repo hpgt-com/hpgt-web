@@ -2,12 +2,17 @@
 //  • Bilder: klikk på et bilde i teksten som lenker til en bildefil, og bla med knapper, piltaster eller sveip.
 //  • Videoer: klikk på et videokort (lenke til YouTube/Vimeo i en liste under «Videoer») for å spille av her.
 //    Spilleren lastes først ved klikk, fra youtube-nocookie.com eller Vimeo med «do not track».
+//  • Innsendte bilder (listen under «Innsendte bilder» på konkurransesidene): et stort bilde med bla-knapper over en
+//    stripe med miniatyrer som kan rulles sideveis. Klikk på en miniatyr viser bildet stort, klikk på det store bildet
+//    åpner det i fullskjerm.
 // Uten JavaScript virker lenkene som før (åpner bildefilen eller videoen hos YouTube/Vimeo).
 (() => {
   const en = document.documentElement.lang === "en";
   const T = en
     ? { close: "Close", previous: "Previous", next: "Next", openOn: "Open on", image: "Image", of: "of" }
     : { close: "Lukk", previous: "Forrige", next: "Neste", openOn: "Åpne på", image: "Bilde", of: "av" };
+  T.fullscreen = en ? "Full screen" : "Fullskjerm";
+  T.entries = en ? "Submitted photos" : "Innsendte bilder";
   const prose = document.querySelector(".prose");
   if (!prose) return;
 
@@ -115,7 +120,54 @@
     const name = li ? [...li.childNodes].filter((n) => n !== a).map((n) => n.textContent).join("").trim() : "";
     return { type: "image", src: a.href, alt: img.alt, caption: name || img.alt };
   });
-  images.forEach((a, n) => a.addEventListener("click", (e) => { e.preventDefault(); open(imageList, n); }));
+  const strip = prose.querySelector('h2[id^="innsendte-bilder"] + ul, h2[id^="submitted"] + ul');
+  const inStrip = (a) => strip && strip.contains(a) && images.length > 1;
+  images.forEach((a, n) => { if (!inStrip(a)) a.addEventListener("click", (e) => { e.preventDefault(); open(imageList, n); }); });
+
+  // --- Innsendte bilder: stort bilde over en stripe med miniatyrer ------------------
+  const entries = images.map((a, n) => ({ a, item: imageList[n] })).filter(({ a }) => inStrip(a));
+  if (entries.length > 1) {
+    const entryList = entries.map((e) => e.item);
+    const viewer = node("figure", "entries", { "aria-label": T.entries });
+    const view = node("button", "entries__stage", { type: "button", "aria-label": T.fullscreen });
+    const big = node("img", "entries__image");
+    view.append(big, node("span", "entries__full", { "aria-hidden": "true" }, `⛶ ${T.fullscreen}`));
+    const prev = button("entries__arrow entries__arrow--prev", T.previous, "‹");
+    const next = button("entries__arrow entries__arrow--next", T.next, "›");
+    const cap = node("figcaption", "entries__caption");
+    const name = node("span", "entries__name");
+    const count = node("span", "entries__count");
+    cap.append(name, count);
+    viewer.append(view, prev, next, cap);
+    strip.before(viewer);
+    strip.classList.add("entries__thumbs");
+    let cur = 0;
+    const select = (n, scroll = true) => {
+      cur = (n + entries.length) % entries.length;
+      const e = entryList[cur];
+      big.src = e.src; big.alt = e.alt;
+      name.textContent = e.caption;
+      count.textContent = `${cur + 1} / ${entries.length}`;
+      entries.forEach(({ a }, k) => { if (k === cur) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current"); });
+      if (scroll) {
+        const li = entries[cur].a.closest("li") || entries[cur].a;
+        strip.scrollTo({ left: li.offsetLeft - (strip.clientWidth - li.offsetWidth) / 2, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+      }
+    };
+    entries.forEach(({ a }, n) => a.addEventListener("click", (e) => { e.preventDefault(); select(n); }));
+    prev.addEventListener("click", () => select(cur - 1));
+    next.addEventListener("click", () => select(cur + 1));
+    view.addEventListener("click", () => open(entryList, cur));
+    let sx = null;
+    view.addEventListener("touchstart", (e) => { sx = e.touches[0].clientX; }, { passive: true });
+    view.addEventListener("touchend", (e) => {
+      if (sx === null) return;
+      const dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 50) { e.preventDefault(); select(cur + (dx < 0 ? 1 : -1)); }
+      sx = null;
+    });
+    select(0, false);
+  }
 
   // --- Videoer: miniatyrbilde på kortet, avspilling i overlay ----------------------
   const videoList = videoLinks.map(({ card, a, v }) => {

@@ -248,7 +248,7 @@ Ende-til-ende-testene bruker `scripts/serve-dist.mjs`, som serverer `dist/` slik
 
 Testene sjekker sikkerhetshodene (CSP, at bare skjemasidene tillater Turnstile, HSTS, COOP, CORP, rapporteringen og
 Trusted Types i Report-Only), at sidene ikke har CSP-brudd eller skriptfeil i lys og mørk visning på PC og mobil,
-skriptene i `public/assets/js/` (meny, tema, typefilter, bildevisning, søk, innholdsfortegnelse, «Kopier lenke»),
+skriptene i `public/assets/js/` (meny, tema, typefilter, bildevisning, galleriet for innsendte bilder, søk, innholdsfortegnelse, «Kopier lenke»),
 skjemaene (honningkrukka, svaret fra Workeren, 405 og 403), 404-siden og videresendingene. `pages.test.mjs` henter
 alle sidene i `sitemap.xml` på begge språk og sjekker status, språk (`lang`), tittel og én hovedoverskrift, at
 språkvalget peker til sider som finnes, og at hreflang går begge veier. Nettleseren når ingen andre
