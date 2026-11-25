@@ -100,26 +100,9 @@ span.default-image { display: flex; flex-direction: column; align-items: center;
 .default-image span { font-weight: 800; font-size: .95rem; letter-spacing: -.01em; text-align: center; padding: 0 12px; opacity: .95; }
 /* Konkurransesider: lister under bestemte overskrifter vises som rutenett/kort, men skrives som vanlige lister i CMS-et.
    «Sponsorer» → logoer, «Innsendte bilder» → bilder med navn, «Videoer» → kort med ▶ og kilde (YouTube/Vimeo). */
-/* Sponsorene på konkurransesidene: samme visning som stripen «Støttet av» (components/sponsors.css) */
 .prose :is(h2[id^="sponsor"], h2[id^="sponsor"] + p) + ul { list-style: none; padding: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
-.prose :is(h2[id^="sponsor"], h2[id^="sponsor"] + p) + ul li { margin: 0; }
-.prose :is(h2[id^="sponsor"], h2[id^="sponsor"] + p) + ul a { display: grid; place-items: center; height: 96px; padding: 12px; border-radius: 4px; }
-.prose :is(h2[id^="sponsor"], h2[id^="sponsor"] + p) + ul img { margin: 0; max-width: 100%; max-height: 64px; width: auto; object-fit: contain; mix-blend-mode: multiply; filter: grayscale(1); opacity: .7; transition: filter .25s, opacity .25s; }
-.prose :is(h2[id^="sponsor"], h2[id^="sponsor"] + p) + ul a:is(:hover, :focus-visible) img { filter: none; opacity: 1; }
-:root[data-theme="dark"] .prose :is(h2[id^="sponsor"], h2[id^="sponsor"] + p) + ul img { mix-blend-mode: screen; filter: grayscale(1) invert(1); }
-:root[data-theme="dark"] .prose :is(h2[id^="sponsor"], h2[id^="sponsor"] + p) + ul a:is(:hover, :focus-visible) img { filter: invert(1) hue-rotate(180deg); }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .prose :is(h2[id^="sponsor"], h2[id^="sponsor"] + p) + ul img { mix-blend-mode: screen; filter: grayscale(1) invert(1); }
-  :root:not([data-theme="light"]) .prose :is(h2[id^="sponsor"], h2[id^="sponsor"] + p) + ul a:is(:hover, :focus-visible) img { filter: invert(1) hue-rotate(180deg); }
-}
-@media (hover: none) {
-  .prose :is(h2[id^="sponsor"], h2[id^="sponsor"] + p) + ul img { filter: none; opacity: 1; }
-  :root[data-theme="dark"] .prose :is(h2[id^="sponsor"], h2[id^="sponsor"] + p) + ul img { filter: invert(1) hue-rotate(180deg); }
-}
-@media (hover: none) and (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .prose :is(h2[id^="sponsor"], h2[id^="sponsor"] + p) + ul img { filter: invert(1) hue-rotate(180deg); }
-}
-@media (prefers-reduced-motion: reduce) { .prose :is(h2[id^="sponsor"], h2[id^="sponsor"] + p) + ul img { transition: none; } }
+.prose :is(h2[id^="sponsor"], h2[id^="sponsor"] + p) + ul li { display: grid; place-items: center; height: 96px; padding: 12px; margin: 0; background: #fff; border: 1px solid var(--line); border-radius: 4px; }
+.prose :is(h2[id^="sponsor"], h2[id^="sponsor"] + p) + ul img { margin: 0; max-width: 100%; max-height: 64px; width: auto; object-fit: contain; }
 .prose h2[id^="innsendte-bilder"] + ul { list-style: none; padding: 0; display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
 .prose h2[id^="innsendte-bilder"] + ul li { margin: 0; font-size: .88rem; color: var(--muted); }
 .prose h2[id^="innsendte-bilder"] + ul img { margin: 0 0 6px; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
