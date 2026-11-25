@@ -1,10 +1,10 @@
 # Sikkerhetshoder (Cloudflare). Samme CSP som i <meta>, pluss det som bare kan settes som HTTP-hode: frame-ancestors og
 # rapporteringen. Brudd rapporteres til /api/csp-report (worker/csp-report.js), som bare logger direktiv, vert og sti.
-# Trusted Types står i Content-Security-Policy-Report-Only til rapportene viser at ingenting brytes.
+# Trusted Types håndheves (require-trusted-types-for): sidens skript setter aldri HTML eller skriptadresser fra strenger.
 # cloudflareinsights.com: anonym besøksstatistikk (Cloudflare Web Analytics). Lastes bare når site.json → webAnalytics er satt.
 # hpgt-web.goatcounter.com: anonym besøksstatistikk og klikk (GoatCounter, site.json → goatcounter). Bare tellepunktet.
 /*
-  Content-Security-Policy: default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self'; img-src 'self' data: https://hpgt-web.goatcounter.com; font-src 'self'; connect-src 'self' https://cloudflareinsights.com https://hpgt-web.goatcounter.com; frame-src https://www.youtube-nocookie.com https://player.vimeo.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests; report-uri https://hpgt.com/api/csp-report; report-to csp
+  Content-Security-Policy: default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self'; img-src 'self' data: https://hpgt-web.goatcounter.com; font-src 'self'; connect-src 'self' https://cloudflareinsights.com https://hpgt-web.goatcounter.com; frame-src https://www.youtube-nocookie.com https://player.vimeo.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests; require-trusted-types-for 'script'; report-uri https://hpgt.com/api/csp-report; report-to csp
   Strict-Transport-Security: max-age=31536000; includeSubDomains
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
@@ -12,7 +12,6 @@
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Resource-Policy: same-site
   Reporting-Endpoints: csp="https://hpgt.com/api/csp-report"
-  Content-Security-Policy-Report-Only: require-trusted-types-for 'script'; report-uri https://hpgt.com/api/csp-report; report-to csp
 
 # Utkast (forhåndsvisning) skal ikke i søkemotorer
 /utkast/*
@@ -22,12 +21,12 @@
 # Må stemme med FORM_PAGES i src/components/Head.astro.
 /for-piloter/radioid/
   ! Content-Security-Policy
-  Content-Security-Policy: default-src 'none'; script-src 'self' https://challenges.cloudflare.com https://static.cloudflareinsights.com; style-src 'self'; img-src 'self' data: https://hpgt-web.goatcounter.com; font-src 'self'; connect-src 'self' https://cloudflareinsights.com https://hpgt-web.goatcounter.com; frame-src https://challenges.cloudflare.com https://www.youtube-nocookie.com https://player.vimeo.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests; report-uri https://hpgt.com/api/csp-report; report-to csp
+  Content-Security-Policy: default-src 'none'; script-src 'self' https://challenges.cloudflare.com https://static.cloudflareinsights.com; style-src 'self'; img-src 'self' data: https://hpgt-web.goatcounter.com; font-src 'self'; connect-src 'self' https://cloudflareinsights.com https://hpgt-web.goatcounter.com; frame-src https://challenges.cloudflare.com https://www.youtube-nocookie.com https://player.vimeo.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests; require-trusted-types-for 'script'; report-uri https://hpgt.com/api/csp-report; report-to csp
 
 /meld-feil/
   ! Content-Security-Policy
-  Content-Security-Policy: default-src 'none'; script-src 'self' https://challenges.cloudflare.com https://static.cloudflareinsights.com; style-src 'self'; img-src 'self' data: https://hpgt-web.goatcounter.com; font-src 'self'; connect-src 'self' https://cloudflareinsights.com https://hpgt-web.goatcounter.com; frame-src https://challenges.cloudflare.com https://www.youtube-nocookie.com https://player.vimeo.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests; report-uri https://hpgt.com/api/csp-report; report-to csp
+  Content-Security-Policy: default-src 'none'; script-src 'self' https://challenges.cloudflare.com https://static.cloudflareinsights.com; style-src 'self'; img-src 'self' data: https://hpgt-web.goatcounter.com; font-src 'self'; connect-src 'self' https://cloudflareinsights.com https://hpgt-web.goatcounter.com; frame-src https://challenges.cloudflare.com https://www.youtube-nocookie.com https://player.vimeo.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests; require-trusted-types-for 'script'; report-uri https://hpgt.com/api/csp-report; report-to csp
 
 /en/report-error/
   ! Content-Security-Policy
-  Content-Security-Policy: default-src 'none'; script-src 'self' https://challenges.cloudflare.com https://static.cloudflareinsights.com; style-src 'self'; img-src 'self' data: https://hpgt-web.goatcounter.com; font-src 'self'; connect-src 'self' https://cloudflareinsights.com https://hpgt-web.goatcounter.com; frame-src https://challenges.cloudflare.com https://www.youtube-nocookie.com https://player.vimeo.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests; report-uri https://hpgt.com/api/csp-report; report-to csp
+  Content-Security-Policy: default-src 'none'; script-src 'self' https://challenges.cloudflare.com https://static.cloudflareinsights.com; style-src 'self'; img-src 'self' data: https://hpgt-web.goatcounter.com; font-src 'self'; connect-src 'self' https://cloudflareinsights.com https://hpgt-web.goatcounter.com; frame-src https://challenges.cloudflare.com https://www.youtube-nocookie.com https://player.vimeo.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests; require-trusted-types-for 'script'; report-uri https://hpgt.com/api/csp-report; report-to csp

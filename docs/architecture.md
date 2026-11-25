@@ -192,7 +192,7 @@ repoet. Nye skjemaer bruker den samme Turnstile-widgeten med sin egen `action`.
 - **Hemmeligheter bare i miljøer som bare `main` kan bruke** (GitHub) eller i Cloudflare, aldri i koden.
 - **Alt går gjennom pull request** med påkrevde sjekker (bygg, avhengigheter, sikkerhet i arbeidsflytene, CodeQL).
 - **Streng CSP** med `default-src 'none'` og uten `unsafe-inline`. Brudd rapporteres til `/api/csp-report`, og Trusted
-  Types står i rapportmodus.
+  Types håndheves.
 
 Detaljer: [SECURITY.md](../SECURITY.md).
 
@@ -247,7 +247,7 @@ Ende-til-ende-testene bruker `scripts/serve-dist.mjs`, som serverer `dist/` slik
   får ikke kontakte andre verter, så en gyldig innsending stopper ved menneskesjekken (403).
 
 Testene sjekker sikkerhetshodene (CSP, at bare skjemasidene tillater Turnstile, HSTS, COOP, CORP, rapporteringen og
-Trusted Types i Report-Only), at sidene ikke har CSP-brudd eller skriptfeil i lys og mørk visning på PC og mobil,
+at Trusted Types håndheves), at sidene ikke har CSP-brudd eller skriptfeil i lys og mørk visning på PC og mobil,
 skriptene i `public/assets/js/` (meny, tema, typefilter, bildevisning, galleriet for innsendte bilder, søk, innholdsfortegnelse, «Kopier lenke»),
 skjemaene (honningkrukka, svaret fra Workeren, 405 og 403), 404-siden og videresendingene. `pages.test.mjs` henter
 alle sidene i `sitemap.xml` på begge språk og sjekker status, språk (`lang`), tittel og én hovedoverskrift, at

@@ -1,6 +1,5 @@
 // CSP-rapporter fra sidene på hpgt.com: POST /api/csp-report, oppgitt i report-uri og report-to (Reporting-Endpoints) i
-// public/_headers. Både den håndhevede Content-Security-Policy og Content-Security-Policy-Report-Only med Trusted Types
-// sender hit. Samme kode som datatjenesten for flysteder.hpgt.com bruker.
+// public/_headers. Content-Security-Policy sender hit, også brudd på Trusted Types (require-trusted-types-for). Samme kode som datatjenesten for flysteder.hpgt.com bruker.
 //
 // Ingenting lagres: hver rapport blir én kort linje i Workerens logg (Observability), med bare direktivet, om regelen
 // ble håndhevet eller bare rapportert, det som ble blokkert redusert til skjema og vert eller et nøkkelord, sidens sti på

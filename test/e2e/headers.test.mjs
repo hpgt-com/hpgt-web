@@ -37,9 +37,8 @@ function assertCommon(path, res) {
   assert.equal(h.get("referrer-policy"), "strict-origin-when-cross-origin", path);
   assert.match(h.get("permissions-policy") ?? "", /camera=\(\)/, path);
   assert.equal(h.get("reporting-endpoints"), 'csp="https://hpgt.com/api/csp-report"', path);
-  const ro = directives(h.get("content-security-policy-report-only") ?? "");
-  assert.deepEqual(ro["require-trusted-types-for"], ["'script'"], `${path}: Trusted Types i Report-Only`);
-  assert.deepEqual(ro["report-to"], ["csp"], path);
+  assert.deepEqual(d["require-trusted-types-for"], ["'script'"], `${path}: Trusted Types håndheves`);
+  assert.equal(h.get("content-security-policy-report-only"), null, `${path}: ingen Report-Only`);
   return d;
 }
 

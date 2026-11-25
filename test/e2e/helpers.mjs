@@ -29,7 +29,7 @@ export async function setup() {
       context.blocked.push(url);
       return route.abort("blockedbyclient");
     });
-    // CSP-brudd, både håndhevet (Content-Security-Policy, også <meta>) og bare rapportert (Report-Only med Trusted Types)
+    // CSP-brudd, også Trusted Types, både håndhevet (Content-Security-Policy, også <meta>) og bare rapportert
     await context.addInitScript(() => {
       window.__cspViolations = [];
       document.addEventListener("securitypolicyviolation", (e) => {
