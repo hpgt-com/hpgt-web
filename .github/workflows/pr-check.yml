@@ -57,7 +57,8 @@ jobs:
         working-directory: scripts/translate
       - name: Anthropic-SDK-en kan lastes
         working-directory: scripts/translate
-        run: node --input-type=module -e 'const { default: Anthropic } = await import("@anthropic-ai/sdk"); new Anthropic({ apiKey: "test" }); console.log("ok");'
+        run: |
+          node --input-type=module -e 'const { default: Anthropic } = await import("@anthropic-ai/sdk"); new Anthropic({ apiKey: "test" }); console.log("ok");'
 
       # Enhetstester for skjemaendepunktet og Markdown-oppsettet (Node-testkjøreren, uten nettleser eller nettverk).
       - run: npm test
