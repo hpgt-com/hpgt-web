@@ -59,7 +59,7 @@ jobs:
         working-directory: scripts/translate
         run: node --input-type=module -e 'const { default: Anthropic } = await import("@anthropic-ai/sdk"); new Anthropic({ apiKey: "test" }); console.log("ok");'
 
-      # Enhetstester for skjemaendepunktet (Node-testkjøreren, uten nettleser eller nettverk).
+      # Enhetstester for skjemaendepunktet og Markdown-oppsettet (Node-testkjøreren, uten nettleser eller nettverk).
       - run: npm test
 
       # Alle interne lenker og bilder i den bygde siden peker til noe som finnes.

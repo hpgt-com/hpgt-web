@@ -16,7 +16,7 @@ filer. Den eneste serverkoden er skjemaendepunktet i `worker/`. Arkitektur, drif
 | `npm run dev` | Utviklingsserver |
 | `npm run build` | Før hver pull request: bygger til `dist/` og kontrollerer innholdet |
 | `npm run check` | Etter endringer i koden (`astro check`) |
-| `npm test` | Etter endringer i `worker/`: enhetstestene i `test/` |
+| `npm test` | Etter endringer i `worker/` eller `src/lib/rehype-base.mjs`: enhetstestene i `test/` |
 | `npm run check:site` | Etter bygget: interne lenker og tilgjengelighet (axe) i lys og mørk visning |
 | `npm run check:budget` | Etter bygget: ytelsesbudsjettet per side (`scripts/check-budget.mjs`) |
 | `npm run test:e2e` | Etter bygget: ende-til-ende-testene i `test/e2e/` i Chromium, med hodene fra `public/_headers` og Workeren (`scripts/serve-dist.mjs`) |

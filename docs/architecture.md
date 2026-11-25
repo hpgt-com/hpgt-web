@@ -213,7 +213,7 @@ Detaljer: [SECURITY.md](../SECURITY.md).
 | `src/components/` | Gjenbrukbare deler |
 | `src/lib/` | Hjelpefunksjoner (lenker, språk, seksjoner) |
 | `src/pages/` | Adressene (Astro-ruter) |
-| `test/` | Enhetstester for `worker/`, og ende-til-ende-testene i `test/e2e/` (se «Testene» under) |
+| `test/` | Enhetstester for `worker/` og Markdown-oppsettet, og ende-til-ende-testene i `test/e2e/` (se «Testene» under) |
 | `worker/` | Serverkoden for skjemaene |
 | `wrangler.jsonc` | Cloudflare-oppsett |
 
@@ -224,11 +224,16 @@ Alle kjører i jobben `build` i `pr-check.yml` for hver pull request, og lokalt 
 
 | Test | Hva |
 |---|---|
-| `npm test` (`test/*.test.js`) | Enhetstester for `worker/`, uten nettleser |
+| `npm test` (`test/*.test.js`) | Enhetstester for `worker/` og overskriftene i Markdown (`src/lib/rehype-base.mjs`), uten nettleser |
 | `node scripts/check-links.mjs` | Interne lenker og bilder i `dist/` |
 | `node scripts/check-accessibility.mjs` | axe i lys og mørk visning |
 | `npm run check:budget` | Ytelsesbudsjettet per side |
 | `npm run test:e2e` (`test/e2e/*.test.mjs`) | Ende-til-ende i Chromium mot den bygde siden |
+| `wrangler deploy --dry-run` (fra `deploy/`) | Workeren og `dist/` pakkes av samme Wrangler som publiseringen, uten å publisere |
+| Anthropic-SDK-en (`scripts/translate/`) | Lastes og lager en klient uten nøkkel, så en oppdatering som ikke virker, stopper |
+
+Sammen fanger de det Dependabot kan ødelegge, så patch og minor av npm-pakkene merges automatisk
+(`dependabot-automerge.yml`).
 
 Ende-til-ende-testene bruker `scripts/serve-dist.mjs`, som serverer `dist/` slik Cloudflare gjør i drift:
 
@@ -244,7 +249,9 @@ Ende-til-ende-testene bruker `scripts/serve-dist.mjs`, som serverer `dist/` slik
 Testene sjekker sikkerhetshodene (CSP, at bare skjemasidene tillater Turnstile, HSTS, COOP, CORP, rapporteringen og
 Trusted Types i Report-Only), at sidene ikke har CSP-brudd eller skriptfeil i lys og mørk visning på PC og mobil,
 skriptene i `public/assets/js/` (meny, tema, typefilter, bildevisning, søk, innholdsfortegnelse, «Kopier lenke»),
-skjemaene (honningkrukka, svaret fra Workeren, 405 og 403), 404-siden og videresendingene. Nettleseren når ingen andre
+skjemaene (honningkrukka, svaret fra Workeren, 405 og 403), 404-siden og videresendingene. `pages.test.mjs` henter
+alle sidene i `sitemap.xml` på begge språk og sjekker status, språk (`lang`), tittel og én hovedoverskrift, at
+språkvalget peker til sider som finnes, og at hreflang går begge veier. Nettleseren når ingen andre
 verter: forespørsler dit avbrytes, og navneoppslag feiler. Det som ikke etterlignes: komprimering, ETag og 304,
 hurtigbufferen og hodene Cloudflare selv legger til.
 
