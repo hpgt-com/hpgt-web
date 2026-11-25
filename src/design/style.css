@@ -128,6 +128,9 @@ span.default-image { display: flex; flex-direction: column; align-items: center;
 .prose h2[id^="video"] + ul { list-style: none; padding: 0; display: grid; gap: 10px; align-items: start; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
 .prose h2[id^="video"] + ul li { position: relative; margin: 0; padding: 12px 14px 12px 56px; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; color: var(--muted); font-size: .9rem; }
 .prose h2[id^="video"] + ul li:hover { border-color: var(--sky); }
+/* Bidrag uten lenke (videoen finnes ikke lenger): vanlig tekst uten avspillingsknapp */
+.prose h2[id^="video"] + ul li:not(:has(a)) { padding-left: 14px; font-style: italic; }
+.prose h2[id^="video"] + ul li:not(:has(a)):hover { border-color: var(--line); }
 .prose h2[id^="video"] + ul a { display: block; color: var(--text); font-weight: 700; text-decoration: none; }
 .prose h2[id^="video"] + ul a::after { content: ""; position: absolute; inset: 0; } /* hele kortet er klikkbart */
 .prose h2[id^="video"] + ul a::before { content: "▶\FE0E"; position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 30px; height: 30px; border-radius: 50%; background: var(--sky); color: #fff; display: grid; place-items: center; font-size: .75rem; }
