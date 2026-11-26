@@ -293,9 +293,15 @@ span.default-image { display: flex; flex-direction: column; align-items: center;
 .prose h2 { font-weight: 800; letter-spacing: -.035em; font-size: 1.8rem; line-height: 1.1; margin: 1.6em 0 .4em; }
 .prose h3 { font-weight: 800; letter-spacing: -.03em; font-size: 1.35rem; margin: 1.4em 0 .3em; }
 .prose img { margin: 14px 0; }
-/* Små bilder («-liten» i filnavnet, src/lib/rehype-base.mjs): smale, og forstørres ved klikk */
-.prose img.img--small { width: 100%; max-width: 300px; height: auto; border-radius: 6px; }
+/* Bildene i teksten (src/lib/rehype-base.mjs, beslutning 0008). Bredden her må stemme med SIZES der.
+   Alle kan forstørres ved klikk. Kvadratiske og stående bilder vises smalere, «-liten» i filnavnet enda smalere,
+   og flere bilder i ett avsnitt vises i rutenett. */
 .prose a.img-zoom { display: inline-block; cursor: zoom-in; }
+.prose img.img--narrow { max-width: min(100%, 400px); height: auto; }
+.prose img.img--small { max-width: min(100%, 300px); height: auto; border-radius: 6px; }
+.prose p.img-grid { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+.prose p.img-grid > a { display: block; }
+.prose p.img-grid img { margin: 0; aspect-ratio: 1; object-fit: cover; width: 100%; height: auto; }
 .prose p:has(> img + img) { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
 .prose p:has(> img + img) img { margin: 0; aspect-ratio: 1; object-fit: cover; width: 100%; }
 .prose blockquote { margin: 1.4em 0; padding: 10px 16px; background: var(--tint); border-left: 3px solid var(--sky); }

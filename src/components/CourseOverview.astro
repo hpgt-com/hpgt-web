@@ -1,5 +1,6 @@
 ---
 // Kort for hver kursside på /kurs/
+import Img from "./Img.astro";
 import { getCourses, courseLink, url } from "../lib/site";
 import { T, pageInfo } from "../lib/i18n";
 import "./courses.css";
@@ -11,6 +12,6 @@ const localize = (u: string) => (lang === "en" ? `/en${toEnglish(u)}` : u);
 {courses.length > 0 && <section class="course-cards" aria-labelledby="course-cards-h">
   <h2 id="course-cards-h">{T[lang].ourCourses}</h2>
   <ul>{courses.map((k) => <li><a href={url(localize(courseLink(k)))}>
-    {k.data.image && <img src={url(k.data.image)} alt="" loading="lazy" />}
+    {k.data.image && <Img src={k.data.image} sizes="(min-width: 900px) 360px, 100vw" card loading="lazy" />}
     <b>{k.data.title}</b>{k.data.lead && <span>{k.data.lead}</span>}</a></li>)}</ul>
 </section>}

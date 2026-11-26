@@ -35,7 +35,10 @@ for await (const f of files(DIST)) {
   if (!f.endsWith(".html")) continue;
   pages++;
   const html = await readFile(f, "utf-8");
-  for (const [, , url] of html.matchAll(/\b(href|src)="(\/[^"#?]*)/g)) {
+  // href, src og hver adresse i srcset (de mindre utgavene av bildene, beslutning 0008)
+  const urls = [...html.matchAll(/\b(?:href|src)="(\/[^"#?]*)/g)].map((m) => m[1]);
+  for (const [, set] of html.matchAll(/\bsrcset="([^"]+)"/g)) urls.push(...set.split(",").map((e) => e.trim().split(/\s+/)[0]).filter((u) => u.startsWith("/")));
+  for (const url of urls) {
     if (url.startsWith("//") || url.startsWith("/api/") || url.startsWith("/cdn-cgi/")) continue;
     const clean = url.replace(/&amp;/g, "&");
     if (!(await pathExists(clean))) {

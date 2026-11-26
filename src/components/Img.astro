@@ -1,0 +1,11 @@
+---
+// <img> med flere størrelser (srcset, width og height) for bilder i public/media/ (src/lib/image-sizes.mjs,
+// beslutning 0008). sizes: hvor bredt bildet vises, så nettleseren velger riktig utgave. Andre bilder vises som før.
+import { url } from "../lib/site";
+import { responsive, CARD_WIDTHS } from "../lib/image-sizes.mjs";
+interface Props { src: string; sizes: string; card?: boolean; alt?: string; class?: string; loading?: "lazy" | "eager"; decoding?: "async" | "auto" | "sync" }
+const { src, sizes, card = false, alt = "", class: className, ...rest } = Astro.props;
+// card: bildet vises i et kort, så de største utgavene trengs ikke
+const attrs = await responsive(src, sizes, url, card ? CARD_WIDTHS : undefined);
+---
+<img src={url(src)} alt={alt} class={className} {...attrs} {...rest} />

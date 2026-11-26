@@ -1,7 +1,7 @@
 ---
+import Img from "./Img.astro";
 import Arrow from "./Arrow.astro";
 // Kort for hver underside på oversiktssiden til For piloter og Klubben (samme utseende som kurskortene)
-import { url } from "../lib/site";
 import { pageInfo, menuLabel, englishPaths, linkFor } from "../lib/i18n";
 import { sectionFor } from "../lib/sections";
 import "./courses.css";
@@ -13,6 +13,6 @@ const href = (u: string) => linkFor(lang, u, english);
 {s && s.url !== "/kurs/" && <section class="course-cards" aria-labelledby="section-h">
   <h2 id="section-h">{lang === "en" ? "In this section" : "I denne delen"}</h2>
   <ul>{s.pages.map((l) => <li><a href={href(l.url)}>
-    {l.image && <img src={url(l.image)} alt="" loading="lazy" />}
+    {l.image && <Img src={l.image} sizes="(min-width: 900px) 360px, 100vw" card loading="lazy" />}
     <b>{menuLabel(lang, l.text)}{l.external && <> <Arrow /></>}</b>{l.lead && <span>{l.lead}</span>}</a></li>)}</ul>
 </section>}

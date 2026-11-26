@@ -2,12 +2,15 @@
 // Kjøres på kopien i dist/, så repoet beholder originalen og CI trenger ikke skrivetilgang.
 // Sponsorlogoene (media/sponsors/) behandles for seg: tom kant rundt logoen skjæres bort, så alle logoene blir like store
 // i stripen, og de skaleres til maks 200 px høye i samme format (PNG beholder gjennomsiktig bakgrunn). SVG røres ikke.
+// Til slutt lages de mindre utgavene (WebP) som sidene peker på i srcset (src/lib/image-sizes.mjs, beslutning 0008):
+// bare de som brukes, i media/generated/sizes/.
 import sharp from "sharp";
-import { readdir, stat, rename } from "node:fs/promises";
-import { join, relative, sep } from "node:path";
+import { readdir, stat, rename, readFile, mkdir } from "node:fs/promises";
+import { join, relative, sep, dirname } from "node:path";
+import { MAX as MAX_WIDTH, SIZES_DIR, parseVariant } from "../src/lib/image-sizes.mjs";
 
 const dir = process.argv[2] ?? "dist/media";
-const MAX = 1600;
+const MAX = MAX_WIDTH;
 const LOGO_HEIGHT = 200;
 const isLogo = (f) => relative(dir, f).startsWith(`sponsors${sep}`);
 async function* images(d) {
@@ -38,3 +41,35 @@ for await (const f of images(dir)) {
   n++;
 }
 console.log(`resize-images: ${n} bilder skalert ned og ${logos} sponsorlogoer tilpasset i ${dir}`);
+
+// Utgavene sidene peker på (srcset), funnet i HTML-en i dist/. Lages fra bildet i dist/media (allerede høyst MAX bred).
+const site = join(dir, "..");
+const wanted = new Set();
+async function* pages(d) {
+  for (const e of await readdir(d, { withFileTypes: true }).catch(() => [])) {
+    const p = join(d, e.name);
+    if (e.isDirectory()) { if (p !== dir) yield* pages(p); } else if (e.name.endsWith(".html")) yield p;
+  }
+}
+const marker = SIZES_DIR;
+for await (const f of pages(site)) {
+  const html = await readFile(f, "utf-8");
+  for (const [, set] of html.matchAll(/\bsrcset="([^"]+)"/g)) {
+    for (const entry of set.split(",")) {
+      const u = entry.trim().split(/\s+/)[0];
+      const i = u.indexOf(marker);
+      if (i >= 0) wanted.add(u.slice(i + marker.length));
+    }
+  }
+}
+let made = 0;
+for (const rel of wanted) {
+  const v = parseVariant(rel);
+  if (!v) continue;
+  let src, out;
+  try { src = join(dir, decodeURIComponent(v.src.slice("/media/".length))); out = join(dir, "generated", "sizes", decodeURIComponent(rel)); } catch { continue; }
+  await mkdir(dirname(out), { recursive: true });
+  await sharp(src, { failOn: "none" }).rotate().resize({ width: v.width, withoutEnlargement: true }).webp({ quality: 78 }).toFile(out);
+  made++;
+}
+console.log(`resize-images: ${made} mindre utgaver (WebP) laget i ${join(dir, "generated", "sizes")}`);
