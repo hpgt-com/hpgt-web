@@ -65,7 +65,7 @@ Designets egne filer (logo, skript) ligger i `public/assets/`.
 opp ett bilde, og bygget gjør resten: mindre utgaver i WebP (`srcset`), og i teksten kan alle bilder forstørres ved
 klikk. Liggende bilder fyller tekstbredden, kvadratiske og stående bilder (QR-koder, mobilbilder) vises høyst 400 px
 brede, og flere bilder i ett avsnitt vises i rutenett. Et bilde med `-liten` sist i filnavnet (f.eks.
-`grasrotandelen-liten.png`) vises høyst 300 px bredt uansett form, for unntak som en liggende plakat. Reglene står i
+`plakat-liten.png`) vises høyst 300 px bredt uansett form, for unntak som en liggende plakat. Reglene står i
 `src/lib/image-sizes.mjs` og `src/lib/rehype-base.mjs`.
 
 **Hva som hører hjemme hvor:** bilder som brukes på nettstedet, og ferdige, offentlige dokumenter (signerte referater,

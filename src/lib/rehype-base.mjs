@@ -9,7 +9,7 @@
 //    (public/assets/js/gallery.js). Sponsorlogoene røres ikke.
 //  • Kvadratiske og stående bilder (QR-koder, mobilbilder) vises smalere (img--narrow) enn liggende bilder, med mindre
 //    de står flere sammen i ett avsnitt. Da vises de i rutenett (img-grid på avsnittet).
-//  • Et bilde med «-liten» sist i filnavnet (f.eks. «grasrotandelen-liten.png») vises smalt uansett form (img--small),
+//  • Et bilde med «-liten» sist i filnavnet (f.eks. «plakat-liten.png») vises smalt uansett form (img--small),
 //    for unntakene, som en liggende plakat.
 import { domainToUnicode } from "node:url";
 import { imageInfo, srcsetFor } from "./image-sizes.mjs";
