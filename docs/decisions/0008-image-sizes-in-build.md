@@ -1,6 +1,6 @@
 # 0008: Bildestørrelser lages i bygget, og bildene i teksten tilpasses automatisk
 
-- **Status:** Vedtatt
+- **Status:** Vedtatt (endelsen `-liten` erstattet av `-small`, og `-half` lagt til, i [0009](0009-english-image-suffixes.md))
 - **Dato:** 2026-11-26
 
 ## Bakgrunn

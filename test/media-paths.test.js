@@ -4,9 +4,9 @@ import assert from "node:assert/strict";
 import { syncMediaPaths } from "../scripts/translate/media-paths.mjs";
 
 test("byttet bilde får den nye adressen i den engelske teksten", () => {
-  const no = "Skann koden.\n\n![QR-kode](/media/posts/2026/qr-liten.png)\n\nSe også ![kart](/media/pages/kart.jpg)";
+  const no = "Skann koden.\n\n![QR-kode](/media/posts/2026/qr-small.png)\n\nSe også ![kart](/media/pages/kart.jpg)";
   const en = "Scan the code.\n\n![QR code](/media/posts/2026/qr.png)\n\nSee also ![map](/media/pages/kart.jpg)";
-  assert.equal(syncMediaPaths(no, en), "Scan the code.\n\n![QR code](/media/posts/2026/qr-liten.png)\n\nSee also ![map](/media/pages/kart.jpg)");
+  assert.equal(syncMediaPaths(no, en), "Scan the code.\n\n![QR code](/media/posts/2026/qr-small.png)\n\nSee also ![map](/media/pages/kart.jpg)");
 });
 
 test("ulikt antall bilder: den engelske teksten står som den er", () => {
