@@ -74,7 +74,7 @@ content:
       # adressen fra WordPress (gamle lenker), wp_id er sporbarhet tilbake til WordPress.
       - { name: permalink, label: Adresse, type: string, hidden: true }
       - { name: wp_id, label: WordPress-ID, type: number, hidden: true }
-      - { name: body, label: Tekst, type: rich-text, description: "Bilder i teksten tilpasses automatisk: alle kan klikkes for å forstørres, kvadratiske og stående bilder (som QR-koder) vises mindre, og flere bilder i samme avsnitt vises i rutenett. Skal et liggende bilde (f.eks. en plakat) vises mindre, gi filen «-half» (halv bredde på PC) eller «-small» (enda mindre) sist i navnet før du laster den opp (f.eks. «plakat-half.png»). Endelsene er engelske, som resten av navnene." }
+      - { name: body, label: Tekst, type: rich-text, description: "Bilder i teksten tilpasses automatisk, du trenger ikke gjøre noe: alle kan klikkes for å forstørres, plakater, QR-koder og andre bilder som ikke er foto vises mindre, og flere bilder i samme avsnitt vises i rutenett. Får et bilde feil størrelse, kan du gi filen «-full» (full bredde), «-half» (halv bredde) eller «-small» (liten) sist i navnet før du laster den opp (f.eks. «kart-full.png»)." }
 
   - name: pages
     label: Faste sider
@@ -93,7 +93,7 @@ content:
       - { name: year, label: År, type: number, hidden: true }
       - { name: winnerPhoto, label: "1. plass foto", type: string, hidden: true }
       - { name: winnerVideo, label: "1. plass video", type: string, hidden: true }
-      - { name: body, label: Tekst, type: rich-text, description: "Bilder i teksten tilpasses automatisk: alle kan klikkes for å forstørres, kvadratiske og stående bilder (som QR-koder) vises mindre, og flere bilder i samme avsnitt vises i rutenett. Skal et liggende bilde (f.eks. en plakat) vises mindre, gi filen «-half» (halv bredde på PC) eller «-small» (enda mindre) sist i navnet før du laster den opp (f.eks. «plakat-half.png»). Endelsene er engelske, som resten av navnene." }
+      - { name: body, label: Tekst, type: rich-text, description: "Bilder i teksten tilpasses automatisk, du trenger ikke gjøre noe: alle kan klikkes for å forstørres, plakater, QR-koder og andre bilder som ikke er foto vises mindre, og flere bilder i samme avsnitt vises i rutenett. Får et bilde feil størrelse, kan du gi filen «-full» (full bredde), «-half» (halv bredde) eller «-small» (liten) sist i navnet før du laster den opp (f.eks. «kart-full.png»)." }
 
   - name: courses
     label: Kurs
@@ -114,7 +114,7 @@ content:
         options: { values: ["Kurs / PP2", "Kurs / SPG2", "Kurs / PPG3", "Kurs / SIV", "Kurs / Prøvedag", "Kurs / Annet kurs", "Fagdag / Nødskjerm og vingesjekk", "Fagdag / Sikkerhetsseminar", "Fagdag / Annen fagdag"] }
       - { name: menuOrder, label: Rekkefølge i menyen, type: number, default: 50, description: "Lavest først." }
       - { name: updated, label: Sist oppdatert, type: date }
-      - { name: body, label: Tekst, type: rich-text, description: "Bilder i teksten tilpasses automatisk: alle kan klikkes for å forstørres, kvadratiske og stående bilder (som QR-koder) vises mindre, og flere bilder i samme avsnitt vises i rutenett. Skal et liggende bilde (f.eks. en plakat) vises mindre, gi filen «-half» (halv bredde på PC) eller «-small» (enda mindre) sist i navnet før du laster den opp (f.eks. «plakat-half.png»). Endelsene er engelske, som resten av navnene." }
+      - { name: body, label: Tekst, type: rich-text, description: "Bilder i teksten tilpasses automatisk, du trenger ikke gjøre noe: alle kan klikkes for å forstørres, plakater, QR-koder og andre bilder som ikke er foto vises mindre, og flere bilder i samme avsnitt vises i rutenett. Får et bilde feil størrelse, kan du gi filen «-full» (full bredde), «-half» (halv bredde) eller «-small» (liten) sist i navnet før du laster den opp (f.eks. «kart-full.png»)." }
 
   - name: competitions
     label: Konkurranser
@@ -132,7 +132,7 @@ content:
       - { name: winnerVideo, label: "1. plass video", type: string }
       - { name: updated, label: Sist oppdatert, type: date }
       - { name: wp_id, label: WordPress-ID, type: number, hidden: true }
-      - { name: body, label: Tekst, type: rich-text, description: "Bilder i teksten tilpasses automatisk: alle kan klikkes for å forstørres, kvadratiske og stående bilder (som QR-koder) vises mindre, og flere bilder i samme avsnitt vises i rutenett. Skal et liggende bilde (f.eks. en plakat) vises mindre, gi filen «-half» (halv bredde på PC) eller «-small» (enda mindre) sist i navnet før du laster den opp (f.eks. «plakat-half.png»). Endelsene er engelske, som resten av navnene." }
+      - { name: body, label: Tekst, type: rich-text, description: "Bilder i teksten tilpasses automatisk, du trenger ikke gjøre noe: alle kan klikkes for å forstørres, plakater, QR-koder og andre bilder som ikke er foto vises mindre, og flere bilder i samme avsnitt vises i rutenett. Får et bilde feil størrelse, kan du gi filen «-full» (full bredde), «-half» (halv bredde) eller «-small» (liten) sist i navnet før du laster den opp (f.eks. «kart-full.png»)." }
 
   - name: default-images
     label: Standardbilder

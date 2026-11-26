@@ -1,5 +1,5 @@
 // Markdown-behandlingen (src/lib/rehype-base.mjs). Overskriftene: «#» i teksten blir <h2>, og overskrifter uten tekst fjernes,
-// så hver side har tittelen som eneste <h1>. Bildene (beslutning 0008): forstørring, form og srcset.
+// så hver side har tittelen som eneste <h1>. Bildene (beslutning 0008 og 0010): forstørring, form, grafikk og srcset.
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import rehypeBase from "../src/lib/rehype-base.mjs";
@@ -8,11 +8,16 @@ const el = (tagName, children = [], properties = {}) => ({ type: "element", tagN
 const text = (value) => ({ type: "text", value });
 // Bildestørrelsene er faste i testene, så de ikke avhenger av filene i public/media/
 const SIZES = { "/media/land.jpg": { width: 1600, height: 900 }, "/media/kvadrat.png": { width: 600, height: 600 },
-  "/media/plakat-small.png": { width: 1200, height: 668 }, "/media/plakat-half.png": { width: 1200, height: 668 }, "/media/smalt.jpg": { width: 300, height: 500 } };
+  "/media/plakat-small.png": { width: 1200, height: 668 }, "/media/plakat-half.png": { width: 1200, height: 668 }, "/media/smalt.jpg": { width: 300, height: 500 },
+  "/media/plakat.png": { width: 1200, height: 668 }, "/media/qr.png": { width: 323, height: 323 }, "/media/kart-full.png": { width: 1200, height: 668 },
+  "/media/archive/2014/06/logo.png": { width: 1077, height: 268 }, "/media/sponsors/logo.png": { width: 1077, height: 268 } };
 const info = async (src) => SIZES[src] ?? null;
+// Grafikk (beslutning 0010) er også fast i testene
+const GRAPHICS = new Set(["/media/plakat.png", "/media/qr.png", "/media/kart-full.png", "/media/plakat-small.png", "/media/archive/2014/06/logo.png", "/media/sponsors/logo.png"]);
+const graphic = async (src) => GRAPHICS.has(src);
 const run = async (children, opts = {}, file) => {
   const tree = { type: "root", children };
-  await rehypeBase({ info, ...opts })(tree, file);
+  await rehypeBase({ info, graphic, ...opts })(tree, file);
   return tree.children;
 };
 
@@ -118,4 +123,38 @@ test("bilde med «-half» i filnavnet får halv tekstbredde på PC", async () =>
   const i = p.children[0].children[0].properties;
   assert.deepEqual(i.className, ["img--half"]);
   assert.equal(i.sizes, "(min-width: 420px) 380px, 100vw");
+});
+
+test("liggende grafikk vises mindre enn tekstbredden uten endelse i filnavnet", async () => {
+  const [p] = await run([el("p", [img("/media/plakat.png", { alt: "Plakat" })])]);
+  const i = p.children[0].children[0].properties;
+  assert.deepEqual(i.className, ["img--graphic"]);
+  assert.equal(i.sizes, "(min-width: 600px) 560px, 100vw");
+});
+
+test("kvadratisk grafikk, som en QR-kode, vises smalt uten endelse i filnavnet", async () => {
+  const [p] = await run([el("p", [img("/media/qr.png", { alt: "QR-kode" })])]);
+  assert.deepEqual(p.children[0].children[0].properties.className, ["img--small"]);
+});
+
+test("«-full» i filnavnet gir full tekstbredde også for grafikk", async () => {
+  const [p] = await run([el("p", [img("/media/kart-full.png", { alt: "Kart" })])]);
+  assert.equal(p.children[0].children[0].properties.className, undefined);
+});
+
+test("liggende foto fyller fortsatt tekstbredden", async () => {
+  const [p] = await run([el("p", [img("/media/land.jpg", { alt: "Utsikt" })])]);
+  assert.equal(p.children[0].children[0].properties.className, undefined);
+});
+
+test("grafikk i rutenett beholder rutenettet", async () => {
+  const [p] = await run([el("p", [img("/media/plakat.png"), img("/media/land.jpg")])]);
+  assert.deepEqual(p.properties.className, ["img-grid"]);
+  assert.equal(p.children[0].children[0].properties.className, undefined);
+});
+
+test("grafikk fra WordPress-arkivet og sponsorlogoer beholder størrelsen", async () => {
+  const [p, q] = await run([el("p", [img("/media/archive/2014/06/logo.png", { alt: "Sponsor" })]), el("p", [img("/media/sponsors/logo.png", { alt: "Sponsor" })])]);
+  assert.equal(p.children[0].children[0].properties.className, undefined);
+  assert.equal(q.children[0].properties.className, undefined);
 });

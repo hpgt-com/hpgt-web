@@ -64,9 +64,10 @@ Designets egne filer (logo, skript) ligger i `public/assets/`.
 **Bildene tilpasses automatisk** ([beslutning 0008](docs/decisions/0008-image-sizes-in-build.md)). Redaktøren laster
 opp ett bilde, og bygget gjør resten: mindre utgaver i WebP (`srcset`), og i teksten kan alle bilder forstørres ved
 klikk. Liggende bilder fyller tekstbredden, kvadratiske og stående bilder (QR-koder, mobilbilder) vises høyst 400 px
-brede, og flere bilder i ett avsnitt vises i rutenett. For unntakene finnes to endelser på filnavnet ([beslutning 0009](docs/decisions/0009-english-image-suffixes.md)):
-`-half` (f.eks. `plakat-half.png`) gir høyst halv tekstbredde (380 px) på PC og full bredde på mobil, og `-small`
-(f.eks. `plakat-small.png`) gir høyst 300 px uansett form. Reglene står i
+brede, og flere bilder i ett avsnitt vises i rutenett. Grafikk (plakater, QR-koder, skjermbilder) kjennes igjen på
+innholdet og vises mindre: liggende grafikk høyst 560 px på PC og full bredde på mobil, kvadratisk
+og stående grafikk høyst 300 px ([beslutning 0010](docs/decisions/0010-graphics-sized-automatically.md)). Bommer regelen,
+kan endelsen `-full`, `-half` (380 px) eller `-small` (300 px) på filnavnet (f.eks. `kart-full.png`) overstyre den. Reglene står i
 `src/lib/image-sizes.mjs` og `src/lib/rehype-base.mjs`.
 
 **Hva som hører hjemme hvor:** bilder som brukes på nettstedet, og ferdige, offentlige dokumenter (signerte referater,

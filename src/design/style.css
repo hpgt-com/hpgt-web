@@ -294,12 +294,13 @@ span.default-image { display: flex; flex-direction: column; align-items: center;
 .prose h3 { font-weight: 800; letter-spacing: -.03em; font-size: 1.35rem; margin: 1.4em 0 .3em; }
 .prose img { margin: 14px 0; }
 /* Bildene i teksten (src/lib/rehype-base.mjs, beslutning 0008). Bredden her må stemme med SIZES der.
-   Alle kan forstørres ved klikk. Kvadratiske og stående bilder vises smalere, «-half» i filnavnet halv tekstbredde, «-small» enda smalere,
+   Alle kan forstørres ved klikk. Kvadratiske og stående bilder vises smalere, liggende grafikk (beslutning 0010) høyst 560 px, «-half» halv tekstbredde, kvadratisk grafikk og «-small» enda smalere,
    og flere bilder i ett avsnitt vises i rutenett. */
 .prose a.img-zoom { display: inline-block; cursor: zoom-in; }
 .prose img.img--narrow { max-width: min(100%, 400px); height: auto; }
 .prose img.img--small { max-width: min(100%, 300px); height: auto; border-radius: 6px; }
 .prose img.img--half { max-width: min(100%, 380px); height: auto; }
+.prose img.img--graphic { max-width: min(100%, 560px); height: auto; }
 .prose p.img-grid { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
 .prose p.img-grid > a { display: block; }
 .prose p.img-grid img { margin: 0; aspect-ratio: 1; object-fit: cover; width: 100%; height: auto; }

@@ -9,6 +9,6 @@ Vipps trekker hver måned tre organisasjoner som får 20 000 kroner hver. Organi
 
 Skann QR-koden, eller trykk på [denne lenken](https://qr.vipps.no/vip/tap-support-merchant?saleUnitId=1387906) hvis du er på mobilen. Begge åpner klubbens side for «Tæpp for laget» i Vipps.
 
-![QR-kode som åpner Harstad Hang- og Paragliderklubbs side for «Tæpp for laget» i Vipps](/media/posts/2026/vipps-taepp-for-laget-qr-small.png)
+![QR-kode som åpner Harstad Hang- og Paragliderklubbs side for «Tæpp for laget» i Vipps](/media/posts/2026/vipps-taepp-for-laget-qr.png)
 
 Hele fremgangsmåten står på [Økonomisk støtte](/klubben/stotte/#tæpp-for-laget). Der finner du også de andre måtene å støtte klubben på, blant annet [Grasrotandelen](/klubben/stotte/#grasrotandelen).

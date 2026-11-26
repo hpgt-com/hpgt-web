@@ -51,6 +51,29 @@ export function imageInfo(src) {
   return cache.get(path);
 }
 
+const graphics = new Map();
+/** Entropien under denne regnes som grafikk (plakater, logoer, QR-koder, skjermbilder med flater og tekst). Foto ligger
+ *  over 4, grafikken på siden under 2,5 (målt på en utgave på høyst 256 px med hvit bakgrunn bak gjennomsiktighet). */
+export const GRAPHIC_ENTROPY = 3;
+/** true når bildet er grafikk og ikke et foto, ut fra hvor mye variasjon det er i pikslene (beslutning 0010). */
+export function isGraphic(src) {
+  if (typeof src !== "string" || !src.startsWith("/media/") || SKIP.test(src)) return Promise.resolve(false);
+  const path = src.split(/[?#]/)[0];
+  if (!RASTER.test(path)) return Promise.resolve(false);
+  if (!graphics.has(path)) {
+    graphics.set(path, (async () => {
+      try {
+        const { entropy } = await sharp(PUBLIC + decodeURIComponent(path), { failOn: "none" })
+          .resize(256, 256, { fit: "inside" }).flatten({ background: "#fff" }).stats();
+        return entropy < GRAPHIC_ENTROPY;
+      } catch {
+        return false; // mangler eller kan ikke leses: behandles som et foto
+      }
+    })());
+  }
+  return graphics.get(path);
+}
+
 /** srcset for et bilde med kjent bredde, eller undefined når originalen er liten nok. fix legger til base-stien.
  *  widths: utgavene som kan trengs der bildet vises. Originalen tas bare med når den er mindre enn den største utgaven
  *  (kortene trenger ikke mer enn 960 px, og hver oppføring gjør HTML-en større). */

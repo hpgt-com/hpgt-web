@@ -9,22 +9,28 @@
 //    (public/assets/js/gallery.js). Sponsorlogoene røres ikke.
 //  • Kvadratiske og stående bilder (QR-koder, mobilbilder) vises smalere (img--narrow) enn liggende bilder, med mindre
 //    de står flere sammen i ett avsnitt. Da vises de i rutenett (img-grid på avsnittet).
-//  • «-half» sist i filnavnet (f.eks. «plakat-half.png») gir høyst halv tekstbredde (img--half) på PC og full bredde
-//    på mobil, for en liggende plakat med QR-kode.
-//  • Et bilde med «-small» sist i filnavnet (f.eks. «plakat-small.png») vises smalt uansett form (img--small),
-//    for unntakene, som en liggende plakat.
+//  • Grafikk (plakater, logoer, QR-koder og skjermbilder, ikke foto) kjennes igjen på innholdet (isGraphic, beslutning
+//    0010): liggende grafikk får høyst 560 px (img--graphic, rundt tre firedeler av tekstbredden) på PC og full bredde
+//    på mobil, så en QR-kode på en plakat kan skannes fra skjermen, og kvadratisk eller
+//    stående grafikk vises smalt (img--small). Gjelder ikke bildene fra WordPress i /media/archive/, så gamle innlegg
+//    (med sponsorlogoer og skjermbilder) ser ut som før, og heller ikke sponsorlogoene, som aldri endres her.
+//  • Endelsene «-full», «-half» og «-small» sist i filnavnet (f.eks. «plakat-full.png») overstyrer dette, for de få
+//    bildene der regelen bommer: full tekstbredde, halv bredde eller smalt, uansett form og innhold.
 import { domainToUnicode } from "node:url";
-import { imageInfo, srcsetFor } from "./image-sizes.mjs";
+import { imageInfo, isGraphic, srcsetFor } from "./image-sizes.mjs";
 
 const HEADING = /^h[1-6]$/;
 const SMALL = /-small\.(png|jpe?g|webp|gif)$/i;
 const HALF = /-half\.(png|jpe?g|webp|gif)$/i;
+const FULL = /-full\.(png|jpe?g|webp|gif)$/i;
 const MEDIA = /^\/media\//;
 const LOGO = /^\/media\/(sponsors\/|competitions\/[^/]+\/sponsors\/)/;
+// Bildene fra WordPress (blant dem sponsorlogoer i gamle innlegg) vises som før, uten regelen for grafikk
+const ARCHIVE = /^\/media\/archive\//;
 // Bredde/høyde under dette regnes som kvadratisk eller stående
 const LANDSCAPE = 1.15;
 // sizes forteller nettleseren hvor bredt bildet vises, så den velger riktig utgave fra srcset (må stemme med style.css)
-const SIZES = { small: "300px", half: "(min-width: 420px) 380px, 100vw", narrow: "400px", grid: "(min-width: 820px) 380px, 50vw", text: "(min-width: 820px) 760px, 100vw" };
+const SIZES = { small: "300px", half: "(min-width: 420px) 380px, 100vw", graphic: "(min-width: 600px) 560px, 100vw", narrow: "400px", grid: "(min-width: 820px) 380px, 50vw", text: "(min-width: 820px) 760px, 100vw" };
 const isImg = (n) => n.type === "element" && n.tagName === "img";
 const imgsIn = (n) => (n.children || []).filter((c) => isImg(c) || (c.type === "element" && c.tagName === "a" && (c.children || []).some(isImg))).length;
 const textOf = (n) => (n.type === "text" ? n.value : (n.children || []).map(textOf).join(""));
@@ -54,7 +60,7 @@ const linkItem = (li) => {
   li.properties.className = [...(li.properties.className || []), "link-item"];
 };
 
-export default function rehypeBase({ base = "/", info = imageInfo } = {}) {
+export default function rehypeBase({ base = "/", info = imageInfo, graphic = isGraphic } = {}) {
   const b = base.replace(/\/$/, "");
   const fix = (v) => (b && typeof v === "string" && v.startsWith("/") && !v.startsWith("//") ? b + v : v);
 
@@ -75,12 +81,16 @@ export default function rehypeBase({ base = "/", info = imageInfo } = {}) {
     const box = parent.tagName === "a" ? grand : parent;
     const grid = (box ? imgsIn(box) : 1) > 1;
     if (grid && box.tagName === "p" && !(box.properties.className || []).includes("img-grid")) box.properties.className = [...(box.properties.className || []), "img-grid"];
+    const file = src.split(/[?#]/)[0];
+    const landscape = !meta || meta.width / meta.height >= LANDSCAPE;
     let kind = "text";
-    if (SMALL.test(src.split(/[?#]/)[0])) kind = "small";
-    else if (HALF.test(src.split(/[?#]/)[0])) kind = "half";
+    if (SMALL.test(file)) kind = "small";
+    else if (HALF.test(file)) kind = "half";
+    else if (FULL.test(file)) kind = "text";
     else if (grid) kind = "grid";
-    else if (meta && meta.width / meta.height < LANDSCAPE) kind = "narrow";
-    if (kind === "small" || kind === "half" || kind === "narrow") {
+    else if (meta && !ARCHIVE.test(file) && (await graphic(src))) kind = landscape ? "graphic" : "small";
+    else if (!landscape) kind = "narrow";
+    if (kind === "small" || kind === "half" || kind === "graphic" || kind === "narrow") {
       const c = `img--${kind}`;
       if (!cls.includes(c)) img.properties.className = [...cls, c];
     }
