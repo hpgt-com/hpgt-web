@@ -1,6 +1,6 @@
 ---
 title: "Økonomisk støtte"
-lead: "Fem enkle måter å støtte klubben økonomisk på."
+lead: "Fire enkle måter å støtte klubben økonomisk på."
 permalink: "/klubben/stotte/"
 wp_id: 298
 updated: "2026-11-26"
@@ -10,8 +10,9 @@ Pengene klubben får inn, går til kurs, utstyr, flysteder og sosiale treff. Du 
 1. [Bli medlem eller støttemedlem](#bli-medlem)
 2. [Grasrotandelen](#grasrotandelen) når du spiller hos Norsk Tipping
 3. [Tæpp for laget](#tæpp-for-laget) når du betaler med Vipps
-4. [Kraft til idretten](#kraft-til-idretten)
-5. [Vipps](#vipps) direkte til klubben
+4. [Kraft til idretten](#kraft-til-idretten) når du betaler for strøm
+
+Ønsker du å gi en gave til klubben, er Vipps-nummeret vårt 967338.
 
 ## Bli medlem
 
@@ -23,10 +24,12 @@ Grasrotandelen er en ordning fra Norsk Tipping. Når du spiller, går en del av 
 
 Du må være kunde hos Norsk Tipping. Slik velger du klubben:
 
-1. Åpne [klubbens side hos Norsk Tipping](https://www.norsk-tipping.no/grasrotandelen/mottaker/996870618) og logg inn.
+1. Skann QR-koden eller åpne [klubbens side hos Norsk Tipping](https://www.norsk-tipping.no/grasrotandelen/mottaker/996870618) og logg inn.
 2. Velg «Sett som grasrotmottaker».
 
 Du kan også søke opp Harstad Hang- og Paragliderklubb (organisasjonsnummer 996870618) i [oversikten over grasrotmottakere](https://www.norsk-tipping.no/grasrotandelen/finn-mottaker), eller be om det hos en kommisjonær.
+
+![QR-kode som åpner Harstad Hang- og Paragliderklubbs side for Grasrotandelen hos Norsk Tipping](/media/pages/grasrotandelen-qr.png)
 
 Takk for at du støtter oss via Grasrotandelen!
 
@@ -48,7 +51,3 @@ Mer om ordningen finner du hos [Vipps](https://vipps.no/t%C3%A6ppforlaget).
 ## Kraft til idretten
 
 Med Idrettsstrøm fra [Kraft til idretten](https://www.krafttilidretten.no/referral/harstad-hang-og-paragliderklubb/6798/0e092d7f-b207-4ab0-941b-2259a9b30487) går 1 øre til klubben for hver kilowattime du bruker. Strømavtalen leveres av Kraftriket, Polar Kraft eller Smart Energi, og gjelder både privatkunder og bedrifter. Bestill via lenken, så havner støtten hos oss.
-
-## Vipps
-
-Du kan også vippse et beløp direkte til klubben på Vipps-nummer 967338.
