@@ -61,6 +61,10 @@ bytter logo). Klubbens faste sponsorer ligger i `sponsors/`. Samme firma kan lig
 Gamle `/wp-content/…`-adresser sendes videre til `archive/` og `competitions/YEAR/entries/` (`public/_redirects`).
 Designets egne filer (logo, skript) ligger i `public/assets/`.
 
+**Små bilder i teksten:** et bilde med `-liten` sist i filnavnet (f.eks. `grasrotandelen-liten.png`) vises smalt
+(høyst 300 px) og kan klikkes for å se det i stort format. Brukes til QR-koder og plakater som ellers tar mye plass
+(`src/lib/rehype-base.mjs`).
+
 **Hva som hører hjemme hvor:** bilder som brukes på nettstedet, og ferdige, offentlige dokumenter (signerte referater,
 årsberetninger) hører hjemme her. Repoet er offentlig: utkast, regnskap, medlemslister og andre interne dokumenter
 hører hjemme i klubbens Google Drive, ikke her, og lenkes helst ikke fra nettstedet (Drive-lenker brytes lett, og

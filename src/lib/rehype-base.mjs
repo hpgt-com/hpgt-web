@@ -3,9 +3,13 @@
 // etter navnet, så leseren ser hvor lenken går uten at redaktøren må skrive det.
 // Overskrifter: siden har tittelen som eneste <h1>, så «# Overskrift» i teksten blir <h2>, og en overskrift uten tekst
 // (en linje med bare «#») fjernes. Redaktørene i Pages CMS kan skrive begge deler.
+// Små bilder: et bilde med «-liten» sist i filnavnet (f.eks. «grasrotandelen-liten.png») vises smalt og lenker til seg
+// selv, så det kan forstørres i bildevisningen (public/assets/js/gallery.js). Brukes til QR-koder og plakater.
 import { domainToUnicode } from "node:url";
 
 const HEADING = /^h[1-6]$/;
+const SMALL = /-liten\.(png|jpe?g|webp|gif)$/i;
+const isSmall = (n) => n.type === "element" && n.tagName === "img" && SMALL.test(String(n.properties?.src || "").split(/[?#]/)[0]);
 const textOf = (n) => (n.type === "text" ? n.value : (n.children || []).map(textOf).join(""));
 
 const domain = (href) => {
@@ -46,6 +50,12 @@ export default function rehypeBase({ base = "/" } = {}) {
       if (n.tagName === "h1") n.tagName = "h2";
     }
     if (n.children) n.children = n.children.filter((c) => !(c.type === "element" && HEADING.test(c.tagName) && !textOf(c).trim()));
+    if (n.children) n.children = n.children.map((c) => {
+      if (!isSmall(c)) return c;
+      const cls = c.properties.className || [];
+      if (!cls.includes("img--small")) c.properties.className = [...cls, "img--small"];
+      return n.tagName === "a" ? c : { type: "element", tagName: "a", properties: { href: c.properties.src, className: ["img-zoom"] }, children: [c] };
+    });
     (n.children || []).forEach(walk);
     // En liste der alle punktene er lenkepunkter, vises som tabell
     if (n.tagName === "ul") {
