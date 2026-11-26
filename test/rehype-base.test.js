@@ -8,7 +8,7 @@ const el = (tagName, children = [], properties = {}) => ({ type: "element", tagN
 const text = (value) => ({ type: "text", value });
 // Bildestørrelsene er faste i testene, så de ikke avhenger av filene i public/media/
 const SIZES = { "/media/land.jpg": { width: 1600, height: 900 }, "/media/kvadrat.png": { width: 600, height: 600 },
-  "/media/plakat-liten.png": { width: 1200, height: 668 }, "/media/smalt.jpg": { width: 300, height: 500 } };
+  "/media/plakat-small.png": { width: 1200, height: 668 }, "/media/plakat-half.png": { width: 1200, height: 668 }, "/media/smalt.jpg": { width: 300, height: 500 } };
 const info = async (src) => SIZES[src] ?? null;
 const run = async (children, opts = {}, file) => {
   const tree = { type: "root", children };
@@ -34,17 +34,17 @@ test("overskrifter uten tekst fjernes, også inne i andre elementer", async () =
 
 const img = (src, props = {}) => el("img", [], { src, ...props });
 
-test("bilde med «-liten» i filnavnet blir smalt og lenker til seg selv", async () => {
-  const [p] = await run([el("p", [img("/media/plakat-liten.png", { alt: "Plakat" })])]);
+test("bilde med «-small» i filnavnet blir smalt og lenker til seg selv", async () => {
+  const [p] = await run([el("p", [img("/media/plakat-small.png", { alt: "Plakat" })])]);
   const [a] = p.children;
   assert.equal(a.tagName, "a");
-  assert.equal(a.properties.href, "/media/plakat-liten.png");
+  assert.equal(a.properties.href, "/media/plakat-small.png");
   assert.deepEqual(a.children[0].properties.className, ["img--small"]);
   assert.equal(a.children[0].properties.sizes, "300px");
 });
 
 test("et bilde som allerede er en lenke, pakkes ikke inn på nytt", async () => {
-  const [a] = await run([el("a", [img("/media/x-liten.jpg")], { href: "https://example.com/" })]);
+  const [a] = await run([el("a", [img("/media/x-small.jpg")], { href: "https://example.com/" })]);
   assert.equal(a.properties.href, "https://example.com/");
   assert.equal(a.children[0].tagName, "img");
   assert.deepEqual(a.children[0].properties.className, ["img--small"]);
@@ -111,4 +111,11 @@ test("lenken rundt et bilde uten alt-tekst får et navn, på sidens språk", asy
   assert.equal(q.children[0].properties.ariaLabel, undefined, "alt-teksten er navnet");
   const [e] = await run([el("p", [img("/media/land.jpg")])], {}, { path: "/repo/.translated/pages/tandem.md" });
   assert.equal(e.children[0].properties.ariaLabel, "View the image in full size");
+});
+
+test("bilde med «-half» i filnavnet får halv tekstbredde på PC", async () => {
+  const [p] = await run([el("p", [img("/media/plakat-half.png", { alt: "Plakat" })])]);
+  const i = p.children[0].children[0].properties;
+  assert.deepEqual(i.className, ["img--half"]);
+  assert.equal(i.sizes, "(min-width: 420px) 380px, 100vw");
 });
