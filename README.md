@@ -61,9 +61,12 @@ bytter logo). Klubbens faste sponsorer ligger i `sponsors/`. Samme firma kan lig
 Gamle `/wp-content/…`-adresser sendes videre til `archive/` og `competitions/YEAR/entries/` (`public/_redirects`).
 Designets egne filer (logo, skript) ligger i `public/assets/`.
 
-**Små bilder i teksten:** et bilde med `-liten` sist i filnavnet (f.eks. `grasrotandelen-liten.png`) vises smalt
-(høyst 300 px) og kan klikkes for å se det i stort format. Brukes til QR-koder og plakater som ellers tar mye plass
-(`src/lib/rehype-base.mjs`).
+**Bildene tilpasses automatisk** ([beslutning 0008](docs/decisions/0008-image-sizes-in-build.md)). Redaktøren laster
+opp ett bilde, og bygget gjør resten: mindre utgaver i WebP (`srcset`), og i teksten kan alle bilder forstørres ved
+klikk. Liggende bilder fyller tekstbredden, kvadratiske og stående bilder (QR-koder, mobilbilder) vises høyst 400 px
+brede, og flere bilder i ett avsnitt vises i rutenett. Et bilde med `-liten` sist i filnavnet (f.eks.
+`grasrotandelen-liten.png`) vises høyst 300 px bredt uansett form, for unntak som en liggende plakat. Reglene står i
+`src/lib/image-sizes.mjs` og `src/lib/rehype-base.mjs`.
 
 **Hva som hører hjemme hvor:** bilder som brukes på nettstedet, og ferdige, offentlige dokumenter (signerte referater,
 årsberetninger) hører hjemme her. Repoet er offentlig: utkast, regnskap, medlemslister og andre interne dokumenter
@@ -87,6 +90,8 @@ tekster (menyer, knapper) ligger i `src/lib/i18n.ts`.
 - Engelske adresser (`/klubben/styret/` → `/en/club/board/`): `src/lib/english-paths.mjs`. Gamle `/en/…`-adresser
   sendes videre.
 - Test lokalt uten nøkkel: `TRANSLATE_TEST=1 npm run build` gir «[EN] …»-tekster.
+- Bildene: norsk og engelsk side bruker samme filer. Bildeadressene i den engelske teksten hentes fra den norske
+  (`scripts/translate/media-paths.mjs`), så et byttet bilde vises på engelsk med en gang.
 
 ## Sikkerhet
 

@@ -21,12 +21,13 @@ const PAGES = ["/", "/en/", "/kurs/", "/nytt/", "/arrangementer/", "/for-piloter
 // Per side: bytes per type (KB, ukomprimert), forespørsler, DOM-noder og CLS, omtrent 20 % over det sidene bruker
 // i PR-sjekken. Bildene inkluderer favicon.ico og apple-touch-icon.png.
 // Forsiden og kurssidene har store toppbilder, og /nytt/ lister alle innlegg. En type som mangler, sjekkes ikke.
+// /nytt/: hvert kort har srcset (beslutning 0008), ca. 30 KB ukomprimert, men bare ca. 2 KB komprimert over nettet.
 const COMMON = { css: 50, js: 35, font: 75, data: 10, cls: 0.05 };
 const BUDGET = {
   "/": { ...COMMON, html: 35, image: 1000, requests: 24, nodes: 650 },
   "/en/": { ...COMMON, html: 35, image: 1000, requests: 24, nodes: 650 },
   "/kurs/": { ...COMMON, html: 16, image: 1150, requests: 26, nodes: 250 },
-  "/nytt/": { ...COMMON, html: 130, image: 200, requests: 22, nodes: 2500 },
+  "/nytt/": { ...COMMON, html: 165, image: 200, requests: 22, nodes: 2500 },
   "/arrangementer/": { ...COMMON, html: 35, image: 200, requests: 22, nodes: 650 },
   "/for-piloter/radioid/": { ...COMMON, html: 20, image: 200, requests: 22, nodes: 400 },
   "/hpgt-com-har-fatt-en-makeover/": { ...COMMON, html: 16, image: 340, requests: 22, nodes: 260 },

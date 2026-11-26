@@ -1,4 +1,5 @@
 ---
+import Img from "../components/Img.astro";
 import Arrow from "../components/Arrow.astro";
 import DefaultImage from "../components/DefaultImage.astro";
 import ActivityCalendar from "../components/ActivityCalendar.astro";
@@ -16,7 +17,7 @@ const en = lang === "en";
 const shortDate = (d: Date) => new Intl.DateTimeFormat(en ? "en-GB" : "nb-NO", { timeZone: "UTC", day: "2-digit", month: "short", year: "numeric" }).format(d).replace(/\./g, "");
 ---
 <section class="hero">
-  <img class="hero__img" src={url(frontPage.heroImage)} alt={t.heroAlt} />
+  <Img class="hero__img" src={frontPage.heroImage} sizes="100vw" alt={t.heroAlt} />
   <div class="wrap hero__in">
     <p class="eyebrow eyebrow--light"><span class="dot" aria-hidden="true"></span>{frontPage.kicker}</p>
     <h1 class="hero__title">{frontPage.headline}</h1>
@@ -53,7 +54,7 @@ const shortDate = (d: Date) => new Intl.DateTimeFormat(en ? "en-GB" : "nb-NO", {
       const b = imageFor(p);
       return (
         <a class="post" href={url(link(p))}>
-          {b ? <span class="post__noimg default-image--photo" data-cat={slug(p.data.categories[0])}><img src={url(b)} alt="" loading="lazy" /><span class="default-image__label">{categoryName(lang, p.data.categories[0])}</span></span> : <DefaultImage class="post__noimg" cat={slug(p.data.categories[0])} label={categoryName(lang, p.data.categories[0])} seed={link(p)} />}
+          {b ? <span class="post__noimg default-image--photo" data-cat={slug(p.data.categories[0])}><Img src={b} sizes="(min-width: 900px) 360px, 100vw" card loading="lazy" /><span class="default-image__label">{categoryName(lang, p.data.categories[0])}</span></span> : <DefaultImage class="post__noimg" cat={slug(p.data.categories[0])} label={categoryName(lang, p.data.categories[0])} seed={link(p)} />}
           <span class="post__body">
             <span class="post__meta">{shortDate(p.data.date)}</span>
             <span class="post__title">{p.data.title}</span>

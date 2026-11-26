@@ -3,7 +3,7 @@
 // (redigeres i Pages CMS under «Standardbilder»), valgt fra kategoriens liste. Samme innlegg får alltid samme bilde,
 // og innleggene fordeles på bildene, så lister ikke viser ett og samme bilde om og om igjen.
 // Har kategorien ingen bilder, vises kategoriens farge med et ikon. label: kategorien (innlegg) eller datoen (arrangementer).
-import { url } from "../lib/site";
+import Img from "./Img.astro";
 import defaultImages from "../data/default-images.json";
 interface Props { cat?: string; label?: string; class?: string; seed?: string }
 const { cat = "nyhet", label, class: className, seed = "" } = Astro.props;
@@ -34,7 +34,7 @@ const d = ICON[cat] ?? ICON["kurs"];
 ---
 {photo
   ? <span class:list={["default-image default-image--photo", className]} data-cat={cat}>
-      <img src={url(photo)} alt="" loading="lazy" decoding="async" />
+      <Img src={photo} sizes="(min-width: 900px) 360px, 100vw" card loading="lazy" decoding="async" />
       {label && <span class="default-image__label">{label}</span>}
     </span>
   : <span class:list={["default-image", className]} data-cat={cat} aria-hidden="true">

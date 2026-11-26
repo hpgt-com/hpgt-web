@@ -13,3 +13,4 @@ redigeres ikke i ettertid. Den erstattes av en ny, og den gamle får statusen «
 | [0005](0005-scoped-tokens-github-app.md) | Ett token per oppgave, eid av klubben | Vedtatt |
 | [0006](0006-radioid-private-intake.md) | RadioID-innmeldinger i et privat repo | Vedtatt (repoet omdøpt i 0007) |
 | [0007](0007-one-intake-repository-for-forms.md) | Ett privat mottaksrepo for alle skjemaer | Vedtatt |
+| [0008](0008-image-sizes-in-build.md) | Bildestørrelser lages i bygget, og bildene i teksten tilpasses automatisk | Vedtatt |

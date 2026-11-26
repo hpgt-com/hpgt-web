@@ -152,6 +152,9 @@ oversettelsen feilet) står i de engelske listene med norsk tittel og «(in Norw
 
 Feiler innloggingen hos Anthropic, publiseres nettstedet likevel, med de forrige oversettelsene.
 
+Bildeadressene i den engelske teksten hentes alltid fra den norske (`scripts/translate/media-paths.mjs`,
+[0008](decisions/0008-image-sizes-in-build.md)), så begge språk bruker samme fil, også når en eldre oversettelse brukes.
+
 ## Skjemaene (RadioID og «Meld feil»)
 
 ```mermaid
@@ -206,7 +209,7 @@ Detaljer: [SECURITY.md](../SECURITY.md).
 | `deploy/` | Den låste Wrangler-versjonen for publiseringsjobben |
 | `docs/` | Denne dokumentasjonen |
 | `public/` | Filer som publiseres som de er: bilder, skript, `_headers`, `_redirects`, `robots.txt` |
-| `scripts/` | Oversettelse, miniatyrbilder for video, skalering av bilder, nettstedskart, WordPress-import (engangs) |
+| `scripts/` | Oversettelse, miniatyrbilder for video, skalering av bilder og mindre utgaver for `srcset` ([0008](decisions/0008-image-sizes-in-build.md)), nettstedskart, WordPress-import (engangs) |
 | `src/content/` | Innholdet (Markdown) |
 | `src/data/` | Innhold og innstillinger (JSON) |
 | `src/design/` | Designet «Fjord+» |
@@ -225,7 +228,7 @@ Alle kjører i jobben `build` i `pr-check.yml` for hver pull request, og lokalt 
 | Test | Hva |
 |---|---|
 | `npm test` (`test/*.test.js`) | Enhetstester for `worker/` og overskriftene i Markdown (`src/lib/rehype-base.mjs`), uten nettleser |
-| `node scripts/check-links.mjs` | Interne lenker og bilder i `dist/` |
+| `node scripts/check-links.mjs` | Interne lenker og bilder i `dist/`, også adressene i `srcset` |
 | `node scripts/check-accessibility.mjs` | axe i lys og mørk visning |
 | `npm run check:budget` | Ytelsesbudsjettet per side |
 | `npm run test:e2e` (`test/e2e/*.test.mjs`) | Ende-til-ende i Chromium mot den bygde siden |

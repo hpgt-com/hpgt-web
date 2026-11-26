@@ -22,6 +22,7 @@
 import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, readdirSync, writeFileSync, existsSync } from "node:fs";
 import { join, basename, dirname, relative, sep } from "node:path";
+import { syncMediaPaths } from "./media-paths.mjs";
 import { fileURLToPath } from "node:url";
 import { toEnglish } from "../../src/lib/english-paths.mjs";
 import { tmpdir } from "node:os";
@@ -180,7 +181,7 @@ async function markdown(folder, file, fields, { name = basename(file, ".md"), ad
     if (en === undefined) return; // uten oversatt tittel/ingress lages ingen engelsk side
     fm = setField(fm, f, en);
   }
-  const enBody = await translate(`${legacy("folder", folder)}/${name}#body`, body, false);
+  const enBody = syncMediaPaths(body, await translate(`${legacy("folder", folder)}/${name}#body`, body, false));
   if (enBody === undefined) return;
   const out = join(OUT, folder, `${name}.md`);
   mkdirSync(dirname(out), { recursive: true });

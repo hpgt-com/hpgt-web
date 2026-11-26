@@ -1,4 +1,5 @@
 ---
+import Img from "../components/Img.astro";
 import { url, slug } from "../lib/site";
 import TableOfContents from "./TableOfContents.astro";
 import SectionMenu from "../components/SectionMenu.astro";
@@ -17,7 +18,7 @@ const toc = headings.filter((h: { depth: number }) => h.depth <= 3).length >= 3;
     {meta && <p class="post__meta">{categories?.map((k) => <><a class="cat" data-cat={slug(k)} href={localPath(lang, `/nytt/kategori/${slug(k)}/`)}>{categoryName(lang, k)}</a> · </>)}{meta}</p>}
     <h1 class="h1">{title}</h1>
     {lead && <p class="lead">{lead}</p>}
-    {image && <img class="article__img" src={url(image)} alt="" />}
+    {image && <Img class="article__img" src={image} sizes="(min-width: 820px) 760px, 100vw" />}
     {toc && <TableOfContents headings={headings} mobile />}
     <div class="prose"><slot /></div>
   </div>

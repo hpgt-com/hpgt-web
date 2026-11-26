@@ -1,6 +1,7 @@
 ---
 // Bildevisning (kort med bilde) av innlegg eller arrangementer. Skjult til leseren velger «Bilder» (ViewToggle).
 // Uten bilde vises et standardbilde med ikon i kategoriens farge, med kategorien (innlegg) eller datoen (arrangementer).
+import Img from "./Img.astro";
 import { url, link, slug, imageFor, group, type Post, type EventPost } from "../lib/site";
 import { pageInfo, formatsFor, categoryName, typeLabelFor } from "../lib/i18n";
 import DefaultImage from "./DefaultImage.astro";
@@ -23,7 +24,7 @@ if (posts) {
   {cards.map((k) => (
     <li class="card" data-group={k.cat}><a href={url(k.href)}>
       {k.image
-        ? <span class="card__image default-image--photo" data-cat={k.cat}><img src={url(k.image)} alt="" loading="lazy" decoding="async" />{k.label && <span class="default-image__label">{k.label}</span>}</span>
+        ? <span class="card__image default-image--photo" data-cat={k.cat}><Img src={k.image} sizes="(min-width: 900px) 360px, 100vw" card loading="lazy" decoding="async" />{k.label && <span class="default-image__label">{k.label}</span>}</span>
         : <DefaultImage class="card__image" cat={k.cat} label={k.label} seed={k.href} />}
       <span class="card__text">
         {k.catName && <span class="card__category cat" data-cat={k.cat}>{k.catName}</span>}
