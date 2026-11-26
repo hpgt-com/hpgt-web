@@ -1,16 +1,17 @@
 ---
 title: "Økonomisk støtte"
-lead: "Fire enkle måter å støtte klubben økonomisk på."
+lead: "Fem enkle måter å støtte klubben økonomisk på."
 permalink: "/klubben/stotte/"
 wp_id: 298
-updated: "2026-03-23"
+updated: "2026-11-26"
 ---
-Det er 4 veldig enkle måter og støtte klubben økonomisk.
+Det er 5 veldig enkle måter og støtte klubben økonomisk.
 
 1. Meld deg inn som medlem eller støttemedlem [via min idrett](http://minidrett.no)
 2. Støtt oss med tippemidler via Grasrotandelen
 3. Støtt oss via [kraft til idretten](http://www.krafttilidretten.no/referral/harstad-hang-og-paragliderklubb/6798/0e092d7f-b207-4ab0-941b-2259a9b30487)
 4. Vipps 967338
+5. Velg klubben i «Tæpp for laget» i Vipps, så får vi et lodd hver gang du tæpper. [Slik gjør du det](/stott-klubben-nar-du-taepper/)
 
 ![](/media/archive/2012/09/grasrot.png)
 
