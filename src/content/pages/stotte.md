@@ -19,9 +19,14 @@ Meld deg inn som medlem eller støttemedlem [via Min idrett](http://minidrett.no
 
 ## Grasrotandelen
 
-Grasrotandelen er en ordning fra Norsk Tipping. Når du spiller, går en del av innsatsen til laget eller foreningen du har valgt som grasrotmottaker. Det går ikke ut over innsatsen eller premien din.
+Grasrotandelen er en ordning fra Norsk Tipping. Når du spiller, går en del av innsatsen til laget eller foreningen du har valgt som grasrotmottaker. Det koster deg ingenting ekstra, og premiene dine påvirkes ikke. For lotteriene og Tipping er det 7 prosent av innsatsen; for andre spill, som Oddsen og KongKasino, er det 14 prosent av det Norsk Tipping sitter igjen med. Fysiske Flax-lodd og Belago er ikke med.
 
-Velg Harstad Hang- og Paragliderklubb, organisasjonsnummer 996870618, som grasrotmottaker i Norsk Tipping-appen eller på [norsk-tipping.no](https://www.norsk-tipping.no/grasrotandelen). Du kan også be om det hos en kommisjonær.
+Du må være kunde hos Norsk Tipping. Slik velger du klubben:
+
+1. Åpne [klubbens side hos Norsk Tipping](https://www.norsk-tipping.no/grasrotandelen/mottaker/996870618) og logg inn.
+2. Velg «Sett som grasrotmottaker».
+
+Du kan også søke opp Harstad Hang- og Paragliderklubb (organisasjonsnummer 996870618) i [oversikten over grasrotmottakere](https://www.norsk-tipping.no/grasrotandelen/finn-mottaker), eller be om det hos en kommisjonær.
 
 Takk for at du støtter oss via Grasrotandelen!
 
@@ -42,7 +47,7 @@ Mer om ordningen finner du hos [Vipps](https://vipps.no/t%C3%A6ppforlaget).
 
 ## Kraft til idretten
 
-Støtt oss via [Kraft til idretten](http://www.krafttilidretten.no/referral/harstad-hang-og-paragliderklubb/6798/0e092d7f-b207-4ab0-941b-2259a9b30487).
+Med Idrettsstrøm fra [Kraft til idretten](https://www.krafttilidretten.no/referral/harstad-hang-og-paragliderklubb/6798/0e092d7f-b207-4ab0-941b-2259a9b30487) går 1 øre til klubben for hver kilowattime du bruker. Strømavtalen leveres av Kraftriket, Polar Kraft eller Smart Energi, og gjelder både privatkunder og bedrifter. Bestill via lenken, så havner støtten hos oss.
 
 ## Vipps
 
