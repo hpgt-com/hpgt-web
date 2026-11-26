@@ -53,3 +53,20 @@ test("gamle WordPress-adresser videresendes permanent (_redirects)", async () =>
   assert.equal(target.status, 200);
   assert.equal(target.headers.get("content-type"), "application/pdf");
 });
+
+test("gamle adresser fra Astro-videresendingene gir 301, ikke en side med meta refresh", async () => {
+  for (const [from, to] of [["/kurs-2026/", "/kurs/"], ["/event/arsmote-hang-og-paragliderklubb-2018/", "/arsmote-2018/"],
+    ["/regler-2019/", "/klubben/konkurranser/2019/#regler"], ["/category/kurs/", "/nytt/kategori/kurs/"], ["/events/kategori/mote/", "/arrangementer/"]]) {
+    const res = await get(from);
+    assert.equal(res.status, 301, from);
+    assert.equal(res.headers.get("location"), to, from);
+  }
+});
+
+test("404-siden har noindex og ingen canonical", async () => {
+  const res = await get("/wp-login.php");
+  assert.equal(res.status, 404);
+  const html = await res.text();
+  assert.match(html, /<meta name="robots" content="noindex/);
+  assert.doesNotMatch(html, /rel="canonical"/);
+});

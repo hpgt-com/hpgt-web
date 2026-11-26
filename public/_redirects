@@ -3,3 +3,8 @@
 /wp-content/gallery/foto-konkurranse/* /media/competitions/2014/entries/:splat 301
 /wp-content/gallery/foto_konk_2017/* /media/competitions/2017/entries/:splat 301
 /wp-content/uploads/* /media/archive/:splat 301
+# Kategoriene fra WordPress har samme navn under /nytt/kategori/ (kurs, nyhet, konkurranser). En kategori som ikke
+# finnes lenger, ender på 404-siden. Merker (/tag/), forfattere (/author/), sidetall (/page/) og /wp-login.php har ingen
+# side å sendes til, og gir 404, så Google slutter å spørre etter dem.
+/category/* /nytt/kategori/:splat 301
+/events/kategori/* /arrangementer/ 301
