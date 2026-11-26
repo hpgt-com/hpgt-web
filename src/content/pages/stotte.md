@@ -12,8 +12,6 @@ Pengene klubben får inn, går til kurs, utstyr, flysteder og sosiale treff. Du 
 3. [Tæpp for laget](#tæpp-for-laget) når du betaler med Vipps
 4. [Kraft til idretten](#kraft-til-idretten) når du betaler for strøm
 
-Ønsker du å gi en gave til klubben, er Vipps-nummeret vårt 967338.
-
 ## Bli medlem
 
 Meld deg inn som medlem eller støttemedlem [via Min idrett](http://minidrett.no).
@@ -29,7 +27,7 @@ Du må være kunde hos Norsk Tipping. Slik velger du klubben:
 
 Du kan også søke opp Harstad Hang- og Paragliderklubb (organisasjonsnummer 996870618) i [oversikten over grasrotmottakere](https://www.norsk-tipping.no/grasrotandelen/finn-mottaker), eller be om det hos en kommisjonær.
 
-![«Vil du støtte oss med din grasrotandel?» Harstad Hang- og Paragliderklubb, org.nr. 996870618, med QR-kode til klubbens side hos Norsk Tipping](/media/pages/grasrotandelen.png)
+![«Vil du støtte oss med din grasrotandel?» Harstad Hang- og Paragliderklubb, org.nr. 996870618, med QR-kode til klubbens side hos Norsk Tipping](/media/pages/grasrotandelen-liten.png)
 
 Takk for at du støtter oss via Grasrotandelen!
 
@@ -44,7 +42,7 @@ Vipps trekker hver måned tre organisasjoner som får 20 000 kroner hver til å 
 
 Støtter du en annen organisasjon fra før, bytter du med «Endre mottaker». Tips gjerne venner og familie også: hvert tæpp gir et nytt lodd.
 
-![QR-kode som åpner Harstad Hang- og Paragliderklubbs side for «Tæpp for laget» i Vipps](/media/posts/2026/vipps-taepp-for-laget-qr.png)
+![QR-kode som åpner Harstad Hang- og Paragliderklubbs side for «Tæpp for laget» i Vipps](/media/posts/2026/vipps-taepp-for-laget-qr-liten.png)
 
 Mer om ordningen finner du hos [Vipps](https://vipps.no/t%C3%A6ppforlaget).
 
