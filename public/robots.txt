@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+# «Meld feil»-lenken nederst på hver side har siden i adressen (?side=). Det er samme skjema, så Google trenger
+# ikke hente det én gang per side.
+Disallow: /*?side=
 
 Sitemap: https://hpgt.com/sitemap.xml

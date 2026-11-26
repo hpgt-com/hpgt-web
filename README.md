@@ -59,6 +59,9 @@ Sponsorene til en konkurranse ligger sammen med konkurransen (logoen slik den va
 bytter logo). Klubbens faste sponsorer ligger i `sponsors/`. Samme firma kan ligge begge steder.
 
 Gamle `/wp-content/…`-adresser sendes videre til `archive/` og `competitions/YEAR/entries/` (`public/_redirects`).
+Gamle sideadresser fra WordPress og tidligere adresser på siden står i `src/lib/redirects.mjs`, og gir 301 fra
+Cloudflare, så søkemotorene flytter treffene til den nye adressen. Merker, forfattere, sidetall og `/wp-login.php` fra
+WordPress gir 404.
 Designets egne filer (logo, skript) ligger i `public/assets/`.
 
 **Bildene tilpasses automatisk** ([beslutning 0008](docs/decisions/0008-image-sizes-in-build.md)). Redaktøren laster

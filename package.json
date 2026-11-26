@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/translate/translate.mjs && astro dev",
-    "build": "node scripts/check-media.mjs && node scripts/translate/translate.mjs && node scripts/video-thumbnails.mjs && astro build && node scripts/resize-images.mjs && node scripts/sitemap.mjs",
+    "build": "node scripts/check-media.mjs && node scripts/translate/translate.mjs && node scripts/video-thumbnails.mjs && astro build && node scripts/redirects.mjs && node scripts/resize-images.mjs && node scripts/sitemap.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "test": "node --test \"test/*.test.js\"",
