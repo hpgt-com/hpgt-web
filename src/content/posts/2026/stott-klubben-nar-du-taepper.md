@@ -13,6 +13,12 @@ Vipps trekker hver måned tre organisasjoner som får 20 000 kroner hver til å 
 3. Velg Harstad Hang- og Paragliderklubb.
 4. Tæpp som vanlig!
 
+Støtter du en annen organisasjon fra før, bytter du med «Endre mottaker». Tips gjerne venner og familie også: hvert tæpp gir et nytt lodd.
+
+![Skjermbilde fra Vipps: «Tæpp for laget» med Harstad Hang- og Paragliderklubb valgt som mottaker](/media/posts/2026/vipps-taepp-for-laget-skjerm.jpg)
+
+Slik ser det ut i Vipps når du har valgt klubben.
+
 ![QR-kode som åpner Harstad Hang- og Paragliderklubbs side for «Tæpp for laget» i Vipps](/media/posts/2026/vipps-taepp-for-laget-qr.png)
 
 Mer om ordningen finner du hos [Vipps](https://vipps.no/t%C3%A6ppforlaget). Flere måter å støtte klubben på står på [Økonomisk støtte](/klubben/stotte/).
