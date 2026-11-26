@@ -30,7 +30,7 @@ Bygget tar seg av bildene, uten at redaktøren gjør noe:
   opp, som en liggende plakat med QR-kode.
 - **Samme bilde på norsk og engelsk.** Bildeadressene i den engelske teksten settes fra den norske etter oversettelsen
   (`scripts/translate/media-paths.mjs`), når teksten har like mange adresser på begge språk. Et byttet bilde vises da
-  med en gang på engelsk, også før teksten er oversatt på nytt.
+  med en gang på engelsk, også før teksten er oversatt på nytt (se begrensningen under).
 
 ## Konsekvenser
 - Mobilen henter et bilde i riktig størrelse, og WebP er mindre enn JPEG og PNG. Siden flytter seg ikke mens bildene
@@ -43,6 +43,10 @@ Bygget tar seg av bildene, uten at redaktøren gjør noe:
 - Astro lagrer ferdig behandlet Markdown mellom bygg lokalt (`node_modules/.astro`). Etter endringer i
   `rehype-base.mjs` må den slettes for å se resultatet lokalt. CI bygger alltid fra bunnen.
 - `check-links` sjekker også adressene i `srcset`.
+- Adressene kan bare hentes fra den norske teksten når den engelske har like mange bilder. Er et bilde lagt til eller
+  fjernet, peker den engelske siden på de gamle filene til teksten er oversatt på nytt ved publisering. Den gamle filen
+  må da ligge igjen til det har skjedd (som `vipps-taepp-for-laget-qr.png`, som kan slettes når
+  `/en/oversettelser.json` ikke lenger nevner den).
 
 ## Alternativer som ble vurdert
 - **Astros egen bildebehandling (`astro:assets`).** Krever at bildene importeres eller ligger i `src/`. Bildene
