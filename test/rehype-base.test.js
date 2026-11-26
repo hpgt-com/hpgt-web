@@ -10,9 +10,9 @@ const text = (value) => ({ type: "text", value });
 const SIZES = { "/media/land.jpg": { width: 1600, height: 900 }, "/media/kvadrat.png": { width: 600, height: 600 },
   "/media/plakat-liten.png": { width: 1200, height: 668 }, "/media/smalt.jpg": { width: 300, height: 500 } };
 const info = async (src) => SIZES[src] ?? null;
-const run = async (children, opts = {}) => {
+const run = async (children, opts = {}, file) => {
   const tree = { type: "root", children };
-  await rehypeBase({ info, ...opts })(tree);
+  await rehypeBase({ info, ...opts })(tree, file);
   return tree.children;
 };
 
@@ -103,4 +103,12 @@ test("bilde som ikke kan leses, lenker til seg selv uten srcset", async () => {
   const [p] = await run([el("p", [img("/media/finnes-ikke.jpg")])]);
   assert.equal(p.children[0].tagName, "a");
   assert.equal(p.children[0].children[0].properties.srcset, undefined);
+});
+
+test("lenken rundt et bilde uten alt-tekst får et navn, på sidens språk", async () => {
+  const [p, q] = await run([el("p", [img("/media/land.jpg", { alt: "" })]), el("p", [img("/media/land.jpg", { alt: "Utsikt" })])]);
+  assert.equal(p.children[0].properties.ariaLabel, "Vis bildet i stort format");
+  assert.equal(q.children[0].properties.ariaLabel, undefined, "alt-teksten er navnet");
+  const [e] = await run([el("p", [img("/media/land.jpg")])], {}, { path: "/repo/.translated/pages/tandem.md" });
+  assert.equal(e.children[0].properties.ariaLabel, "View the image in full size");
 });

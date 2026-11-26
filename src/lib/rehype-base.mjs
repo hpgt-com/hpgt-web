@@ -61,7 +61,9 @@ export default function rehypeBase({ base = "/", info = imageInfo } = {}) {
     (n.children || []).forEach((c) => collect(c, n, parent, out));
     return out;
   };
-  const image = async ({ img, parent, grand }) => {
+  // Lenken rundt et bilde uten alt-tekst trenger et navn for skjermlesere (axe: link-name)
+  const LABEL = { nb: "Vis bildet i stort format", en: "View the image in full size" };
+  const image = async ({ img, parent, grand }, lang) => {
     const src = String(img.properties?.src || "");
     if (!MEDIA.test(src) || LOGO.test(src)) return;
     const meta = await info(src);
@@ -85,7 +87,9 @@ export default function rehypeBase({ base = "/", info = imageInfo } = {}) {
     }
     if (parent.tagName !== "a") {
       const i = parent.children.indexOf(img);
-      parent.children[i] = { type: "element", tagName: "a", properties: { href: src, className: ["img-zoom"] }, children: [img] };
+      const props = { href: src, className: ["img-zoom"] };
+      if (!String(img.properties.alt || "").trim()) props.ariaLabel = LABEL[lang];
+      parent.children[i] = { type: "element", tagName: "a", properties: props, children: [img] };
     }
   };
   const walk = (n) => {
@@ -105,8 +109,10 @@ export default function rehypeBase({ base = "/", info = imageInfo } = {}) {
       if (li.length && li.every((c) => c.properties?.className?.includes("link-item"))) n.properties.className = [...(n.properties.className || []), "link-list"];
     }
   };
-  return async (tree) => {
-    await Promise.all(collect(tree).map(image));
+  return async (tree, file) => {
+    // De engelske tekstene ligger i .translated/ (scripts/translate/translate.mjs)
+    const lang = /[\\/]\.translated[\\/]/.test(String(file?.path || file?.history?.[0] || "")) ? "en" : "nb";
+    await Promise.all(collect(tree).map((x) => image(x, lang)));
     walk(tree);
   };
 }

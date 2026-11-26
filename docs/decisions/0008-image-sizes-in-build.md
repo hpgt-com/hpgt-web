@@ -23,7 +23,8 @@ Bygget tar seg av bildene, uten at redaktøren gjør noe:
   (`src/lib/rehype-base.mjs`) og kortene, toppbildene og forsidebildet (`src/components/Img.astro`). Felles regler i
   `src/lib/image-sizes.mjs`. Originalen i repoet røres ikke.
 - **Alle bilder i teksten kan forstørres.** Et bilde som ikke allerede er en lenke, lenker til seg selv og åpnes i
-  bildevisningen.
+  bildevisningen. Har bildet ingen alt-tekst, får lenken «Vis bildet i stort format» (engelsk: «View the image in full
+  size») som navn for skjermlesere.
 - **Visningsbredde etter form.** Liggende bilder fyller tekstbredden. Kvadratiske og stående bilder (bredde/høyde under
   1,15) vises høyst 400 px brede. Flere bilder i ett avsnitt vises i rutenett. Sponsorlogoene behandles som før.
 - **`-liten` i filnavnet** viser et bilde høyst 300 px bredt uansett form. Det er unntaket for det formen ikke fanger
