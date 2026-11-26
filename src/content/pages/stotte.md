@@ -27,7 +27,7 @@ Du må være kunde hos Norsk Tipping. Slik velger du klubben:
 
 Du kan også søke opp Harstad Hang- og Paragliderklubb (organisasjonsnummer 996870618) i [oversikten over grasrotmottakere](https://www.norsk-tipping.no/grasrotandelen/finn-mottaker), eller be om det hos en kommisjonær.
 
-![«Vil du støtte oss med din grasrotandel?» Harstad Hang- og Paragliderklubb, org.nr. 996870618, med QR-kode til klubbens side hos Norsk Tipping](/media/pages/grasrotandelen-liten.png)
+![«Vil du støtte oss med din grasrotandel?» Harstad Hang- og Paragliderklubb, org.nr. 996870618, med QR-kode til klubbens side hos Norsk Tipping](/media/pages/grasrotandelen.png)
 
 Takk for at du støtter oss via Grasrotandelen!
 
