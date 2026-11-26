@@ -130,6 +130,24 @@ jobs:
               exit 1
             fi
             [[ "$pr" =~ ^[0-9]+$ ]] || { echo "::error::Uventet svar for $c: «$pr»"; exit 1; }
+            # Oppslaget fra commit til pull request kan komme tomt tilbake selv om committen er en sammenslått pull
+            # request (sett med #99). Da sjekkes nummeret i tittelen, «… (#N)»: committen godtas bare hvis GitHub har
+            # registrert akkurat den som sammenslåingen av pull request N. Det kan ikke en lagring i Pages CMS få til.
+            if [ "$pr" = "0" ]; then
+              tittel_c=$(git log -1 --format=%s "$c") || { echo "::error::git log feilet for $c"; exit 1; }
+              nr=$(sed -nE 's/.*\(#([0-9]+)\)$/\1/p' <<< "$tittel_c")
+              if [ -n "$nr" ]; then
+                # 404: nummeret er ikke en pull request (f.eks. en sak), så committen regnes som lagret uten pull request
+                if ! sha=$(gh api "repos/$GH_REPO/pulls/$nr" --jq 'if .merged_at != null then .merge_commit_sha else "" end' 2> "$RUNNER_TEMP/gh-feil.txt"); then
+                  if grep -q "HTTP 404" "$RUNNER_TEMP/gh-feil.txt"; then sha=""; else
+                    cat "$RUNNER_TEMP/gh-feil.txt"
+                    echo "::error::Kunne ikke slå opp pull request #$nr for $c. Publiseringen stoppes; kjør på nytt."
+                    exit 1
+                  fi
+                fi
+                if [ "$sha" = "$c" ]; then echo "$c er sammenslåingen av #$nr (fant den via tittelen)."; pr=1; fi
+              fi
+            fi
             if [ "$pr" = "0" ]; then
               liste=$(git diff-tree --no-commit-id --name-only -r "$c") || { echo "::error::git diff-tree feilet for $c"; exit 1; }
               [ -z "$liste" ] || { mapfile -t endret <<< "$liste"; filer+=("${endret[@]}"); }
