@@ -5,29 +5,45 @@ permalink: "/klubben/stotte/"
 wp_id: 298
 updated: "2026-11-26"
 ---
-Det er 5 veldig enkle måter og støtte klubben økonomisk.
+Pengene klubben får inn, går til kurs, utstyr, flysteder og sosiale treff. Du kan støtte oss på disse måtene:
 
-1. Meld deg inn som medlem eller støttemedlem [via min idrett](http://minidrett.no)
-2. Støtt oss med tippemidler via Grasrotandelen
-3. Støtt oss via [kraft til idretten](http://www.krafttilidretten.no/referral/harstad-hang-og-paragliderklubb/6798/0e092d7f-b207-4ab0-941b-2259a9b30487)
-4. Vipps 967338
-5. Velg klubben i «Tæpp for laget» i Vipps, så får vi et lodd hver gang du tæpper. [Slik gjør du det](/stott-klubben-nar-du-taepper/)
+1. [Bli medlem eller støttemedlem](#bli-medlem)
+2. [Grasrotandelen](#grasrotandelen) når du spiller hos Norsk Tipping
+3. [Tæpp for laget](#tæpp-for-laget) når du betaler med Vipps
+4. [Kraft til idretten](#kraft-til-idretten)
+5. [Vipps](#vipps) direkte til klubben
 
-![](/media/archive/2012/09/grasrot.png)
+## Bli medlem
 
-**Vil Du gi din støtte til HARSTAD HANG OG PARAGLIDERKLUBB?**
+Meld deg inn som medlem eller støttemedlem [via Min idrett](http://minidrett.no).
 
-Grasrotandelen er en ordning fra Norsk Tipping, hvor du som registrert spiller kan velge ett lag eller én forening som du ønsker støtte – din Grasrotmottaker. Vi oppfordrer deg til å støtte oss i HARSTAD HANG OG PARAGLIDERKLUBB!
+## Grasrotandelen
 
-Tenk deg at du kan spille favorittspillene dine – Lotto, Tipping og Joker for eksempel – og samtidig gi noe mer til det laget eller den foreningen du selv ønsker å støtte. Dette er nå mulig via Grasrotandelen. Ved spill hos Norsk Tipping vil 5 % av innsatsen gå direkte til ditt lag eller forening (gjelder ikke Extra og Flax). Merk at Grasrotandelen ikke på noen måte går ut over innsatsen eller premien din – du blir ikke belasted noe for å være grasrotgiver. Du trenger Norsk Tipping Spillekort for å knytte deg til Grasrotandelen. Spillekort får du kjøpt hos kommisjonær, eller du kan bestille på www.norsk-tipping.no.
+Grasrotandelen er en ordning fra Norsk Tipping. Når du spiller, går en del av innsatsen til laget eller foreningen du har valgt som grasrotmottaker. Det går ikke ut over innsatsen eller premien din.
 
-Vi oppfordrer til å knytte deg til ordningen allerede i dag, og du gjør det på en av følgende måter:
-
-1. Hos kommisjonær: Ta med deg strekkoden og ditt spillekort til en av Norsk Tippings mange kommisjonærer.
-2. SMS: GRASROTANDELEN 996870618 til 2020 (tjenesten er gratis).
-3. Internett: grasrotandelen.no eller norsk-tipping.no.
-4. Norsk Tipping Mobilspill.
-
-Mer informasjon finnes på www.grasrotandelen.no. Her vil du også kunne følge med på hvor mye Grasrotandelen genererer for de enkelte Grasrotmottakerne.
+Velg Harstad Hang- og Paragliderklubb, organisasjonsnummer 996870618, som grasrotmottaker i Norsk Tipping-appen eller på [norsk-tipping.no](https://www.norsk-tipping.no/grasrotandelen). Du kan også be om det hos en kommisjonær.
 
 Takk for at du støtter oss via Grasrotandelen!
+
+## Tæpp for laget
+
+Vipps trekker hver måned tre organisasjoner som får 20 000 kroner hver til å bruke på bra greier. Organisasjonen du har valgt i «Tæpp for laget», får ett lodd hver gang du tæpper. Det koster deg ingenting.
+
+1. Skann QR-koden med kameraet eller i Vipps. Er du på mobilen, trykker du på [denne lenken](https://qr.vipps.no/vip/tap-support-merchant?saleUnitId=1387906). Begge åpner klubbens side for «Tæpp for laget» i Vipps.
+2. Bli med i VIP hvis du ikke er med fra før. Det er gratis, og du godtar at Vipps teller hvor mange ganger du tæpper.
+3. Velg Harstad Hang- og Paragliderklubb.
+4. Tæpp som vanlig!
+
+Støtter du en annen organisasjon fra før, bytter du med «Endre mottaker». Tips gjerne venner og familie også: hvert tæpp gir et nytt lodd.
+
+![QR-kode som åpner Harstad Hang- og Paragliderklubbs side for «Tæpp for laget» i Vipps](/media/posts/2026/vipps-taepp-for-laget-qr.png)
+
+Mer om ordningen finner du hos [Vipps](https://vipps.no/t%C3%A6ppforlaget).
+
+## Kraft til idretten
+
+Støtt oss via [Kraft til idretten](http://www.krafttilidretten.no/referral/harstad-hang-og-paragliderklubb/6798/0e092d7f-b207-4ab0-941b-2259a9b30487).
+
+## Vipps
+
+Du kan også vippse et beløp direkte til klubben på Vipps-nummer 967338.
