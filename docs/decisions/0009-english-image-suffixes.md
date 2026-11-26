@@ -1,6 +1,6 @@
 # 0009: Engelske endelser for bildestørrelser, og halv bredde
 
-- **Status:** Vedtatt
+- **Status:** Vedtatt (endelsene trengs normalt ikke etter [0010](0010-graphics-sized-automatically.md))
 - **Dato:** 2026-11-26
 
 ## Bakgrunn
