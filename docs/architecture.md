@@ -118,7 +118,7 @@ Pull requests (også fra administratorer) bygges og kontrolleres av `pr-check.ym
 | Bilder og PDF-er | `public/media/…` (se README-en) | Pages CMS (opplasting) |
 | Menyer, innstillinger for nettstedet | `src/data/menu.json`, `site.json` | Bare pull request |
 | Design | `src/design/` (`style.css`, maler), `src/components/` | Bare pull request |
-| Videresending fra gamle adresser | `astro.config.mjs`, `public/_redirects` | Bare pull request |
+| Videresending fra gamle adresser | `src/lib/redirects.mjs` (faste adresser, skrives som 301 i `dist/_redirects` av `scripts/redirects.mjs`), `public/_redirects` (regler med `*`) | Bare pull request |
 
 Hvert felt kontrolleres av `src/content.config.ts`. En ugyldig verdi fra CMS-et stopper bygget i stedet for å publisere
 en ødelagt side. Hvilke felt redaktørene ser, bestemmes av `.pages.yml`. Felt som ikke står der, fjernes når noen
