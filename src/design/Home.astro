@@ -56,27 +56,26 @@ const shortDate = (d: Date) => new Intl.DateTimeFormat(en ? "en-GB" : "nb-NO", {
         <a class="post" href={url(link(p))}>
           {b ? <span class="post__noimg default-image--photo" data-cat={slug(p.data.categories[0])}><Img src={b} sizes="(min-width: 900px) 360px, 100vw" card loading="lazy" /><span class="default-image__label">{categoryName(lang, p.data.categories[0])}</span></span> : <DefaultImage class="post__noimg" cat={slug(p.data.categories[0])} label={categoryName(lang, p.data.categories[0])} seed={link(p)} />}
           <span class="post__body">
-            <span class="post__meta">{shortDate(p.data.date)}</span>
+            <span class="post__meta">{shortDate(p.data.date)}{p.data.author && <> · <span class="post__by">{en ? "By" : "Av"} <b>{p.data.author}</b></span></>}</span>
             <span class="post__title">{p.data.title}</span>
-            <span class="post__text">{excerpt(p.body, 150)}</span>
-            {p.data.author && <span class="post__by">{en ? "By" : "Av"} <b>{p.data.author}</b></span>}
+            <span class="post__text">{excerpt(p.body, 110)}</span>
           </span>
         </a>
       );
     })}
   </div>
-  {/* De tre neste innleggene i en rad med mindre kort: bilde, dato, tittel og forfatter */}
+  {/* De tre neste innleggene i en rad med mindre kort: lite bilde med kategori, dato og forfatter, tittel og et kort utdrag */}
   {posts.length > 3 && (
     <div class="news news--small">
       {posts.slice(3, 6).map((p) => {
         const b = imageFor(p);
         return (
           <a class="post post--small" href={url(link(p))}>
-            {b ? <span class="post__noimg default-image--photo" data-cat={slug(p.data.categories[0])}><Img src={b} sizes="112px" card loading="lazy" /></span> : <DefaultImage class="post__noimg" cat={slug(p.data.categories[0])} label={categoryName(lang, p.data.categories[0])} seed={link(p)} />}
+            {b ? <span class="post__noimg default-image--photo" data-cat={slug(p.data.categories[0])}><Img src={b} sizes="100px" card loading="lazy" /><span class="default-image__label">{categoryName(lang, p.data.categories[0])}</span></span> : <DefaultImage class="post__noimg" cat={slug(p.data.categories[0])} label={categoryName(lang, p.data.categories[0])} seed={link(p)} />}
             <span class="post__body">
-              <span class="post__meta">{shortDate(p.data.date)}</span>
+              <span class="post__meta">{shortDate(p.data.date)}{p.data.author && <> · <span class="post__by">{en ? "By" : "Av"} <b>{p.data.author}</b></span></>}</span>
               <span class="post__title">{p.data.title}</span>
-              {p.data.author && <span class="post__by">{en ? "By" : "Av"} <b>{p.data.author}</b></span>}
+              <span class="post__text">{excerpt(p.body, 70)}</span>
             </span>
           </a>
         );
