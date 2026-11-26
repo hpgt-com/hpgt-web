@@ -257,6 +257,14 @@ span.default-image { display: flex; flex-direction: column; align-items: center;
 .post__text { color: var(--muted); font-size: .88rem; }
 .post__by { font-size: .82rem; color: var(--muted); }
 .post__by b { color: var(--text); }
+/* Forsiden: innlegg 4–6 i mindre kort, med et lite bilde ved siden av teksten */
+.news--small { margin-top: 14px; }
+.post--small { grid-template-rows: none; grid-template-columns: 112px 1fr; }
+.post--small img, .post--small .post__noimg { aspect-ratio: auto; height: 100%; min-height: 104px; }
+.post--small .default-image__label { display: none; }
+.post--small .post__body { gap: 4px; padding: 12px 14px; }
+.post--small .post__meta { margin: 0; }
+.post--small .post__title { font-size: 1.02rem; letter-spacing: -.02em; line-height: 1.2; }
 
 /* Kategorier i fargene fra dagens hpgt.com */
 .cat { color: var(--k, var(--muted)); text-decoration: none; }

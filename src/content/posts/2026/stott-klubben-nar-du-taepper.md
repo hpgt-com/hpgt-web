@@ -2,6 +2,7 @@
 title: "Støtt klubben når du tæpper"
 date: "2026-11-26T12:00:00"
 categories: ["Nyhet"]
+author: "Kristoffer"
 image: "/media/posts/2026/vipps-taepp-for-laget.png"
 lead: "Hver gang du tæpper med Vipps, får Vippsnummeret du har valgt ett lodd i den månedlige trekningen. Velg Harstad Hang- og Paragliderklubb, så kan vi vinne penger til bra greier."
 ---
